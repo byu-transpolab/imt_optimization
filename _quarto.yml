@@ -3,7 +3,7 @@ project:
 
 # This defines the .qmd files that are in your document
 book:
-  title: "A Template Quarto Repository"
+  title: "Simulating Incident Management Team Response and Performance"
   author:
     - name: Gregory S. Macfarlane
       orcid: 0000-0003-3999-7584
@@ -14,8 +14,24 @@ book:
           city: Provo
           state: UT
           postal-code: 84602
+    - name: Daniel Jarvis
+      email: 
+      affiliations:
+        - name: Brigham Young University
+          address: 430 EB
+          city: Provo
+          state: UT
+          postal-code: 84602
+    - name: Brynn Wooley
+      email: 
+      affiliations:
+        - name:  Brigham Young University
+          address: 430 EB
+          city: Provo
+          state: UT
+          postal-code: 84602
     # to add additional authors, simply add another -name: tag 
-  date: "1/25/2023"
+  date: "6/25/2023"
   chapters:
     - index.qmd
     - 01_introduction.qmd

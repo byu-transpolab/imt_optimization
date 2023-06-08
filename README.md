@@ -1,3 +1,5 @@
-# Quarto template
+# IMT Simulation
 
-This repository creates a template article that can be converted into a website, an academic article PDF, and (eventually) a BYU Engineering thesis. This template also implements the workflow presented in my [lab documentation](https://gregmacfarlane.github.io/lab/workflow.html).
+This contains a paper focused on using MATSim to simulate incident management team vehicles. The paper is being submitted to TRB 2024, and will be Daniel Jarvis' MS Thesis.
+
+
