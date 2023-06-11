@@ -1,26 +1,15 @@
 # Introduction
 
-The introduction of your report is not simply an "introduction", but rather a 
-**motivation** of why your project matters. What is the cost of not solving 
-this problem? What have been previous attempts to solve this problem? The *why*
-is more important than the *what*. Why is this article worthy of archiving?
+Many regions, including Utah, have attempted to alleviate non-recurring congestion -- traffic caused by vehicle crashes, spills, break downs, and other incidents and not by overall travel demand -- through the deployment of an Incident Management Team (IMT): a department of transportation crew equipped with tools and materials for quickly dealing with common incidents. These IMT are one element within a wider field of Traffic Incident Management (TIM) practices adopted by transportation and public safety agencies. Previous and ongoing research at Brigham Young University (BYU) concluded that rapid IMT deployment following an incident would likely lead to a significant reduction in excess user costs caused by congestion due to these incidents [@schultz2019].
 
-The introduction to an article is usually three or so paragraphs long. First,
-state the overall context of the problem, with citations to basic statistics and
-previous major findings. Then, Discuss the specific context of your research;
-why have previous methods or research not addressed your specific issue? You
-also need to have citations here.
+In 2019, the Utah state legislature allocated funds to expand the availability and coverage of the Utah Department of Transportation (UDOT) IMT program. This expansion allows more teams to be deployed to more locations -- including potentially outside the Wasatch Front. The expansion also brings up key questions as to where these teams should be stationed to maximize their availability to mitigate incidents on the most critical corridors.
 
-In the third paragraph, you can introduce the purpose of your research and the
-new method or data you bring to the issue. This paragraph often begins with a
-statement similar to "In this paper, we present..." 
+The primary objective of this paper is to explore a micro-simulation approach to analyze the performance of the IMT program along the Wasatch Front. The research will use a representation of average daily traffic developed in prior research but will develop methods to simulate capacity-reducing incidents, the response of IMT units to those incidents, and evaluate the reduction in simulated delay. This research aims to determine the number and staging locations for IMT vehicles to minimize user delay across a variety of incident scenarios.
 
-An outline of the article is then usually a good idea, even though the outline
-might change little from article to article. A Literature Review details prior
-research in this area, and discusses its strengths and limitations. A
-Methodology section identifies the data, models, and other elements you use,
-while a Results section presents the outcomes of your methodology with tables
-and figures and a comprehensive discussion of their meanings. Discussions, and
-Conclusions sections may present your interpretations of your findings for future
-research, policy, etc.
+The report proceeds in several chapters as described below:
 
+1.  Introduction: This introductory chapter.
+2.  Literature Review: An overview of previous efforts to evaluate IMT effectiveness and model delay due to non-recurring congestion.
+3.  Methodology: A description of the techniques developed to represent IMT in a simulation engine and develop evaluation scenarios.
+4.  Results and Analysis: A detailed analysis of the evaluation scenarios.
+5.  Conclusion: A summary of findings from the research including recommendations for UDOT.
