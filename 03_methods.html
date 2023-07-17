@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Simulating Incident Management Team Response and Performance - 3&nbsp; Methodology</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04_results.html" rel="next">
+<link href="./02_litreview.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_methods.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methodology</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Simulating Incident Management Team Response and Performance</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_litreview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Literature Review</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_methods.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methodology</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Applications</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conclusions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#incident-response-in-matsim" id="toc-incident-response-in-matsim" class="nav-link active" data-scroll-target="#incident-response-in-matsim"><span class="header-section-number">3.0.1</span> 3.1 Incident Response in MATSim</a></li>
+  <li><a href="#simulation-scenarios" id="toc-simulation-scenarios" class="nav-link" data-scroll-target="#simulation-scenarios"><span class="header-section-number">3.0.2</span> 3.2 Simulation Scenarios</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methodology</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="incident-response-in-matsim" class="level3" data-number="3.0.1">
+<h3 data-number="3.0.1" class="anchored" data-anchor-id="incident-response-in-matsim"><span class="header-section-number">3.0.1</span> 3.1 Incident Response in MATSim</h3>
+<p>This section of the methodology outlines the development of the model for the Utah IMT Optimization project. As stated in sections 2.2 and 2.3 of the literature review, the model is designed to effectively demonstrate the effects of traffic incidents on the overall traffic flow, and the subsequent influence of Incident Management Teams (IMTs) when integrated into the model.</p>
+<p>We explain how incidents and IMT vehicles are represented within the MATSim model and discuss several adjustments made to the behavior of MATSim agents within the model configuration. Our approach to incident modeling primarily draws from and expands on the research of <span class="citation" data-cites="kaddoura2016">(<a href="references.html#ref-kaddoura2016" role="doc-biblioref"><strong>kaddoura2016?</strong></a>)</span>. For a more detailed understanding, refer to The Multi-Agent Transport Simulation (MATSim) textbook.</p>
+<section id="network-change-events" class="level4" data-number="3.0.1.1">
+<h4 data-number="3.0.1.1" class="anchored" data-anchor-id="network-change-events"><span class="header-section-number">3.0.1.1</span> 3.1.1 Network Change Events</h4>
+<p>Each link in a MATSim network possesses specific attributes, such as link type, length, number of lanes, free-flow speed, and capacity. To simulate unexpected events, it’s essential to adjust one or more of these parameters at a specific time during the simulation. The capacity to modify a network, as referred to in the MATSim textbook, is known as a Time-Dependent Network, and unforeseen incidents or any factors that alter the network’s characteristics are termed Network Change Events (NCEs).</p>
+<p>Section 6.1 of the MATSim textbook outlines how to adapt the parameters of a MATSim configuration file to allow for time-variant network attributes and how to implement network change events. These events can modify a link’s free-flow speed, number of lanes, or capacity. To activate a network change event, the system needs to know the time of the event (startTime), the affected link(s) (link refID), the nature of the change (free-flow speed, lanes, or capacity), and the specific value of the change.</p>
+<p>Within the context of the Utah IMT optimization problem, changes are triggered when an incident is reported and when an IMT arrives at the affected link. These changes will influence the link’s capacity based on the incident data, which will be discussed in more detail in section 3.2.3. Unlike <span class="citation" data-cites="kaddoura2016">(<a href="references.html#ref-kaddoura2016" role="doc-biblioref"><strong>kaddoura2016?</strong></a>)</span>’s work, this study does not consider long-term capacity reduction events such as road construction, focusing solely on short-term incidents like accidents or vehicle breakdowns. The diminished capacity of a specific link would typically affect both regular agents (those included in the baseline simulation scenario) and IMT agent vehicles. If a subnetwork is utilized, IMT trucks, similar to other emergency vehicles like ambulances and firetrucks, would be less affected by congestion caused by daily traffic or unexpected incidents.</p>
+<p>The implementation of the MATSim within-day replanning module plays a significant role in the rerouting of other agents on the road after an incident.</p>
+</section>
+<section id="within-day-replanning" class="level4" data-number="3.0.1.2">
+<h4 data-number="3.0.1.2" class="anchored" data-anchor-id="within-day-replanning"><span class="header-section-number">3.0.1.2</span> 3.1.2 Within-Day Replanning</h4>
+<p>The concept of within-day replanning is applied to a certain extent in the model, as detailed in Chapter 30 of the MATSim textbook. However, I plan to delve deeper into this concept to ensure its correct application within our study. Subsequently, I will refine the wording of this section to accurately convey its implementation within our model.</p>
+</section>
+<section id="vehicle-assignment" class="level4" data-number="3.0.1.3">
+<h4 data-number="3.0.1.3" class="anchored" data-anchor-id="vehicle-assignment"><span class="header-section-number">3.0.1.3</span> 3.1.3 Vehicle Assignment</h4>
+<p>When an incident occurs within the MATSim simulation, one or more Incident Management Team (IMT) vehicles are dispatched to manage the situation. A dispatch algorithm determines the most suitable vehicle for the task. The model can select the IMT unit(s) based either on a least-cost path calculation that factors in congestion and link speed or the shortest path between the vehicle’s location and the incident site. The chosen method will partially depend on how swiftly the IMT units can navigate through traffic. If a subnetwork is utilized, the IMT trucks would be less affected by congestion and free-flow speed, potentially making the shortest path calculation more suitable. Conversely, if an IMT moves through traffic like a standard vehicle, using a least-cost path calculator within the simulation would likely be the preferred option.</p>
+<p>In the context of this project, the Utah IMT system operates in tandem with the Utah Highway Patrol system under the same dispatch service. IMTs in Utah are equipped with sirens and flashing lights similar to those on a highway patrol vehicle, and they operate within specific zones. For instance, there are multiple zones in Salt Lake and Davis Counties where IMT vehicles are distributed. Given that IMTs can navigate traffic like other emergency vehicles, the Utah Highway Patrol dispatch requests the nearest available vehicle(s) to respond to an incident when it occurs. It’s worth noting that due to limited resources, an incident ideally requiring assistance from 2 or 3 IMT units may only receive one vehicle, potentially leading to longer management or cleanup times.</p>
+</section>
+<section id="incident-response" class="level4" data-number="3.0.1.4">
+<h4 data-number="3.0.1.4" class="anchored" data-anchor-id="incident-response"><span class="header-section-number">3.0.1.4</span> 3.1.4 Incident Response</h4>
+<p>As discussed in Section 3.1.1, a critical element in simulating the effects of incidents on agents within the MATSim network is Network Change Events (NCEs). This mechanism, which illustrates how incidents can impact user behavior, will also be used to demonstrate how the reactions of IMTs influence agents’ travel times and paths.</p>
+<p>Once the vehicle assignment algorithm dispatches one or more IMT units to an incident, a decision must be made on what percentage of the incident link’s capacity is restored upon the IMT’s arrival. An arriving IMT can either hasten the restoration of the capacity to normal levels or enhance the capacity by a certain percentage ‘X.’ These adjustments hinge on the available incident data and findings from other research regarding IMT effectiveness.</p>
+<p><span class="citation" data-cites="kim2012">Kim et al. (<a href="references.html#ref-kim2012" role="doc-biblioref">2012-04-01, 2012-04</a>)</span> discusses the cost-benefit ratio of different IMT fleet sizes, and other studies have attempted to gauge the duration of an incident’s impact without an IMT and contrast that with the length of time that an incident affects traffic when an IMT is dispatched. Given the correct information or building upon certain assumptions, one can establish a capacity restoration factor to be applied upon a vehicle’s arrival at an incident site.</p>
+<p>Figure 4 below provides a potential example of how an incident, with no IMT response, might affect a network in comparison to scenarios where one IMT responds, followed by the response of a secondary unit.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fig4.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Changes upon arrival.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="simulation-scenarios" class="level3" data-number="3.0.2">
+<h3 data-number="3.0.2" class="anchored" data-anchor-id="simulation-scenarios"><span class="header-section-number">3.0.2</span> 3.2 Simulation Scenarios</h3>
+<p>Loading incidents and IMT response vehicles into the Utah Optimization model is a significant aspect of this project’s methodology. Another crucial element involves running scenarios to quantify the impact of both incidents and IMT arrivals. Various factors influence these quantitative comparisons. These include the type of network and plans files used during the simulation, the processed and selected incident data, and the locations and quantities of IMT vehicles included in the simulations. Each of these components builds on prior research related to IMTs in Utah, MATSim studies on Demand Responsive Transport (DRT), and transportation modeling research conducted by the Wasatch Front Regional Council in various traffic modeling projects throughout Utah.</p>
+<section id="wasatch-front-base-scenario" class="level4" data-number="3.0.2.1">
+<h4 data-number="3.0.2.1" class="anchored" data-anchor-id="wasatch-front-base-scenario"><span class="header-section-number">3.0.2.1</span> 3.2.1 Wasatch Front Base Scenario</h4>
+<p>In this section, we aim to outline the origins of the network and plans file and their usage in other research conducted by the Wasatch Front Regional Council (WFRC). Dr.&nbsp;Macfarlane has provided information about the source of these plans. I will review his notes before expanding this section. The network and plans have been calibrated and represent a typical day’s traffic in the regions where most IMT vehicles operate.</p>
+</section>
+<section id="incident-imt-scenario" class="level4" data-number="3.0.2.2">
+<h4 data-number="3.0.2.2" class="anchored" data-anchor-id="incident-imt-scenario"><span class="header-section-number">3.0.2.2</span> 3.2.2 Incident &amp; IMT Scenario</h4>
+<p>We will detail the variety of scenarios we executed in this section, specifying the types based on the number of incidents and the quantity of Incident Management Teams (IMTs) involved. We’ll clarify why we chose to execute the specific number of tests and scenarios. Brynn has prepared a table detailing these different scenario types, which we could include here if desired.</p>
+<p>Essentially, we have six scenarios:</p>
+<p>1. A baseline with no IMTs.</p>
+<p>2. A baseline with no IMTs and increased incident frequency.</p>
+<p>3. Current IMT resources with current incident frequency.</p>
+<p>4. Current IMT resources with increased incident frequency.</p>
+<p>5. Improved (added) IMT resources with the current frequency of incidents.</p>
+<p>6. Improved IMT resources with increased frequency of incidents.</p>
+<p>Our goal is to run at least ten days of simulations for each scenario.</p>
+</section>
+<section id="incident-data" class="level4" data-number="3.0.2.3">
+<h4 data-number="3.0.2.3" class="anchored" data-anchor-id="incident-data"><span class="header-section-number">3.0.2.3</span> 3.2.3 Incident Data</h4>
+<p>&lt;&lt; TO DO: summarize the methodology used by Joel Hyer and to describe where our incident data came from &gt;&gt;</p>
+</section>
+<section id="incident-sampling" class="level4" data-number="3.0.2.4">
+<h4 data-number="3.0.2.4" class="anchored" data-anchor-id="incident-sampling"><span class="header-section-number">3.0.2.4</span> 3.2.4 Incident Sampling</h4>
+<p>In order to determine how many incidents should be modeled in a given day, we performed an analysis on the Incident data we receieved in order ot create a distribution of incident count frequency to sample from. The code we wrote utilized the Pandas library in Python to read the data into a data frame and removes duplicate entries based on a unique identifier column. The code then converts the ‘Call Received Time’ column to a DateTime format and creates a new ‘Date’ column to extract the date portion of the timestamp. The data frame is then grouped by date and call type, counting the number of incidents for each group. This information is organized into a new data frame where rows represent dates, columns represent call types, and cell values indicate the number of incidents. The total number of incidents per date is calculated, and the data frame is grouped again based on the total number of incidents. Finally, the frequency of each incident count is calculated, resulting in a data frame that represents the occurrence frequency of a specific number of incidents per day.</p>
+<p>These frequencies are used to create a weighted distribution for sampling. A random seed value is generated and printed for the sake of reproducibility. The code then performs random sampling by selecting ten days from the distribution of incident numbers based on the calculated frequencies. The sampled days are stored in the ‘sampled_days’ list. This list contains ten values that will be used in MATSim to determine how many incidents to generate in the simulation for ten different scenarios.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/fig5.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Incident Sampling.</figcaption>
+</figure>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-kim2012" class="csl-entry" role="listitem">
+Kim, Woon, Mark Franz, Gang-Len Chang, and Md.). Dept. of Civil and Environmental Engineering University of Maryland (College Park. 2012-04-01, 2012-04. <span>“Enhancement of Freeway Incident Traffic Management and Resulting Benefits.”</span>
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02_litreview.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Literature Review</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04_results.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Applications</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
