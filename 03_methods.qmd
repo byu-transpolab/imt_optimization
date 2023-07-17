@@ -36,7 +36,7 @@ Once the vehicle assignment algorithm dispatches one or more IMT units to an inc
 
 Figure 4 below provides a potential example of how an incident, with no IMT response, might affect a network in comparison to scenarios where one IMT responds, followed by the response of a secondary unit.
 
-![Changes upon arrival.](figures/fig4.png)
+![Figure 4: Changes upon arrival.](figures/fig4.png)
 
 ### 3.2 Simulation Scenarios
 
@@ -76,4 +76,4 @@ In order to determine how many incidents should be modeled in a given day, we pe
 
 These frequencies are used to create a weighted distribution for sampling. A random seed value is generated and printed for the sake of reproducibility. The code then performs random sampling by selecting ten days from the distribution of incident numbers based on the calculated frequencies. The sampled days are stored in the 'sampled_days' list. This list contains ten values that will be used in MATSim to determine how many incidents to generate in the simulation for ten different scenarios.
 
-![Incident Sampling.](figures/fig5.png)
+![Figure 5: Incident Sampling.](figures/fig5.png)
