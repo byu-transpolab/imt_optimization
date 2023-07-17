@@ -1,45 +1,20 @@
-# Literature Review
+# Literature Review {#sec-literature}
 
-### 2.1 Overview
-
-This chapter describes previous studies that evaluate the effectiveness of IMT programs in several contexts. The chapter then describes previous attempts to simulate non-recurring congestion in transportation demand models. The chapter ends by identifying a potential avenue to combine these two methods into a single research effort.
-
-### 2.2 IMT Effectiveness
-
-Many states throughout the U.S. have established traffic incident management or TIM programs. At least 40 states and Washington DC have recognized the benefits of having dedicated traffic incident management programs and now have at least one freeway service patrol or similar program [@baird]. While the specific strategies for incident management may vary among these programs, they share a common goal: clear roadways swiftly and reduce traffic delays. Such delays, resulting from various incidents, lead to not only lost time and increased fuel consumption but also pose safety hazards for first responders (FHWA, 2020):
-
--   Every minute of incident delay multiplies traffic queues by a factor of four and increases the risk for secondary crashes.
-
--   The likelihood of a secondary crash increases by 2.8% for each minute the primary incident continues to be a hazard.
-
--   Faster response time has a well-documented relationship to the increased likelihood of crash survival.
-
--   Responder lives remain at risk every minute they are on the incident scene.
-
-The Federal Highway Administration (FHWA) publishes the *Traffic Incident Management Handbook* (FHWA, 2000) which defines traffic incident management as:
+Traffic incident managment in general --- and IMT in particular --- are not strictly new innovations. The Federal Highway Administration (FHWA) publishes the *Traffic Incident Management Handbook* (FHWA, 2000) which defines traffic incident management as:
 
 > *The systematic, planned, and coordinated use of human, institutional, mechanical, and technical resources to reduce the duration and impact of incidents and improve the safety of motorists, crash victims, and incident responders. (p. 1-1)*
 
 The handbook details the process of how to implement a traffic incident management program as well as improve it. The manual covers various aspects of incident management, including the responsibilities of emergency medical teams, law enforcement, and other responding entities. For this research, we focus on the dedicated traffic incident management teams operated by departments of transportation or similar agencies and not other types of first responders.
 
-The FHWA has established performance measures to develop a framework to quantify improvements to IMT operations and traffic (FHWA, 2000). These measures are as follows:
+The FHWA has established performance measures to develop a framework to quantify improvements to IMT operations and traffic (FHWA, 2000). Two specific measures related to this research are: first, roadway clearance time (RCT) is the time between the first recordable awareness of the incident to the time all lanes open for traffic flow; second, incident clearance time (ICT) is the time between the first recordable awareness of the incident and when the last responder has left the scene.
 
--   Roadway clearance time (RCT) is the time between the first recordable awareness of the incident to the time all lanes open for traffic flow.
--   Incident clearance time (ICT) is the time between the first recordable awareness of the incident and when the last responder has left the scene.
--   Secondary Crash occurs at the scene of an original crash or in the queue, including in the opposite direction.
--   Responder Struck By records any instance that a responder is struck by a vehicle while working the scene of an incident.
-
-There is substantial evidence from numerous studies demonstrating the positive influence of TIM programs on traffic conditions, often measured using FHWA or similar performance indicators. One study of note, by [@schultz2019], highlights the substantial benefits of IMT implementations. The study took advantage of the interconnected data used by UDOT and the Utah Highway Patrol to estimate the reduction in traffic resulting from the rapid response of IMT units at crash sites. The findings were compelling: the deployment of IMT units notably decreased excess travel time, alleviated the user costs associated with congestion, and effectively reduced the volume of traffic affected by an incident.
+There is substantial evidence from numerous studies demonstrating the positive influence of TIM programs on traffic conditions, often measured using FHWA or similar performance indicators. One study of note, by [@schultz2019], highlights the substantial benefits of IMT implementations. The study took advantage of the interconnected data used by UDOT and the Utah Highway Patrol to estimate the reduction in traffic resulting from the rapid response of IMT units at crash sites. The findings were compelling: the deployment of IMT units notably decreased excess travel time, alleviated the user costs associated with congestion, and effectively reduced the volume of traffic affected by an incident BY HOW MUCH.
 
 @kim2012, in a study of Maryland's Coordinated Highways Action Response Team (CHART) operations, devised a model using CHART's data to compute the costs associated with traffic delay. The team established a marginal cost-to-benefit ratio to discern the ideal fleet size. They first estimated the reduction in traffic delay under various highway response unit strategies. Subsequently, they calculated the costs of fuel consumption, emissions, and delay times and converted these into monetary values. These figures were then multiplied by the delay's duration to obtain the traffic delay's marginal costs. The research determined that each additional unit added provided a greater benefit than its associated cost until seven highway response units were deployed. This finding implies that while there is a significant cost-to-benefit ratio with the optimal number of response teams, the benefit diminishes when adding too many teams. Determining the ideal number of teams is a function of budget, network size, and incident frequency.
 
 @skabardonis1998 concluded in a study of the California Freeway Service Patrol (FSP) IMT service that, on average, total incident response time was 15 minutes longer when California Highway Patrol (CHP) units responded without the support of FSP units. Using a system to assign a cost per traveler per unit of time to vehicles in the observed area, the authors determined FSP units had a cost-to-benefit ratio of 5:1. They also concluded that CHP officers spent less time on incidents (including vehicle breakdowns). 
 
-@moore2004 further studied the effect of the California FSP units on secondary crashes -- when traffic caused by a previous crash is a factor in a subsequent crash -- in the L.A. metropolitan area. The research used data provided by the California Highway Patrol (CHP) First Incident Response Services Tracking system to identify secondary crashes. From the paper:
-
-> *While avoiding secondary accidents proves only a small incentive to deploy FSP, the expected benefits of reducing already low secondary accident rates may be sufficient to justify accounting for these costs. (p. 285).*
-
-#### 2.2.1 IMT Optimization
+## IMT Optimization
 
 Given the compelling evidence that IMT programs improve traffic conditions and reduce costs for government entities and individuals, it becomes paramount to further research avenues to maximize these benefits. One effective strategy is the strategic placement of IMT units, optimizing their spatial effectiveness to enhance their impact.
 
@@ -57,11 +32,10 @@ These models, whether simulations or optimization problems, have been effective 
 
 An important consideration in determining the optimal location for the IMT units to be stationed is the metric by which the IMT is judged. The FHWA has established performance measures by which IMTs were evaluated; however, some researchers have felt that other metrics proved helpful in specific scenarios. @pal2002 use a metric of total traffic time to analyze the model. Total traffic time is a practical approach as traffic slowdowns incur financial costs and other burdens on the individual and community [@bivina2016]. An economic cost-based model is implemented in some research on incident management programs. @kim2012 use assumed values of fuel price and pollution externalities gathered from previous research to assign a monetary value to consequences of traffic delay in time and environmental costs. The study focuses on optimizing IMT programs in general based on specific budgets. Kim and Chang do not implement IMT units directly in their traffic simulation. The total traffic time and financial costs are similar in their fundamental nature in that financial costs are a function of the traffic delay. From another perspective, @ozbay2013 developed a statistical model where the costs associated with response times are minimized to meet budget constraints. Deciding what factors are most important to measure in the traffic simulation, like costs or response time, will help the decision-making process behind IMT allocation.
 
-### 2.3 Incident Modeling
+## Incident Modeling
 
 As outlined in the preceding section, previous attempts to understand optimal IMT deployment have been primarily based on ad-hoc models, specially constructed utility functions, or similar stand-alone efforts. Rarely has there been an explicit attempt to model traffic delay associated with incident management, at least partially because research modeling the effects of incidents on region-scale traffic networks is a recent innovation.
 
-#### 2.3.1 Dynamic Traffic Assignment
 
 Traffic models are based on static assignment, dynamic assignment, or sometimes a combination of both. Static traffic assignment (STA) and dynamic traffic assignment (DTA) make the same behavioral assumption: drivers want to reach their destination in the shortest time possible. A static model achieves optimization by calculating route travel times, finding the shortest path, and adjusting routes toward equilibrium. The issue with static models is that they assume that all vehicles experience the same delay -- in particular, traffic flow is anisotropic and obeys causality [@boyles2018].
 
@@ -77,13 +51,9 @@ The scenarios Sisopiku ran in Birmingham and Chicago revealed that travel time s
 
 Echoing Sisiopiku's usage of VISTA, @wirtz2005 also undertook an in-depth analysis of this tool in his 2005 traffic incident simulation study. Wirtz elaborated on the limitations of both VISTA and DTA systems. As part of their route adjustment towards equilibrium, these systems presume all drivers possess flawless travel time information for routing to the user-optimal path. For instance, Sisiopiku, in her 2007 study, presumed a 100% compliance rate for the diversion routes provided to the drivers in her model. The validity of this assumption of perfect travel time information is partially contingent on the communication medium---radio traffic reports, the internet, or VMS. Wirtz's 2005 study revealed that "less-informed drivers spend more time traveling than necessary, representing a departure from the user-optimal traffic conditions simulated by VISTA." With the advancements in personal GPS information and its increased accessibility, drivers are more likely to identify an optimal path post-incident. Acknowledging that the assumptions embedded in a model, along with its scope and scale, significantly influence its functionality is critical.
 
-#### 2.3.2 Types of Models
-
 DTA models generally fall into two camps: microscopic and mesoscopic. Microscopic models run on small scales and track the trajectories of individuals. In contrast, mesoscopic models are more aggregated and simplify variations in behavior; they involve elements of both static modeling and dynamic microscopic models [@boyles2018]. The level of detail in microscopic models makes them highly realistic but impractical for modeling large regions. A mesoscopic model that shows the paths of individual vehicles but ignores traffic flow issues like turn conflicts and lane changes would work well for modeling traffic flow over a greater area [@boyles2018].
 
 VISTA is an example of a mesoscopic model which showcases DTA's capability for incident modeling. Microscopic models, like VISSIM, can also be used for incident modeling. Microscopic models can track precise locations of vehicles, driver behavior, and even vehicle characteristics; this makes the models extraordinarily realistic but impractical for modeling large regions [@boyles2018]. In Australia, \@dia2006 used VISSIM to evaluate incident management impacts on two arterial routes (Coronation Drive and Milton Road) connecting the western suburbs of Brisbane and the Central Business District. Another framework used for incident modeling is the traffic simulator JDSMART. This model was used by @vanlint2012 for incident simulation and to study how roadway policies influence congestion.
-
-#### 2.3.3 MATSim
 
 MATSim, the Multi-Agent Transport Simulation Toolkit, has recently gained recognition as a helpful software for incident modeling, demonstrating a capacity for producing microscopic and mesoscopic models. Operating as an open-source framework, MATSim is designed to implement large-scale agent-based transport simulations. Using a mesoscopic queue-based strategy, agents representing individuals seek the shortest routes connecting their activities.
 
@@ -107,8 +77,6 @@ Such event-driven planning requires the agents to be re-programmed to have enoug
 
 Re-programing agents and implementing within-day replanning, as shown in Figure 2: Iterative and within-day replanning MATSim loop., requires the implantation of a *MobsimEngine*, which can be plugged into the mobility simulator seen in the execution phase of Figure 2: Iterative and within-day replanning MATSim loop [@axhausen2016]. @dobler2016 describes it this way, "in every simulated time step, the QSim iterates over all registered *MobsimEngines* and allows them to simulate the current time step. Besides simulation of the traffic flows, those engines can also let agents start or end activities" [@dobler2016 p. 193]. The engines contain within-day replanning logic called *WithinDayEngine*, which helps track agents and adapt their plans [@dobler2016]. Not all agents need to compute plausible routes at every turn, so an *AgentSelector* is used to select the agents to be replanned. *AgentFilters* assist them in narrowing the search population [@dobler2016]. Lastly, *TravelTimeCollectors* are part of the *WithinDayEngine* and provide actual link travel times to the replanners by collecting and averaging travel times of agents that have recently passed a link during a given time [@dobler2016]. The elements described above make up the plan-based system.
 
-#### 2.3.4 Incident Modeling
-
 A significant incident modeling, plan-based system study used MATSim to simulate traffic incidents [@kaddoura2018]. Their research explains that MATSim models transport users as individual agents. MATSim is iterative and allows users to adjust travel plans during a single iteration, from iteration to iteration, or both [@kaddoura2018]. Kaddoura and Nagel accessed their incident data via the HERE application programming interface for traffic incidents. This incident data included Traffic Message Channel (TMC) information indicating an incident's cause and severity. With such robust data, Kaddoura and Nagel could categorize incidents as long or short-term and model each accordingly in MATSim. Long-term effects include multiple-day lane closures, whereas short-term incidents affect transport supply for less than a day. Their simulation was based on an inner-city network in Berlin, Germany. Figure 3: Traffic incidents mapped on the Berlin network illustrates the type of incidents modeled and their severity. In this example, a crash on the southern inner-city motorway ring road led to a full road closure, and several construction sites caused partial capacity reductions.
 
 ![Traffic incidents mapped on the Berlin network.](figures/fig3.png)
@@ -125,6 +93,5 @@ In a contrasting study conducted in Copenhagen, Denmark, @paulsen2018 utilized M
 
 In essence, the studies encapsulated in Section 2.3 validate the effectiveness of the open-source software MATSim, in simulating traffic incidents, congestion, and travel times. This evidence accentuates how the proper application of MATSim or similar Dynamic Traffic Assignment (DTA) models can account for traffic incidents, thereby enhancing the realism of the models. This type of model, in turn, can facilitate more effective policy investigation, as noted by @kaddoura2018.
 
-### 2.4 Chapter Summary
-
-As explained in Section 2.2, there has been extensive research into IMT effectiveness and its ability to restore traffic flow following long- and short-term disturbances. Additionally, as discussed in Section 2.3, several studies have examined how to effectively model traffic incidents and show their impact on travel time, congestion, and mode choice. However, in these vast arrays of findings, there is a gap in research on modeling IMT effectiveness and incident impact on a network. In this research, we propose to bring the two strands together, attempting to model incident response in a microsimulation framework to bring realism and detail to the IMT deployment question.
+## Summary 
+As explained in this section there has been extensive research into IMT effectiveness and its ability to restore traffic flow following long- and short-term disturbances. Additionally, several studies have examined how to effectively model traffic incidents and show their impact on travel time, congestion, and mode choice. However, in these vast arrays of findings, there is a gap in research on modeling IMT effectiveness and incident impact on a loaded with realistic agents. As a result, it is difficult for researchers to understand how changes to incident generation or to IMT availability may impact traffic conditions, for good or for bad. In this research, we seek to bring these two strands together, attempting to model incident response in a microsimulation framework to bring realism and detail to the IMT deployment question.
