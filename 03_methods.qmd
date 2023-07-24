@@ -18,7 +18,7 @@ The implementation of the MATSim within-day replanning module plays a significan
 
 #### 3.1.2 Within-Day Replanning
 
-The concept of within-day replanning is applied to a certain extent in the model, as detailed in Chapter 30 of the MATSim textbook. However, I plan to delve deeper into this concept to ensure its correct application within our study. Subsequently, I will refine the wording of this section to accurately convey its implementation within our model.
+\<\< The concept of within-day replanning is applied to a certain extent in the model, as detailed in Chapter 30 of the MATSim textbook. However, I plan to delve deeper into this concept to ensure its correct application within our study. Subsequently, I will refine the wording of this section to accurately convey its implementation within our model. \>\>
 
 #### 3.1.3 Vehicle Assignment
 
@@ -44,11 +44,17 @@ Loading incidents and IMT response vehicles into the Utah Optimization model is 
 
 #### 3.2.1 Wasatch Front Base Scenario
 
-In this section, we aim to outline the origins of the network and plans file and their usage in other research conducted by the Wasatch Front Regional Council (WFRC). Dr. Macfarlane has provided information about the source of these plans. I will review his notes before expanding this section. The network and plans have been calibrated and represent a typical day's traffic in the regions where most IMT vehicles operate.
+In this section, we aim to outline the origins of the network and plans file and their usage in other research conducted by the Wasatch Front Regional Council (WFRC).
+
+\<\< Dr. Macfarlane has provided information about the source of these plans. I will review his notes before expanding this section. \>\>
+
+The network and plans have been calibrated and represent a typical day's traffic in the regions where most IMT vehicles operate.
 
 #### 3.2.2 Incident & IMT Scenario
 
-We will detail the variety of scenarios we executed in this section, specifying the types based on the number of incidents and the quantity of Incident Management Teams (IMTs) involved. We'll clarify why we chose to execute the specific number of tests and scenarios. Brynn has prepared a table detailing these different scenario types, which we could include here if desired.
+We will detail the variety of scenarios we executed in this section, specifying the types based on the number of incidents and the quantity of Incident Management Teams (IMTs) involved. We'll clarify why we chose to execute the specific number of tests and scenarios.
+
+\<\< Brynn has prepared a table detailing these different scenario types, which we could include here if desired. \>\>
 
 Essentially, we have six scenarios:
 
@@ -72,8 +78,10 @@ Our goal is to run at least ten days of simulations for each scenario.
 
 #### 3.2.4 Incident Sampling
 
-In order to determine how many incidents should be modeled in a given day, we performed an analysis on the Incident data we receieved in order ot create a distribution of incident count frequency to sample from. The code we wrote utilized the Pandas library in Python to read the data into a data frame and removes duplicate entries based on a unique identifier column. The code then converts the 'Call Received Time' column to a DateTime format and creates a new 'Date' column to extract the date portion of the timestamp. The data frame is then grouped by date and call type, counting the number of incidents for each group. This information is organized into a new data frame where rows represent dates, columns represent call types, and cell values indicate the number of incidents. The total number of incidents per date is calculated, and the data frame is grouped again based on the total number of incidents. Finally, the frequency of each incident count is calculated, resulting in a data frame that represents the occurrence frequency of a specific number of incidents per day.
+In order to determine how many incidents should be modeled in a given day, representing current incident frequency, we performed an analysis on the incident data we received to create a distribution of incident count frequency to sample from.
 
-These frequencies are used to create a weighted distribution for sampling. A random seed value is generated and printed for the sake of reproducibility. The code then performs random sampling by selecting ten days from the distribution of incident numbers based on the calculated frequencies. The sampled days are stored in the 'sampled_days' list. This list contains ten values that will be used in MATSim to determine how many incidents to generate in the simulation for ten different scenarios.
+We wrote code using Pandas in Python to read data into a data frame, remove duplicate entries, and manipulate the 'Call Received Time' and \'Call Type\' columns. The data frame is then grouped by date and call type to count incidents. The result is a new data frame showing incident frequency per day. These frequencies are used to create a weighted distribution for sampling. Using a random seed value, to ensure reproducibility, the code performs random sampling by selecting ten days from the distribution of incident numbers based on the calculated frequencies. The sample results in ten values that will be used in MATSim to determine how many incidents to generate in the simulation for ten different scenarios.
+
+For our increased frequency scenarios, we aimed to assess the impact of a significant surge in daily incidents on the IMT system. To achieve this, we used the higher end of the 2022 data as a reference, which included one day with 21 incidents, one day with 20 incidents, two days with 19 incidents, and two days with 18 incidents. This approach allowed us to test the effectiveness and coverage of the IMT program under more extreme demand. Because this collection is only representative of 6 days, we included one additional day of each incident count, choosing to simulate two days with 21 incidents, two days with 20 incidents, three days with 19 incidents, and three days with 18 incidents.
 
 ![Figure 5: Incident Sampling.](figures/fig5.png)

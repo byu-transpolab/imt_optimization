@@ -1,6 +1,6 @@
 # Literature Review {#sec-literature}
 
-Traffic incident managment in general --- and IMT in particular --- are not strictly new innovations. The Federal Highway Administration (FHWA) publishes the *Traffic Incident Management Handbook* (FHWA, 2000) which defines traffic incident management as:
+Traffic incident management in general --- and IMT in particular --- are not strictly new innovations. The Federal Highway Administration (FHWA) publishes the *Traffic Incident Management Handbook* (FHWA, 2000) which defines traffic incident management as:
 
 > *The systematic, planned, and coordinated use of human, institutional, mechanical, and technical resources to reduce the duration and impact of incidents and improve the safety of motorists, crash victims, and incident responders. (p. 1-1)*
 
@@ -35,7 +35,6 @@ An important consideration in determining the optimal location for the IMT units
 ## Incident Modeling
 
 As outlined in the preceding section, previous attempts to understand optimal IMT deployment have been primarily based on ad-hoc models, specially constructed utility functions, or similar stand-alone efforts. Rarely has there been an explicit attempt to model traffic delay associated with incident management, at least partially because research modeling the effects of incidents on region-scale traffic networks is a recent innovation.
-
 
 Traffic models are based on static assignment, dynamic assignment, or sometimes a combination of both. Static traffic assignment (STA) and dynamic traffic assignment (DTA) make the same behavioral assumption: drivers want to reach their destination in the shortest time possible. A static model achieves optimization by calculating route travel times, finding the shortest path, and adjusting routes toward equilibrium. The issue with static models is that they assume that all vehicles experience the same delay -- in particular, traffic flow is anisotropic and obeys causality [@boyles2018].
 
@@ -93,5 +92,6 @@ In a contrasting study conducted in Copenhagen, Denmark, @paulsen2018 utilized M
 
 In essence, the studies encapsulated in Section 2.3 validate the effectiveness of the open-source software MATSim, in simulating traffic incidents, congestion, and travel times. This evidence accentuates how the proper application of MATSim or similar Dynamic Traffic Assignment (DTA) models can account for traffic incidents, thereby enhancing the realism of the models. This type of model, in turn, can facilitate more effective policy investigation, as noted by @kaddoura2018.
 
-## Summary 
+## Summary
+
 As explained in this section there has been extensive research into IMT effectiveness and its ability to restore traffic flow following long- and short-term disturbances. Additionally, several studies have examined how to effectively model traffic incidents and show their impact on travel time, congestion, and mode choice. However, in these vast arrays of findings, there is a gap in research on modeling IMT effectiveness and incident impact on a loaded with realistic agents. As a result, it is difficult for researchers to understand how changes to incident generation or to IMT availability may impact traffic conditions, for good or for bad. In this research, we seek to bring these two strands together, attempting to model incident response in a microsimulation framework to bring realism and detail to the IMT deployment question.
