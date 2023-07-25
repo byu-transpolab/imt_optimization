@@ -1,14 +1,14 @@
 # Methodology
 
-### 3.1 Incident Response in MATSim
+## Incident Response in MATSim
 
-This section of the methodology outlines the development of the model for the Utah IMT Optimization project. As stated in sections 2.2 and 2.3 of the literature review, the model is designed to effectively demonstrate the effects of traffic incidents on the overall traffic flow, and the subsequent influence of Incident Management Teams (IMTs) when integrated into the model.
+This section of the methodology outlines the model development for the Utah IMT Optimization project. As stated in sections 2.2 and 2.3 of the literature review, the model is designed to effectively demonstrate the effects of traffic incidents on the overall traffic flow and the subsequent influence of Incident Management Teams (IMTs) when integrated into the model.
 
 We explain how incidents and IMT vehicles are represented within the MATSim model and discuss several adjustments made to the behavior of MATSim agents within the model configuration. Our approach to incident modeling primarily draws from and expands on the research of @kaddoura2016. For a more detailed understanding, refer to The Multi-Agent Transport Simulation (MATSim) textbook.
 
-#### 3.1.1 Network Change Events
+### Network Change Events
 
-Each link in a MATSim network possesses specific attributes, such as link type, length, number of lanes, free-flow speed, and capacity. To simulate unexpected events, it's essential to adjust one or more of these parameters at a specific time during the simulation. The capacity to modify a network, as referred to in the MATSim textbook, is known as a Time-Dependent Network, and unforeseen incidents or any factors that alter the network's characteristics are termed Network Change Events (NCEs).
+Each link in a MATSim network possesses specific attributes, such as link type, length, number of lanes, free-flow speed, and capacity. It is essential to adjust one or more of these parameters to simulate unexpected events at a specific time during the simulation. The capacity to modify a network, as referred to in the MATSim textbook, is known as a Time-Dependent Network, and unforeseen incidents or any factors that alter the network's characteristics are termed Network Change Events (NCEs).
 
 Section 6.1 of the MATSim textbook outlines how to adapt the parameters of a MATSim configuration file to allow for time-variant network attributes and how to implement network change events. These events can modify a link's free-flow speed, number of lanes, or capacity. To activate a network change event, the system needs to know the time of the event (startTime), the affected link(s) (link refID), the nature of the change (free-flow speed, lanes, or capacity), and the specific value of the change.
 
@@ -16,17 +16,17 @@ Within the context of the Utah IMT optimization problem, changes are triggered w
 
 The implementation of the MATSim within-day replanning module plays a significant role in the rerouting of other agents on the road after an incident.
 
-#### 3.1.2 Within-Day Replanning
+### Within-Day Replanning
 
 \<\< The concept of within-day replanning is applied to a certain extent in the model, as detailed in Chapter 30 of the MATSim textbook. However, I plan to delve deeper into this concept to ensure its correct application within our study. Subsequently, I will refine the wording of this section to accurately convey its implementation within our model. \>\>
 
-#### 3.1.3 Vehicle Assignment
+### Vehicle Assignment
 
 When an incident occurs within the MATSim simulation, one or more Incident Management Team (IMT) vehicles are dispatched to manage the situation. A dispatch algorithm determines the most suitable vehicle for the task. The model can select the IMT unit(s) based either on a least-cost path calculation that factors in congestion and link speed or the shortest path between the vehicle's location and the incident site. The chosen method will partially depend on how swiftly the IMT units can navigate through traffic. If a subnetwork is utilized, the IMT trucks would be less affected by congestion and free-flow speed, potentially making the shortest path calculation more suitable. Conversely, if an IMT moves through traffic like a standard vehicle, using a least-cost path calculator within the simulation would likely be the preferred option.
 
 In the context of this project, the Utah IMT system operates in tandem with the Utah Highway Patrol system under the same dispatch service. IMTs in Utah are equipped with sirens and flashing lights similar to those on a highway patrol vehicle, and they operate within specific zones. For instance, there are multiple zones in Salt Lake and Davis Counties where IMT vehicles are distributed. Given that IMTs can navigate traffic like other emergency vehicles, the Utah Highway Patrol dispatch requests the nearest available vehicle(s) to respond to an incident when it occurs. It's worth noting that due to limited resources, an incident ideally requiring assistance from 2 or 3 IMT units may only receive one vehicle, potentially leading to longer management or cleanup times.
 
-#### 3.1.4 Incident Response
+## Incident Response
 
 As discussed in Section 3.1.1, a critical element in simulating the effects of incidents on agents within the MATSim network is Network Change Events (NCEs). This mechanism, which illustrates how incidents can impact user behavior, will also be used to demonstrate how the reactions of IMTs influence agents' travel times and paths.
 
@@ -38,11 +38,11 @@ Figure 4 below provides a potential example of how an incident, with no IMT resp
 
 ![Figure 4: Changes upon arrival.](figures/fig4.png)
 
-### 3.2 Simulation Scenarios
+## Simulation Scenarios
 
 Loading incidents and IMT response vehicles into the Utah Optimization model is a significant aspect of this project's methodology. Another crucial element involves running scenarios to quantify the impact of both incidents and IMT arrivals. Various factors influence these quantitative comparisons. These include the type of network and plans files used during the simulation, the processed and selected incident data, and the locations and quantities of IMT vehicles included in the simulations. Each of these components builds on prior research related to IMTs in Utah, MATSim studies on Demand Responsive Transport (DRT), and transportation modeling research conducted by the Wasatch Front Regional Council in various traffic modeling projects throughout Utah.
 
-#### 3.2.1 Wasatch Front Base Scenario
+### Wasatch Front Base Scenario
 
 In this section, we aim to outline the origins of the network and plans file and their usage in other research conducted by the Wasatch Front Regional Council (WFRC).
 
@@ -50,9 +50,9 @@ In this section, we aim to outline the origins of the network and plans file and
 
 The network and plans have been calibrated and represent a typical day's traffic in the regions where most IMT vehicles operate.
 
-#### 3.2.2 Incident & IMT Scenario
+### Incident & IMT Scenario
 
-We will detail the variety of scenarios we executed in this section, specifying the types based on the number of incidents and the quantity of Incident Management Teams (IMTs) involved. We'll clarify why we chose to execute the specific number of tests and scenarios.
+We will detail the various scenarios we executed in this section, specifying the types based on the number of incidents and the quantity of Incident Management Teams (IMTs) involved. We will clarify why we chose to execute the specific number of tests and scenarios.
 
 \<\< Brynn has prepared a table detailing these different scenario types, which we could include here if desired. \>\>
 
@@ -72,16 +72,16 @@ Essentially, we have six scenarios:
 
 Our goal is to run at least ten days of simulations for each scenario.
 
-#### 3.2.3 Incident Data
+### Incident Data
 
 \<\< TO DO: summarize the methodology used by Joel Hyer and to describe where our incident data came from \>\>
 
-#### 3.2.4 Incident Sampling
+### Incident Sampling
 
-In order to determine how many incidents should be modeled in a given day, representing current incident frequency, we performed an analysis on the incident data we received to create a distribution of incident count frequency to sample from.
+To determine the appropriate modeling of incidents for a given day, reflecting the current incident frequency, we analyzed the received incident data to create a distribution of incident count frequency for sampling.
 
-We wrote code using Pandas in Python to read data into a data frame, remove duplicate entries, and manipulate the 'Call Received Time' and \'Call Type\' columns. The data frame is then grouped by date and call type to count incidents. The result is a new data frame showing incident frequency per day. These frequencies are used to create a weighted distribution for sampling. Using a random seed value, to ensure reproducibility, the code performs random sampling by selecting ten days from the distribution of incident numbers based on the calculated frequencies. The sample results in ten values that will be used in MATSim to determine how many incidents to generate in the simulation for ten different scenarios.
+We wrote code using Pandas in Python to read data into a data frame, remove duplicate entries, and manipulate the 'Call Received Time' and 'Call Type' columns. The data frame is then grouped by date and call type to count incidents. The result is a new data frame showing incident frequency per day. These frequencies are used to create a weighted distribution for sampling. To ensure reproducibility, the code utilizes a random seed value and performs random sampling by selecting ten days from the incident number distribution based on the calculated frequencies. The sample yields ten values that will be utilized in MATSim to determine the number of incidents to be generated in the simulation for ten different simulated days.
 
-For our increased frequency scenarios, we aimed to assess the impact of a significant surge in daily incidents on the IMT system. To achieve this, we used the higher end of the 2022 data as a reference, which included one day with 21 incidents, one day with 20 incidents, two days with 19 incidents, and two days with 18 incidents. This approach allowed us to test the effectiveness and coverage of the IMT program under more extreme demand. Because this collection is only representative of 6 days, we included one additional day of each incident count, choosing to simulate two days with 21 incidents, two days with 20 incidents, three days with 19 incidents, and three days with 18 incidents.
+For our increased frequency scenarios, we aimed to assess the impact of a significant surge in daily incidents on the IMT system. To achieve this, we used the higher end of the 2022 data as a reference, including one day with 21 incidents, one with 20 incidents, two with 19 incidents, and two with 18 incidents. This approach allowed us to test the effectiveness and coverage of the IMT program under more extreme demand. Because this collection is limited to 6 days, we included one additional day of each incident count, choosing to simulate two days with 21 incidents, two days with 20 incidents, three days with 19 incidents, and three days with 18 incidents.
 
 ![Figure 5: Incident Sampling.](figures/fig5.png)
