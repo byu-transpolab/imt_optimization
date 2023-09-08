@@ -15,11 +15,11 @@ library(forcats)
 library(lubridate)
 library(htmltools)
 
-
-
 devtools::install_github("matsim-vsp/matsim-r")
 
 NETWORK <- "networks/highways_network.xml.gz"
+
+setwd("C:/Users/djarvis3/imt_optimization/R")
 
 # prevent warning about global use of "name". Thanks dplyr
 utils::globalVariables(c("name"))
@@ -158,140 +158,69 @@ read_network <- function(filename) {
   list("nodes" = nodes, "links" = links, "attributes" = networkAttributes)
 }
 
+# Use the read_network function to read in the MATSim network as tibble
+network_table <- read_network(NETWORK)
 
-#' Load MATSim network into memory
-#'
-#' \strong{loadNetwork} - Loads a MATSim XML network file, creating a nodes tibble and a links tibble.
-#' Any node and link attribute records in the network are stored as
-#' additional columns in the respective node and link tibbles.\cr
-#' The links table is automatically joined with the nodes table so that
-#' node x/y coordinates (and any other node attributes) are available on the
-#' links table without additional processing.
-#'
-#' @rdname matsimr-deprecated
-#'
-#' @param filename File to load. Can be XML or gzipped XML
-#'
-#' @return \strong{loadNetwork} - "nodes" and "links" tibbles in a list object.
-#'
-loadNetwork <- function(filename) {
-  .Deprecated("read_network")
-  cat(filename, ": ")
-  network <- read_xml(filename)
+# Initialize an empty tibble
+link_delays <- tibble()
+
+# Set folder path
+folder_path <- "link_delay"
+
+# Loop through each CSV file in the folder
+file_list <- list.files(path = folder_path, pattern = "*.csv", full.names = TRUE)
+for (file in file_list) {
   
-  cat("Nodes..")
-  node_elements <- network %>% xml_find_all("./nodes/node")
-  nodes <- tibble(
-    id = node_elements %>% xml_attr("id"),
-    x = node_elements %>% xml_attr("x") %>% parse_double(),
-    y = node_elements %>% xml_attr("y") %>% parse_double(),
-  )
+  # Read CSV file
+  temp_data <- read_csv(file)
   
-  attributes <- node_elements %>% xml_find_all("./attributes/attribute")
-  # skip if there are no node attributes
-  if (length(attributes)) {
-    attrIds <- tibble(id = unlist(map(attributes, function(row) xml_attr(xml_parent(xml_parent(row)), "id"))))
-    
-    nodeAttributes <- tibble(
-      id = attrIds$id,
-      name = attributes %>% xml_attr("name"),
-      class = attributes %>% xml_attr("class"),
-      value = attributes %>% xml_text(),
-    )
-    
-    # which columns should be converted to numeric?
-    types <- nodeAttributes %>%
-      select(name, class) %>%
-      distinct()
-    convert <- filter(types, class == "java.lang.Double")$name
-    
-    # convert to a format we can join to the links
-    nodeAttributes <- (nodeAttributes
-                       %>% select(-class)
-                       %>% pivot_wider(names_from = "name", values_from = "value")
-                       %>% mutate_at(vars(one_of(convert)), as.double)
-    )
-    nodes <- nodes %>% left_join(nodeAttributes, by = "id")
-  }
+  # Extract the scenario name from the file name
+  scenario <- sub("^(.*?)(\\.delays_perLink_.*$)", "\\1", basename(file))
   
-  cat("Links..")
-  link_elements <- network %>% xml_find_all("./links/link")
-  links <- tibble(
-    id = link_elements %>% xml_attr("id"),
-    from = link_elements %>% xml_attr("from"),
-    to = link_elements %>% xml_attr("to"),
-    length = link_elements %>% xml_attr("length") %>% parse_double(),
-    freespeed = link_elements %>% xml_attr("freespeed") %>% parse_double(),
-    capacity = link_elements %>% xml_attr("capacity") %>% parse_double(),
-    permlanes = link_elements %>% xml_attr("permlanes") %>% parse_double(),
-    modes = link_elements %>% xml_attr("modes"),
-    origid = link_elements %>% xml_attr("origid")
-  )
+  # Add scenario name as a new column
+  temp_data$scenario <- scenario
   
-  # merge node coordinates
-  links <- (links
-            %>% left_join(nodes, by = c("from" = "id"))
-            %>% left_join(nodes, by = c("to" = "id"), suffix = c(".from", ".to"))
-  )
-  
-  # attributes don't have IDs on them! JFC, MATSim!
-  cat("Attributes..")
-  
-  attributes <- link_elements %>% xml_find_all("./attributes/attribute")
-  # skip if there are no link-attributes
-  if (length(attributes)) {
-    attrIds <- tibble(id = unlist(map(attributes, function(row) xml_attr(xml_parent(xml_parent(row)), "id"))))
-    
-    linkAttributes <- tibble(
-      id = attrIds$id,
-      name = attributes %>% xml_attr("name"),
-      class = attributes %>% xml_attr("class"),
-      value = attributes %>% xml_text(),
-    )
-    
-    # which columns should be converted to numeric?
-    types <- linkAttributes %>%
-      select(name, class) %>%
-      distinct()
-    convert <- filter(types, class == "java.lang.Double")$name
-    
-    # convert to a format we can join to the links
-    linkAttributes <- (linkAttributes
-                       %>% select(-class)
-                       %>% pivot_wider(names_from = "name", values_from = "value")
-                       %>% mutate_at(vars(one_of(convert)), as.double)
-    )
-    
-    links <- links %>% left_join(linkAttributes, by = "id", suffix = c(".link", ".attr"))
-  }
-  
-  # Top-level network attributes
-  networkAttributes <- NULL
-  
-  allNetworkAttributes <- network %>% xml_find_all("./attributes/attribute")
-  if (length(allNetworkAttributes)) {
-    networkAttributes <- tibble(
-      name = allNetworkAttributes %>% xml_attr("name"),
-      class = allNetworkAttributes %>% xml_attr("class"),
-      value = allNetworkAttributes %>% xml_text(),
-    )
-    # which columns should be converted to numeric?
-    types <- networkAttributes %>%
-      select(name, class) %>%
-      distinct()
-    convert <- filter(types, class == "java.lang.Double")$name
-    
-    # convert to a format we can join to the links
-    networkAttributes <- (networkAttributes
-                          %>% select(-class)
-                          %>% pivot_wider(names_from = "name", values_from = "value")
-                          %>% mutate_at(vars(one_of(convert)), as.double)
-    )
-  }
-  
-  cat("Done!\n")
-  
-  list("nodes" = nodes, "links" = links, "attributes" = networkAttributes)
+  # Append to the main tibble
+  link_delays <- bind_rows(link_delays, temp_data)
 }
 
-network_table <- read_network(NETWORK)
+# Make the scenario column be the first column in the tibble
+link_delays <- link_delays %>%
+  select(scenario, everything())
+
+# Add a new column 'type' based on the values in 'scenario'
+link_delays <- link_delays %>%
+  mutate(type = case_when(
+    str_sub(scenario, 1, 1) == "0" ~ "baseline",
+    str_sub(scenario, 1, 1) == "1" ~ "incidents",
+    str_sub(scenario, 1, 1) == "2" ~ "current",
+    str_sub(scenario, 1, 1) == "3" ~ "improved",
+    TRUE                         ~ NA_character_  # handles unexpected values
+  )) %>%
+  # Reorder to make 'type' the second column
+  select(scenario, type, everything())
+
+# Add 'total' column that calculates the sum of all values to the right of 'Link Id'
+link_delays$total <- rowSums(select(link_delays, -c(scenario, type, `Link Id`)), na.rm = TRUE)
+
+# Move 'total' column to the right of 'Link Id'
+link_delays <- link_delays %>%
+  select(scenario, type, `Link Id`, total, everything())
+
+# Join 'Link Id' from link_delays with 'id' from network_table$links
+link_delays <- link_delays %>%
+  left_join(
+    network_table$links %>%
+      mutate(id = as.double(id)) %>%
+      select(id, type),
+    by = c("Link Id" = "id")
+  ) %>%
+  select(scenario, type.x, `Link Id`, type.y, everything()) %>% # Use type.x and type.y to distinguish between the two type columns
+  rename(
+    `Scenario Type` = type.x,
+    `Link Type` = type.y
+  )
+
+print(link_delays)
+
+
