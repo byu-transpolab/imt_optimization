@@ -25,8 +25,16 @@ for (file in file_list) {
         str_sub(`Scenario Id`, 1, 1) == "3" ~ "improved",
         TRUE ~ NA_character_
       ),
-      `Total Delay` = rowSums(.[, -(1:3)], na.rm = TRUE)
-    )
+# Extracting second and third values from filename
+    `Incident Num` = as.numeric(unlist(strsplit(scenario_id, "-"))[2]),
+    `Seed` = as.numeric(unlist(strsplit(scenario_id, "-"))[3]),
+    `Incident Frequency` = case_when(
+      `Incident Num` <= 14 ~ "Current Incidents",
+      `Incident Num` > 14 ~ "Increased Incidents",
+      TRUE ~ NA_character_
+    ),
+    `Total Delay` = rowSums(.[, -(1:5)], na.rm = TRUE) # Adjusting column indexing due to added columns
+  )
   
   # Append to the tibble
   link_delays <- bind_rows(link_delays, temp_data)
@@ -41,7 +49,7 @@ link_delays <- link_delays %>%
     by = c("Link Id" = "id")
   ) %>%
   rename(`Link Type` = type) %>%
-  select(`Scenario Id`, `Scenario Type`, `Link Type`, `Link Id`, `Total Delay`, everything())
+  select(`Scenario Id`, `Seed`, `Incident Frequency`, `Scenario Type`, `Link Type`, `Link Id`, `Total Delay`, everything())
 
 # Show the resulting tibble
 print(link_delays)
@@ -49,23 +57,32 @@ print(link_delays)
 # Summarize the total delay by Link Type and Scenario Type
 summarized_data <- link_delays %>%
   group_by(`Link Type`, `Scenario Type`) %>%
-  summarise(`Total Delay` = sum(`Total Delay`, na.rm = TRUE)) %>%
+  summarise(`Total Delay` = sum(`Total Delay`, na.rm = TRUE) / n_distinct(`Seed`)) %>% 
+  mutate(`Total Delay` = `Total Delay` / 3600) %>% # Converting to hours
   ungroup()
 
 # Bar plot using ggplot
-plot <- ggplot(summarized_data, aes(x = `Link Type`, y = `Total Delay`, fill = `Scenario Type`)) +
+link_plot <- ggplot(summarized_data, aes(x = `Link Type`, y = `Total Delay`, fill = `Scenario Type`)) +
   geom_bar(stat = "identity", position = "dodge") + 
-  labs(title = "Total Delay by Link Type and Scenario Type",
-       y = "Total Delay",
+  labs(title = "Total Delay by Link Type, Scenario Type and Incident Frequency",
+       y = "Total Delay [hours]",
+       x = "Link Type",
+       fill = "Scenario & Frequency") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Filter the summarized data to include only 'motorway' and 'motorway-link' types
+motorway_data <- summarized_data %>%
+  filter(`Link Type` %in% c('motorway', 'motorway-link'))
+
+# Bar plot using ggplot for the filtered data
+motorway_plot <- ggplot(motorway_data, aes(x = `Link Type`, y = `Total Delay`, fill = `Scenario Type`)) +
+  geom_bar(stat = "identity", position = "dodge") + 
+  labs(title = "Total Delay by Link Type and Scenario Type for Motorways",
+       y = "Total Delay [hours]",
        x = "Link Type",
        fill = "Scenario Type") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
-# Reorder the Scenario Type levels
-summarized_data$`Scenario Type` <- factor(summarized_data$`Scenario Type`, 
-                                          levels = c("baseline", "incidents", "current", "improved"))
-
-print(plot)
 
