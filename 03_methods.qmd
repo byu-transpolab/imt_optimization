@@ -85,3 +85,13 @@ We wrote code using Pandas in Python to read data into a data frame, remove dupl
 For our increased frequency scenarios, we aimed to assess the impact of a significant surge in daily incidents on the IMT system. To achieve this, we used the higher end of the 2022 data as a reference, including one day with 21 incidents, one with 20 incidents, two with 19 incidents, and two with 18 incidents. This approach allowed us to test the effectiveness and coverage of the IMT program under more extreme demand. Because this collection is limited to 6 days, we included one additional day of each incident count, choosing to simulate two days with 21 incidents, two days with 20 incidents, three days with 19 incidents, and three days with 18 incidents.
 
 ![Figure 5: Incident Sampling.](figures/fig5.png)
+
+### Comparative Measures
+
+\<\< TO DO: Rewrite this section. Make it sound more academic. The goal is to provide a transition from the methodology to the results section of the paper \>\>
+
+As we transition from the methodology to the results, it is essential to underscore the measures employed for an exhaustive comparative analysis. Central to our examination is the metric of total vehicle hours of delay. While of considerable import, the average IMT vehicle arrival time assumes a secondary role in our analysis. Emphasis will be placed on delay durations for both incident and feeder links; the latter being defined as the connecting routes leading to incident sites.
+
+Our inquiry extends to the variance in delay durations across diverse scenarios. We have systematically categorized the links according to their intrinsic types. A salient metric targets delay durations associated with 'motorway type' links. Concurrently, a comprehensive metric will delineate the total delay span across the entire network. It is paramount to recognize that while this overarching delay duration might be influenced by our adjustments to the MATSim model, other external variables could also play a role.
+
+The forthcoming results section will elucidate these measures in detail, accentuating any modifications we've incorporated into the model. What follows should be regarded as a concise prologue, prepping the reader for an in-depth analytical exposition.

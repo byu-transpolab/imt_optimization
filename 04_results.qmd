@@ -1,51 +1,39 @@
-## Applications
+# Results
 
-```{r setup, file = "R/chapter_start.R", include = FALSE}
-# a number of commands need to run at the beginning of each chapter. This
-# includes loading libraries that I always use, as well as options for 
-# displaying numbers and text.
-```
+## Incident Impact
 
-```{r setup2, include = FALSE}
-# Other packages ------
-# These are packages that get used in this chapter but aren't part of the default set.
-library(mlogit)
-```
+Initiating the results section, we will compare the baseline scenario against the incident-only scenarios. Subsections will likely delve into parameters such as the average incident duration and capacity reductions under both the current incident frequency and its increased counterpart. Potential subdivisions might explore, for instance, average delay on incident links—either stratified into time segments or evaluated throughout the simulated day. Following this, an examination of the average delay across all motorway links will unravel, spotlighting the variations in VHD (vehicle hours of delay) between the baseline, current, and increased incident scenarios. The next discussion might broach the total vehicle hours traveled, contrasting these figures. While it could be tempting to attribute any disparities in delay solely to incidents, the pronounced divergence between baseline and incident scenarios suggests external factors may have a role, meriting exploration in subsequent IMT impact sections.
 
-This section might be called "Results" instead of "Applications," depending on what it is that you are working on. But you'll probably say something like "The initial model estimation results are given in @tbl-estimationresults" That table is created with the `modelsummary()` package and function.
+### Incdient and Feeder Links
 
-```{r estimation}
-tar_load(models)
-```
+For a tangible grasp, selecting an exemplar incident link could be beneficial, perhaps comparing delay in the baseline with delay subsequent to a capacity-reducing network change event, possibly illustrated via a table format. This will segue into an evaluation of average delays on directly impacted links and their preceding feeder links. Adopting an illustrative approach, one might assert, "Given that the average incident duration stands at 'X', the subsequent table delineates delays on the incident link up to a time frame of 'X+1', with 'X+1' exemplifying a duration like '2hrs + 30mins'."
 
-```{r estimation-results}
-#| label: tbl-estimationresults
-#| tbl-cap: Model Summary Results
-modelsummary(models, estimate = "{estimate} ({statistic})")
-```
+### Motorway Links
 
-Sometimes, it is nice to put the models or your other results into a figure instead
-of a table. Have a look at @fig-modelplot. Note that your figures might look better
-in pdf if you use the `tikz` rendering device.
+Incidents only occur on motorway (freeway links) so when we look at those comprehensively how do they compare to one another (comparing the baseline to the incidents only)
 
-```{r modelplot}
-#| label: fig-modelplot
-#| fig-cap: Estimated model coefficients and confidence intervals.
-#| 
-modelplot(models) +
-  xlab("Coefficient estimates")
-```
+### Total VHD
 
+What were the total travel times and total vehicle hours of delay?
 
-With those results presented, you can go into a discussion of what they mean. first, discuss the actual results that are shown in the table, and then any interesting or unintuitive observations.
+## IMT Impact
 
+Initiating this segment of the results section, our focus will shift towards understanding the impacts of the IMT scenarios. In particular, we will compare the outcomes of the current IMT fleet, comprising 20 vehicles, against a hypothetical expanded fleet, which would encompass the original 20 vehicles along with an added 10. Subsections will delve into various aspects of these scenarios.
 
-## Additional Analysis
+Primary areas of exploration include examining parameters such as average incident duration and the ensuing capacity reductions under both the prevailing incident frequency and its amplified variant. More granular analyses might probe into the average delay on incident links, offering insights either categorized into discrete time segments or spread across the simulated day. Subsequent to this, our attention will turn to dissecting the average delay observed across all motorway links, thereby illuminating the differential in VHD (vehicle hours of delay) when considering the baseline, the status quo of the IMT fleet, and the proposed expanded fleet scenarios.
 
-Usually, it is good to use your model for something.
+As we transition to a discussion on the cumulative vehicle hours traveled, we will aim to contrast these metrics across the scenarios. It would be an oversimplification to ascribe variations in delay exclusively to the presence or absence of incidents. The evident distinctions between scenarios, especially those with the IMT interventions, hint at the intricate interplay of various factors, setting the stage for a deeper dive in the upcoming IMT impact sections.
 
--   Hypothetical policy analysis
--   Statistical validation effort
--   Equity or impact analysis
+### IMT Arrival Times
 
-If the analysis is substantial, it might become its own top-level section.
+This section elucidates the disparity in average response durations required for each IMT to reach the incident sites, contingent upon the scenario under consideration. The analysis zeroes in on contrasting the response durations of our extant IMT fleet, comprising 20 vehicles, with a proposed augmented fleet with an additional 10 IMT vehicles. This discourse aptly paves the way for the ensuing section, detailing how delays on incident links and their feeder counterparts are contingent upon IMT vehicle presence. A revisitation or citation of the methodology might enhance comprehension, especially regarding distinctions between the "incidents only" scenario and its "IMT current" and "IMT improved" counterparts.
+
+### Incident and Feeder Links
+
+Similar to the motorway links discussion in the Incident Impact section. It might be worth it to have an example that highlights the delays during the time interval before the IMT arrives and the delay after they arrive, then once again of course, compare the average delays on incident links and feeder links up until a certain time after the incident ends and the link returns to its full capacity.
+
+## #Motorway Links
+
+### Total VHD
+
+## Limitations
