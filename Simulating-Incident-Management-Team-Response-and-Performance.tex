@@ -80,20 +80,6 @@
 % These are extra latex packages that the document depends on
 % 
 \usepackage{siunitx}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-\usepackage{xcolor}
 \makeatletter
 \makeatother
 \makeatletter
@@ -218,7 +204,7 @@ Written by ChatGPT
 
 
 \end{frontmatter}
-    \ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, sharp corners, interior hidden, enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
+    \ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt, enhanced, frame hidden]}{\end{tcolorbox}}\fi
 
 \bookmarksetup{startatroot}
 
@@ -351,8 +337,8 @@ studies employ statistical models, incorporating a range of variables to
 maximize specific performance measures given constraints, others opt for
 digital modeling as a solution.
 
-For instance, @lou2011 explored strategies aimed at minimizing IMT
-response time. They developed a mixed-integer nonlinear optimization
+For instance, \citet{lou2011} explored strategies aimed at minimizing
+IMT response time. They developed a mixed-integer nonlinear optimization
 model and proposed different algorithms to address this problem. The
 research modeled IMT units as roaming entities within specific freeway
 sections, aiming to determine the optimal unit locations for minimizing
@@ -383,18 +369,18 @@ the whole program. No comparison to existing depot and unit distribution
 was made; therefore, improvement because of the model was not
 quantified.
 
-In his work, @ozbay2013 developed a model to inform resource allocation
-across New Jersey ``depots,'' the designated staging areas for IMT
-units. This research employed a mixed-integer programming model with
-probabilistic constraints to address the challenge of IMT allocation
-within these depots. With known probabilities of different types of
-incidents occurring on a network, IMT units were strategically allocated
-to incident scenes while considering future probabilities of incidents
-on the same network. The goal of his model was twofold: to minimize
-incident management costs and to maximize utility. To demonstrate the
-model's practical applicability in IMT decision-making, it was
-implemented on a simplified South Jersey Highway network model. The
-model's demand distribution was based on traffic incident data from
+In his work, \citet{ozbay2013} developed a model to inform resource
+allocation across New Jersey ``depots,'' the designated staging areas
+for IMT units. This research employed a mixed-integer programming model
+with probabilistic constraints to address the challenge of IMT
+allocation within these depots. With known probabilities of different
+types of incidents occurring on a network, IMT units were strategically
+allocated to incident scenes while considering future probabilities of
+incidents on the same network. The goal of his model was twofold: to
+minimize incident management costs and to maximize utility. To
+demonstrate the model's practical applicability in IMT decision-making,
+it was implemented on a simplified South Jersey Highway network model.
+The model's demand distribution was based on traffic incident data from
 South New Jersey. The test results established an optimal number of
 depots and trucks assigned to each depot, given a program budget of
 \$500,000. However, as no comparison was made to the existing depot and
@@ -402,11 +388,11 @@ unit distribution, the precise improvement attributable to the model was
 not quantified.
 
 Digital models of IMTs have been developed in the past with various
-software packages. @pal2002 developed a digital model to replicate IMT
-impacts on traffic conditions. Overall traffic time in the system was
-used as the performance indicator of the units. The software program was
-developed from scratch as existing programs at the time used in
-mesoscopic traffic simulation could not simulate incident response
+software packages. \citet{pal2002} developed a digital model to
+replicate IMT impacts on traffic conditions. Overall traffic time in the
+system was used as the performance indicator of the units. The software
+program was developed from scratch as existing programs at the time used
+in mesoscopic traffic simulation could not simulate incident response
 units. Various configurations of response vehicles were simulated using
 probability distributions of crash data, vehicle speed, and carrying
 capacity. Given the study results, suggestions were made regarding fleet
@@ -471,7 +457,7 @@ times. According to \citet{boyles2018}, ``DTA is best applied when the
 input data are known with high certainty, only a few scenarios are
 needed, and detailed congestion and queueing information are critical''
 \citep[ p.~28]{boyles2018}. A study on the effects of congestion
-conducted by @sisiopiku2007 highlighted the applications of
+conducted by \citet{sisiopiku2007} highlighted the applications of
 simulation-based DTA modeling on incident management. Her study argues
 that dynamic assignment is preferred over static when considering
 incident modeling. Sisiopiku describes her methodology as follows:
@@ -547,8 +533,8 @@ also be used for incident modeling. Microscopic models can track precise
 locations of vehicles, driver behavior, and even vehicle
 characteristics; this makes the models extraordinarily realistic but
 impractical for modeling large regions \citep{boyles2018}. In Australia,
-@dia2006 used VISSIM to evaluate incident management impacts on two
-arterial routes (Coronation Drive and Milton Road) connecting the
+\citet{dia2006} used VISSIM to evaluate incident management impacts on
+two arterial routes (Coronation Drive and Milton Road) connecting the
 western suburbs of Brisbane and the Central Business District. Another
 framework used for incident modeling is the traffic simulator JDSMART.
 This model was used by \citet{vanlint2012} for incident simulation and
@@ -740,9 +726,9 @@ Additionally, they found that ``most of the travelers notified of being
 affected by incidents are simulated to depart early or switch to public
 transport, which effectively reduces the average travel time delay
 caused by disruptions'' \citep[ p.96]{li2020}. Their findings validate
-the conclusions of @sisiopiku2007 that making incident information
-available to agents leads to decreases in travel time and congestion.
-Like the studies already mentioned, there have been various
+the conclusions of \citet{sisiopiku2007} that making incident
+information available to agents leads to decreases in travel time and
+congestion. Like the studies already mentioned, there have been various
 modifications to and research on MATSim and its capacity.
 
 In Thailand's capital, Bangkok, a study conducted by
@@ -819,7 +805,7 @@ We explain how incidents and IMT vehicles are represented within the
 MATSim model and discuss several adjustments made to the behavior of
 MATSim agents within the model configuration. Our approach to incident
 modeling primarily draws from and expands on the research of
-\citet{kaddoura2016}. For a more detailed understanding, refer to The
+\citet{kaddoura2018}. For a more detailed understanding, refer to The
 Multi-Agent Transport Simulation (MATSim) textbook.
 
 \hypertarget{network-change-events}{%
@@ -847,7 +833,7 @@ Within the context of the Utah IMT optimization problem, changes are
 triggered when an incident is reported and when an IMT arrives at the
 affected link. These changes will influence the link's capacity based on
 the incident data, which will be discussed in more detail in section
-3.2.3. Unlike \citet{kaddoura2016}'s work, this study does not consider
+3.2.3. Unlike \citet{kaddoura2018} 's work, this study does not consider
 long-term capacity reduction events such as road construction, focusing
 solely on short-term incidents like accidents or vehicle breakdowns. The
 diminished capacity of a specific link would typically affect both
@@ -1046,85 +1032,148 @@ three days with 18 incidents.
 
 \end{figure}
 
+\hypertarget{comparative-measures}{%
+\subsubsection{Comparative Measures}\label{comparative-measures}}
+
+\textless\textless{} TO DO: Rewrite this section. Make it sound more
+academic. The goal is to provide a transition from the methodolgy to the
+results section of the paper \textgreater\textgreater{}
+
+As we transition from the methodology to the results, it is essential to
+underscore the measures employed for an exhaustive comparative analysis.
+Central to our examination is the metric of total vehicle hours of
+delay. While of considerable import, the average IMT vehicle arrival
+time assumes a secondary role in our analysis. Emphasis will be placed
+on delay durations for both incident and feeder links; the latter being
+defined as the connecting routes leading to incident sites.
+
+Our inquiry extends to the variance in delay durations across diverse
+scenarios. We have systematically categorized the links according to
+their intrinsic types. A salient metric targets delay durations
+associated with `motorway type' links. Concurrently, a comprehensive
+metric will delineate the total delay span across the entire network. It
+is paramount to recognize that while this overarching delay duration
+might be influenced by our adjustments to the MATSim model, other
+external variables could also play a role.
+
+The forthcoming results section will elucidate these measures in detail,
+accentuating any modifications we've incorporated into the model. What
+follows should be regarded as a concise prologue, prepping the reader
+for an in-depth analytical exposition.
+
 \bookmarksetup{startatroot}
 
-\hypertarget{applications}{%
-\section{Applications}\label{applications}}
+\hypertarget{results}{%
+\section{Results}\label{results}}
 
-This section might be called ``Results'' instead of ``Applications,''
-depending on what it is that you are working on. But you'll probably say
-something like ``The initial model estimation results are given in
-Table~\ref{tbl-estimationresults}'' That table is created with the
-\texttt{modelsummary()} package and function.
+\hypertarget{incident-impact}{%
+\subsection{Incident Impact}\label{incident-impact}}
 
-\hypertarget{tbl-estimationresults}{}
-\begin{table}
-\caption{\label{tbl-estimationresults}Model Summary Results }\tabularnewline
+Initiating the results section, we will compare the baseline scenario
+against the incident-only scenarios. Subsections will likely delve into
+parameters such as the average incident duration and capacity reductions
+under both the current incident frequency and its increased counterpart.
+Potential subdivisions might explore, for instance, average delay on
+incident links---either stratified into time segments or evaluated
+throughout the simulated day. Following this, an examination of the
+average delay across all motorway links will unravel, spotlighting the
+variations in VHD (vehicle hours of delay) between the baseline,
+current, and increased incident scenarios. The next discussion might
+broach the total vehicle hours traveled, contrasting these figures.
+While it could be tempting to attribute any disparities in delay solely
+to incidents, the pronounced divergence between baseline and incident
+scenarios suggests external factors may have a role, meriting
+exploration in subsequent IMT impact sections.
 
-\centering
-\begin{tabular}[t]{lcc}
-\toprule
-  & Model 1 & Model 2\\
-\midrule
-typesportuv & 0.833 (5.945) & 0.815 (5.805)\\
- & (0.140) & (0.140)\\
-typesportcar & 0.614 (4.192) & 0.628 (4.259)\\
- & (0.146) & (0.147)\\
-typestwagon & -1.415 (-22.979) & -1.428 (-23.119)\\
- & (0.062) & (0.062)\\
-typetruck & -1.002 (-20.600) & -1.010 (-20.673)\\
- & (0.049) & (0.049)\\
-typevan & -0.812 (-17.431) & -0.806 (-17.183)\\
- & (0.047) & (0.047)\\
-price & -0.221 (-8.475) & -0.191 (-7.130)\\
- & (0.026) & (0.027)\\
-range &  & 0.003 (18.923)\\
- &  & (0.000)\\
-\midrule
-Num.Obs. & 27924 & 27924\\
-AIC & 15460.9 & 15075.0\\
-RMSE & 0.80 & 0.78\\
-\bottomrule
-\end{tabular}
-\end{table}
+\hypertarget{incdient-and-feeder-links}{%
+\subsubsection{Incdient and Feeder
+Links}\label{incdient-and-feeder-links}}
 
-Sometimes, it is nice to put the models or your other results into a
-figure instead of a table. Have a look at Figure~\ref{fig-modelplot}.
-Note that your figures might look better in pdf if you use the
-\texttt{tikz} rendering device.
+For a tangible grasp, selecting an exemplar incident link could be
+beneficial, perhaps comparing delay in the baseline with delay
+subsequent to a capacity-reducing network change event, possibly
+illustrated via a table format. This will segue into an evaluation of
+average delays on directly impacted links and their preceding feeder
+links. Adopting an illustrative approach, one might assert, ``Given that
+the average incident duration stands at `X', the subsequent table
+delineates delays on the incident link up to a time frame of `X+1', with
+`X+1' exemplifying a duration like `2hrs + 30mins'.''
 
-\begin{figure}
+\hypertarget{motorway-links}{%
+\subsubsection{Motorway Links}\label{motorway-links}}
 
-{\centering \includegraphics{04_results_files/figure-pdf/fig-modelplot-1.pdf}
+Incidents only occur on motorway (freeway links) so when we look at
+those comprehensively how do they compare to one another (comparing the
+baseline to the incidents only)
 
-}
+\hypertarget{total-vhd}{%
+\subsubsection{Total VHD}\label{total-vhd}}
 
-\caption{\label{fig-modelplot}Estimated model coefficients and
-confidence intervals.}
+What were the total travel times and total vehicle hours of delay?
 
-\end{figure}
+\hypertarget{imt-impact}{%
+\subsection{IMT Impact}\label{imt-impact}}
 
-With those results presented, you can go into a discussion of what they
-mean. first, discuss the actual results that are shown in the table, and
-then any interesting or unintuitive observations.
+Initiating this segment of the results section, our focus will shift
+towards understanding the impacts of the IMT scenarios. In particular,
+we will compare the outcomes of the current IMT fleet, comprising 20
+vehicles, against a hypothetical expanded fleet, which would encompass
+the original 20 vehicles along with an added 10. Subsections will delve
+into various aspects of these scenarios.
 
-\hypertarget{additional-analysis}{%
-\subsection{Additional Analysis}\label{additional-analysis}}
+Primary areas of exploration include examining parameters such as
+average incident duration and the ensuing capacity reductions under both
+the prevailing incident frequency and its amplified variant. More
+granular analyses might probe into the average delay on incident links,
+offering insights either categorized into discrete time segments or
+spread across the simulated day. Subsequent to this, our attention will
+turn to dissecting the average delay observed across all motorway links,
+thereby illuminating the differential in VHD (vehicle hours of delay)
+when considering the baseline, the status quo of the IMT fleet, and the
+proposed expanded fleet scenarios.
 
-Usually, it is good to use your model for something.
+As we transition to a discussion on the cumulative vehicle hours
+traveled, we will aim to contrast these metrics across the scenarios. It
+would be an oversimplification to ascribe variations in delay
+exclusively to the presence or absence of incidents. The evident
+distinctions between scenarios, especially those with the IMT
+interventions, hint at the intricate interplay of various factors,
+setting the stage for a deeper dive in the upcoming IMT impact sections.
 
-\begin{itemize}
-\tightlist
-\item
-  Hypothetical policy analysis
-\item
-  Statistical validation effort
-\item
-  Equity or impact analysis
-\end{itemize}
+\hypertarget{imt-arrival-times}{%
+\subsubsection{IMT Arrival Times}\label{imt-arrival-times}}
 
-If the analysis is substantial, it might become its own top-level
-section.
+This section elucidates the disparity in average response durations
+required for each IMT to reach the incident sites, contingent upon the
+scenario under consideration. The analysis zeroes in on contrasting the
+response durations of our extant IMT fleet, comprising 20 vehicles, with
+a proposed augmented fleet with an additional 10 IMT vehicles. This
+discourse aptly paves the way for the ensuing section, detailing how
+delays on incident links and their feeder counterparts are contingent
+upon IMT vehicle presence. A revisitation or citation of the methodology
+might enhance comprehension, especially regarding distinctions between
+the ``incidents only'' scenario and its ``IMT current'' and ``IMT
+improved'' counterparts.
+
+\hypertarget{incident-and-feeder-links}{%
+\subsubsection{Incident and Feeder
+Links}\label{incident-and-feeder-links}}
+
+Similar to the motorway links discussion in the Incident Impact section.
+It might be worth it to have an example that highlights the delays
+during the time interval before the IMT arrives and the delay after they
+arrive, then once again of course, compare the average delays on
+incident links and feeder links up until a certain time after the
+incident ends and the link returns to its full capacity.
+
+\hypertarget{motorway-links-1}{%
+\subsection{\#Motorway Links}\label{motorway-links-1}}
+
+\hypertarget{total-vhd-1}{%
+\subsubsection{Total VHD}\label{total-vhd-1}}
+
+\hypertarget{limitations}{%
+\subsection{Limitations}\label{limitations}}
 
 \bookmarksetup{startatroot}
 
