@@ -17,10 +17,6 @@ library(htmltools)
 
 devtools::install_github("matsim-vsp/matsim-r")
 
-NETWORK <- "networks/highways_network.xml.gz"
-
-setwd("C:/Users/djarvis3/imt_optimization/R")
-
 # prevent warning about global use of "name". Thanks dplyr
 utils::globalVariables(c("name"))
 
@@ -39,6 +35,7 @@ utils::globalVariables(c("name"))
 #' @return "nodes" and "links" tibbles in a list object.
 #'
 #' @export
+
 read_network <- function(filename) {
   cat(filename, ": ")
   network <- read_xml(filename)
@@ -157,6 +154,3 @@ read_network <- function(filename) {
   
   list("nodes" = nodes, "links" = links, "attributes" = networkAttributes)
 }
-
-# Use the read_network function to read in the MATSim network as tibble
-network_table <- read_network(NETWORK)

@@ -14,6 +14,19 @@ library(mlogit)
 
 This section might be called "Results" instead of "Applications," depending on what it is that you are working on. But you'll probably say something like "The initial model estimation results are given in @tbl-estimationresults" That table is created with the `modelsummary()` package and function.
 
+```{r truck_data}
+tar_load(truck_data)
+```
+
+```{r truck_data}
+#| label: fig-truckplots
+#| fig-cap: Average truck travel time.
+tar_load(truck_plots)
+truck_plots
+```
+
+
+
 ```{r estimation}
 tar_load(models)
 ```
@@ -24,9 +37,7 @@ tar_load(models)
 modelsummary(models, estimate = "{estimate} ({statistic})")
 ```
 
-Sometimes, it is nice to put the models or your other results into a figure instead
-of a table. Have a look at @fig-modelplot. Note that your figures might look better
-in pdf if you use the `tikz` rendering device.
+Sometimes, it is nice to put the models or your other results into a figure instead of a table. Have a look at @fig-modelplot. Note that your figures might look better in pdf if you use the `tikz` rendering device.
 
 ```{r modelplot}
 #| label: fig-modelplot
@@ -36,9 +47,7 @@ modelplot(models) +
   xlab("Coefficient estimates")
 ```
 
-
 With those results presented, you can go into a discussion of what they mean. first, discuss the actual results that are shown in the table, and then any interesting or unintuitive observations.
-
 
 ## Additional Analysis
 

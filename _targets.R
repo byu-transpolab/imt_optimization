@@ -21,7 +21,11 @@ tar_option_set(
 # Install packages {{future}}, {{future.callr}}, and {{future.batchtools}} to allow use_targets() to configure tar_make_future() options.
 
 # Load the R scripts stored in R/ with your custom functions:
-for (file in list.files("R", full.names = TRUE)) source(file)
+# for (file in list.files("R", full.names = TRUE)) source(file)
+source("R/data_and_models.R")
+source("R/truck_travel_comparison.R")
+source("R/load_network.R")
+
 # source("other_functions.R") # Source other scripts as needed. # nolint
 
 # Replace the target list below with your own:
@@ -33,5 +37,36 @@ list(
   tar_target(
     name = models,
     command = estimate_models(car_mlogit)
+  ),
+  
+  # We add the Network and turn it into a tibble with these targets
+  tar_target(
+    name = network_xml,
+    command = "data/network/highways_network.xml.gz",
+    format = "file"
+  ),
+  
+  tar_target(
+    name = network_table,
+    command = read_network(network_xml)
+  ),
+  
+  # We add in the 
+  
+  # We make the truck travel from the Truck
+  tar_target(
+    name = truck_csv,
+    command = "data/truck/truck_travel.csv",
+    format = "file"
+  ),
+  
+  tar_target(
+    name = truck_data,
+    command = read_truck_travel_data(truck_csv)
+  ),
+  
+  tar_target(
+    name = truck_plots,
+    command = make_truck_plots(truck_data)
   )
 )
