@@ -27,6 +27,7 @@ source("R/load_network.R")
 source("R/results_by_type.R")
 source("R/impacted_link_table.R")
 source("R/link_tables_plots.R")
+source("R/motorway_link_plots.R")
 
 # source("other_functions.R") # Source other scripts as needed. # nolint
 
@@ -65,6 +66,7 @@ list(
     command = generate_link_delays_table("data/link_delays", network_table)
   ),
   
+  # Make the all_links summary table
   tar_target(
     name = delay_summary_table,
     command = write_delay_summary_table(delay_table),
@@ -74,6 +76,18 @@ list(
   tar_target(
     name = all_links_plot,
     command = make_all_links_plot(delay_summary_table)
+  ),
+  
+  # Make motorway_links summary table
+  tar_target(
+    name = motorway_link_table,
+    command = write_motorway_delay_table(delay_table)
+  ),
+  
+  # Make motorway_plot
+  tar_target(
+    name = motorway_links_plot,
+    command = make_motorway_links_plot(motorway_link_table)
   ),
   
   # Combine the impacted links files into a table
