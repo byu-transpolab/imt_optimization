@@ -3,6 +3,8 @@ install.packages("ggpattern")
 library(dplyr)
 library(ggplot2)
 library(RColorBrewer)
+library(ggpattern)
+
 
   write_motorway_delay_table <- function(delay_table){
     motorway_delay_table <- delay_table %>%

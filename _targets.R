@@ -22,12 +22,18 @@ tar_option_set(
 
 # Load the R scripts stored in R/ with your custom functions:
 # for (file in list.files("R", full.names = TRUE)) source(file)
-source("R/truck_travel_comparison.R")
+
 source("R/load_network.R")
-source("R/results_by_type.R")
-source("R/impacted_link_table.R")
-source("R/link_tables_plots.R")
-source("R/motorway_link_plots.R")
+
+source("R/generate_link_delays_table.R")
+
+source("R/all_links_plots.R")
+source("R/motorway_links_plots.R")
+
+source("R/impacted_links_table.R")
+source("R/impacted_links_plots.R")
+
+source("R/truck_travel_comparison.R")
 
 # source("other_functions.R") # Source other scripts as needed. # nolint
 
@@ -93,7 +99,25 @@ list(
   # Combine the impacted links files into a table
   tar_target(
     name = impacted_links_table,
-    command = write_impacted_links_table("data/incident_analysis/delay/incident_link_delays") 
+    command = write_impacted_links_table("data/incident_analysis/delay/incident_link_delays")
+  ),
+  
+  # Group the impacted links by their type
+  tar_target(
+    name = incident_links_group_table,
+    command = write_sorted_impacted_links(impacted_links_table)
+  ),
+  
+  # Summarize the impacted link data here
+  tar_target(
+    name = impacted_links_summary,
+    command = summarize_impacted_link_table(incident_links_group_table)
+  ),
+  
+  # Make the impacted links plot
+  tar_target(
+    name = impacted_links_plot,
+    command = make_impacted_links_plot(impacted_links_summary)
   ),
   
   # We make the truck travel from the Truck

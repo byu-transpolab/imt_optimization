@@ -5,9 +5,7 @@ library(ggplot2)
 library(RColorBrewer)
 library(ggpattern)
 
-
-make_all_links_plot <- function(delay_table) {
-  
+write_delay_summary_table <- function(delay_table){
   delay_per_seed <- delay_table %>%
     group_by(scenario, seed, incidents) %>%
     summarise(total_delay = sum(total, na.rm = TRUE))
@@ -26,9 +24,12 @@ make_all_links_plot <- function(delay_table) {
     summarise(total_delay = sum(total_delay, na.rm = TRUE) / n()) %>%
     mutate(incident_frequency = "Current") %>%
     mutate(incident_frequency = if_else(scenario == "Baseline", "Baseline", incident_frequency))
-    
+  
   # Combine the tables
   delay_summary <- bind_rows(increased_incidents, current_incidents)
+}
+
+make_all_links_plot <- function(delay_summary) {
   
   ordered_scenarios <- c("Baseline", "Incidents", "Current", "Increased")
   
