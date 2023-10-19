@@ -12,8 +12,6 @@
 library(mlogit)
 ```
 
-This section might be called "Results" instead of "Applications," depending on what it is that you are working on. But you'll probably say something like "The initial model estimation results are given in @tbl-estimationresults" That table is created with the `modelsummary()` package and function.
-
 ## Scenario Results from MATSim Simulations
 
 The study utilized the MATSim model to conduct 20 simulations across three differentiated scenarios: "Incidents", "Current", and "Increased". Within the "Incidents" scenario, a random subset of incidents was produced without any subsequent intervention from incident management teams (IMTs). The "Current" scenario included incidents paired with responsive measures from UDOT's existing fleet of 20 IMT vehicles. The "Increased" scenario is analogous to the "Current" framework, yet it alters the model with an additional grouping of 10 IMT vehicles, culminating in a fleet of 30 vehicles.
@@ -124,74 +122,36 @@ The scatter plot provides deeper insight into the nuances of the average inciden
 
 Moving ahead, another crucial variable emerges: the performance metrics associated with the IMT trucks. Such metrics encompass total travel time, the average distance traversed by each truck, and their average response time. Similar to VHD, these truck-related metrics might hold significance for UDOT and other transportation agencies. They will be elaborated upon in the subsequent section.
 
-```{r estimation}
-tar_load(models)
+## IMT Vehicle Analysis
+
+Equally critical to understanding how IMT implementation affects agent delay and travel time is assessing the efficacy of IMTs in reaching their intended destinations. This results segment delves into truck travel behavior, capturing metrics such as average travel times and distances, along with their typical incident response times. The analysis encompasses both the Current-IMT-Fleet scenarios and the Increased-IMT-Fleet scenarios—the latter introduces 10 more vehicles to the pre-existing fleet of 20. Before delving deeper, some context regarding the positioning of these vehicles within the network and their operational hours.
+
+\<\< TO DO: Consider relocating the ensuing IMT setup section to the methodology chapter. Also, decide on the sequencing of the IMT Vehicle Analysis and the Vehicle Hours of Delay section for better flow. \>\>
+
+### IMT Vehicle Setup
+
+The Utah Department of Transportation's current IMT fleet is organized into three zones corresponding to the three counties they serve within the Wasatch Front: Davis, Salt Lake, and Utah counties. Figure 6, titled "IMT Starting Locations," illustrates the boundaries of each county and the starting points for both existing and new IMT vehicles.
+
+![IMT Starting Locations.](figures/fig6.png){#fig-IMT_Map}
+
+In this figure, the existing vehicles are represented by circles, while stars indicate the new additions. These starting locations are designed to ensure a roughly even distribution throughout each respective county based on shift types—either day or afternoon. This arrangement doesn't exactly mirror the real-world starting points for IMT truck drivers, who often begin their shifts from their homes. However, as the majority of their work is concentrated along major interstates like I-15, I-80, and I-215, and given the variability in starting locations from day to day, positioning them along these primary routes made sense for the given MATSim Scenario simulations. Importantly, the "Increased-IMT" scenario includes all the vehicles from the "Existing" or "Current" fleet, with an additional 10 new vehicles distributed across the three counties.
+
+The focus of our investigation isn't necessarily on the influence of starting locations on IMT effectiveness. Instead, the focus is an analysis of the potential impacts of increasing the number of vehicles in the Incident Management team fleet, assuming these vehicles are distributed in a roughly equidistant manner.
+
+Additionally, it's important to mention vehicle scheduling. All three counties utilize both day and afternoon shifts. In Salt Lake and Davis counties, the day shift typically spans from 6:00 AM to 2:30 PM, with the afternoon shift running from 2:00 PM to 10:30 PM. In contrast, vehicles in Utah County operate from 6:00 AM to 4:30 PM and from 9:30 AM to 8:00 PM. These timeframes, combined with the starting links for each scenario, are adjustable parameters within the trucks file for the MATSim scenario runs.
+
+In practice, IMT vehicles rarely cross county borders during operations since they collaborate closely with the Utah Highway Patrol (UHP) dispatch service. This service typically refrains from directing vehicles across counties. While MATSim allows for setting such virtual boundaries, we didn't apply this constraint to our established network. This means that, based on proximity to an incident, an IMT vehicle might move from Davis to Salt Lake County or from Salt Lake to Utah County and vice versa. With the vehicle configurations clarified, our focus shifts to evaluating the performance of these vehicles across the 20 operational scenarios.
+
+### IMT Travel Time
+
+The 
+
+```{r impacted_links_plot}
+#| label: fig-impacted_links_plot
+#| fig-cap: Average VHD per incident sorted by Seed.
+tar_load(impacted_links_plot)
+impacted_links_plot
 ```
 
-```{r estimation-results}
-#| label: tbl-estimationresults
-#| tbl-cap: Model Summary Results
-modelsummary(models, estimate = "{estimate} ({statistic})")
-```
-
-Sometimes, it is nice to put the models or your other results into a figure instead of a table. Have a look at @fig-modelplot. Note that your figures might look better in pdf if you use the `tikz` rendering device.
-
-```{r modelplot}
-#| label: fig-modelplot
-#| fig-cap: Estimated model coefficients and confidence intervals.
-#| 
-modelplot(models) +
-  xlab("Coefficient estimates")
-```
-
-With those results presented, you can go into a discussion of what they mean. first, discuss the actual results that are shown in the table, and then any interesting or unintuitive observations.
-
-## Additional Analysis
-
-Usually, it is good to use your model for something.
-
--   Hypothetical policy analysis
--   Statistical validation effort
--   Equity or impact analysis
-
-If the analysis is substantial, it might become its own top-level section.
-
-## Truck Travel
-
-## Incident Impact
-
-Initiating the results section, we will compare the baseline scenario against the incident-only scenarios. Subsections will likely delve into parameters such as the average incident duration and capacity reductions under both the current incident frequency and its increased counterpart. Potential subdivisions might explore, for instance, average delay on incident links---either stratified into time segments or evaluated throughout the simulated day. Following this, an examination of the average delay across all motorway links will unravel, spotlighting the variations in VHD (vehicle hours of delay) between the baseline, current, and increased incident scenarios. The next discussion might broach the total vehicle hours traveled, contrasting these figures. While it could be tempting to attribute any disparities in delay solely to incidents, the pronounced divergence between baseline and incident scenarios suggests external factors may have a role, meriting exploration in subsequent IMT impact sections.
-
-### Incdient and Feeder Links
-
-For a tangible grasp, selecting an exemplar incident link could be beneficial, perhaps comparing delay in the baseline with delay subsequent to a capacity-reducing network change event, possibly illustrated via a table format. This will segue into an evaluation of average delays on directly impacted links and their preceding feeder links. Adopting an illustrative approach, one might assert, "Given that the average incident duration stands at 'X', the subsequent table delineates delays on the incident link up to a time frame of 'X+1', with 'X+1' exemplifying a duration like '2hrs + 30mins'."
-
-### Motorway Links
-
-Incidents only occur on motorway (freeway links) so when we look at those comprehensively how do they compare to one another (comparing the baseline to the incidents only)
-
-### Total VHD
-
-What were the total travel times and total vehicle hours of delay?
-
-## IMT Impact
-
-Initiating this segment of the results section, our focus will shift towards understanding the impacts of the IMT scenarios. In particular, we will compare the outcomes of the current IMT fleet, comprising 20 vehicles, against a hypothetical expanded fleet, which would encompass the original 20 vehicles along with an added 10. Subsections will delve into various aspects of these scenarios.
-
-Primary areas of exploration include examining parameters such as average incident duration and the ensuing capacity reductions under both the prevailing incident frequency and its amplified variant. More granular analyses might probe into the average delay on incident links, offering insights either categorized into discrete time segments or spread across the simulated day. Subsequent to this, our attention will turn to dissecting the average delay observed across all motorway links, thereby illuminating the differential in VHD (vehicle hours of delay) when considering the baseline, the status quo of the IMT fleet, and the proposed expanded fleet scenarios.
-
-As we transition to a discussion on the cumulative vehicle hours traveled, we will aim to contrast these metrics across the scenarios. It would be an oversimplification to ascribe variations in delay exclusively to the presence or absence of incidents. The evident distinctions between scenarios, especially those with the IMT interventions, hint at the intricate interplay of various factors, setting the stage for a deeper dive in the upcoming IMT impact sections.
-
-### IMT Arrival Times
-
-This section elucidates the disparity in average response durations required for each IMT to reach the incident sites, contingent upon the scenario under consideration. The analysis zeroes in on contrasting the response durations of our extant IMT fleet, comprising 20 vehicles, with a proposed augmented fleet with an additional 10 IMT vehicles. This discourse aptly paves the way for the ensuing section, detailing how delays on incident links and their feeder counterparts are contingent upon IMT vehicle presence. A revisitation or citation of the methodology might enhance comprehension, especially regarding distinctions between the "incidents only" scenario and its "IMT current" and "IMT improved" counterparts.
-
-### Incident and Feeder Links
-
-Similar to the motorway links discussion in the Incident Impact section. It might be worth it to have an example that highlights the delays during the time interval before the IMT arrives and the delay after they arrive, then once again of course, compare the average delays on incident links and feeder links up until a certain time after the incident ends and the link returns to its full capacity.
-
-## #Motorway Links
-
-### Total VHD
 
 ## Limitations
