@@ -144,14 +144,34 @@ In practice, IMT vehicles rarely cross county borders during operations since th
 
 ### IMT Travel Time
 
-The 
+Travel times for IMT trucks can be extracted from the event files, which are produced as a standard MATSim output. These files provide insights into the distance and time traveled by each IMT vehicle. Utilizing this truck travel data, plots were generated to illustrate the average travel times and distances for each dispatched truck within a given scenario. Figure @truck_time_plot illustrates the average travel time for each dispatched vehicle:
 
-```{r impacted_links_plot}
-#| label: fig-impacted_links_plot
-#| fig-cap: Average VHD per incident sorted by Seed.
-tar_load(impacted_links_plot)
-impacted_links_plot
+```{r truck_csv}
+tar_load(truck_csv)
 ```
 
+```{r truck_time_plot}
+#| label: fig-truck_time_plot
+#| fig-cap: Average Time Traveled Per Scenario per Dispatched Truck
+tar_load(truck_time_plot)
+truck_time_plot
+```
+
+Figure @truck_time_plot indicates the average travel time per scenario for each dispatched truck. In every scenario, the cumulative travel time for all dispatched vehicles was computed, followed by division by the count of trucks deployed. Furthermore, an analysis of the @truck_csv data reveals that scenarios with an "Increased" fleet of 30 vehicles generally dispatched more trucks than scenarios with a fleet of only 20 vehicles. A nearly analogous methodology was employed to generate the @truck_distance_plot discussed in the subsequent section.
+
+### IMT Travel Distance
+
+As with the variation in truck_time across different scenario alternatives, there is a clear distinction between 'Increased' and 'Current' IMT fleet scenarios in terms of the average distance traveled per dispatched vehicle. These results are visualized in the Figure @truck_distance_plot.
+
+```{r truck_time_plot}
+#| label: fig-truck_distance_plot
+#| fig-cap: Average Distance Traveled Per Scenario per Dispatched Truck
+tar_load(truck_distance_plot)
+truck_distance_plot
+```
+
+The data presented in the above figure underscores a direct correlation between an increased number of vehicles and a decrease in average distance traveled per truck. Notably, the "Increased" vehicle fleet benefited in both time and distance scenarios by commencing from identical locations as the "Current Fleet" scenarios. This advantage was made more noticed by the addition of vehicles to bridge the spatial intervals between the existing vehicles.
+
+Altering the starting locations of the vehicles or having them circulate in a route, as opposed to commencing their activities from a stationary location, could potentially influence both the time and distance traveled in either a favorable or adverse manner. However, it's pertinent to note that the Utah Department of Transportation was not principally focused on determining the "optimal" starting location for IMT vehicles in this research. While this aspect was not explored in the present study, it presents an intriguing avenue for future investigations using the IMT deployment MATSim package associated with this report.
 
 ## Limitations

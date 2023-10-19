@@ -1,4 +1,4 @@
-Scenario,Seed,Incidents,Truck,Total Time (seconds),Total Distance (meters),Number of Trucks Deployed,Average_Time_seconds,Average Distance (meters)
+Scenario,Seed,Incidents,Truck,Total Time (seconds),Total Distance (meters),Number of Trucks Deployed,Average_Time_seconds,Average_Distance_meters
 Current,141,12,Davis_506,0,0,12,4578.75,28945.13594
 Current,141,12,Davis_512,0,0,12,4578.75,28945.13594
 Current,141,12,Davis_518,0,0,12,4578.75,28945.13594

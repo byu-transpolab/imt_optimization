@@ -148,13 +148,17 @@ list(
   tar_target(
     name = truck_time_plot,
     command = make_truck_time_plot(truck_time)
+  ),
+  
+  # Make truck_distance_table
+  tar_target(
+    name = truck_distance,
+    command = write_truck_distance_data(truck_csv)
+  ),
+
+  # Make truck_time_plot
+  tar_target(
+    name = truck_distance_plot,
+    command = make_truck_distance_plot(truck_distance)
   )
 )
-  
-#   # Make truck_distance_table
-#   tar_target(
-#     name = truck_distance_table,
-#     command = make_truck_distance_table(truck_data)
-#   )
-#   
-# )
