@@ -174,4 +174,9 @@ The data presented in the above figure underscores a direct correlation between 
 
 Altering the starting locations of the vehicles or having them circulate in a route, as opposed to commencing their activities from a stationary location, could potentially influence both the time and distance traveled in either a favorable or adverse manner. However, it's pertinent to note that the Utah Department of Transportation was not principally focused on determining the "optimal" starting location for IMT vehicles in this research. While this aspect was not explored in the present study, it presents an intriguing avenue for future investigations using the IMT deployment MATSim package associated with this report.
 
-## Limitations
+### IMT Response Times
+
+\<\< TO DO: In this section, we will present a detailed analysis of the average vehicle response time to each incident, based on the data visualized in a plot prepared by Brynn. Upon completion of her NFS work, she will further elaborate on the findings and their implications. \>\>
+
+
+\<\< TO DO: For optimal comprehension and flow, it is important to determine the most suitable sequence for presenting the results. The chosen order will ensure better transitions from the methodology section and will set the stage effectively for the conclusion.\>\>
