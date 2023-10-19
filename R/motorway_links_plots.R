@@ -8,9 +8,8 @@ library(ggpattern)
 
   write_motorway_delay_table <- function(delay_table){
     motorway_delay_table <- delay_table %>%
-      # These seeds are still finishing their 450th iteration runs and will be excluded from the graph for now. 
+      # This seeds are still finishing their 450th iteration runs and will be excluded from the graph for now. 
       # I'll add them back in once they've finished running
-      filter(!(seed %in% c(879, 847, 418))) %>%
       filter(`Link Type` == "motorway") %>%
       group_by(scenario, seed, incidents, `Link Type`) %>%
       summarise(total_delay = sum(total, na.rm = TRUE))

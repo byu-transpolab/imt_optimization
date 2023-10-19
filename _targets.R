@@ -23,16 +23,22 @@ tar_option_set(
 # Load the R scripts stored in R/ with your custom functions:
 # for (file in list.files("R", full.names = TRUE)) source(file)
 
+
+# load network script. don't mess with it
 source("R/load_network.R")
 
+# script to generate link delay table
 source("R/generate_link_delays_table.R")
 
+# link tables and plots
 source("R/all_links_plots.R")
 source("R/motorway_links_plots.R")
 
+# impacted links tables and plots
 source("R/impacted_links_table.R")
 source("R/impacted_links_plots.R")
 
+# truck travel r-script
 source("R/truck_travel_comparison.R")
 
 # source("other_functions.R") # Source other scripts as needed. # nolint
@@ -52,21 +58,7 @@ list(
     command = read_network(network_xml)
   ),
   
-  # We then add in the link delay data with the following targets
-  # The link delays data is produced by multiplying the values in two CSV files 
-  # together, the "data/average_delay" files and the "data/link_volumes" files
-  
-  # The "average_delay" files come from a MATSim output for the average link
-  # delay. We are using the delay from the final (100th) iteration in the output.
-  # These output files are in the Box/MATSim_Outputs folder.
-  
-  # The "link_volumes" files are produced by running the "RunVolumeEventHandler" class
-  # This class uses the network_xml object and the Events from the scenario outputs  "Box\MATSim_Analysis\Volume_Analysis\Events"
-  
-  # Both the "average_delay" and "link_volume" folders are within the data folder
-  # To multiply they together we use the "DelayCalculation.ipynb" python script within the data folder.
-  
-  # All that being said, here is the target for the link delays and their table
+  # Make delay table from delay files and network table
   tar_target(
     name = delay_table,
     command = generate_link_delays_table("data/link_delays", network_table)
@@ -120,20 +112,30 @@ list(
     command = make_impacted_links_plot(impacted_links_summary)
   ),
   
-  # We make the truck travel from the Truck
+  # We make the truck travel from the truck_travel csv file
   tar_target(
     name = truck_csv,
     command = "data/truck/truck_travel.csv",
     format = "file"
   ),
   
+  # Process truck time data from CSV file
   tar_target(
-    name = truck_data,
-    command = read_truck_travel_data(truck_csv)
+    name = truck_time,
+    command = write_truck_time_data(truck_csv)
   ),
   
+  # Make truck_time_plot
   tar_target(
-    name = truck_plots,
-    command = make_truck_plots(truck_data)
+    name = truck_time_plot,
+    command = make_truck_time_plot(truck_time)
   )
 )
+  
+#   # Make truck_distance_table
+#   tar_target(
+#     name = truck_distance_table,
+#     command = make_truck_distance_table(truck_data)
+#   )
+#   
+# )

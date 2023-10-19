@@ -36,7 +36,6 @@ library(RColorBrewer)
     
     summarize_impacted_link_table <- function(incident_links_group_table){
       impacted_delay_table <- incident_links_group_table %>%
-        filter(Scenario != "Baseline") %>%
         filter(Group == "Impacted") %>%
         group_by(Scenario, Seed, Incidents) %>%
         summarise(total_delay_during_incident = sum(`Delay During Incident Total [hours]`, na.rm = TRUE))
