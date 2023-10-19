@@ -34,23 +34,22 @@ Each scenario, with the exception of the baseline, encompasses ten distinct sub-
 
 Within the array of scenario groupings, those equipped with an IMT fleet of 30 vehicles exhibited the most effective results, on average. Following closely were the scenarios reliant on the current fleet, and, as anticipated, the incident-only scenarios registered the maximal Total VHD values. An intriguing observation arises when evaluating the VHD in the context of incident frequency: the patterns do not align with conventional expectations. For instance, in the incident-only scenarios, the average total VHD for scenarios incorporating increased incidents escalated by approximately one percent compared to the scenarios representing the current incident frequency. Yet, when evaluating scenarios associated with both the existing and increased IMT fleet sizes, the distinction between the current and increased incident frequencies was notably marginal.
 
-
 \<\< TO DO: try to explain why it is that there is so little difference between the current and increased incident frequency groupings. Can it be attributed to the incidents that were selected? Is that something that you can discover when looking into the impacted links VHD? \>\>
 
-```{r truck_data}
+```{r delay_table}
 tar_load(delay_table)
 ```
 
-```{r truck_data}
-#| label: fig-network_delays_table
-#| fig-cap: average VHD for scenario groups
+```{r delay_comparison}
+#| label: tbl-network_delays_table
+#| tbl-cap: Average VHD for Scenario Groups
 tar_load(all_links_comparison_table)
 all_links_comparison_table
 ```
 
 Given that the table reveals average delay values aggregated across multiple scenarios within each grouping, a graphical representation can offer enhanced clarity regarding the inherent variance within these data clusters. The ensuing figure illustrates the this data through various violin plots.
 
-```{r truck_data}
+```{r all_links_plot}
 #| label: fig-network_violin_plot
 #| fig-cap: VHD for scenario groups in violins.
 tar_load(all_links_plot)
@@ -60,6 +59,35 @@ all_links_plot
 Within this visualization, each violin illustrates the density distribution of delay values. The increased width in certain sections of the violin signifies regions where a number of simulations converged around a specific delay value. Conversely, the narrow sections denote fewer simulations converging around that delay metric. To further contextualize each scenario, a dashed horizontal line has been superimposed, signifying the Baseline scenario, serving as a reference point for comparison. Additionally, the diamond markers situated within each plot symbolize the mean delay for all simulations in the respective scenario.
 
 Upon inspection of these violins, several observations can be made. For instance, in the "Incidents" scenario, the delay distribution is characterized by a relatively constricted spread at the lower end, fanning out around the 100,000 mark, with the mean delay skewing closer to 104,000, influenced by the values approaching 120,000 total hours of delay. The distribution within the "Current" scenario exhibits significant variability, reflected in its consistent width. The scenario with the "Increased" IMT fleet manifests marginally reduced variability in comparison to the "Current" scenario, and contains pronounced sections around 90,000 VHD and 100,000 VHD.
+
+While the preceding section discussed delays for the entire network, it's relevant to highlight that all simulated incidents occurred on motorway links, chiefly along the major interstates of Utah's Wasatch front. This includes key routes such as I-15, I-80, I-215, among other prominent freeways and highways. The following section delves into the simulation outcomes specifically pertaining to these motorway links.
+
+### Motorway Link Hours of Delay
+
+Recognizing the utility of comparing average simulation performances, the table labeled `motorway_delays_table` below details the mean Total VHD for each grouping, categorized by scenario and incident frequency values.
+
+```{r motorway_comparison}
+#| label: tbl-motorway_delays_table
+#| tbl-cap: Average VHD of Motorway Links
+tar_load(motorway_summary_table)
+motorway_summary_table
+```
+
+Contrasted with the network_delays table, focusing solely on motorway links reveals that the average VHD surge for incidents-only scenarios relative to the baseline of the same links exceeds 45%. Interestingly, in comparison with the full network delay scenarios, both the "Current" and "Increased" IMT vehicle fleet scenarios demonstrated improved average performances on motorways, converging towards, and occasionally even dropping below, the baseline delay measures on these links.
+
+Intriguingly, the trend discerned among the full network links (which presented a challenge in correlating additional incidents with increased delays) inverts in the context of motorway links. Here, the IMT scenarios seem to fare better (indicating reduced delays) in contexts with fewer incidents, and slightly worse in scenarios with incident incident counts. However, it's curious to observe that in the "Incidents" scenario, the mean delay across scenarios was notably poorer in contexts with twelve or fewer incidents than in those with a heightened incident tally.
+
+For a more granular understanding of the variances within to the scenario groupings, the motorway_violin plot provides additional insights.
+
+```{r truck_data}
+#| label: fig-motorway_violin_plot
+#| fig-cap: VHD for scenario groups in violins.
+tar_load(motorway_links_plot)
+motorway_links_plot
+```
+As depicted in the violin plot, both the "incidents-only" scenario groupings exhibit wide spans throughout their plots, signifying a pronounced variance in delays across the simulations. Notably, the plots for both the "Current" and "Increased" IMT fleet scenarios are wide near the baseline mean value, which hovers around 15,000 VHD. This expansion, however, diminishes as the scenarios transition to higher total delay hours. Particularly in outlier scenarios, the "Increased" fleet, equip with additional vehicles, seems to mitigate delay increases along the motorway links more effectively than is occasionally evident in the "Current" vehicle scenarios.
+
+Moving on, the last level by which VHD is compared are the 'Impacted Links' on the network, those are, the links on which the simulated incidents occur as well as two links upstream of each incident link.
 
 ```{r truck_data}
 tar_load(truck_data)

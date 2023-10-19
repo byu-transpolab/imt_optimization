@@ -85,14 +85,20 @@ list(
   
   # Make motorway_links summary table
   tar_target(
-    name = motorway_link_table,
-    command = write_motorway_delay_table(delay_table)
+    name = motorway_delay_summary,
+    command = write_motorway_summary_table(delay_table)
+  ),
+  
+  # Make the motorway comparison table for the report
+  tar_target(
+    name = motorway_summary_table,
+    command = write_motorway_comparison_table(motorway_delay_summary)
   ),
   
   # Make motorway_plot
   tar_target(
     name = motorway_links_plot,
-    command = make_motorway_links_plot(motorway_link_table)
+    command = make_motorway_links_plot(motorway_delay_summary)
   ),
   
   # Combine the impacted links files into a table

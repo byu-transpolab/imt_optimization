@@ -100,7 +100,7 @@ make_all_links_plot <- function(delay_summary) {
       legend.position = "top right",
       legend.title = element_text(face = "bold")
     ) +
-    annotate("text", x = 1, y = baseline_value - 1000, label = "Baseline", color = "black", size = 4.5, hjust = 1) # Adjust y position (baseline_value - 20) to move text lower
+    annotate("text", x = 1, y = baseline_value - 500, label = "Baseline", color = "black", size = 4.5, hjust = 1) # Adjust y position (baseline_value - 20) to move text lower
   
   return(all_links_plot)
 }
