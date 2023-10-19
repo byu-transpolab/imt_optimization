@@ -1,4 +1,4 @@
-## Results
+# Results
 
 ```{r setup, file = "R/chapter_start.R", include = FALSE}
 # a number of commands need to run at the beginning of each chapter. This
@@ -13,6 +13,14 @@ library(mlogit)
 ```
 
 This section might be called "Results" instead of "Applications," depending on what it is that you are working on. But you'll probably say something like "The initial model estimation results are given in @tbl-estimationresults" That table is created with the `modelsummary()` package and function.
+
+## Scenario Results from MATSim Simulations
+
+The study utilized the MATSim model to conduct 20 simulations across three differentiated scenarios: "Incidents", "Current", and "Increased". Within the "Incidents" scenario, a random subset of incidents was produced without any subsequent intervention from incident management teams (IMTs). The "Current" scenario included incidents paired with responsive measures from UDOT's existing fleet of 20 IMT vehicles. The "Increased" scenario is analogous to the "Current" framework, yet it alters the model with an additional grouping of 10 IMT vehicles, culminating in a fleet of 30 vehicles.
+
+These distinct scenarios were compared internally as well as against a "Baseline" scenario devoid of any incidents or IMT presence. Cumulatively, 61 simulation scenarios were executed, each subjected to 450 MATSim iterations. This iterative approach ensured that a majority of scenarios gravitated towards a state where travel plans displayed minimal variance between successive iterations, effectively achieving an equilibrium in travel behavior and cumulative vehicle hours traveled by the simulation's conclusion.
+
+Subsequent sections of this chapter are dedicated to analyzing the output results from these scenarios, emphasizing comparative metrics such as vehicle hours of delay (VHD), the ramifications of incidents, and the IMT response dynamics pertaining to these incidents.
 
 ```{r truck_data}
 tar_load(truck_data)
