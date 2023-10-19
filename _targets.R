@@ -65,15 +65,22 @@ list(
   ),
   
   # Make the all_links summary table
+  # Uses the all_links_plots.R script
   tar_target(
-    name = delay_summary_table,
+    name = delay_summary,
     command = write_delay_summary_table(delay_table),
+  ),
+  
+  # Make the all_links comparison table for the report
+  tar_target(
+    name = all_links_comparison_table,
+    command = write_all_links_comparison_table(delay_summary),
   ),
   
   # Make the all_links plot
   tar_target(
     name = all_links_plot,
-    command = make_all_links_plot(delay_summary_table)
+    command = make_all_links_plot(delay_summary)
   ),
   
   # Make motorway_links summary table
