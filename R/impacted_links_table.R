@@ -77,11 +77,3 @@
       
       return(impacted_links_table)
     }
-    
-    save_impacted_links_to_csv <- function(data, output_filepath) {
-      write.csv(data, output_filepath, row.names = FALSE)
-    }
-    
-    # Usage:
-    # impacted_links_table <- write_impacted_links_table("path_to_folder")
-    # save_impacted_links_to_csv(impacted_links_table, "path_to_save.csv")

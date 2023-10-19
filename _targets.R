@@ -36,7 +36,8 @@ source("R/motorway_links_plots.R")
 
 # impacted links tables and plots
 source("R/impacted_links_table.R")
-source("R/impacted_links_plots.R")
+source("R/impacted_links_summary.R")
+source("R/impacted_links_plot.R")
 
 # truck travel r-script
 source("R/truck_travel_comparison.R")
@@ -109,20 +110,25 @@ list(
   
   # Group the impacted links by their type
   tar_target(
-    name = incident_links_group_table,
+    name = impacted_links,
     command = write_sorted_impacted_links(impacted_links_table)
   ),
   
   # Summarize the impacted link data here
   tar_target(
-    name = impacted_links_summary,
-    command = summarize_impacted_link_table(incident_links_group_table)
+    name = impacted_summary_table,
+    command = summarize_impacted_link_table(impacted_links)
   ),
   
-  # Make the impacted links plot
+  tar_target(
+    name = delay_per_seed,
+    command = write_delay_per_seed_table(impacted_links)
+  ),
+  
+  # Make the impacted links scatter plot
   tar_target(
     name = impacted_links_plot,
-    command = make_impacted_links_plot(impacted_links_summary)
+    command = make_impacted_links_plot(delay_per_seed)
   ),
   
   # We make the truck travel from the truck_travel csv file

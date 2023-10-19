@@ -89,9 +89,26 @@ As depicted in the violin plot, both the "incidents-only" scenario groupings exh
 
 Moving on, the last level by which VHD is compared are the 'Impacted Links' on the network, those are, the links on which the simulated incidents occur as well as two links upstream of each incident link.
 
-```{r truck_data}
-tar_load(truck_data)
+
+### Impacted Links
+
+The impacted links are defined as the links on which an incident occurs as well as it first two "Feeder" links, that is the two links on which traffic most often flows before reaching the incident motorway link. Links within the motorway vary substantially by length, so in some cases two additional links might not have been sufficient at capturing the delay caused by a particular incident. That being said the `impacted_summary_table` still provides valuable insites regarding how the delay on impact links varies based on the scenario of the simulation. Another explained for the table, Total VHD was calculated by taking the incidents duration (start to end times) plus one hour after the incident was resolved. Note that, in the simulations ran IMT vehicles only increase the capacity of the incident link, but do not decrease it's duration. Then that for the 'Incident Impact Time' of the incident duration plus one hour, the delay values of the incident link and its two Feeder Links were added together to calculate a 'Delay from Incident [hours]' variable that is used in the scatter plot below. Following that, to produce the summary_table the values of all of the 'Delay from Incident [hours]' value in a scenario and incident frequency grouping were added together to produce a Total VHD of delay value for each scenario grouping. With the results as follows:  
+
+
+```{r impacted_links}
+tar_load(impacted_links)
 ```
+
+```{r impacted_summary_table}
+#| label: tbl-impacted_links
+#| tbl-cap: Impacted Links Table
+tar_load(impacted_summary_table)
+impacted_summary_table
+```
+
+As seen in the table the Baseline scenario is divided into two sections. This is simple so that it can more accurately compared against the other three scenarios. Although there are no incidents on in the Baseline scenario its values are based on the summation of the Delay times for the same links as the other scenarios.
+
+From the total delay we see that, similar to the other VHD comparisons the Increased IMT scenario produced VHD closest to the baseline values, followed by th Current fleet scenario, and then the Incidents-only groupings. As might have been anticipated the increased incident frequency 
 
 ```{r truck_data}
 #| label: fig-truckplots
@@ -132,7 +149,7 @@ Usually, it is good to use your model for something.
 
 If the analysis is substantial, it might become its own top-level section.
 
-# Truck Travel
+## Truck Travel
 
 ## Incident Impact
 
