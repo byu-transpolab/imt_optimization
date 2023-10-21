@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<networkChangeEvents xmlns="http://www.matsim.org/files/dtd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.matsim.org/files/dtd http://www.matsim.org/files/dtd/networkChangeEvents.xsd">
+
+	<networkChangeEvent startTime="07:24:41">
+		<link refId="13467"/>
+		<flowCapacity type="absolute" value="6658.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="08:34:28">
+		<link refId="18310"/>
+		<flowCapacity type="absolute" value="8220.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="07:52:47">
+		<link refId="18310"/>
+		<flowCapacity type="absolute" value="6850.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="08:59:15">
+		<link refId="13467"/>
+		<flowCapacity type="absolute" value="8220.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="08:49:59">
+		<link refId="13208"/>
+		<flowCapacity type="absolute" value="1817.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="09:28:48">
+		<link refId="13208"/>
+		<flowCapacity type="absolute" value="5190.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="08:56:27">
+		<link refId="13388"/>
+		<flowCapacity type="absolute" value="3893.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="10:04:13">
+		<link refId="13388"/>
+		<flowCapacity type="absolute" value="5190.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="09:35:04">
+		<link refId="13390"/>
+		<flowCapacity type="absolute" value="3893.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="10:26:00">
+		<link refId="13390"/>
+		<flowCapacity type="absolute" value="5190.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="10:50:59">
+		<link refId="13244"/>
+		<flowCapacity type="absolute" value="6212.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="11:49:42">
+		<link refId="13244"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="11:41:15">
+		<link refId="13413"/>
+		<flowCapacity type="absolute" value="4640.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="12:24:00">
+		<link refId="13413"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="12:58:48">
+		<link refId="16560"/>
+		<flowCapacity type="absolute" value="1255.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="14:07:10">
+		<link refId="16560"/>
+		<flowCapacity type="absolute" value="1767.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="13:28:48">
+		<link refId="17496"/>
+		<flowCapacity type="absolute" value="3893.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="14:25:19">
+		<link refId="17496"/>
+		<flowCapacity type="absolute" value="5190.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="15:23:21">
+		<link refId="16613"/>
+		<flowCapacity type="absolute" value="1178.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:12:37">
+		<link refId="16613"/>
+		<flowCapacity type="absolute" value="1767.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="15:26:16">
+		<link refId="13072"/>
+		<flowCapacity type="absolute" value="5088.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:47:26">
+		<link refId="13072"/>
+		<flowCapacity type="absolute" value="6784.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="15:31:24">
+		<link refId="13007"/>
+		<flowCapacity type="absolute" value="5613.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:45:00">
+		<link refId="13007"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="15:54:31">
+		<link refId="24911"/>
+		<flowCapacity type="absolute" value="3460.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:28:02">
+		<link refId="24911"/>
+		<flowCapacity type="absolute" value="5190.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:07:57">
+		<link refId="18523"/>
+		<flowCapacity type="absolute" value="4460.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="17:19:32">
+		<link refId="18523"/>
+		<flowCapacity type="absolute" value="8920.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:18:55">
+		<link refId="25173"/>
+		<flowCapacity type="absolute" value="1414.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:54:32">
+		<link refId="25173"/>
+		<flowCapacity type="absolute" value="1767.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:41:15">
+		<link refId="13119"/>
+		<flowCapacity type="absolute" value="3948.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="18:52:11">
+		<link refId="13119"/>
+		<flowCapacity type="absolute" value="5892.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="17:24:00">
+		<link refId="12931"/>
+		<flowCapacity type="absolute" value="6237.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="17:49:54">
+		<link refId="12931"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="17:27:04">
+		<link refId="13018"/>
+		<flowCapacity type="absolute" value="4419.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="18:37:49">
+		<link refId="13018"/>
+		<flowCapacity type="absolute" value="5892.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="17:28:22">
+		<link refId="12816"/>
+		<flowCapacity type="absolute" value="2595.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="17:58:07">
+		<link refId="12816"/>
+		<flowCapacity type="absolute" value="5190.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="18:58:03">
+		<link refId="12942"/>
+		<flowCapacity type="absolute" value="6237.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="20:21:27">
+		<link refId="12942"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+</networkChangeEvents>

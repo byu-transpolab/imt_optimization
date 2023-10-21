@@ -42,6 +42,11 @@ source("R/impacted_links_plot.R")
 # truck travel r-script
 source("R/truck_travel_comparison.R")
 
+# truck arrival r-scripts
+source("R/truck_arrival_comparison.R")
+source("R/truck_arrival_plot.R")
+source("R/truck_arrival_violin.R")
+
 # source("other_functions.R") # Source other scripts as needed. # nolint
 
 # Replace the target list below with your own:
@@ -134,7 +139,7 @@ list(
   # We make the truck travel from the truck_travel csv file
   tar_target(
     name = truck_csv,
-    command = "data/truck/truck_travel.csv",
+    command = "data/truck_data/truck_travel.csv",
     format = "file"
   ),
   
@@ -160,5 +165,28 @@ list(
   tar_target(
     name = truck_distance_plot,
     command = make_truck_distance_plot(truck_distance)
+  ),
+  
+  # We make the truck_arrival_data from its corresponding CSV
+  tar_target(
+    name = truck_arrival_data,
+    command = "data/truck_data/arrival_times.csv",
+    format = "file"
+  ),
+  
+  # Make the truck_arrival_table
+  tar_target(
+    name= truck_arrival_table,
+    command = write_truck_arrival_table(truck_arrival_data)
+  ),
+  
+  tar_target(
+    name = truck_arrival_plot,
+    command = make_truck_arrival_plot(truck_arrival_data)
+  ),
+  
+  tar_target(
+    name = truck_arrival_violin_plot,
+    command = make_truck_violin_plot(truck_arrival_data)
   )
 )

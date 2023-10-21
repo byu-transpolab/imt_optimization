@@ -1,0 +1,4 @@
+Scenario,Average Truck Arrival Time [mins],1st Truck Average [mins],2nd Truck Average [mins],3rd Truck Average [mins],4th Truck Average [mins],Total Truck Travel [hours]
+2,14.97590837,11.13839286,21.09367816,28.86014493,30.14444444,105.3305556
+3,10.9686019,8.939345238,13.21925287,21.19710145,34.92222222,77.14583333
+Number of Incidents,280,280,116,23,3,280

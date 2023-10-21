@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<networkChangeEvents xmlns="http://www.matsim.org/files/dtd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.matsim.org/files/dtd http://www.matsim.org/files/dtd/networkChangeEvents.xsd">
+
+	<networkChangeEvent startTime="09:51:34">
+		<link refId="9120"/>
+		<flowCapacity type="absolute" value="4490.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="11:00:08">
+		<link refId="9120"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="13:59:07">
+		<link refId="8944"/>
+		<flowCapacity type="absolute" value="1010.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="15:15:19">
+		<link refId="8944"/>
+		<flowCapacity type="absolute" value="1767.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="14:20:42">
+		<link refId="13073"/>
+		<flowCapacity type="absolute" value="5427.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="15:35:00">
+		<link refId="13073"/>
+		<flowCapacity type="absolute" value="6784.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="14:47:30">
+		<link refId="13425"/>
+		<flowCapacity type="absolute" value="5613.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:40:00">
+		<link refId="13425"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:34:45">
+		<link refId="13485"/>
+		<flowCapacity type="absolute" value="3742.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="17:53:00">
+		<link refId="13485"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:45:28">
+		<link refId="12919"/>
+		<flowCapacity type="absolute" value="3742.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:58:08">
+		<link refId="12919"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="16:54:20">
+		<link refId="12920"/>
+		<flowCapacity type="absolute" value="5314.0"/>
+	</networkChangeEvent>
+
+	<networkChangeEvent startTime="18:28:06">
+		<link refId="12920"/>
+		<flowCapacity type="absolute" value="7484.0"/>
+	</networkChangeEvent>
+
+</networkChangeEvents>

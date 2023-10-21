@@ -9,26 +9,34 @@
 ```{r setup2, include = FALSE}
 # Other packages ------
 # These are packages that get used in this chapter but aren't part of the default set.
+install.packages("knitr")
+install.packages("kableExtra")
+
+
 library(mlogit)
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(tidyr)
 ```
 
 ## Scenario Results from MATSim Simulations
 
-The study utilized the MATSim model to conduct 20 simulations across three differentiated scenarios: "Incidents", "Current", and "Increased". Within the "Incidents" scenario, a random subset of incidents was produced without any subsequent intervention from incident management teams (IMTs). The "Current" scenario included incidents paired with responsive measures from UDOT's existing fleet of 20 IMT vehicles. The "Increased" scenario is analogous to the "Current" framework, yet it alters the model with an additional grouping of 10 IMT vehicles, culminating in a fleet of 30 vehicles.
+The study utilized the MATSim model to conduct 20 simulations across three different scenarios: "Incidents", "Current", and "Increased". Within the "Incidents" scenario, a random subset of incidents was produced without any subsequent intervention from incident management teams (IMTs). The "Current" scenario included incidents paired with responsive measures from UDOT's existing fleet of 20 IMT vehicles. The "Increased" scenario is similar to the "Current" framework, but was equip with an additional grouping of 10 IMT vehicles, for a total of 30 vehicles.
 
-These distinct scenarios were compared internally as well as against a "Baseline" scenario devoid of any incidents or IMT presence. Cumulatively, 61 simulation scenarios were executed, each subjected to 450 MATSim iterations. This iterative approach ensured that a majority of scenarios gravitated towards a state where travel plans displayed minimal variance between successive iterations, effectively achieving an equilibrium in travel behavior and cumulative vehicle hours traveled by the simulation's conclusion.
+These scenarios were compared internally as well as against a "Baseline" scenario devoid of any incidents or IMT presence. Cumulatively, 61 simulation scenarios were executed, each subjected to 450 MATSim iterations. This iterative approach ensured that a majority of scenarios gravitated towards a state where travel plans displayed minimal variance between successive iterations, effectively achieving an equilibrium in travel behavior by the simulation's conclusion.
 
 Subsequent sections of this chapter are dedicated to analyzing the output results from these scenarios, emphasizing comparative metrics such as vehicle hours of delay (VHD), the ramifications of incidents, and the IMT response dynamics pertaining to these incidents.
 
 ## Vehicle Hours of Delay
 
-One of the principal metrics utilized to analyze the simulation scenarios is the Total Vehicle Hours of Delay (VHD). The analysis of vehicle hours of delay was divided into three tiers of investigation. Firstly, the overarching network (termed "All Links"). Secondly, the links MATSim categorizes as motorway links --- often referred to as freeway links. Lastly, the specific links where incidents occur, in addition to the two immediate upstream links. This cluster of links is labeled "Impact Links" for the purposes of this study.
+One of the principal metrics utilized to analyze the simulation scenarios is total vehicle hours of delay (VHD). The analysis of VHD was divided into three tiers of investigation. First, the delay within the overarching network (termed "All Links"). Second, the delay on links MATSim categorizes as motorway links --- often referred to as freeways and highways in other transportation contexts. Lastly, the specific links where incidents occur, in addition to the two immediate upstream links. This cluster of links is labeled "Impact Links" for the purposes of this study.
 
-Overall, it is apparent that the IMT vehicles' influence within the simulations is most relevant at the "Impact Link" level. However, their effects permeate every tier of analysis. While the outcomes of certain scenarios align with anticipated projections, others deviate from intuitive or foreseen results. The subsequent analysis will commence with an exploration of the "All Links" scenarios.
+Overall, it is apparent that the IMT vehicles' influence within the simulations is most apparent at the "Impact Link" level. However, their effects permeate every tier of analysis. While the outcomes of certain scenarios align with anticipated projections, others deviate from intuitive or assumed results. The subsequent analysis will commence with an exploration of the "All Links" scenarios.
 
 ### Network Hours of Delay
 
-Each scenario, with the exception of the baseline, encompasses ten distinct sub-scenarios. The table, titled 'Average VHD', indicates the mean hours of delay for each scenario cluster. Additionally, it includes a comparative metric, showcasing the percentage deviation in VHD from the baseline scenario.
+Each scenario, with the exception of the baseline, encompasses ten distinct sub-scenarios. @tbl-network_delays_table indicates the mean hours of delay for each scenario cluster. Additionally, it includes a comparative metric, showcasing the percentage deviation in VHD from the baseline scenario.
 
 Within the array of scenario groupings, those equipped with an IMT fleet of 30 vehicles exhibited the most effective results, on average. Following closely were the scenarios reliant on the current fleet, and, as anticipated, the incident-only scenarios registered the maximal Total VHD values. An intriguing observation arises when evaluating the VHD in the context of incident frequency: the patterns do not align with conventional expectations. For instance, in the incident-only scenarios, the average total VHD for scenarios incorporating increased incidents escalated by approximately one percent compared to the scenarios representing the current incident frequency. Yet, when evaluating scenarios associated with both the existing and increased IMT fleet sizes, the distinction between the current and increased incident frequencies was notably marginal.
 
@@ -83,14 +91,14 @@ For a more granular understanding of the variances within to the scenario groupi
 tar_load(motorway_links_plot)
 motorway_links_plot
 ```
+
 As depicted in the violin plot, both the "incidents-only" scenario groupings exhibit wide spans throughout their plots, signifying a pronounced variance in delays across the simulations. Notably, the plots for both the "Current" and "Increased" IMT fleet scenarios are wide near the baseline mean value, which hovers around 15,000 VHD. This expansion, however, diminishes as the scenarios transition to higher total delay hours. Particularly in outlier scenarios, the "Increased" fleet, equip with additional vehicles, seems to mitigate delay increases along the motorway links more effectively than is occasionally evident in the "Current" vehicle scenarios.
 
 Continuing the discussion, the final tier for comparing VHD is the 'Impacted Links' on the network. These refer to the links where the simulated incidents take place, as well as the two links immediately preceding each incident link.
 
-
 ### Impacted Links
 
-Impacted links are described as the links where an incident occurs, along with its first two "Feeder" links. These are the two links through which traffic most commonly flows before reaching the incident motorway link. Given the variation in link lengths within the motorway, in certain instances, taking into account just two additional links may not adequately capture the delay prompted by a specific incident. Nevertheless, the `impacted_summary_table` offers significant insights about how delay on impacted links fluctuates based on the simulation scenario. For context regarding the table, Total VHD is computed by considering the duration of the incidents (from start to finish) and adding one hour post resolution of the incident. In the simulations conducted, IMT vehicles only enhance the capacity of the incident link, without shortening its duration. Therefore, for the 'Incident Impact Time', which encompasses the incident duration and an added hour, the delay values of the incident link and its two Feeder Links are aggregated to compute a 'Delay from Incident [hours]' variable, showcased in the subsequent scatter plot. To curate the summary_table, the values from all 'Delay from Incident [hours]' entries within a scenario and incident frequency group were summed. This sum equates to the Total VHD of delay value for each respective scenario. The results are presented below:
+Impacted links are described as the links where an incident occurs, along with its first two "Feeder" links. These are the two links through which traffic most commonly flows before reaching the incident motorway link. Given the variation in link lengths within the motorway, in certain instances, taking into account just two additional links may not adequately capture the delay prompted by a specific incident. Nevertheless, the `impacted_summary_table` offers significant insights about how delay on impacted links fluctuates based on the simulation scenario. For context regarding the table, Total VHD is computed by considering the duration of the incidents (from start to finish) and adding one hour post resolution of the incident. In the simulations conducted, IMT vehicles only enhance the capacity of the incident link, without shortening its duration. Therefore, for the 'Incident Impact Time', which encompasses the incident duration and an added hour, the delay values of the incident link and its two Feeder Links are aggregated to compute a 'Delay from Incident \[hours\]' variable, showcased in the subsequent scatter plot. To curate the summary_table, the values from all 'Delay from Incident \[hours\]' entries within a scenario and incident frequency group were summed. This sum equates to the Total VHD of delay value for each respective scenario. The results are presented below:
 
 ```{r impacted_links}
 tar_load(impacted_links)
@@ -107,7 +115,7 @@ As observed in the table, the Baseline scenario is divide into two segments, ens
 
 From the cumulative delay data, it's clear that, in line with other VHD comparisons, the VHD in the Increased IMT scenario most closely mirrors the baseline. This is followed by the Current fleet scenarios and then the Incidents-only groupings. As expected, a rise in incident frequency leads to an increase in Total VHD. However, the consideration of additional links makes a direct comparison of these values less straightforward.
 
-In another perspective, the 'Average Delay Per Incident [hours]' column divides the total VHD by the number of incidents within a given category (90 incidents in the current scenario and 193 in the increased frequency scenario). This calculation reveals a notable observation: when comparing the average delay per incident between the current and increased incident frequencies under the incidents scenario, there's a significant 160% increase in the Average Delay Per Incident. This suggests that the incidents selected in the current scenario might have been, on average, more impactful than those in the increased scenario.
+In another perspective, the 'Average Delay Per Incident \[hours\]' column divides the total VHD by the number of incidents within a given category (90 incidents in the current scenario and 193 in the increased frequency scenario). This calculation reveals a notable observation: when comparing the average delay per incident between the current and increased incident frequencies under the incidents scenario, there's a significant 160% increase in the Average Delay Per Incident. This suggests that the incidents selected in the current scenario might have been, on average, more impactful than those in the increased scenario.
 
 For a more granular view, the scatter plot below organizes data by seed type. Incident numbers and seed values serve as y-axis labels (e.g., "12_141" indicates a scenario with 12 incidents associated with the seed value 141). The scatter plot is presented as follows:
 
@@ -124,7 +132,7 @@ Moving ahead, another crucial variable emerges: the performance metrics associat
 
 ## IMT Vehicle Analysis
 
-Equally critical to understanding how IMT implementation affects agent delay and travel time is assessing the efficacy of IMTs in reaching their intended destinations. This results segment delves into truck travel behavior, capturing metrics such as average travel times and distances, along with their typical incident response times. The analysis encompasses both the Current-IMT-Fleet scenarios and the Increased-IMT-Fleet scenarios—the latter introduces 10 more vehicles to the pre-existing fleet of 20. Before delving deeper, some context regarding the positioning of these vehicles within the network and their operational hours.
+Equally critical to understanding how IMT implementation affects agent delay and travel time is assessing the efficacy of IMTs in reaching their intended destinations. This results segment delves into truck travel behavior, capturing metrics such as average travel times and distances, along with their typical incident response times. The analysis encompasses both the Current-IMT-Fleet scenarios and the Increased-IMT-Fleet scenarios---the latter introduces 10 more vehicles to the pre-existing fleet of 20. Before delving deeper, some context regarding the positioning of these vehicles within the network and their operational hours.
 
 \<\< TO DO: Consider relocating the ensuing IMT setup section to the methodology chapter. Also, decide on the sequencing of the IMT Vehicle Analysis and the Vehicle Hours of Delay section for better flow. \>\>
 
@@ -134,7 +142,7 @@ The Utah Department of Transportation's current IMT fleet is organized into thre
 
 ![IMT Starting Locations.](figures/fig6.png){#fig-IMT_Map}
 
-In this figure, the existing vehicles are represented by circles, while stars indicate the new additions. These starting locations are designed to ensure a roughly even distribution throughout each respective county based on shift types—either day or afternoon. This arrangement doesn't exactly mirror the real-world starting points for IMT truck drivers, who often begin their shifts from their homes. However, as the majority of their work is concentrated along major interstates like I-15, I-80, and I-215, and given the variability in starting locations from day to day, positioning them along these primary routes made sense for the given MATSim Scenario simulations. Importantly, the "Increased-IMT" scenario includes all the vehicles from the "Existing" or "Current" fleet, with an additional 10 new vehicles distributed across the three counties.
+In this figure, the existing vehicles are represented by circles, while stars indicate the new additions. These starting locations are designed to ensure a roughly even distribution throughout each respective county based on shift types---either day or afternoon. This arrangement doesn't exactly mirror the real-world starting points for IMT truck drivers, who often begin their shifts from their homes. However, as the majority of their work is concentrated along major interstates like I-15, I-80, and I-215, and given the variability in starting locations from day to day, positioning them along these primary routes made sense for the given MATSim Scenario simulations. Importantly, the "Increased-IMT" scenario includes all the vehicles from the "Existing" or "Current" fleet, with an additional 10 new vehicles distributed across the three counties.
 
 The focus of our investigation isn't necessarily on the influence of starting locations on IMT effectiveness. Instead, the focus is an analysis of the potential impacts of increasing the number of vehicles in the Incident Management team fleet, assuming these vehicles are distributed in a roughly equidistant manner.
 
@@ -176,7 +184,52 @@ Altering the starting locations of the vehicles or having them circulate in a ro
 
 ### IMT Response Times
 
-\<\< TO DO: In this section, we will present a detailed analysis of the average vehicle response time to each incident, based on the data visualized in a plot prepared by Brynn. Upon completion of her NFS work, she will further elaborate on the findings and their implications. \>\>
+This is the average truck arrival time table:
+
+```{r truck_arrival_table, results='asis'}
+
+#| label: fig-truck_arrival_table
+#| fig-cap: Average Arrival Time Per Scenario
+tar_load(truck_arrival_table)
+
+# Update Scenario values
+truck_arrival_table$Scenario <- recode(truck_arrival_table$Scenario, "2" = "20 IMTs", "3" = "30 IMTs")
+
+# Ensure that all text columns are treated as character
+truck_arrival_table <- truck_arrival_table %>%
+  mutate(across(where(is.character), as.character))
+
+# Apply formatting
+formatted_table <- truck_arrival_table %>%
+  mutate(across(-Scenario, ~ifelse(Scenario == "Number of Incidents", as.integer(.), .))) %>%
+  mutate(across(where(is.numeric), scales::comma)) %>%
+  mutate(Scenario = cell_spec(Scenario, bold = TRUE, color = ifelse(Scenario == "Number of Incidents", "black", "black"))) %>%
+  kable("html", booktabs = TRUE, escape = FALSE, caption = "Average Arrival Time Per Scenario", align = c('l', rep('c', ncol(truck_arrival_table) - 1))) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, full_width = FALSE) %>%
+  column_spec(1, width = "3cm") %>%
+  column_spec(2:6, width = "2cm") %>%
+  row_spec(3, bold = TRUE, background = "#D3D3D3") # Light gray background for the last row
+
+# Print the formatted table
+formatted_table
+
+```
+
+This is the average truck arrival time plot:
+
+```{r truck_arrival_plot}
+#| label: fig-truck_arrival_plot
+#| fig-cap: Truck Arrival Comparison by Scenario
+tar_load(truck_arrival_plot)
+truck_arrival_plot
+```
+
+```{r truck_violin_plot}
+#| label: fig-truck_violin_plot
+#| fig-cap: Truck Arrival Violin Comparison
+tar_load(truck_arrival_violin_plot)
+truck_arrival_violin_plot
+```
 
 
 \<\< TO DO: For optimal comprehension and flow, it is important to determine the most suitable sequence for presenting the results. The chosen order will ensure better transitions from the methodology section and will set the stage effectively for the conclusion.\>\>
