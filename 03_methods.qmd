@@ -1,5 +1,31 @@
 # Methodology
 
+Building on the core principles discussed in sections 2.1 and 2.2 of the literature review, this methodology section delves into the practical aspects of analyzing the impacts of incidents and Incident Management Team (IMT) vehicle responses on the network and its agents. The section focuses on three primary considerations. The first, "IMT Vehicle Configuration and Incident Selection," addresses the determination of variables such as the size of the IMT fleet, their starting locations and schedules, and the specifics of incident locations and severity, all of which can significantly impact network performance measures. Following this, "MATSim Functionality" explores the representation of these variables within the MATSim network, aiming to authentically mirror real-world conditions and accurately reflect agent behavior. Lastly, "Scenario Simulations and Comparisons" describes the various scenarios that were simulated, detailing the criteria and methodologies employed in their comparative analysis. Together, these sections provide a comprehensive overview of the approach taken to assess the network's responsiveness and efficiency under varying conditions of incident and IMT vehicle interaction.
+
+## IMT Vehicle Configuration and Incident Selection
+
+The location and fleet sizes of Incident Management Teams (IMTs) play crucial roles in determining vehicle response times, a relationship explored by @lou2011 and @pal2002. Additionally, @schultz2019 highlighted a significant correlation between response time (RT) and roadway clearance time (RCT). In the 'IMT Vehicle Setup' section, we organize the IMT vehicle setups thoughtfully, taking these factors into account and adhering to recommendations from Utah Highway Patrol officials regarding this project.
+
+In addition to these considerations, the type and severity of incidents significantly affect average travel times and delay, as demonstrated by the research conducted by @kaddoura2018. The 'Incident Data' and 'Incident Sampling' sections detail our approach to selecting incidents for the simulation scenarios, based on the data acquired from concurrent research.
+
+### IMT Vehicle Setup
+
+The Utah Department of Transportation currently poses a fleet of 20 IMT vehicles dispersed among three zones corresponding to the three counties they serve within the Wasatch Front: Davis, Salt Lake, and Utah counties. @fig-IMT_Map illustrates the boundaries of each county and the starting points for both existing and new IMT vehicles.
+
+![IMT Starting Locations.](figures/imt_map.png){#fig-IMT_Map}
+
+In this figure, the existing vehicles are represented by circles, while stars indicate the new additions. These starting locations are designed to ensure a roughly even distribution throughout each respective county based on shift types---either day or afternoon. This arrangement doesn't exactly mirror the real-world starting points for IMT truck drivers, who often begin their shifts from their homes. However, as the majority of their work is concentrated along major interstates like I-15, I-80, and I-215, and given the variability in starting locations from day to day, positioning them along these primary routes made sense for the given MATSim Scenario simulations. Importantly, the "Increased-IMT" scenario includes all the vehicles from the "Existing" or "Current" fleet, with an additional 10 new vehicles distributed across the three counties.
+
+The focus of our investigation isn't necessarily on the influence of starting locations on IMT effectiveness. Instead, the focus is an analysis of the potential impacts of increasing the number of vehicles in the Incident Management team fleet, assuming these vehicles are distributed in a roughly equidistant manner.
+
+Additionally, it's important to mention vehicle scheduling. All three counties utilize both day and afternoon shifts. In Salt Lake and Davis counties, the day shift typically spans from 6:00 AM to 2:30 PM, with the afternoon shift running from 2:00 PM to 10:30 PM. In contrast, vehicles in Utah County operate from 6:00 AM to 4:30 PM and from 9:30 AM to 8:00 PM. These timeframes, combined with the starting links for each scenario, are adjustable parameters within the trucks file for the MATSim scenario runs.
+
+In practice, IMT vehicles rarely cross county borders during operations since they collaborate closely with the Utah Highway Patrol (UHP) dispatch service. This service typically refrains from directing vehicles across counties. While MATSim allows for setting such virtual boundaries, we didn't apply this constraint to our established network. This means that, based on proximity to an incident, an IMT vehicle might move from Davis to Salt Lake County or from Salt Lake to Utah County and vice versa. With the vehicle configurations clarified, our focus shifts to evaluating the performance of these vehicles across the 20 operational scenarios.
+
+## MATSim Functionality
+
+## Scenario Simulations and Comparisons
+
 ## Incident Response in MATSim
 
 In this section, the development of the model for the Utah Incident Management Team (IMT) Optimization project is explored, furthering the discussions presented in sections 2.2 and 2.3 of the literature review. The model is intentionally designed to demonstrate the impacts of traffic incidents on the overall flow of traffic, while also evaluating the integral role of Incident Management Teams (IMTs) within the simulation environment.

@@ -78,6 +78,7 @@ list(
   ),
   
   # Make the all_links comparison table for the report
+  # From R/Script: "R/generate_link_delays_table.R"
   tar_target(
     name = all_links_comparison_table,
     command = write_all_links_comparison_table(delay_summary),

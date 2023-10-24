@@ -134,22 +134,6 @@ Moving ahead, another crucial variable emerges: the performance metrics associat
 
 Equally critical to understanding how IMT implementation affects agent delay and travel time is assessing the efficacy of IMTs in reaching their intended destinations. This results segment delves into truck travel behavior, capturing metrics such as average travel times and distances, along with their typical incident response times. The analysis encompasses both the Current-IMT-Fleet scenarios and the Increased-IMT-Fleet scenarios---the latter introduces 10 more vehicles to the pre-existing fleet of 20. Before delving deeper, some context regarding the positioning of these vehicles within the network and their operational hours.
 
-\<\< TO DO: Consider relocating the ensuing IMT setup section to the methodology chapter. Also, decide on the sequencing of the IMT Vehicle Analysis and the Vehicle Hours of Delay section for better flow. \>\>
-
-### IMT Vehicle Setup
-
-The Utah Department of Transportation's current IMT fleet is organized into three zones corresponding to the three counties they serve within the Wasatch Front: Davis, Salt Lake, and Utah counties. Figure 6, titled "IMT Starting Locations," illustrates the boundaries of each county and the starting points for both existing and new IMT vehicles.
-
-![IMT Starting Locations.](figures/fig6.png){#fig-IMT_Map}
-
-In this figure, the existing vehicles are represented by circles, while stars indicate the new additions. These starting locations are designed to ensure a roughly even distribution throughout each respective county based on shift types---either day or afternoon. This arrangement doesn't exactly mirror the real-world starting points for IMT truck drivers, who often begin their shifts from their homes. However, as the majority of their work is concentrated along major interstates like I-15, I-80, and I-215, and given the variability in starting locations from day to day, positioning them along these primary routes made sense for the given MATSim Scenario simulations. Importantly, the "Increased-IMT" scenario includes all the vehicles from the "Existing" or "Current" fleet, with an additional 10 new vehicles distributed across the three counties.
-
-The focus of our investigation isn't necessarily on the influence of starting locations on IMT effectiveness. Instead, the focus is an analysis of the potential impacts of increasing the number of vehicles in the Incident Management team fleet, assuming these vehicles are distributed in a roughly equidistant manner.
-
-Additionally, it's important to mention vehicle scheduling. All three counties utilize both day and afternoon shifts. In Salt Lake and Davis counties, the day shift typically spans from 6:00 AM to 2:30 PM, with the afternoon shift running from 2:00 PM to 10:30 PM. In contrast, vehicles in Utah County operate from 6:00 AM to 4:30 PM and from 9:30 AM to 8:00 PM. These timeframes, combined with the starting links for each scenario, are adjustable parameters within the trucks file for the MATSim scenario runs.
-
-In practice, IMT vehicles rarely cross county borders during operations since they collaborate closely with the Utah Highway Patrol (UHP) dispatch service. This service typically refrains from directing vehicles across counties. While MATSim allows for setting such virtual boundaries, we didn't apply this constraint to our established network. This means that, based on proximity to an incident, an IMT vehicle might move from Davis to Salt Lake County or from Salt Lake to Utah County and vice versa. With the vehicle configurations clarified, our focus shifts to evaluating the performance of these vehicles across the 20 operational scenarios.
-
 ### IMT Travel Time
 
 Travel times for IMT trucks can be extracted from the event files, which are produced as a standard MATSim output. These files provide insights into the distance and time traveled by each IMT vehicle. Utilizing this truck travel data, plots were generated to illustrate the average travel times and distances for each dispatched truck within a given scenario. Figure @truck_time_plot illustrates the average travel time for each dispatched vehicle:
