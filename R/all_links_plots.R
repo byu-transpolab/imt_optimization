@@ -57,7 +57,7 @@ write_all_links_comparison_table <- function(delay_summary){
   # Reorder the rows based on custom ordering of Scenario and Incident Frequency
   all_links_comparison_table <- all_links_comparison_table %>%
     arrange(
-      factor(Scenario, levels = c("Baseline", "Incidents", "Current", "Increased")),
+      factor(Scenario, levels = c("Baseline", "Incidents", "20 IMTs", "30 IMTs")),
       factor(`Incident Frequency`, levels = c("Current", "Increased", "Baseline"))
     )
   
@@ -66,7 +66,7 @@ write_all_links_comparison_table <- function(delay_summary){
 
 make_all_links_plot <- function(delay_summary) {
   
-  ordered_scenarios <- c("Baseline", "Incidents", "Current", "Increased")
+  ordered_scenarios <- c("Baseline", "Incidents", "20 IMTs", "30 IMTs")
   
   # Set the levels of the factor for the scenario column
   delay_summary$scenario <- factor(delay_summary$scenario, levels = ordered_scenarios)

@@ -1,5 +1,3 @@
-# Results
-
 ```{r setup, file = "R/chapter_start.R", include = FALSE}
 # a number of commands need to run at the beginning of each chapter. This
 # includes loading libraries that I always use, as well as options for 
@@ -20,31 +18,26 @@ library(dplyr)
 library(tidyr)
 ```
 
+# Results
+
+This section details the outcomes of the Utah Incident Management Team Optimization project, employing the MATSim model to execute a series of simulations across a range of scenarios. Specifically, the scenarios—*Incidents*, *20-Truck*, and *30-Truck*—were compared with a 'Baseline' scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of Incident Management Teams (IMTs) in alleviating traffic disruptions. In total, 61 simulation scenarios were conducted, each undergoing 450 iterations within the MATSim framework to produce a convergence towards a state of equilibrium in travel behavior for most scenarios. This section offers an analysis of the simulation results, concentrating on pivotal comparative metrics such as vehicle hours of delay (VHD), the implications of incidents, and the response dynamics of the IMTs.
+
 ## Scenario Results from MATSim Simulations
 
-The study utilized the MATSim model to conduct 20 simulations across three scenarios: 'Incidents', '20-Truck', and '30-Truck'. Within the *Incidents* scenario, a random subset of incidents was produced without subsequent intervention from incident management teams (IMTs). The *20-Truck* scenario included incidents paired with responsive measures from UDOT's existing fleet of 20 IMT vehicles. The *30-Truck* scenario is similar to the *20-Truck* framework equipped with an additional 10 IMT vehicles.
+The investigation employed the MATSim model to perform 20 simulations for each of the three scenarios: *Incidents*, *20-Truck*, and *30-Truck*. In the *Incidents* scenario, a random subset of incidents was generated, without any intervention from Incident Management Teams (IMTs). The *20-Truck* scenario included the same random incidents, coupled with responsive measures from UDOT’s existing fleet of 20 IMT vehicles. The *30-Truck* scenario mirrored the *20-Truck* framework, albeit with an increased fleet, incorporating an additional 10 IMT vehicles.
 
-These scenarios were compared internally as well as against a "Baseline" scenario devoid of any incidents or IMT presence. Cumulatively, 61 simulation scenarios were executed, each subjected to 450 MATSim iterations. This iterative approach ensured that most scenarios gravitated towards a state where travel plans displayed minimal variance between successive iterations, effectively achieving an equilibrium in travel behavior by the simulation's conclusion.
+These scenarios underwent comparisons against each other as well as against a *Baseline* scenario with no incidents or IMT deployment. In total, the study executed 61 simulation scenarios, each completing a total of 450 iterations within the MATSim model. This iterative approach ensured that a majority of scenarios gravitated towards a state where travel plans displayed minimal variance between successive iterations, effectively achieving an equilibrium in travel behavior by the simulation's end.
 
-Subsequent sections of this chapter are dedicated to analyzing the output results from these scenarios, emphasizing comparative metrics such as vehicle hours of delay (VHD), the ramifications of incidents, and the IMT response dynamics pertaining to these incidents.
+The following sections of this chapter are structured to a analysis of the results derived from these scenarios. This analysis uses comparative metrics such as vehicle hours of delay (VHD), the consequences of traffic incidents, and the dynamics of the IMT responses in relation to these incidents.
 
 ## Vehicle Hours of Delay
 
-One principal metric utilized to analyze the simulation scenarios is total vehicle hours of delay (VHD). The analysis of VHD can be divided into three tiers of investigation. First is the delay within the entire network ('All Links'). Second, the delay on links MATSim categorizes as 'Motorway Links' --- often referred to as freeways and highways in other transportation contexts. Lastly, the 'Impact Links' that include both the specific links where incidents occur as well as the two immediate upstream links.
+The primary metric used in analyzing the simulation scenarios is the total vehicle hours of delay (VHD). This analysis is structured across three distinct tiers: *Network Links*, *Motorway Links*, and *Impacted Links*.
 
-\<\<One principal metric utilized to analyze the simulation scenarios is total vehicle hours of delay (VHD). The analysis of VHD can be divided into three tiers of investigation. The first tier, 'All Links,' has the broadest scope of delay within the entire network. The second tier looks at delay on links that MATSim categorizes as 'Motorway Links'----often referred to as freeways and highways in other transportation contexts. The third tier, 'Impact Links,' looks at delay at both the specific links where incidents occur as well as the two immediate upstream links.\>\> orrrr preferrably
-
-\<\<One principal metric utilized to analyze the simulation scenarios is total vehicle hours of delay (VHD). The analysis of VHD can be divided into three tiers of investigation: Network Links, Motorway Links, and Impacted Links.\>\>
-
-Overall, it is apparent that the IMT vehicles' influence within the simulations is most apparent at the "Impact Link" level. However, their effects permeate every tier of analysis. While the outcomes of certain scenarios align with anticipated projections, others deviate from intuitive or hypothesized results. The subsequent analysis will commence with an exploration of the "All Links" scenarios.
+Overall, it is apparent that the IMT vehicles' influence within the simulations is most apparent at the "Impact Link" level. However, their effects permeate every tier of analysis. While the outcomes of certain scenarios align with anticipated projections, others deviate from intuitive or hypothesized results. The subsequent analysis will commence with an exploration of the *Network Links* comparisons.
 
 ### Network Hours of Delay
-
-Each scenario, with the exception of the baseline, encompasses ten distinct sub-scenarios. @tbl-network_delays_table indicates the mean hours of delay for each scenario cluster. Additionally, it includes a comparative metric, showcasing the percentage deviation in VHD from the baseline scenario.
-
-Within the array of scenario groupings, those equipped with an IMT fleet of 30 vehicles exhibited the most effective results, on average. Following closely were the scenarios reliant on the current fleet, and, as anticipated, the incident-only scenarios registered the maximal Total VHD values. An intriguing observation arises when evaluating the VHD in the context of incident frequency: the patterns do not align with conventional expectations. For instance, in the incident-only scenarios, the average total VHD for scenarios incorporating increased incidents escalated by approximately one percent compared to the scenarios representing the current incident frequency. Yet, when evaluating scenarios associated with both the existing and increased IMT fleet sizes, the distinction between the current and increased incident frequencies was notably marginal.
-
-\<\< TO DO: try to explain why it is that there is so little difference between the current and increased incident frequency groupings. Can it be attributed to the incidents that were selected? Is that something that you can discover when looking into the impacted links VHD? \>\>
+The scenarios can be categorized based on incident response (i.e., *Incidents*, *20-Truck*, and *30-Truck*), the frequency of incidents (i.e., *Current Frequency* and *Increased Frequency*), or a combination of both. In evaluating the results of the 60 scenarios across all network links, or *Network Links*, groups were categorized by both incident response and frequency. The @tbl-network_delays_table provides a summary of the average total vehicle hours of delay (VHD) for each scenario groupings, categorized by incident response and frequency of incidents.
 
 ```{r delay_table}
 tar_load(delay_table)
@@ -57,7 +50,15 @@ tar_load(all_links_comparison_table)
 all_links_comparison_table
 ```
 
-Given that the table reveals average delay values aggregated across multiple scenarios within each grouping, a graphical representation can enhance clarity regarding the inherent variance within these data clusters. The ensuing figure illustrates this data through various violin plots.
+\<\< I am going to fix the labeling of the tables an plots so they are easier to understand and follow the scenario groupings we established in the text -D.J. \>\>
+
+Comparing the results of each scenario groupings, its observed that scenarios including an IMT fleet of 30 vehicles experience the lowest average VHD. Following closely were the scenarios including the current fleet (20 IMTs), and, as anticipated, the incident-only scenarios registered the maximal Total VHD values. 
+
+Contrary to the anticipated correlation between more incidents and longer delays, the VHD patterns and incident frequency relationship is complex. In incident-only scenarios, a mere one percent increase in average total VHD occurs with increased incidents, relative to current frequency scenarios. Interestingly, scenarios incorporating both existing and increased IMT fleets exhibit a slight reduction in average delay, despite an uptick in incident frequency.
+
+\<\< TO DO: try to explain why it is that there is so little difference between the current and increased incident frequency groupings. Can it be attributed to the incidents that were selected? Is that something that you can discover when looking into the impacted links VHD? \>\>
+
+Given that the table reveals average delay values aggregated across multiple scenarios within each grouping, a graphical representation can enhance clarity regarding the inherent variance within these data clusters. @fig-network_violin_plot illustrates this data through various violin plots.
 
 ```{r all_links_plot}
 #| label: fig-network_violin_plot
@@ -66,15 +67,17 @@ tar_load(all_links_plot)
 all_links_plot
 ```
 
-Within this visualization, each violin illustrates the density distribution of delay values. The increased width in certain sections of the violin signifies regions where a number of simulations converged around a specific delay value. Conversely, the narrow sections denote fewer simulations converging around that delay metric. \<\< A dashed horizontal line has been superimposed to further contextualize each scenario, signifying the Baseline scenario as a reference point for comparison. \>\> To further contextualize each scenario, a dashed horizontal line has been superimposed, signifying the Baseline scenario, serving as a reference point for comparison. Additionally, the diamond markers situated within each plot symbolize the mean delay for all simulations in the respective scenario.
+Within this visualization, each violin illustrates the density distribution of delay values. The increased width in certain sections of the violin signifies regions where a number of simulations converged around a specific delay value. Conversely, the narrow sections denote fewer simulations converging around that delay metric. A dashed horizontal line has been superimposed to further explain each scenario, signifying the Baseline scenario as a reference point for comparison. Additionally, the diamond markers situated within each plot symbolize the mean delay for all simulations in the respective scenario group.
 
-Upon inspection of these violins, several observations can be made. For instance, in the *Incidents* scenario, the delay distribution is characterized by a relatively constricted spread at the lower end, fanning out around the 100,000 mark, with the mean delay skewing closer to 104,000, influenced by the values approaching 120,000 total hours of delay. The distribution within the *20-Truck* scenario exhibits significant variability, reflected in its consistent width. The scenario with the *30-Truck* fleet produces marginally reduced variability in comparison to the "Current" scenario, and contains pronounced sections around 90,000 VHD and 100,000 VHD.
+Upon inspection of these violins, several observations can be made. For instance, in the *Incidents* scenario, the delay distribution is characterized by a relatively constricted spread at the lower end, fanning out around the 100,000 mark, with the mean delay skewing closer to 104,000, influenced by the values approaching 120,000 total hours of delay. The distribution within the *20-Truck* scenario exhibits significant variability, reflected by its consistent width. The scenario with the *30-Truck* fleet produces marginally reduced variability in comparison to the *20-Truck* scenario, and contains pronounced sections around 90,000 VHD and 100,000 VHD.
 
 While the preceding section discussed delays for the entire network, it's relevant to highlight that all simulated incidents occurred on motorway links, chiefly along the major interstates of Utah's Wasatch front. This includes key routes such as I-15, I-80, I-215, among other prominent freeways and highways. The following section delves into the simulation outcomes specifically pertaining to these motorway links.
 
 ### Motorway Link Hours of Delay
 
-Recognizing the utility of comparing average simulation performances, the table labeled `motorway_delays_table` below details the mean Total VHD for each grouping, categorized by scenario and incident frequency values.
+In MATSim, the term "motorway" is used to describe a type of link, which may be referred to as "freeway" or "highway" in different contexts. For the sake of consistency, this document primarily uses "motorway links" to refer to these road segments. Still, note that in the simulation, incidents occur on both Interstates and major highways along the Wasatch Front.
+
+For the comparison of average simulation performances, the @tbl-motorway_delays_table table provides a detailed breakdown of the average Total Motorway VHD for each grouping, categorized by scenario and incident frequency values.
 
 ```{r motorway_comparison}
 #| label: tbl-motorway_delays_table
@@ -83,11 +86,11 @@ tar_load(motorway_summary_table)
 motorway_summary_table
 ```
 
-Contrasted with the network_delays table, focusing solely on motorway links reveals that the average VHD surge for incidents-only scenarios relative to the baseline of the same links exceeds 45%. Interestingly, in comparison with the full network delay scenarios, both the "Current" and "Increased" IMT vehicle fleet scenarios demonstrated improved average performances on motorways, converging towards, and occasionally even dropping below, the baseline delay measures on these links.
+Compared to the @tbl-network_delays_table network_delays table, focusing solely on motorway links reveals that the average VHD surge for incidents-only scenarios relative to the baseline of the same links exceeds 45%. Interestingly, in comparison with the full network delay scenarios, both the *20-IMT* and *30-IMT* scenarios demonstrated improved average performances on motorways, converging towards, and occasionally even dropping below, the baseline delay measures on those links.
 
-Intriguingly, the trend discerned among the full network links (which presented a challenge in correlating additional incidents with increased delays) inverts in the context of motorway links. Here, the IMT scenarios seem to fare better (indicating reduced delays) in contexts with fewer incidents, and slightly worse in scenarios with incident incident counts. However, it's curious to observe that in the "Incidents" scenario, the mean delay across scenarios was notably poorer in contexts with twelve or fewer incidents than in those with a heightened incident tally.
+Interestingly, the trend observed among the full network links (which presented a challenge in correlating additional incidents with increased delays) inverts in the context of motorway links. Here, the IMT scenarios seem to fare better (indicating reduced delays) in contexts with fewer incidents, and slightly worse in scenarios with increased incident counts. However, it's curious to observe that in the "Incidents" scenario, the mean delay across scenarios was notably poorer in simulations with twelve or fewer incidents than in those with a heightened incident tally.
 
-For a more granular understanding of the variances within to the scenario groupings, the motorway_violin plot provides additional insights.
+For a more in=depth understanding of the variances within to the scenario groupings, the motorway_violin plot provides additional insights.
 
 ```{r truck_data}
 #| label: fig-motorway_violin_plot
@@ -96,13 +99,15 @@ tar_load(motorway_links_plot)
 motorway_links_plot
 ```
 
-As depicted in the violin plot, both the "incidents-only" scenario groupings exhibit wide spans throughout their plots, signifying a pronounced variance in delays across the simulations. Notably, the plots for both the "Current" and "Increased" IMT fleet scenarios are wide near the baseline mean value, which hovers around 15,000 VHD. This expansion, however, diminishes as the scenarios transition to higher total delay hours. Particularly in outlier scenarios, the "Increased" fleet, equip with additional vehicles, seems to mitigate delay increases along the motorway links more effectively than is occasionally evident in the "Current" vehicle scenarios.
+\<\< TO DO: fix the labeling on this figure. It's kind of gnarly \>\>
 
-Continuing the discussion, the final tier for comparing VHD is the 'Impacted Links' on the network. These refer to the links where the simulated incidents take place, as well as the two links immediately preceding each incident link.
+As depicted in the violin plot, both the "incidents-only" scenario groupings exhibit wide spans throughout their plots, signifying a pronounced variance in delays across the simulations. Notably, the plots for both the *20-IMT* and *30-IMT* scenarios are wide near the baseline mean value, which hovers around 15,000 VHD. This expansion, however, diminishes as the scenarios transition to higher total delay hours. Particularly in outlier scenarios, the *30-IMT* fleet, equip with additional vehicles, seems to mitigate delay increases along the motorway links more effectively than is occasionally evident in the *20-IMT* vehicle scenarios.
+
+Continuing the discussion, the final tier for comparing VHD is the *Impacted Links* on the network. These refer to the links where the simulated incidents take place, as well as the two links immediately preceding each incident link.
 
 ### Impacted Links
 
-Impacted links are described as the links where an incident occurs, along with its first two "Feeder" links. These are the two links through which traffic most commonly flows before reaching the incident motorway link. Given the variation in link lengths within the motorway, in certain instances, taking into account just two additional links may not adequately capture the delay prompted by a specific incident. Nevertheless, the `impacted_summary_table` offers significant insights about how delay on impacted links fluctuates based on the simulation scenario. For context regarding the table, Total VHD is computed by considering the duration of the incidents (from start to finish) and adding one hour post resolution of the incident. In the simulations conducted, IMT vehicles only enhance the capacity of the incident link, without shortening its duration. Therefore, for the 'Incident Impact Time', which encompasses the incident duration and an added hour, the delay values of the incident link and its two Feeder Links are aggregated to compute a 'Delay from Incident \[hours\]' variable, showcased in the subsequent scatter plot. To curate the summary_table, the values from all 'Delay from Incident \[hours\]' entries within a scenario and incident frequency group were summed. This sum equates to the Total VHD of delay value for each respective scenario. The results are presented below:
+Impacted links are described as the links where an incident occurs, along with its first two *Feeder* links. These are the two links through which traffic most commonly flows before reaching the incident motorway link. Given the variation in link lengths within the motorway, in certain instances, taking into account just two additional links may not adequately capture the delay prompted by a specific incident. Nevertheless, the @tbl-impacted_links offers significant insights about how delay on impacted links fluctuates based on the simulation scenario. For context regarding the table, Total VHD is computed by considering the duration of the incidents (from start to finish) and adding one hour post resolution of the incident. In the simulations conducted, IMT vehicles only enhance the capacity of the incident link, without shortening its duration. Therefore, for the 'Incident Impact Time', which encompasses the incident duration and an added hour, the delay values of the incident link and its two Feeder Links are aggregated to compute a 'Delay from Incident \[hours\]' variable, showcased in the subsequent scatter plot. To develop the summary_table, the values from all 'Delay from Incident \[hours\]' entries within a scenario and incident frequency group were summed. This sum equates to the Total VHD of delay value for each respective scenario. The results are presented below:
 
 ```{r impacted_links}
 tar_load(impacted_links)
@@ -115,13 +120,13 @@ tar_load(impacted_summary_table)
 impacted_summary_table
 ```
 
-As observed in the table, the Baseline scenario is divide into two segments, ensuring a more precise comparison against the remaining three scenarios. Even though the Baseline scenario lacks incidents, its values stem from the cumulative delay times for the same links evaluated in other scenarios.
+The table presents a division of the Baseline scenario into two segments, for a more accurate comparison with the other three scenarios. Despite the absence of incidents in the Baseline scenario, its values are derived from the aggregate delay times of the same links included in the other scenarios.
 
-From the cumulative delay data, it's clear that, in line with other VHD comparisons, the VHD in the Increased IMT scenario most closely mirrors the baseline. This is followed by the Current fleet scenarios and then the Incidents-only groupings. As expected, a rise in incident frequency leads to an increase in Total VHD. However, the consideration of additional links makes a direct comparison of these values less straightforward.
+From the cumulative delay data, it's clear that, in line with other VHD comparisons, the VHD in the *30-IMT* scenario most closely mirrors the baseline. This is followed by the *20-IMT* scenarios and then the *Incidents-only* groupings. As expected, a rise in incident frequency leads to an increase in Total VHD. However, the consideration of additional links makes a direct comparison of these values less straightforward.
 
-In another perspective, the 'Average Delay Per Incident \[hours\]' column divides the total VHD by the number of incidents within a given category (90 incidents in the current scenario and 193 in the increased frequency scenario). This calculation reveals a notable observation: when comparing the average delay per incident between the current and increased incident frequencies under the incidents scenario, there's a significant 160% increase in the Average Delay Per Incident. This suggests that the incidents selected in the current scenario might have been, on average, more impactful than those in the increased scenario.
+For another perspective, the *Average Delay Per Incident \[hours\]* column divides the total VHD by the number of incidents within a given category (90 incidents in the current scenario and 193 in the increased frequency scenario). This calculation reveals something noteworthy: when comparing the average delay per incident between the current and increased incident frequencies under the incidents scenario, there's a significant 160% increase in the Average Delay Per Incident. This suggests that the incidents selected in the current scenario might have been, on average, more impactful than those in the increased scenario.
 
-For a more granular view, the scatter plot below organizes data by seed type. Incident numbers and seed values serve as y-axis labels (e.g., "12_141" indicates a scenario with 12 incidents associated with the seed value 141). The scatter plot is presented as follows:
+For a more detailed observation, the @fig-impacted_links_plot scatter plot below organizes data by seed type. Incident numbers and seed values serve as y-axis labels (e.g., "12_141" indicates a scenario with 12 incidents associated with the seed value 141). The scatter plot is presented as follows:
 
 ```{r impacted_links_plot}
 #| label: fig-impacted_links_plot
@@ -130,17 +135,17 @@ tar_load(impacted_links_plot)
 impacted_links_plot
 ```
 
-The scatter plot provides deeper insight into the nuances of the average incident impact calculations. In a manner similar to the Impacted Links Table, the scatter plot presents delay in terms of average delay per incident, which averages the delays from the incident links and their corresponding feeder links. At first glance, the data points representing the Baseline and Increased-IMT scenarios (in pink and green) seem to situate to the left of the blue dots depicting the Incidents-only scenarios. However, upon closer examination, one might discern that in certain scenarios, the Current-Fleet, Improved-Fleet, and occasionally both, perform sub-optimally compared to the Incidents-Only scenarios. This might initially appear counter intuitive, hinting at the possibility that factors beyond link capacity can influence delay. There exists an inherent randomness in MATSim's iterative process. The manner in which agents re-plan their journeys might, at times, influence delay as significantly, if not more, than variations in link capacity stemming from incidents and IMT arrivals. Notably, for the four Scenario IDs with the highest Average Incident Delays, the IMT units appear to substantially reduce the average delay on the affected links.
+The scatter plot provides deeper insight into the nuances of the average incident impact calculations. In a manner similar to the @tbl-impacted_links, the scatter plot presents delay in terms of average delay per incident, which averages the delays from the incident links and their corresponding feeder links. At first glance, the data points representing the Baseline and Increased-IMT scenarios (in pink and green) seem to situate to the left of the blue dots depicting the Incidents-only scenarios. However, upon closer examination, one might discern that in certain scenarios, the Current-Fleet, Improved-Fleet, and occasionally both, perform sub-optimally compared to the Incidents-Only scenarios. This might initially appear counter intuitive, hinting at the possibility that factors beyond link capacity can influence delay. There exists an inherent randomness in MATSim's iterative process. The manner in which agents re-plan their journeys might, at times, influence delay as significantly, if not more, than variations in link capacity stemming from incidents and IMT arrivals. Notably, for the four Scenario IDs with the highest Average Incident Delays, the IMT units appear to substantially reduce the average delay on the affected links.
 
 Moving ahead, another crucial variable emerges: the performance metrics associated with the IMT trucks. Such metrics encompass total travel time, the average distance traversed by each truck, and their average response time. Similar to VHD, these truck-related metrics might hold significance for UDOT and other transportation agencies. They will be elaborated upon in the subsequent section.
 
 ## IMT Vehicle Analysis
 
-Equally critical to understanding how IMT implementation affects agent delay and travel time is assessing the efficacy of IMTs in reaching their intended destinations. This results segment delves into truck travel behavior, capturing metrics such as average travel times and distances, along with their typical incident response times. The analysis encompasses both the Current-IMT-Fleet scenarios and the Increased-IMT-Fleet scenarios---the latter introduces 10 more vehicles to the pre-existing fleet of 20. Before delving deeper, some context regarding the positioning of these vehicles within the network and their operational hours.
+Equally critical to understanding how IMT implementation affects agent delay and travel time is assessing the efficiency of IMTs in reaching their intended destinations. This results segment delves into truck travel behavior, capturing metrics such as average travel times and distances, along with their typical incident response times. The analysis encompasses both *20-IMT* fleets scenarios and the *30-IMT* fleet scenarios.
 
 ### IMT Travel Time
 
-Travel times for IMT trucks can be extracted from the event files, which are produced as a standard MATSim output. These files provide insights into the distance and time traveled by each IMT vehicle. Utilizing this truck travel data, plots were generated to illustrate the average travel times and distances for each dispatched truck within a given scenario. Figure @truck_time_plot illustrates the average travel time for each dispatched vehicle:
+Travel times for IMT trucks can be extracted from the event files, which are produced as a standard MATSim output. These files provide insights into the distance and time traveled by each IMT vehicle. Utilizing this truck travel data, plots were generated to illustrate the average travel times and distances for each dispatched truck within a given scenario. @fig-truck_time_plot illustrates the average travel time for each dispatched vehicle:
 
 ```{r truck_csv}
 tar_load(truck_csv)
@@ -153,11 +158,11 @@ tar_load(truck_time_plot)
 truck_time_plot
 ```
 
-Figure @truck_time_plot indicates the average travel time per scenario for each dispatched truck. In every scenario, the cumulative travel time for all dispatched vehicles was computed, followed by division by the count of trucks deployed. Furthermore, an analysis of the @truck_csv data reveals that scenarios with an "Increased" fleet of 30 vehicles generally dispatched more trucks than scenarios with a fleet of only 20 vehicles. A nearly analogous methodology was employed to generate the @truck_distance_plot discussed in the subsequent section.
+To computed the average travel time per truck we took the cumulative travel time for all dispatched vehicles in every scenario and then divided it by the number of trucks deployed. Furthermore, an analysis of the @truck_csv data reveals that scenarios with an "Increased" fleet of 30 vehicles generally dispatched more trucks than scenarios with a fleet of only 20 vehicles. A nearly analogous methodology was employed to generate the @fig-truck_distance_plot discussed in the subsequent section.
 
 ### IMT Travel Distance
 
-As with the variation in truck_time across different scenario alternatives, there is a clear distinction between 'Increased' and 'Current' IMT fleet scenarios in terms of the average distance traveled per dispatched vehicle. These results are visualized in the Figure @truck_distance_plot.
+As with the variation in truck_time across different scenario, there is a clear variance between *20-IMT* and *30-IMT* fleet scenarios in terms of the average distance traveled per dispatched vehicle. These results are visualized in the @fig-truck_distance_plot.
 
 ```{r truck_time_plot}
 #| label: fig-truck_distance_plot
@@ -166,9 +171,11 @@ tar_load(truck_distance_plot)
 truck_distance_plot
 ```
 
-The data presented in the above figure underscores a direct correlation between an increased number of vehicles and a decrease in average distance traveled per truck. Notably, the "Increased" vehicle fleet benefited in both time and distance scenarios by commencing from identical locations as the "Current Fleet" scenarios. This advantage was made more noticed by the addition of vehicles to bridge the spatial intervals between the existing vehicles.
+The data presented in the above figure establishes a direct correlation between an increased number of vehicles and a decrease in average distance traveled per truck. Notably, the *30-IMT* fleet benefited in both time and distance scenarios by commencing from identical locations as the *20-IMT* fleet scenarios. This advantage was made more noticeable by the addition of vehicles to bridge the spatial intervals between the existing vehicles.
 
 Altering the starting locations of the vehicles or having them circulate in a route, as opposed to commencing their activities from a stationary location, could potentially influence both the time and distance traveled in either a favorable or adverse manner. However, it's pertinent to note that the Utah Department of Transportation was not principally focused on determining the "optimal" starting location for IMT vehicles in this research. While this aspect was not explored in the present study, it presents an intriguing avenue for future investigations using the IMT deployment MATSim package associated with this report.
+
+As highlighted by the work of @lou2011, in addition to fleet size, factors such as, vehicle starting locations, and whether IMTs operate as 'roaming entities' can all influence their response times. Altering the initial positions of the vehicles or directing them along specific routes, as opposed to a stationary start, can have substantial impacts on both the time and distance they cover, with potential advantages or drawbacks. However, it is important to note that determining the *optimal* starting points for IMT vehicles was not the primary focus of the Utah Department of Transportation in this research. While this particular dimension was not explored in our present study, it provides a compelling direction for future investigations using the IMT deployment MATSim package associated with this report.
 
 ### IMT Response Times
 
