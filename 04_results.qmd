@@ -42,7 +42,9 @@ Frequency* and *Increased Frequency*), or a combination of both. In evaluating
 #| label: tbl-network_delays_table
 #| tbl-cap: Average VHD for Scenario Groups
 tar_load(all_links_comparison_table)
-all_links_comparison_table
+all_links_comparison_table |> 
+  kbl(booktabs = TRUE) |> 
+  kable_styling()
 ```
 
 \<\< I am going to fix the labeling of the tables an plots so they are easier to understand and follow the scenario groupings we established in the text -D.J. \>\>
@@ -78,7 +80,9 @@ For the comparison of average simulation performances, the @tbl-motorway_delays_
 #| label: tbl-motorway_delays_table
 #| tbl-cap: Average VHD of Motorway Links
 tar_load(motorway_summary_table)
-motorway_summary_table
+motorway_summary_table |> 
+  kbl(booktabs = TRUE) |> 
+  kable_styling()
 ```
 
 Compared to the @tbl-network_delays_table network_delays table, focusing solely on motorway links reveals that the average VHD surge for incidents-only scenarios relative to the baseline of the same links exceeds 45%. Interestingly, in comparison with the full network delay scenarios, both the *20-IMT* and *30-IMT* scenarios demonstrated improved average performances on motorways, converging towards, and occasionally even dropping below, the baseline delay measures on those links.
@@ -112,7 +116,9 @@ tar_load(impacted_links)
 #| label: tbl-impacted_links
 #| tbl-cap: Impacted Links Table
 tar_load(impacted_summary_table)
-impacted_summary_table
+impacted_summary_table |> 
+  kbl(booktabs = TRUE) |> 
+  kable_styling()
 ```
 
 The table presents a division of the Baseline scenario into two segments, for a more accurate comparison with the other three scenarios. Despite the absence of incidents in the Baseline scenario, its values are derived from the aggregate delay times of the same links included in the other scenarios.
@@ -183,11 +189,9 @@ tar_load(truck_arrival_data)
 ```
 
 ```{r truck_arrival_table, results='asis'}
-
 #| label: tbl-truck_arrival_table
 #| tbl-cap: Average Arrival Time Per Scenario
 tar_load(truck_arrival_table)
-
 
 # This code formatted the table nice but cause problems when I tried to render the PDF
 
@@ -203,10 +207,9 @@ formatted_table <- truck_arrival_table %>%
   mutate(across(-Scenario, ~ifelse(Scenario == "Number of Incidents", as.integer(.), .))) %>%
   mutate(across(where(is.numeric), scales::comma)) %>%
   mutate(Scenario = cell_spec(Scenario, bold = TRUE, color = ifelse(Scenario == "Number of Incidents", "black", "black"))) %>%
-  kable("html", booktabs = TRUE, escape = FALSE, caption = "Average Arrival Time Per Scenario", align = c('l', rep('c', ncol(truck_arrival_table) - 1))) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, full_width = FALSE) %>%
-  column_spec(1, width = "3cm") %>%
-  column_spec(2:6, width = "2cm") %>%
+  kbl(booktabs = TRUE, escape = FALSE, 
+      align = c('l', rep('c', ncol(truck_arrival_table) - 1))) %>%
+  kable_styling(bootstrap_options = c("striped")) %>%
   row_spec(3, bold = TRUE, background = "#D3D3D3") # Light gray background for the last row
 
 # Print the formatted table
