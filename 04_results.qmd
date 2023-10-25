@@ -1,3 +1,5 @@
+# Results
+
 ```{r setup, file = "R/chapter_start.R", include = FALSE}
 # a number of commands need to run at the beginning of each chapter. This
 # includes loading libraries that I always use, as well as options for 
@@ -17,8 +19,6 @@ library(kableExtra)
 library(dplyr)
 library(tidyr)
 ```
-
-# Results
 
 This section details the outcomes of the Utah Incident Management Team Optimization project, employing the MATSim model to execute a series of simulations across a range of scenarios. Specifically, the scenarios—*Incidents*, *20-Truck*, and *30-Truck*—were compared with a 'Baseline' scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of Incident Management Teams (IMTs) in alleviating traffic disruptions. In total, 61 simulation scenarios were conducted, each undergoing 450 iterations within the MATSim framework to produce a convergence towards a state of equilibrium in travel behavior for most scenarios. This section offers an analysis of the simulation results, concentrating on pivotal comparative metrics such as vehicle hours of delay (VHD), the implications of incidents, and the response dynamics of the IMTs.
 
@@ -183,7 +183,7 @@ In the study conducted by @schultz2019, it is highlighted that, in Utah, a one-m
 
 On average, across 280 simulated incidents, the arrival times in the *30-IMT* scenarios were 4 minutes faster than those in the *20-IMT* scenario, as detailed in @tbl-truck_arrival_table, which compares the average arrival times of the 1st, 2nd, 3rd, and 4th trucks.
 
-```{r truck_csv}
+```{r truck_arrival_data}
 tar_load(truck_arrival_data)
 ```
 
