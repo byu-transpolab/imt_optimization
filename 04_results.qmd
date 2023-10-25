@@ -9,9 +9,6 @@
 ```{r setup2, include = FALSE}
 # Other packages ------
 # These are packages that get used in this chapter but aren't part of the default set.
-install.packages("knitr")
-install.packages("kableExtra")
-
 
 library(mlogit)
 library(knitr)
@@ -192,6 +189,9 @@ tar_load(truck_arrival_data)
 #| label: tbl-truck_arrival_table
 #| tbl-cap: Average Arrival Time Per Scenario
 tar_load(truck_arrival_table)
+
+
+# This code formatted the table nice but cause problems when I tried to render the PDF
 
 # Update Scenario values
 truck_arrival_table$Scenario <- recode(truck_arrival_table$Scenario, "2" = "20 IMTs", "3" = "30 IMTs")

@@ -218,41 +218,45 @@ Written by ChatGPT
 
 
 \end{frontmatter}
-    \ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, interior hidden, boxrule=0pt, enhanced, breakable, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
+    \ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, sharp corners, enhanced, borderline west={3pt}{0pt}{shadecolor}, interior hidden, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
 
 \bookmarksetup{startatroot}
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Many regions have introduced Incident Management Teams (IMT) as a method
-to improve highway system operations, especially during peak periods
-when the user costs of incidents clogging roadways can be particularly
-high. IMT can respond quickly to incidents ranging from vehicle
-breakdowns to serious, multi-car collisions and aid other first response
-agencies to manage the traffic stream and return traffic to normal
-conditions CITE. Some studies have suggested that IMT can save a region
-as much as \$X in user costs over the course of a year / peak period
-CITE.
+Incident Management Teams (IMT) have become an integral strategy in
+various regions to enhance highway system operations, particularly
+during peak periods when user costs and roadway congestion can escalate
+due to traffic incidents. These teams are adept at quickly addressing a
+range of incidents, from minor vehicle breakdowns to severe multi-car
+collisions, assisting other first response agencies in managing traffic
+and restoring normal conditions.
 
-In spite of the claimed benefits of IMT and the relative importance that
-many organizations are placing on their deployment, academic research
-into IMT is somewhat limited. This applies to both effectiveness
-studies, but especially to prospective attempts to study what effect an
-increase in system deployment may have, or how an increase in traffic
-incidents --- caused by an increase in driver distraction, population
-growth, or any other exogenous cause --- might strain the system
-deployment.
+Despite the substantial benefits and increasing reliance on IMT, there
+is a notable gap in academic research, particularly in effectiveness
+studies and prospective analyses that explore the potential impacts of
+increased system deployment and the challenges posed by a rise in
+traffic incidents. This could be attributed to factors such as driver
+distraction, population growth, or other external influences. This
+research aims to fill this gap, employing a mesoscopic-simulation
+approach within the MATSim transportation modeling framework to
+represent both incidents and IMT responses in a comprehensive manner.
 
-In this research, we explore a micro-simulation approach for
-representing IMT response to incidents in a highway network. This
-approach relies on adaptations to the MATSim transportation modeling
-framework to represent both incidents and the IMT response, and is
-implemented in a scenario representing the Wasatch Front (Salt Lake
-City) region of Utah. The simulation aims to demonstrate how IMT
-effectiveness varies with changes in allocated resources as well as the
-concentration of incidents.
+Implemented in a scenario representing the Wasatch Front (Salt Lake
+City) region of Utah, our study delves into the operational dynamics of
+IMT, simulating various traffic incident scenarios to understand how
+changes in resource allocation and incident concentration can influence
+IMT effectiveness. Through a series of 20 simulations across three
+distinct scenarios, we provide a detailed comparative analysis,
+highlighting the potential for significant reductions in vehicle hours
+of delay and improvements in traffic flow consistency.
 
+This paper contributes to the existing body of knowledge on IMT,
+offering insights into their operational dynamics and areas for
+optimization. It underscores the importance of strategic IMT deployment
+and the necessity for continuous evaluation and adaptation of IMT
+strategies to meet the evolving demands of highway system operations.
 The paper proceeds in a typical order. A discussion of previous research
 into IMT motivations, effectiveness, and optimization follows this
 introduction. \textbf{?@sec-methods} describes the simulation
@@ -294,17 +298,24 @@ incident to the time all lanes open for traffic flow; second, incident
 clearance time (ICT) is the time between the first recordable awareness
 of the incident and when the last responder has left the scene.
 
-There is substantial evidence from numerous studies demonstrating the
-positive influence of TIM programs on traffic conditions, often measured
-using FHWA or similar performance indicators. One study of note, by
-\citep{schultz2019}, highlights the substantial benefits of IMT
-implementations. The study took advantage of the interconnected data
-used by UDOT and the Utah Highway Patrol to estimate the reduction in
-traffic resulting from the rapid response of IMT units at crash sites.
-The findings were compelling: the deployment of IMT units notably
-decreased excess travel time, alleviated the user costs associated with
-congestion, and effectively reduced the volume of traffic affected by an
-incident BY HOW MUCH.
+Numerous studies have assessed the impact of Traffic Incident Management
+(TIM) programs on traffic conditions, utilizing performance indicators
+such as those provided by the Federal Highway Administration (FHWA). A
+particularly noteworthy study conducted by \citet{schultz2019} explores
+the relationship between the response times of Incident Management Teams
+(IMT) and various traffic parameters, including roadway clearance time
+(RCT), estimated travel time (ETT), and excess user cost (EUC). This
+research leveraged interconnected data from the Utah Department of
+Transportation (UDOT) and the Utah Highway Patrol, aiming to quantify
+the traffic improvements resulting from swift IMT interventions at
+accident sites. Analyzing 121 incidents, the study found that a
+one-minute delay in IMT response correlated with a 0.8-minute increase
+in RCT. This delay also impacted an additional 93 vehicles, added
+roughly 34.6 minutes to the network's total estimated travel time, and
+resulted in an extra \$925 in excess user costs. In essence,
+\citet{schultz2019} established a clear connection between timely IMT
+responses and improved traffic conditions, underscoring the importance
+of rapid intervention.
 
 \citet{kim2012}, in a study of Maryland's Coordinated Highways Action
 Response Team (CHART) operations, devised a model using CHART's data to
@@ -326,20 +337,21 @@ frequency.
 \citet{skabardonis1998} concluded in a study of the California Freeway
 Service Patrol (FSP) IMT service that, on average, total incident
 response time was 15 minutes longer when California Highway Patrol (CHP)
-units responded without the support of FSP units. Using a system to
+units responded without the support of IMT units. Using a system to
 assign a cost per traveler per unit of time to vehicles in the observed
-area, the authors determined that FSP units had a cost-to-benefit ratio
+area, the authors determined that IMT units had a cost-to-benefit ratio
 of 5:1. They also concluded that CHP officers spent less time on
-incidents (including vehicle breakdowns).~
+incidents (including vehicle breakdowns) when assisted by incident
+management team services.~
 
 \hypertarget{imt-optimization}{%
 \subsection{IMT Optimization}\label{imt-optimization}}
 
-Given the compelling evidence that IMT programs improve traffic
-conditions and reduce costs for government entities and individuals, it
-becomes paramount to further research avenues to maximize these
-benefits. One effective strategy is the strategic placement of IMT
-units, optimizing their spatial effectiveness to enhance their impact.
+Given the evidence that IMT programs improve traffic conditions and
+reduce costs for government entities and individuals, it becomes
+paramount to further research avenues to maximize these benefits. One
+effective strategy is the strategic placement of IMT units, optimizing
+their spatial effectiveness to enhance their impact.
 
 Enhancing IMT programs often focus on the precise deployment of
 individual trucks and the strategic positioning of IMT
@@ -366,40 +378,20 @@ practical demonstration. Compared to the existing deployment plan in
 Sioux Falls, the algorithm-generated plans could potentially reduce
 total response time by 16.5-20.8\%.
 
-\citet{ozbay2013} developed a model that provides information on
-resource allocation between ``depots'' or the staging areas of IMT
-units. A mixed-integer programming model with probabilistic constraints
-was developed in this research to approach the problem of IMT allocation
-within the various depots. Given that the probability of incident types
-on a network is known, IMT units are allocated to the incident scene,
-considering the future probabilities of incidents on the network. The
-model's objective is to minimize incident management costs while
-maximizing utility. The function is applied to a simplified South Jersey
-Highway network model to demonstrate the implementation of the model in
-IMT decision-making. Distribution of demand is based on traffic incident
-data from South New Jersey. In the test results, a number of depots and
-trucks assigned to each depot was found given a budget of \$500,000 for
-the whole program. No comparison to existing depot and unit distribution
-was made; therefore, improvement because of the model was not
-quantified.
-
-In his work, \citet{ozbay2013} developed a model to inform resource
-allocation across New Jersey ``depots,'' the designated staging areas
-for IMT units. This research employed a mixed-integer programming model
-with probabilistic constraints to address the challenge of IMT
-allocation within these depots. With known probabilities of different
-types of incidents occurring on a network, IMT units were strategically
-allocated to incident scenes while considering future probabilities of
-incidents on the same network. The goal of his model was twofold: to
-minimize incident management costs and to maximize utility. To
-demonstrate the model's practical applicability in IMT decision-making,
-it was implemented on a simplified South Jersey Highway network model.
-The model's demand distribution was based on traffic incident data from
-South New Jersey. The test results established an optimal number of
-depots and trucks assigned to each depot, given a program budget of
-\$500,000. However, as no comparison was made to the existing depot and
-unit distribution, the precise improvement attributable to the model was
-not quantified.
+\citet{ozbay2013} designed a mixed-integer programming model with
+probabilistic constraints to optimize the allocation of Incident
+Management Team (IMT) units across ``depots'' or staging areas in New
+Jersey. This innovative approach, grounded in known probabilities of
+various incident types, strategically positions IMT units to respond to
+incidents, taking into account future probabilities on the network. The
+primary goals were to minimize incident management costs and maximize
+utility. The model was applied to a simplified South Jersey Highway
+network, utilizing traffic incident data from the region to inform
+demand distribution. Through this application, an optimal number of
+depots and truck assignments were determined based on a \$500,000 budget
+for the entire program. However, the lack of a comparative analysis with
+pre-existing depot and unit distributions meant that the exact
+improvements yielded by the model remained unquantified.
 
 Digital models of IMTs have been developed in the past with various
 software packages. \citet{pal2002} developed a digital model to
@@ -413,16 +405,19 @@ capacity. Given the study results, suggestions were made regarding fleet
 size, hours of operation, patrol area design, and improvements regarding
 the dispatching policy.
 
-These models, whether simulations or optimization problems, have been
-effective for what they were, but they fail to replicate real-world
-scenarios in the way that a MATSim simulation can. Simulations like
-MATSim provide the opportunity to incorporate real-world data and create
-more realistic networks and model drivers with tools like within-day
-replanning, which will be discussed in later chapters.
+These models, whether simulations and optimization problems, have served
+their intended purposes effectively, but they fall short in mimicking
+real-world scenarios as accurately as MATSim simulations do. Unlike
+other models, MATSim allows for the integration of real-world data,
+facilitating the creation of more realistic network simulations.
+Additionally, it provides tools such as network change events and
+within-day replanning, which contribute to a more accurate modeling of
+driver behavior. These tools and their applications will be explored in
+more detail in subsequent chapters.
 
-An important consideration in determining the optimal location for the
-IMT units to be stationed is the metric by which the IMT is judged. The
-FHWA has established performance measures by which IMTs were evaluated;
+An important consideration in determining the optimal location and fleet
+size of IMT units is the metric by which the system is judged. The FHWA
+has established performance measures by which IMTs were evaluated;
 however, some researchers have felt that other metrics proved helpful in
 specific scenarios. \citet{pal2002} use a metric of total traffic time
 to analyze the model. Total traffic time is a practical approach as
@@ -567,7 +562,7 @@ the necessity and application of a within-day replanning tool within the
 MATSim context. He elaborated that while MATSim's iterative modeling
 approach fares well under ideal conditions and in achieving user
 equilibrium, it falls short when dealing with unexpected occurrences.
-This deficiency manifests as illogical behavior, such as pre-emptive
+This deficiency manifests as illogical behavior, such as preemptive
 route changes before the incident's actual occurrence. For example,
 Figure 1 illustrates a MATSim routing problem featuring within-day
 replanning. It depicts an agent (a simulated individual) navigating from
@@ -596,11 +591,11 @@ travel times can be optimized to a stable state with an iterative
 approach, but this is not the case with a within-day approach. An
 inherent attribute of within-day replanning is that it does not converge
 to a user equilibrium, unlike an iterative process. Decisions, appearing
-optimal in the heat of the moment, often reveal themselves as suboptimal
-upon retrospective evaluation. Given the limited information available
-to the agents in a within-day system, they may not necessarily choose
-the path with the shortest travel time post-incident, as discussed by
-Dobler in 2016.
+optimal in the moment, often reveal themselves as suboptimal upon
+retrospective evaluation. Given the limited information available to the
+agents in a within-day system, they may not necessarily choose the path
+with the shortest travel time post-incident, as discussed by Dobler in
+2016.
 
 Replanning contains two categories: replanning an element of the
 activity and executing the replanned elements. Elements include the
@@ -632,14 +627,13 @@ within-day replanning when the agent starts their parking choice.
 
 In general, within-day or en-route replanning means that travelers
 replan during the day or on their route, meaning that the simulation
-needs to influence the agent while the network runs.
-\citet{dobler2016explains} that we influence agents' decisions through
-loops or by having users' routes dependent on the next link they choose.
-Because going through all links and nodes at every step would be
-computationally challenging, we may set certain links to be non-active
-and removed from the computation \citep{dobler2016}. The two
-implementation methods Dobler described are plan-based implementation
-and replacing the agent.
+needs to influence the agent while the network runs. \citet{dobler2016}
+explains that we influence agents' decisions through loops or by having
+users' routes dependent on the next link they choose. Because going
+through all links and nodes at every step would be computationally
+challenging, we may set certain links to be non-active and removed from
+the computation \citep{dobler2016}. The two implementation methods
+Dobler described are plan-based implementation and replacing the agent.
 
 In a plan-based implementation, a loop is used where each agent can
 deliberate in every time step. The agent can decide that they have
@@ -775,7 +769,7 @@ the adaptiveness of route selection contributed to significant travel
 time fluctuations, a conclusion that aligns with the findings of
 \citet{li2020}.
 
-In essence, the studies encapsulated in Section 2.3 validate the
+In essence, the studies encapsulated in Section 2.2 validate the
 effectiveness of the open-source software MATSim, in simulating traffic
 incidents, congestion, and travel times. This evidence accentuates how
 the proper application of MATSim or similar Dynamic Traffic Assignment
@@ -792,368 +786,617 @@ and short-term disturbances. Additionally, several studies have examined
 how to effectively model traffic incidents and show their impact on
 travel time, congestion, and mode choice. However, in these vast arrays
 of findings, there is a gap in research on modeling IMT effectiveness
-and incident impact on a loaded with realistic agents. As a result, it
-is difficult for researchers to understand how changes to incident
-generation or IMT availability may impact traffic conditions, for good
-or bad. In this research, we seek to combine these two strands,
-attempting to model incident response in a microsimulation framework to
-bring realism and detail to the IMT deployment question.
+and incident impact on a loaded network with realistic agents. As a
+result, it is difficult for researchers to understand how changes to
+incident generation or IMT availability may impact traffic conditions.
+In this research, we seek to combine these two strands, attempting to
+model incident response in a mesoscopic simulation framework to bring
+realism and detail to the IMT deployment question.
 
 \bookmarksetup{startatroot}
 
 \hypertarget{methodology}{%
 \section{Methodology}\label{methodology}}
 
-\hypertarget{incident-response-in-matsim}{%
-\subsection{Incident Response in
-MATSim}\label{incident-response-in-matsim}}
+This section outlines the methods used for the Utah Incident Management
+Team Optimization project model, building upon the main concepts
+discussed in sections 2.1 and 2.2 of the literature review. The primary
+goal of the model is to demonstrate the impact of traffic incidents on
+overall traffic flow and assess the effectiveness of Incident Management
+Teams (IMTs) within a simulated environment.
 
-This section of the methodology outlines the model development for the
-Utah IMT Optimization project. As stated in sections 2.2 and 2.3 of the
-literature review, the model is designed to effectively demonstrate the
-effects of traffic incidents on the overall traffic flow and the
-subsequent influence of Incident Management Teams (IMTs) when integrated
-into the model.
+Our methodology is structured around three main components: setting up
+IMT Vehicles and Incidents, understanding the functionality of the
+MATSim model, and establishing scenarios for comparative analysis. In
+the ``IMT Vehicle Configuration and Incident Selection'' section, we
+define the origins of variables such as the size of the IMT fleet, their
+initial placements, operational schedules, and specific details of
+incidents, including location, severity, and frequency. These factors
+are pivotal as they can significantly influence the network's
+performance metrics. Following this, in the section on ``MATSim Model's
+Functionality,'' we detail how these variables are integrated and
+represented within the MATSim framework more closely align with
+real-world conditions, building upon the foundational work of
+\citet{kaddoura2018}.
 
-We explain how incidents and IMT vehicles are represented within the
-MATSim model and discuss several adjustments made to the behavior of
-MATSim agents within the model configuration. Our approach to incident
-modeling primarily draws from and expands on the research of
-\citet{kaddoura2018}. For a more detailed understanding, refer to The
-Multi-Agent Transport Simulation (MATSim) textbook.
+Lastly, ``Scenario Simulations and Comparisons'' presents the range of
+simulated scenarios used for comparison purposes. This section also
+outlines the inputs for each scenario including the network, plans, and
+configurations files used and their origins. The section explains the
+comparative measures to be used in comparing scenarios against one
+another which occurs in the results section of the report.
+
+In the final subsection, ``Scenario Simulations and Comparisons,'' we
+describe the assortment of scenarios that were simulated and the
+rationale behind their selection. This part of the document describes
+the specific inputs for each scenario, including the network, plans, and
+configuration files, as well as their origins. Additionally, it details
+the comparative measures employed to evaluate the scenarios against one
+another, with a detailed analysis presented in the results section of
+the report.
+
+\hypertarget{imt-vehicle-configuration-and-incident-selection}{%
+\subsection{IMT Vehicle Configuration and Incident
+Selection}\label{imt-vehicle-configuration-and-incident-selection}}
+
+The strategic placement and sizing of IMT fleets are pivotal in
+optimizing vehicle response times, a relationship explored in depth by
+\citet{lou2011} and \citet{pal2002}. Furthermore, \citet{schultz2019}
+established a significant link between response time (RT) and roadway
+clearance time (RCT). In the `IMT Vehicle Setup' subsection, we describe
+the organization of the IMT vehicle, taking these relationships into
+account and adhering to recommendations from Utah Highway Patrol
+officials specific to this project.
+
+Additionally, the nature and severity of incidents play a significant
+role in affecting average travel times and delays, as evidenced by the
+research of \citet{kaddoura2018}. The `Incident Data' and `Incident
+Sampling' subsections elaborate on our methodology for selecting
+incidents for the simulation scenarios, utilizing data from concurrent
+research efforts.
+
+\hypertarget{imt-vehicle-setup}{%
+\subsubsection{IMT Vehicle Setup}\label{imt-vehicle-setup}}
+
+The Utah Department of Transportation currently operates a fleet of 20
+IMT vehicles, distributed across three zones corresponding to the
+counties of Davis, Salt Lake, and Utah within the Wasatch Front.
+Figure~\ref{fig-IMT_Map} visually represents the boundaries of each
+county and the initial locations of both existing and newly proposed IMT
+vehicles used in out simulated scenarios.
+
+\begin{figure}
+
+{\centering \includegraphics{figures/imt_map.png}
+
+}
+
+\caption{\label{fig-IMT_Map}IMT Starting Locations.}
+
+\end{figure}
+
+In this figure, circles represent existing vehicles, while stars denote
+proposed additions. These starting locations aim to ensure a balanced
+distribution across each county, based on shift types---either day or
+afternoon. While this arrangement does not replicate the real-world
+starting points of IMT truck drivers, who typically commence their
+shifts from their homes, it is a pragmatic approach. Given that the
+majority of their operations are concentrated along major interstates
+such as I-15, I-80, and I-215, and considering the daily variability in
+starting locations, positioning them along these primary routes is
+logical for our MATSim Scenario simulations. Notably, the
+``Increased-IMT'' scenario incorporates all vehicles from the
+``Existing'' fleet, supplemented by an additional 10 vehicles
+distributed across the three counties.
+
+Our investigation primarily focuses on analyzing the potential impacts
+of augmenting the IMT fleet, rather than the influence of their starting
+locations. We hypothesize that an increase in vehicle numbers, assuming
+an equitable distribution, could enhance IMT effectiveness.
+
+Additionally, vehicle scheduling is a critical aspect of our setup. All
+three counties operate IMT vehicles across day and afternoon shifts,
+with specific timeframes detailed in the trucks file for MATSim scenario
+runs. Although IMT vehicles typically do not cross county borders during
+operations, our MATSim network does not impose such constraints,
+allowing for vehicle movement across counties based on incident
+proximity. With these vehicle configurations established, we now turn
+our attention to the incident data the sampling used in establishing
+simulated scenarios.
+
+\hypertarget{incident-data}{%
+\subsubsection{Incident Data}\label{incident-data}}
+
+Joel Hyer, a student at Brigham Young University, conducted concurrent
+research to acquire a dataset of incidents having received Utah Incident
+Management Team (IMT) intervention, sourcing data from TransSuite and
+the Utah Highway Patrol. He ensured that each incident record in the
+dataset was complete, providing essential details such as start and end
+times (with the latter derived from the Roadway Clearance Time (RCT)),
+location, and the degree of capacity reduction.
+
+From the data collected in 2018 and 2022, Joel compiled a comprehensive
+list of 411 unique incidents, ranging in severity from property damage
+to fatal accidents. This dataset served as the foundation for selecting
+incidents to include in the MATSim model. However, it is important to
+note that this list does not represent the total number of incidents
+responded to by UHP and IMT services. The `master list' contains all
+incidents responded to by the Utah Highway Patrol and provides a more
+accurate depiction of daily incidents. Even still, it is important to
+acknowledge that both data sets only include incidents that received a
+response from UHP or IMT services, omitting those that did not.
+
+\hypertarget{incident-sampling}{%
+\subsubsection{Incident Sampling}\label{incident-sampling}}
+
+To accurately model the daily frequency of incidents, we conducted a
+thorough analysis of the `master list' of incident data, from which we
+derived a distribution of incident count frequencies to inform our
+sampling methodology.
+
+We employed the Pandas library in Python to create a script that imports
+the data into a data frame, eliminates any duplicate entries, and
+refines the `Call Received Time' and `Call Type' columns. We then
+aggregated the data by date and call type, counted the incidents, and
+generated a new data frame that details the daily frequency of
+incidents. These frequencies served as the foundation for creating a
+weighted distribution, which in turn facilitated our sampling process.
+To ensure consistency and replicability of our results, we integrated a
+fixed random seed value into our script. This setup allowed us to
+perform random sampling, extracting ten days from the incident number
+distribution based on the established frequencies. These ten values were
+then utilized to simulate ten scenarios based on observed or current
+incident frequencies.
+
+Utilizing the incident data, we established a total of 20 scenarios,
+categorized into two distinct groups: Current Incident Frequencies and
+Increased Incident Frequencies. For the scenarios under Current Incident
+Frequencies, we employed the script described above to select ten days
+from a weighted sampling distribution, which determined the number of
+incidents to be simulated for each respective day. On the other hand,
+the scenarios categorized as Increased Incident Frequencies were
+designed to evaluate the resilience and performance of the IMT system
+when confronted with a substantial increase in daily incidents. Drawing
+from the upper range of the 2022 data, we identified days with incident
+counts varying from 18 to 21. To ensure a thorough and comprehensive
+evaluation, we decided to simulate additional days for each incident
+count, resulting in a distribution of two days with 21 incidents, two
+days with 20 incidents, three days with 19 incidents, and three days
+with 18 incidents. Figure~\ref{fig-Inc_Map} visually represents the
+original distribution of daily incidents, as well as the distributions
+for both current and increased incident frequencies used in assigning
+the number of incidents to each simulation scenario.
+
+\begin{figure}
+
+{\centering \includegraphics{figures/inc_sampling.png}
+
+}
+
+\caption{\label{fig-Inc_Map}Figure 5: Incident Sampling.}
+
+\end{figure}
+
+Upon determining the distribution of incidents for each scenario, we
+assigned a three-digit seed value to each of the twenty scenario
+groupings, serving both as an identifier and a tool for incident
+selection. Within MATSim, each scenario received a specified number of
+incidents and a seed value. Utilizing these parameters, a number of
+incidents `X' was randomly selected from the list of 411 incidents,
+ensuring that the same incident did not occur more than once within a
+single simulation. For future research, additional parameters could be
+established for incident selection to ensure the creation of logical and
+realistic incident scenarios.
+
+\hypertarget{matsim-functionality}{%
+\subsection{MATSim Functionality}\label{matsim-functionality}}
+
+In the MATSim model, factors such as incident selection are programmed
+within the model. The distribution and scheduling of trucks are
+described in XML truck files, which are then loaded into the model. As
+highlighted in the literature review, MATSim is an open-source platform
+that consists of various modules and packages. These components can be
+created, imported, and edited by users across the platform, fostering a
+collaborative environment.
+
+For the purposes of our research, we developed the ImtModule, a
+specialized package designed to process incidents and IMT responses
+within the simulation. This module leverages existing research on
+incident simulation, Demand Rapid Transit (DRT), event handling, and
+vehicle dispatch algorithms, building upon these foundations to enhance
+the functionality of our model.
+
+In this section, we delve into some of the specific tools within MATSim
+that we utilized and adapted to construct a comprehensive and functional
+model for both processing and analysis. These tools include Network
+Change Events, Vehicle Assignment, and Incident Response. Together, they
+contribute to the realism and precision of our traffic simulations,
+particularly in the context of responding to roadway incidents, ensuring
+that our model provides accurate and reliable results.
 
 \hypertarget{network-change-events}{%
 \subsubsection{Network Change Events}\label{network-change-events}}
 
-Each link in a MATSim network possesses specific attributes, such as
-link type, length, number of lanes, free-flow speed, and capacity. It is
-essential to adjust one or more of these parameters to simulate
-unexpected events at a specific time during the simulation. The capacity
-to modify a network, as referred to in the MATSim textbook, is known as
-a Time-Dependent Network, and unforeseen incidents or any factors that
-alter the network's characteristics are termed Network Change Events
-(NCEs).
+In a MATSim network, each link is characterized by specific attributes
+such as type, length, number of lanes, free-flow speed, and capacity. To
+effectively simulate unexpected events and their subsequent impacts on
+traffic flow, it is essential to dynamically adjust these attributes.
+This capability, termed a Time-Dependent Network, is elaborated upon in
+the MATSim textbook and is vital for ensuring the realism and accuracy
+of our simulation.
 
-Section 6.1 of the MATSim textbook outlines how to adapt the parameters
-of a MATSim configuration file to allow for time-variant network
-attributes and how to implement network change events. These events can
-modify a link's free-flow speed, number of lanes, or capacity. To
-activate a network change event, the system needs to know the time of
-the event (startTime), the affected link(s) (link refID), the nature of
-the change (free-flow speed, lanes, or capacity), and the specific value
-of the change.
+Network Change Events (NCEs) serve as the mechanism within MATSim for
+modifying network attributes at precise moments during a simulation.
+Detailed in Section 6.1 of the MATSim textbook, the implementation of
+NCEs necessitates specific adjustments to the MATSim configuration file
+to facilitate a time-variant network. These events can modify a link's
+free-flow speed, number of lanes, or capacity. To initiate a network
+change event, the system requires specific information including the
+time of the event (startTime), the affected link(s) (link refID), the
+type of change (free-flow speed, lanes, or capacity), and the value of
+the change.
 
-Within the context of the Utah IMT optimization problem, changes are
-triggered when an incident is reported and when an IMT arrives at the
-affected link. These changes will influence the link's capacity based on
-the incident data, which will be discussed in more detail in section
-3.2.3. Unlike \citet{kaddoura2018} 's work, this study does not consider
-long-term capacity reduction events such as road construction, focusing
-solely on short-term incidents like accidents or vehicle breakdowns. The
-diminished capacity of a specific link would typically affect both
-regular agents (those included in the baseline simulation scenario) and
-IMT agent vehicles. If a subnetwork is utilized, IMT trucks, similar to
-other emergency vehicles like ambulances and firetrucks, would be less
-affected by congestion caused by daily traffic or unexpected incidents.
+Implementing network change events for incidents in our simulation is
+relatively straightforward. Each incident is specified with a start
+time, link ID, and capacity reduction factor. However, triggering
+network change events upon the arrival of an IMT vehicle is a more
+complex task. As outlined in the `Vehicle Assignment' section, IMT
+vehicles are dispatched similarly to taxis or ambulances, building upon
+the existing framework of Demand Rapid Transit (DRT) described in the
+MATSim textbook. In line with their assignment algorithm, IMT vehicles
+receive a request and proceed to the location of the affected link.
+Their arrival times are variable and depend on the current traffic
+conditions.
 
-The implementation of the MATSim within-day replanning module plays a
-significant role in the rerouting of other agents on the road after an
-incident.
+To manage this uncertainty, we employ an `event-handler', a tool that
+records the events of a simulation as it progresses. These events
+provide insights into when specific vehicles enter and exit links en
+route to their destinations. For IMT vehicles, event handlers were
+utilized to monitor their arrival at incident links, triggering specific
+network change events. In this study, every time an IMT vehicle reached
+an impacted link, it restored 25\% of the link's lost capacity.
+
+This approach ensures a dynamic and responsive simulation, reflecting
+the real-world scenarios where IMT vehicles play a crucial role in
+mitigating the impacts of roadway incidents. The implementation of the
+MATSim within-day replanning module further enhances this
+responsiveness, enabling the rerouting of other agents on the road in
+the aftermath of an incident.
+
+Contrary to the work of \citet{kaddoura2018}, our study does not take
+into account long-term capacity reduction events such as road
+construction, focusing exclusively on short-term incidents like
+accidents or vehicle breakdowns. The reduced capacity of a specific link
+generally impacts all agents, both regular and IMT vehicles. However, if
+a subnetwork is employed, IMT trucks, akin to other emergency vehicles
+such as ambulances and firetrucks, experience less disruption from
+congestion caused by daily traffic or unexpected incidents.
 
 \hypertarget{within-day-replanning}{%
 \subsubsection{Within-Day Replanning}\label{within-day-replanning}}
 
-\textless\textless{} The concept of within-day replanning is applied to
-a certain extent in the model, as detailed in Chapter 30 of the MATSim
-textbook. However, I plan to delve deeper into this concept to ensure
-its correct application within our study. Subsequently, I will refine
-the wording of this section to accurately convey its implementation
-within our model. \textgreater\textgreater{}
+\textless\textless{} The model was meant to incorporates the concept of
+within-day replanning to a certain extent, as elaborated in Chapter 30
+of the MATSim textbook. I loaded the within-day replanning module but
+didn't specify which agents needed to use it or the times that they
+needed to use it. \textgreater\textgreater{}
+
+\textless\textless{} Dr.~Macfarlane. Within-day replanning is not being
+implemented in the way that I thought that it was. After re-reading the
+literature review I realized that I had confused the replanning that
+occurs from iteration to iteration with the replanning mentioned by
+\citet{kaddoura2018} that only occurs for specific agents within the
+simulation. \textgreater\textgreater{}
+
+\textless\textless{} I do think it is still worth mentioning their
+research, and I can discuss how we could have used within-day replanning
+more effectively in the limitations section of this report. I am sorry
+for the confusion and for not realizing the problem earlier. Perhaps
+this section in the Methodology could discuss the strategy the model
+uses from iteration to iteration. \textgreater\textgreater{}
+
+\textless\textless{} I'll likely move this section to the limitations
+and talk about it, but wanted to leave you a note here just in case you
+were looking for this section - Daniel Jarvis\textgreater\textgreater{}
 
 \hypertarget{vehicle-assignment}{%
 \subsubsection{Vehicle Assignment}\label{vehicle-assignment}}
 
-When an incident occurs within the MATSim simulation, one or more
-Incident Management Team (IMT) vehicles are dispatched to manage the
-situation. A dispatch algorithm determines the most suitable vehicle for
-the task. The model can select the IMT unit(s) based either on a
-least-cost path calculation that factors in congestion and link speed or
-the shortest path between the vehicle's location and the incident site.
-The chosen method will partially depend on how swiftly the IMT units can
-navigate through traffic. If a subnetwork is utilized, the IMT trucks
-would be less affected by congestion and free-flow speed, potentially
-making the shortest path calculation more suitable. Conversely, if an
-IMT moves through traffic like a standard vehicle, using a least-cost
-path calculator within the simulation would likely be the preferred
-option.
+In the MATSim simulation, the dispatch of one or more Incident
+Management Team (IMT) vehicles is triggered when an incident occurs. The
+selection of the most appropriate IMT vehicle for the task is determined
+by a dispatch algorithm. This algorithm may base its decision on either
+a least-cost path calculation, which takes into account factors such as
+congestion and link speed, or it may opt for the shortest path between
+the vehicle's current location and the incident site. The effectiveness
+of these methods is contingent upon the IMT units' ability to navigate
+through traffic. In scenarios where a subnetwork is employed, IMT
+trucks, like other emergency vehicles, are less impacted by congestion
+and variations in free-flow speed. This could render the shortest path
+calculation a more viable option. On the other hand, if IMT vehicles are
+subject to the same traffic conditions as regular vehicles, a least-cost
+path calculation might be the more prudent choice within the simulation.
 
-In the context of this project, the Utah IMT system operates in tandem
-with the Utah Highway Patrol system under the same dispatch service.
-IMTs in Utah are equipped with sirens and flashing lights similar to
-those on a highway patrol vehicle, and they operate within specific
-zones. For instance, there are multiple zones in Salt Lake and Davis
-Counties where IMT vehicles are distributed. Given that IMTs can
-navigate traffic like other emergency vehicles, the Utah Highway Patrol
-dispatch requests the nearest available vehicle(s) to respond to an
-incident when it occurs. It's worth noting that due to limited
-resources, an incident ideally requiring assistance from 2 or 3 IMT
-units may only receive one vehicle, potentially leading to longer
-management or cleanup times.
+In this project, the Utah IMT system operates collaboratively with the
+Utah Highway Patrol, sharing a common dispatch service. IMT vehicles,
+equipped with sirens and flashing lights similar to those on highway
+patrol vehicles, are assigned to specific zones and have the capability
+to navigate through traffic like other emergency vehicles. Given this
+capability, the dispatch system prioritizes the IMT vehicle that can
+reach the incident site most efficiently, taking into account the
+current traffic conditions. This operational protocol ensures that,
+within the simulated scenarios, the IMT vehicle selected is not merely
+the closest in terms of distance, but also the most strategically
+positioned to respond swiftly and effectively.
+
+Upon arrival at an incident site, IMT vehicles play a crucial role,
+primarily through their interaction with Network Change Events (NCEs)
+within the ongoing simulation. They utilize the same mechanisms as
+incidents to effect changes in the network, contributing to the dynamic
+and responsive nature of the simulation. This ensures that the
+simulation remains a valuable tool for understanding and planning for
+real-world scenarios, particularly those involving roadway incidents and
+the subsequent deployment of IMT vehicles.
+
+It is important to note that resource limitations may sometimes restrict
+the number of IMT units available to respond to an incident. In
+instances where an incident would ideally be managed by 2 or 3 IMT
+units, only a single vehicle might be dispatched, potentially leading to
+extended management or cleanup times. This limitation, along with its
+implications, will be discussed in more detail in the conclusion and
+limitations section of this report.
 
 \hypertarget{incident-response}{%
-\subsection{Incident Response}\label{incident-response}}
+\subsubsection{Incident Response}\label{incident-response}}
 
-As discussed in Section 3.1.1, a critical element in simulating the
-effects of incidents on agents within the MATSim network is Network
-Change Events (NCEs). This mechanism, which illustrates how incidents
-can impact user behavior, will also be used to demonstrate how the
-reactions of IMTs influence agents' travel times and paths.
+Network Change Events (NCEs) play a crucial role in the MATSim network,
+simulating the effects of incidents on agents and demonstrating how
+these events impact user behavior. Additionally, NCEs highlight the
+influence of Incident Management Teams (IMTs) on agents' travel times
+and paths, providing a comprehensive view of incident response.
 
-Once the vehicle assignment algorithm dispatches one or more IMT units
-to an incident, a decision must be made on what percentage of the
-incident link's capacity is restored upon the IMT's arrival. An arriving
-IMT can either hasten the restoration of the capacity to normal levels
-or enhance the capacity by a certain percentage `X.' These adjustments
-hinge on the available incident data and findings from other research
-regarding IMT effectiveness.
+Upon the occurrence of an incident, the vehicle assignment algorithm is
+tasked with dispatching IMT units, leading to a critical decision: what
+impact will the IMT vehicles have on the affected links? Two primary
+strategies are considered:
 
-\citet{kim2012} discusses the cost-benefit ratio of different IMT fleet
-sizes, and other studies have attempted to gauge the duration of an
-incident's impact without an IMT and contrast that with the length of
-time that an incident affects traffic when an IMT is dispatched. Given
-the correct information or building upon certain assumptions, one can
-establish a capacity restoration factor to be applied upon a vehicle's
-arrival at an incident site.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Incident Duration Reduction: The IMT vehicles can decrease the
+  duration for which the link's capacity is reduced, effectively
+  shortening the incident's length.
+\item
+  Capacity Restoration: Upon their arrival, IMT vehicles can restore a
+  certain percentage of the link's lost capacity.
+\end{enumerate}
 
-Figure 4 below provides a potential example of how an incident, with no
-IMT response, might affect a network in comparison to scenarios where
-one IMT responds, followed by the response of a secondary unit.
+The decision between these strategies is dependent on the data available
+to the user. In the context of this project there is a lack of
+comprehensive data comparing incidents with and without IMT or highway
+patrol intervention. This data gap, highlighted in our literature
+review, prevents an accurate prediction of an incident's potential
+duration without external assistance and hinders informed
+decision-making in incident management.
+
+In the absence of clear comparative data, the practicality of the first
+option---incident duration reduction---remains uncertain. However, this
+study has adopted the second strategy, capacity restoration, with IMT
+vehicles restoring 25\% of the capacity gap on an incident link upon
+their arrival. This capacity gap is defined as the difference between a
+link's full capacity and its reduced capacity during an incident.
+
+Figure~\ref{fig-Cap_Restore} visually represents the potential impact of
+an incident without IMT intervention, contrasting it with scenarios
+involving the response of one or two IMT units. This illustration
+underscores the significance of IMT vehicles in incident management and
+their potential to mitigate the effects of incidents on network traffic
+flow.
 
 \begin{figure}
 
-{\centering \includegraphics{figures/fig4.png}
+{\centering \includegraphics{figures/cap_restore.png}
 
 }
 
-\caption{Figure 4: Changes upon arrival.}
+\caption{\label{fig-Cap_Restore}Figure 4: IMT Capacity Restoration Upon
+Arrival.}
 
 \end{figure}
 
-\hypertarget{simulation-scenarios}{%
-\subsection{Simulation Scenarios}\label{simulation-scenarios}}
+\hypertarget{scenario-simulations-and-comparisons}{%
+\subsection{Scenario Simulations and
+Comparisons}\label{scenario-simulations-and-comparisons}}
 
-Loading incidents and IMT response vehicles into the Utah Optimization
-model is a significant aspect of this project's methodology. Another
-crucial element involves running scenarios to quantify the impact of
-both incidents and IMT arrivals. Various factors influence these
-quantitative comparisons. These include the type of network and plans
-files used during the simulation, the processed and selected incident
-data, and the locations and quantities of IMT vehicles included in the
-simulations. Each of these components builds on prior research related
-to IMTs in Utah, MATSim studies on Demand Responsive Transport (DRT),
-and transportation modeling research conducted by the Wasatch Front
-Regional Council in various traffic modeling projects throughout Utah.
+Given the context regarding incident selection, IMT organization, and
+their collective impact on a network and its agents, a series of
+simulation scenarios were designed for a comprehensive comparative
+analysis. Each scenario was executed using a network and plans file
+previously utilized in research conducted by Dr.~Macfarlane and research
+students at Brigham Young University for the Wasatch Front Regional
+Council (WFRC).
 
-\hypertarget{wasatch-front-base-scenario}{%
-\subsubsection{Wasatch Front Base
-Scenario}\label{wasatch-front-base-scenario}}
-
-In this section, we aim to outline the origins of the network and plans
-file and their usage in other research conducted by the Wasatch Front
-Regional Council (WFRC).
-
-\textless\textless{} Dr.~Macfarlane has provided information about the
-source of these plans. I will review his notes before expanding this
-section. \textgreater\textgreater{}
-
-The network and plans have been calibrated and represent a typical day's
-traffic in the regions where most IMT vehicles operate.
+These network and plans files were integrated into our simulation
+scenarios, alongside the ImtModule described earlier, and other
+configuration parameters. The config parameters were primarily
+established by the configuration settings employed by
+\citet{kaddoura2018} in their MATSim incident simulations. With all
+parameters set up and organized, a total of 60 simulation scenarios were
+executed to facilitate a thorough comparative analysis. The subsequent
+section provides a detailed outline of these scenarios and the
+methodology employed to compare and contrast their respective outcomes.
 
 \hypertarget{incident-imt-scenario}{%
 \subsubsection{Incident \& IMT Scenario}\label{incident-imt-scenario}}
 
-We will detail the various scenarios we executed in this section,
-specifying the types based on the number of incidents and the quantity
-of Incident Management Teams (IMTs) involved. We will clarify why we
-chose to execute the specific number of tests and scenarios.
+This section outlines the methodology employed for selecting incidents
+in a set of 20 simulated ``days.'' These simulations are categorized
+into two distinct groups: one reflecting the current distribution of
+incidents managed by the Utah Highway Patrol, and another representing a
+10-day period with an elevated frequency of incidents, based on the
+upper range of daily incident data gathered in 2022.
+
+Each of the 20 scenarios was assigned a unique random seed value,
+ensuring variability in incident selection across simulations.
+Subsequently, each group of scenarios was further divided into three
+distinct simulation conditions. The first condition, referred to as
+``Incidents-Only,'' includes only the incidents without any IMT
+intervention. The second condition incorporates the incidents along with
+the deployment of 20 IMT vehicles, while the third condition includes
+the incidents and an increased fleet of 30 IMT vehicles. For ease of
+organization and comparison, each scenario was assigned a unique code,
+such as ``1-10-257.'' In this coding system, the first digit denotes the
+scenario type (Incidents-Only, 20 IMTs, or 30 IMTs), the second digit
+represents the number of incidents included in the simulation, and the
+third digit corresponds to the seed value used for random incident
+selection. In total, seven overarching scenario groups were established,
+as outlined below:
+
+1. An incidents only scenario with no IMTs and current incident
+frequency.
+
+2. An incidents only scenario with no IMTs and increased incident
+frequency.
+
+3. Current IMT resources (20 vehicles) with current incident frequency.
+
+4. Current IMT resources (20 vehicles) with increased incident
+frequency.
+
+5. Increased IMT resources (30 vehicles) with the current frequency of
+incidents.
+
+6. Increased IMT resources (30 vehicles) with the increased frequency of
+incidents.
+
+7. A baseline with no IMTs and no Incidents.
+
+It is important to note, as described in the IMT Vehicle Setup section,
+that not all IMT vehicles are operational simultaneously. Due to
+scheduling constraints, the actual number of vehicles on the road at any
+given time is typically approximately half of the total fleet size.
 
 \textless\textless{} Brynn has prepared a table detailing these
 different scenario types, which we could include here if desired.
 \textgreater\textgreater{}
 
-Essentially, we have six scenarios:
-
-1. A baseline with no IMTs.
-
-2. A baseline with no IMTs and increased incident frequency.
-
-3. Current IMT resources with current incident frequency.
-
-4. Current IMT resources with increased incident frequency.
-
-5. Improved (added) IMT resources with the current frequency of
-incidents.
-
-6. Improved IMT resources with increased frequency of incidents.
-
-Our goal is to run at least ten days of simulations for each scenario.
-
-\hypertarget{incident-data}{%
-\subsubsection{Incident Data}\label{incident-data}}
-
-\textless\textless{} TO DO: summarize the methodology used by Joel Hyer
-and to describe where our incident data came from
-\textgreater\textgreater{}
-
-\hypertarget{incident-sampling}{%
-\subsubsection{Incident Sampling}\label{incident-sampling}}
-
-To determine the appropriate modeling of incidents for a given day,
-reflecting the current incident frequency, we analyzed the received
-incident data to create a distribution of incident count frequency for
-sampling.
-
-We wrote code using Pandas in Python to read data into a data frame,
-remove duplicate entries, and manipulate the `Call Received Time' and
-`Call Type' columns. The data frame is then grouped by date and call
-type to count incidents. The result is a new data frame showing incident
-frequency per day. These frequencies are used to create a weighted
-distribution for sampling. To ensure reproducibility, the code utilizes
-a random seed value and performs random sampling by selecting ten days
-from the incident number distribution based on the calculated
-frequencies. The sample yields ten values that will be utilized in
-MATSim to determine the number of incidents to be generated in the
-simulation for ten different simulated days.
-
-For our increased frequency scenarios, we aimed to assess the impact of
-a significant surge in daily incidents on the IMT system. To achieve
-this, we used the higher end of the 2022 data as a reference, including
-one day with 21 incidents, one with 20 incidents, two with 19 incidents,
-and two with 18 incidents. This approach allowed us to test the
-effectiveness and coverage of the IMT program under more extreme demand.
-Because this collection is limited to 6 days, we included one additional
-day of each incident count, choosing to simulate two days with 21
-incidents, two days with 20 incidents, three days with 19 incidents, and
-three days with 18 incidents.
-
-\begin{figure}
-
-{\centering \includegraphics{figures/fig5.png}
-
-}
-
-\caption{Figure 5: Incident Sampling.}
-
-\end{figure}
-
 \hypertarget{comparative-measures}{%
 \subsubsection{Comparative Measures}\label{comparative-measures}}
 
-\textless\textless{} TO DO: Rewrite this section. Make it sound more
-academic. The goal is to provide a transition from the methodology to
-the results section of the paper \textgreater\textgreater{}
+The study employed the MATSim model for simulations across three
+scenarios: `Incidents', `20-Truck', and `30-Truck'. Each scenario was
+compared internally, as well as against a `Baseline' scenario without
+incidents or IMT intervention. This multi-level comparison provides an
+overall view of the IMTs' influence on traffic flow and their
+operational efficiency.
 
-As we transition from the methodology to the results, it is essential to
-underscore the measures employed for an exhaustive comparative analysis.
-Central to our examination is the metric of total vehicle hours of
-delay. While of considerable import, the average IMT vehicle arrival
-time assumes a secondary role in our analysis. Emphasis will be placed
-on delay durations for both incident and feeder links; the latter being
-defined as the connecting routes leading to incident sites.
+The primary metric for traffic impact analysis in this study is the
+total vehicle hours of delay (VHD), dissected through three
+investigative tiers: Network Links, Motorway Links, and Impacted Links.
+`Network Links' offer a macroscopic view of the network-wide delay,
+`Motorway Links' focus on major highways and freeways, and `Impacted
+Links' provide a microscopic view of the delays at incident sites and
+their immediate upstream links. This tiered approach ensures a thorough
+analysis, capturing the overarching impact on traffic flow while also
+honing in on critical areas affected by incidents. The comparative
+analysis across different scenarios and tiers highlights the general
+impacts of IMTs and their efficacy, particularly at the `Impact Link'
+level.
 
-Our inquiry extends to the variance in delay durations across diverse
-scenarios. We have systematically categorized the links according to
-their intrinsic types. A salient metric targets delay durations
-associated with `motorway type' links. Concurrently, a comprehensive
-metric will delineate the total delay span across the entire network. It
-is paramount to recognize that while this overarching delay duration
-might be influenced by our adjustments to the MATSim model, other
-external variables could also play a role.
+In addition to VHD, the study investigates the performance and
+operational efficiency of IMT vehicles. Metrics such as average travel
+times, distances, and incident response times of IMT trucks are compared
+across scenarios. The `20-Truck' scenario reflects the current fleet of
+IMT vehicles, while the `30-Truck' scenario introduces an additional 10
+vehicles, providing a basis for comparison to discern the impact of
+fleet size on operational efficiency. The analysis encompasses both the
+time and distance traveled by IMT trucks to incidents, offering insights
+into how effectively these resources are deployed and utilized.
 
-The forthcoming results section will elucidate these measures in detail,
-accentuating any modifications we've incorporated into the model. What
-follows should be regarded as a concise prologue, prepping the reader
-for an in-depth analytical exposition.
+By comparing the performance metrics of IMT trucks across different
+scenarios, we gain a better understanding of how fleet size influences
+operational efficiency. This, in turn, informs strategic decisions
+regarding resource allocation and deployment, ensuring that IMT vehicles
+are optimally utilized to mitigate traffic delays and enhance roadway
+safety.
 
 \bookmarksetup{startatroot}
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
+This section details the outcomes of the Utah Incident Management Team
+Optimization project, employing the MATSim model to execute a series of
+simulations across a range of scenarios. Specifically, the
+scenarios---\emph{Incidents}, \emph{20-Truck}, and
+\emph{30-Truck}---were compared with a `Baseline' scenario, facilitating
+an evaluation of the repercussions of traffic incidents and the
+effectiveness of Incident Management Teams (IMTs) in alleviating traffic
+disruptions. In total, 61 simulation scenarios were conducted, each
+undergoing 450 iterations within the MATSim framework to produce a
+convergence towards a state of equilibrium in travel behavior for most
+scenarios. This section offers an analysis of the simulation results,
+concentrating on pivotal comparative metrics such as vehicle hours of
+delay (VHD), the implications of incidents, and the response dynamics of
+the IMTs.
+
 \hypertarget{scenario-results-from-matsim-simulations}{%
 \subsection{Scenario Results from MATSim
 Simulations}\label{scenario-results-from-matsim-simulations}}
 
-The study utilized the MATSim model to conduct 20 simulations across
-three different scenarios: ``Incidents'', ``Current'', and
-``Increased''. Within the ``Incidents'' scenario, a random subset of
-incidents was produced without any subsequent intervention from incident
-management teams (IMTs). The ``Current'' scenario included incidents
-paired with responsive measures from UDOT's existing fleet of 20 IMT
-vehicles. The ``Increased'' scenario is similar to the ``Current''
-framework, yet it it equip with an additional grouping of 10 IMT
-vehicles, culminating in a fleet of 30 vehicles.
+The investigation employed the MATSim model to perform 20 simulations
+for each of the three scenarios: \emph{Incidents}, \emph{20-Truck}, and
+\emph{30-Truck}. In the \emph{Incidents} scenario, a random subset of
+incidents was generated, without any intervention from Incident
+Management Teams (IMTs). The \emph{20-Truck} scenario included the same
+random incidents, coupled with responsive measures from UDOT's existing
+fleet of 20 IMT vehicles. The \emph{30-Truck} scenario mirrored the
+\emph{20-Truck} framework, albeit with an increased fleet, incorporating
+an additional 10 IMT vehicles.
 
-These distinct scenarios were compared internally as well as against a
-``Baseline'' scenario devoid of any incidents or IMT presence.
-Cumulatively, 61 simulation scenarios were executed, each subjected to
-450 MATSim iterations. This iterative approach ensured that a majority
-of scenarios gravitated towards a state where travel plans displayed
-minimal variance between successive iterations, effectively achieving an
-equilibrium in travel behavior by the simulation's conclusion.
+These scenarios underwent comparisons against each other as well as
+against a \emph{Baseline} scenario with no incidents or IMT deployment.
+In total, the study executed 61 simulation scenarios, each completing a
+total of 450 iterations within the MATSim model. This iterative approach
+ensured that a majority of scenarios gravitated towards a state where
+travel plans displayed minimal variance between successive iterations,
+effectively achieving an equilibrium in travel behavior by the
+simulation's end.
 
-Subsequent sections of this chapter are dedicated to analyzing the
-output results from these scenarios, emphasizing comparative metrics
-such as vehicle hours of delay (VHD), the ramifications of incidents,
-and the IMT response dynamics pertaining to these incidents.
+The following sections of this chapter are structured to a analysis of
+the results derived from these scenarios. This analysis uses comparative
+metrics such as vehicle hours of delay (VHD), the consequences of
+traffic incidents, and the dynamics of the IMT responses in relation to
+these incidents.
 
 \hypertarget{vehicle-hours-of-delay}{%
 \subsection{Vehicle Hours of Delay}\label{vehicle-hours-of-delay}}
 
-One of the principal metrics utilized to analyze the simulation
-scenarios is the Total Vehicle Hours of Delay (VHD). The analysis of
-vehicle hours of delay was divided into three tiers of investigation.
-First, the overarching network (termed ``All Links''). Second, the links
-MATSim categorizes as motorway links --- often referred to as freeway
-links. Lastly, the specific links where incidents occur, in addition to
-the two immediate upstream links. This cluster of links is labeled
-``Impact Links'' for the purposes of this study.
+The primary metric used in analyzing the simulation scenarios is the
+total vehicle hours of delay (VHD). This analysis is structured across
+three distinct tiers: \emph{Network Links}, \emph{Motorway Links}, and
+\emph{Impacted Links}.
 
 Overall, it is apparent that the IMT vehicles' influence within the
 simulations is most apparent at the ``Impact Link'' level. However,
 their effects permeate every tier of analysis. While the outcomes of
 certain scenarios align with anticipated projections, others deviate
-from intuitive or assumed results. The subsequent analysis will commence
-with an exploration of the ``All Links'' scenarios.
+from intuitive or hypothesized results. The subsequent analysis will
+commence with an exploration of the \emph{Network Links} comparisons.
 
 \hypertarget{network-hours-of-delay}{%
 \subsubsection{Network Hours of Delay}\label{network-hours-of-delay}}
 
-Each scenario, with the exception of the baseline, encompasses ten
-distinct sub-scenarios. \textbf{?@tbl-network\_delays\_table} indicates
-the mean hours of delay for each scenario cluster. Additionally, it
-includes a comparative metric, showcasing the percentage deviation in
-VHD from the baseline scenario.
-
-Within the array of scenario groupings, those equipped with an IMT fleet
-of 30 vehicles exhibited the most effective results, on average.
-Following closely were the scenarios reliant on the current fleet, and,
-as anticipated, the incident-only scenarios registered the maximal Total
-VHD values. An intriguing observation arises when evaluating the VHD in
-the context of incident frequency: the patterns do not align with
-conventional expectations. For instance, in the incident-only scenarios,
-the average total VHD for scenarios incorporating increased incidents
-escalated by approximately one percent compared to the scenarios
-representing the current incident frequency. Yet, when evaluating
-scenarios associated with both the existing and increased IMT fleet
-sizes, the distinction between the current and increased incident
-frequencies was notably marginal.
-
-\textless\textless{} TO DO: try to explain why it is that there is so
-little difference between the current and increased incident frequency
-groupings. Can it be attributed to the incidents that were selected? Is
-that something that you can discover when looking into the impacted
-links VHD? \textgreater\textgreater{}
+The scenarios can be categorized based on incident response (i.e.,
+\emph{Incidents}, \emph{20-Truck}, and \emph{30-Truck}), the frequency
+of incidents (i.e., \emph{Current Frequency} and \emph{Increased
+Frequency}), or a combination of both. In evaluating the results of the
+60 scenarios across all network links, or \emph{Network Links}, groups
+were categorized by both incident response and frequency. The
+\textbf{?@tbl-network\_delays\_table} provides a summary of the average
+total vehicle hours of delay (VHD) for each scenario groupings,
+categorized by incident response and frequency of incidents.
 
 \begin{table}
 
@@ -1181,11 +1424,35 @@ links VHD? \textgreater\textgreater{}
 
 \end{table}
 
+\textless\textless{} I am going to fix the labeling of the tables an
+plots so they are easier to understand and follow the scenario groupings
+we established in the text -D.J. \textgreater\textgreater{}
+
+Comparing the results of each scenario groupings, its observed that
+scenarios including an IMT fleet of 30 vehicles experience the lowest
+average VHD. Following closely were the scenarios including the current
+fleet (20 IMTs), and, as anticipated, the incident-only scenarios
+registered the maximal Total VHD values.
+
+Contrary to the anticipated correlation between more incidents and
+longer delays, the VHD patterns and incident frequency relationship is
+complex. In incident-only scenarios, a mere one percent increase in
+average total VHD occurs with increased incidents, relative to current
+frequency scenarios. Interestingly, scenarios incorporating both
+existing and increased IMT fleets exhibit a slight reduction in average
+delay, despite an uptick in incident frequency.
+
+\textless\textless{} TO DO: try to explain why it is that there is so
+little difference between the current and increased incident frequency
+groupings. Can it be attributed to the incidents that were selected? Is
+that something that you can discover when looking into the impacted
+links VHD? \textgreater\textgreater{}
+
 Given that the table reveals average delay values aggregated across
 multiple scenarios within each grouping, a graphical representation can
-offer enhanced clarity regarding the inherent variance within these data
-clusters. The ensuing figure illustrates the this data through various
-violin plots.
+enhance clarity regarding the inherent variance within these data
+clusters. Figure~\ref{fig-network_violin_plot} illustrates this data
+through various violin plots.
 
 \begin{figure}
 
@@ -1202,23 +1469,22 @@ Within this visualization, each violin illustrates the density
 distribution of delay values. The increased width in certain sections of
 the violin signifies regions where a number of simulations converged
 around a specific delay value. Conversely, the narrow sections denote
-fewer simulations converging around that delay metric. To further
-contextualize each scenario, a dashed horizontal line has been
-superimposed, signifying the Baseline scenario, serving as a reference
-point for comparison. Additionally, the diamond markers situated within
-each plot symbolize the mean delay for all simulations in the respective
-scenario.
+fewer simulations converging around that delay metric. A dashed
+horizontal line has been superimposed to further explain each scenario,
+signifying the Baseline scenario as a reference point for comparison.
+Additionally, the diamond markers situated within each plot symbolize
+the mean delay for all simulations in the respective scenario group.
 
 Upon inspection of these violins, several observations can be made. For
-instance, in the ``Incidents'' scenario, the delay distribution is
+instance, in the \emph{Incidents} scenario, the delay distribution is
 characterized by a relatively constricted spread at the lower end,
 fanning out around the 100,000 mark, with the mean delay skewing closer
 to 104,000, influenced by the values approaching 120,000 total hours of
-delay. The distribution within the ``Current'' scenario exhibits
-significant variability, reflected in its consistent width. The scenario
-with the ``Increased'' IMT fleet manifests marginally reduced
-variability in comparison to the ``Current'' scenario, and contains
-pronounced sections around 90,000 VHD and 100,000 VHD.
+delay. The distribution within the \emph{20-Truck} scenario exhibits
+significant variability, reflected by its consistent width. The scenario
+with the \emph{30-Truck} fleet produces marginally reduced variability
+in comparison to the \emph{20-Truck} scenario, and contains pronounced
+sections around 90,000 VHD and 100,000 VHD.
 
 While the preceding section discussed delays for the entire network,
 it's relevant to highlight that all simulated incidents occurred on
@@ -1231,10 +1497,17 @@ simulation outcomes specifically pertaining to these motorway links.
 \subsubsection{Motorway Link Hours of
 Delay}\label{motorway-link-hours-of-delay}}
 
-Recognizing the utility of comparing average simulation performances,
-the table labeled \texttt{motorway\_delays\_table} below details the
-mean Total VHD for each grouping, categorized by scenario and incident
-frequency values.
+In MATSim, the term ``motorway'' is used to describe a type of link,
+which may be referred to as ``freeway'' or ``highway'' in different
+contexts. For the sake of consistency, this document primarily uses
+``motorway links'' to refer to these road segments. Still, note that in
+the simulation, incidents occur on both Interstates and major highways
+along the Wasatch Front.
+
+For the comparison of average simulation performances, the
+\textbf{?@tbl-motorway\_delays\_table} table provides a detailed
+breakdown of the average Total Motorway VHD for each grouping,
+categorized by scenario and incident frequency values.
 
 \begin{table}
 
@@ -1262,26 +1535,26 @@ frequency values.
 
 \end{table}
 
-Contrasted with the network\_delays table, focusing solely on motorway
-links reveals that the average VHD surge for incidents-only scenarios
-relative to the baseline of the same links exceeds 45\%. Interestingly,
-in comparison with the full network delay scenarios, both the
-``Current'' and ``Increased'' IMT vehicle fleet scenarios demonstrated
-improved average performances on motorways, converging towards, and
-occasionally even dropping below, the baseline delay measures on these
-links.
+Compared to the \textbf{?@tbl-network\_delays\_table} network\_delays
+table, focusing solely on motorway links reveals that the average VHD
+surge for incidents-only scenarios relative to the baseline of the same
+links exceeds 45\%. Interestingly, in comparison with the full network
+delay scenarios, both the \emph{20-IMT} and \emph{30-IMT} scenarios
+demonstrated improved average performances on motorways, converging
+towards, and occasionally even dropping below, the baseline delay
+measures on those links.
 
-Intriguingly, the trend discerned among the full network links (which
+Interestingly, the trend observed among the full network links (which
 presented a challenge in correlating additional incidents with increased
 delays) inverts in the context of motorway links. Here, the IMT
 scenarios seem to fare better (indicating reduced delays) in contexts
-with fewer incidents, and slightly worse in scenarios with incident
+with fewer incidents, and slightly worse in scenarios with increased
 incident counts. However, it's curious to observe that in the
 ``Incidents'' scenario, the mean delay across scenarios was notably
-poorer in contexts with twelve or fewer incidents than in those with a
-heightened incident tally.
+poorer in simulations with twelve or fewer incidents than in those with
+a heightened incident tally.
 
-For a more granular understanding of the variances within to the
+For a more in=depth understanding of the variances within to the
 scenario groupings, the motorway\_violin plot provides additional
 insights.
 
@@ -1296,19 +1569,22 @@ violins.}
 
 \end{figure}
 
+\textless\textless{} TO DO: fix the labeling on this figure. It's kind
+of gnarly \textgreater\textgreater{}
+
 As depicted in the violin plot, both the ``incidents-only'' scenario
 groupings exhibit wide spans throughout their plots, signifying a
 pronounced variance in delays across the simulations. Notably, the plots
-for both the ``Current'' and ``Increased'' IMT fleet scenarios are wide
-near the baseline mean value, which hovers around 15,000 VHD. This
-expansion, however, diminishes as the scenarios transition to higher
-total delay hours. Particularly in outlier scenarios, the ``Increased''
-fleet, equip with additional vehicles, seems to mitigate delay increases
-along the motorway links more effectively than is occasionally evident
-in the ``Current'' vehicle scenarios.
+for both the \emph{20-IMT} and \emph{30-IMT} scenarios are wide near the
+baseline mean value, which hovers around 15,000 VHD. This expansion,
+however, diminishes as the scenarios transition to higher total delay
+hours. Particularly in outlier scenarios, the \emph{30-IMT} fleet, equip
+with additional vehicles, seems to mitigate delay increases along the
+motorway links more effectively than is occasionally evident in the
+\emph{20-IMT} vehicle scenarios.
 
 Continuing the discussion, the final tier for comparing VHD is the
-`Impacted Links' on the network. These refer to the links where the
+\emph{Impacted Links} on the network. These refer to the links where the
 simulated incidents take place, as well as the two links immediately
 preceding each incident link.
 
@@ -1316,12 +1592,12 @@ preceding each incident link.
 \subsubsection{Impacted Links}\label{impacted-links}}
 
 Impacted links are described as the links where an incident occurs,
-along with its first two ``Feeder'' links. These are the two links
+along with its first two \emph{Feeder} links. These are the two links
 through which traffic most commonly flows before reaching the incident
 motorway link. Given the variation in link lengths within the motorway,
 in certain instances, taking into account just two additional links may
 not adequately capture the delay prompted by a specific incident.
-Nevertheless, the \texttt{impacted\_summary\_table} offers significant
+Nevertheless, the \textbf{?@tbl-impacted\_links} offers significant
 insights about how delay on impacted links fluctuates based on the
 simulation scenario. For context regarding the table, Total VHD is
 computed by considering the duration of the incidents (from start to
@@ -1331,7 +1607,7 @@ incident link, without shortening its duration. Therefore, for the
 `Incident Impact Time', which encompasses the incident duration and an
 added hour, the delay values of the incident link and its two Feeder
 Links are aggregated to compute a `Delay from Incident {[}hours{]}'
-variable, showcased in the subsequent scatter plot. To curate the
+variable, showcased in the subsequent scatter plot. To develop the
 summary\_table, the values from all `Delay from Incident {[}hours{]}'
 entries within a scenario and incident frequency group were summed. This
 sum equates to the Total VHD of delay value for each respective
@@ -1364,34 +1640,36 @@ scenario. The results are presented below:
 
 \end{table}
 
-As observed in the table, the Baseline scenario is divide into two
-segments, ensuring a more precise comparison against the remaining three
-scenarios. Even though the Baseline scenario lacks incidents, its values
-stem from the cumulative delay times for the same links evaluated in
-other scenarios.
+The table presents a division of the Baseline scenario into two
+segments, for a more accurate comparison with the other three scenarios.
+Despite the absence of incidents in the Baseline scenario, its values
+are derived from the aggregate delay times of the same links included in
+the other scenarios.
 
 From the cumulative delay data, it's clear that, in line with other VHD
-comparisons, the VHD in the Increased IMT scenario most closely mirrors
-the baseline. This is followed by the Current fleet scenarios and then
-the Incidents-only groupings. As expected, a rise in incident frequency
-leads to an increase in Total VHD. However, the consideration of
-additional links makes a direct comparison of these values less
+comparisons, the VHD in the \emph{30-IMT} scenario most closely mirrors
+the baseline. This is followed by the \emph{20-IMT} scenarios and then
+the \emph{Incidents-only} groupings. As expected, a rise in incident
+frequency leads to an increase in Total VHD. However, the consideration
+of additional links makes a direct comparison of these values less
 straightforward.
 
-In another perspective, the `Average Delay Per Incident {[}hours{]}'
-column divides the total VHD by the number of incidents within a given
-category (90 incidents in the current scenario and 193 in the increased
-frequency scenario). This calculation reveals a notable observation:
-when comparing the average delay per incident between the current and
-increased incident frequencies under the incidents scenario, there's a
-significant 160\% increase in the Average Delay Per Incident. This
-suggests that the incidents selected in the current scenario might have
-been, on average, more impactful than those in the increased scenario.
+For another perspective, the \emph{Average Delay Per Incident
+{[}hours{]}} column divides the total VHD by the number of incidents
+within a given category (90 incidents in the current scenario and 193 in
+the increased frequency scenario). This calculation reveals something
+noteworthy: when comparing the average delay per incident between the
+current and increased incident frequencies under the incidents scenario,
+there's a significant 160\% increase in the Average Delay Per Incident.
+This suggests that the incidents selected in the current scenario might
+have been, on average, more impactful than those in the increased
+scenario.
 
-For a more granular view, the scatter plot below organizes data by seed
-type. Incident numbers and seed values serve as y-axis labels (e.g.,
-``12\_141'' indicates a scenario with 12 incidents associated with the
-seed value 141). The scatter plot is presented as follows:
+For a more detailed observation, the
+Figure~\ref{fig-impacted_links_plot} scatter plot below organizes data
+by seed type. Incident numbers and seed values serve as y-axis labels
+(e.g., ``12\_141'' indicates a scenario with 12 incidents associated
+with the seed value 141). The scatter plot is presented as follows:
 
 \begin{figure}
 
@@ -1405,24 +1683,24 @@ by Seed.}
 \end{figure}
 
 The scatter plot provides deeper insight into the nuances of the average
-incident impact calculations. In a manner similar to the Impacted Links
-Table, the scatter plot presents delay in terms of average delay per
-incident, which averages the delays from the incident links and their
-corresponding feeder links. At first glance, the data points
-representing the Baseline and Increased-IMT scenarios (in pink and
-green) seem to situate to the left of the blue dots depicting the
-Incidents-only scenarios. However, upon closer examination, one might
-discern that in certain scenarios, the Current-Fleet, Improved-Fleet,
-and occasionally both, perform sub-optimally compared to the
-Incidents-Only scenarios. This might initially appear counter intuitive,
-hinting at the possibility that factors beyond link capacity can
-influence delay. There exists an inherent randomness in MATSim's
-iterative process. The manner in which agents re-plan their journeys
-might, at times, influence delay as significantly, if not more, than
-variations in link capacity stemming from incidents and IMT arrivals.
-Notably, for the four Scenario IDs with the highest Average Incident
-Delays, the IMT units appear to substantially reduce the average delay
-on the affected links.
+incident impact calculations. In a manner similar to the
+\textbf{?@tbl-impacted\_links}, the scatter plot presents delay in terms
+of average delay per incident, which averages the delays from the
+incident links and their corresponding feeder links. At first glance,
+the data points representing the Baseline and Increased-IMT scenarios
+(in pink and green) seem to situate to the left of the blue dots
+depicting the Incidents-only scenarios. However, upon closer
+examination, one might discern that in certain scenarios, the
+Current-Fleet, Improved-Fleet, and occasionally both, perform
+sub-optimally compared to the Incidents-Only scenarios. This might
+initially appear counter intuitive, hinting at the possibility that
+factors beyond link capacity can influence delay. There exists an
+inherent randomness in MATSim's iterative process. The manner in which
+agents re-plan their journeys might, at times, influence delay as
+significantly, if not more, than variations in link capacity stemming
+from incidents and IMT arrivals. Notably, for the four Scenario IDs with
+the highest Average Incident Delays, the IMT units appear to
+substantially reduce the average delay on the affected links.
 
 Moving ahead, another crucial variable emerges: the performance metrics
 associated with the IMT trucks. Such metrics encompass total travel
@@ -1435,79 +1713,12 @@ elaborated upon in the subsequent section.
 \subsection{IMT Vehicle Analysis}\label{imt-vehicle-analysis}}
 
 Equally critical to understanding how IMT implementation affects agent
-delay and travel time is assessing the efficacy of IMTs in reaching
+delay and travel time is assessing the efficiency of IMTs in reaching
 their intended destinations. This results segment delves into truck
 travel behavior, capturing metrics such as average travel times and
 distances, along with their typical incident response times. The
-analysis encompasses both the Current-IMT-Fleet scenarios and the
-Increased-IMT-Fleet scenarios---the latter introduces 10 more vehicles
-to the pre-existing fleet of 20. Before delving deeper, some context
-regarding the positioning of these vehicles within the network and their
-operational hours.
-
-\textless\textless{} TO DO: Consider relocating the ensuing IMT setup
-section to the methodology chapter. Also, decide on the sequencing of
-the IMT Vehicle Analysis and the Vehicle Hours of Delay section for
-better flow. \textgreater\textgreater{}
-
-\hypertarget{imt-vehicle-setup}{%
-\subsubsection{IMT Vehicle Setup}\label{imt-vehicle-setup}}
-
-The Utah Department of Transportation's current IMT fleet is organized
-into three zones corresponding to the three counties they serve within
-the Wasatch Front: Davis, Salt Lake, and Utah counties. Figure 6, titled
-``IMT Starting Locations,'' illustrates the boundaries of each county
-and the starting points for both existing and new IMT vehicles.
-
-\begin{figure}
-
-{\centering \includegraphics{figures/fig6.png}
-
-}
-
-\caption{\label{fig-IMT_Map}IMT Starting Locations.}
-
-\end{figure}
-
-In this figure, the existing vehicles are represented by circles, while
-stars indicate the new additions. These starting locations are designed
-to ensure a roughly even distribution throughout each respective county
-based on shift types---either day or afternoon. This arrangement doesn't
-exactly mirror the real-world starting points for IMT truck drivers, who
-often begin their shifts from their homes. However, as the majority of
-their work is concentrated along major interstates like I-15, I-80, and
-I-215, and given the variability in starting locations from day to day,
-positioning them along these primary routes made sense for the given
-MATSim Scenario simulations. Importantly, the ``Increased-IMT'' scenario
-includes all the vehicles from the ``Existing'' or ``Current'' fleet,
-with an additional 10 new vehicles distributed across the three
-counties.
-
-The focus of our investigation isn't necessarily on the influence of
-starting locations on IMT effectiveness. Instead, the focus is an
-analysis of the potential impacts of increasing the number of vehicles
-in the Incident Management team fleet, assuming these vehicles are
-distributed in a roughly equidistant manner.
-
-Additionally, it's important to mention vehicle scheduling. All three
-counties utilize both day and afternoon shifts. In Salt Lake and Davis
-counties, the day shift typically spans from 6:00 AM to 2:30 PM, with
-the afternoon shift running from 2:00 PM to 10:30 PM. In contrast,
-vehicles in Utah County operate from 6:00 AM to 4:30 PM and from 9:30 AM
-to 8:00 PM. These timeframes, combined with the starting links for each
-scenario, are adjustable parameters within the trucks file for the
-MATSim scenario runs.
-
-In practice, IMT vehicles rarely cross county borders during operations
-since they collaborate closely with the Utah Highway Patrol (UHP)
-dispatch service. This service typically refrains from directing
-vehicles across counties. While MATSim allows for setting such virtual
-boundaries, we didn't apply this constraint to our established network.
-This means that, based on proximity to an incident, an IMT vehicle might
-move from Davis to Salt Lake County or from Salt Lake to Utah County and
-vice versa. With the vehicle configurations clarified, our focus shifts
-to evaluating the performance of these vehicles across the 20
-operational scenarios.
+analysis encompasses both \emph{20-IMT} fleets scenarios and the
+\emph{30-IMT} fleet scenarios.
 
 \hypertarget{imt-travel-time}{%
 \subsubsection{IMT Travel Time}\label{imt-travel-time}}
@@ -1517,7 +1728,7 @@ are produced as a standard MATSim output. These files provide insights
 into the distance and time traveled by each IMT vehicle. Utilizing this
 truck travel data, plots were generated to illustrate the average travel
 times and distances for each dispatched truck within a given scenario.
-Figure \citet{truck_time_plot} illustrates the average travel time for
+Figure~\ref{fig-truck_time_plot} illustrates the average travel time for
 each dispatched vehicle:
 
 \begin{figure}
@@ -1531,24 +1742,22 @@ per Dispatched Truck}
 
 \end{figure}
 
-Figure \citet{truck_time_plot} indicates the average travel time per
-scenario for each dispatched truck. In every scenario, the cumulative
-travel time for all dispatched vehicles was computed, followed by
-division by the count of trucks deployed. Furthermore, an analysis of
+To computed the average travel time per truck we took the cumulative
+travel time for all dispatched vehicles in every scenario and then
+divided it by the number of trucks deployed. Furthermore, an analysis of
 the \citet{truck_csv} data reveals that scenarios with an ``Increased''
 fleet of 30 vehicles generally dispatched more trucks than scenarios
 with a fleet of only 20 vehicles. A nearly analogous methodology was
-employed to generate the \citet{truck_distance_plot} discussed in the
-subsequent section.
+employed to generate the Figure~\ref{fig-truck_distance_plot} discussed
+in the subsequent section.
 
 \hypertarget{imt-travel-distance}{%
 \subsubsection{IMT Travel Distance}\label{imt-travel-distance}}
 
-As with the variation in truck\_time across different scenario
-alternatives, there is a clear distinction between `Increased' and
-`Current' IMT fleet scenarios in terms of the average distance traveled
-per dispatched vehicle. These results are visualized in the Figure
-\citet{truck_distance_plot}.
+As with the variation in truck\_time across different scenario, there is
+a clear variance between \emph{20-IMT} and \emph{30-IMT} fleet scenarios
+in terms of the average distance traveled per dispatched vehicle. These
+results are visualized in the Figure~\ref{fig-truck_distance_plot}.
 
 \begin{figure}
 
@@ -1561,12 +1770,12 @@ Scenario per Dispatched Truck}
 
 \end{figure}
 
-The data presented in the above figure underscores a direct correlation
+The data presented in the above figure establishes a direct correlation
 between an increased number of vehicles and a decrease in average
-distance traveled per truck. Notably, the ``Increased'' vehicle fleet
-benefited in both time and distance scenarios by commencing from
-identical locations as the ``Current Fleet'' scenarios. This advantage
-was made more noticed by the addition of vehicles to bridge the spatial
+distance traveled per truck. Notably, the \emph{30-IMT} fleet benefited
+in both time and distance scenarios by commencing from identical
+locations as the \emph{20-IMT} fleet scenarios. This advantage was made
+more noticeable by the addition of vehicles to bridge the spatial
 intervals between the existing vehicles.
 
 Altering the starting locations of the vehicles or having them circulate
@@ -1580,20 +1789,114 @@ present study, it presents an intriguing avenue for future
 investigations using the IMT deployment MATSim package associated with
 this report.
 
+As highlighted by the work of \citet{lou2011}, in addition to fleet
+size, factors such as, vehicle starting locations, and whether IMTs
+operate as `roaming entities' can all influence their response times.
+Altering the initial positions of the vehicles or directing them along
+specific routes, as opposed to a stationary start, can have substantial
+impacts on both the time and distance they cover, with potential
+advantages or drawbacks. However, it is important to note that
+determining the \emph{optimal} starting points for IMT vehicles was not
+the primary focus of the Utah Department of Transportation in this
+research. While this particular dimension was not explored in our
+present study, it provides a compelling direction for future
+investigations using the IMT deployment MATSim package associated with
+this report.
+
 \hypertarget{imt-response-times}{%
 \subsubsection{IMT Response Times}\label{imt-response-times}}
 
-\textless\textless{} TO DO: In this section, we will present a detailed
-analysis of the average vehicle response time to each incident, based on
-the data visualized in a plot prepared by Brynn. Upon completion of her
-NFS work, she will further elaborate on the findings and their
-implications. \textgreater\textgreater{}
+In the study conducted by \citet{schultz2019}, it is highlighted that,
+in Utah, a one-minute increase in IMT response time (RT) results in an
+approximate 0.8-minute increase in average roadway clearance time (RCT).
+This finding emphasizes the critical factor of IMT response times in
+reducing clearance times and subsequent delays. In the simulation
+conducted, incidents requested the support of one to four IMT units,
+with response times varying across different scenarios.
 
-\textless\textless{} TO DO: For optimal comprehension and flow, it is
-important to determine the most suitable sequence for presenting the
-results. The chosen order will ensure better transitions from the
-methodology section and will set the stage effectively for the
-conclusion.\textgreater\textgreater{}
+On average, across 280 simulated incidents, the arrival times in the
+\emph{30-IMT} scenarios were 4 minutes faster than those in the
+\emph{20-IMT} scenario, as detailed in
+\textbf{?@tbl-truck\_arrival\_table}, which compares the average arrival
+times of the 1st, 2nd, 3rd, and 4th trucks.
+
+Examining \textbf{?@tbl-truck\_arrival\_table} provides insight into the
+response patterns of IMT vehicles, highlighting their response to 280
+out of 283 total incidents across both scenarios, with the remaining 3
+incidents falling outside of the IMT operational hours. Within these
+responses, 116 incidents requested the assistance of a second IMT unit,
+23 required a third, and 3 incidents called for a fourth truck. The
+scenarios including 30 IMT units consistently demonstrated faster
+average arrival times across nearly all categories, with the exception
+of the 4th truck arrival. This particular category, based on a limited
+sample of 3 incidents, showed mixed results; the 30-IMT fleet was faster
+in two instances but significantly slower in the third. Cumulatively,
+the \emph{20-IMT} scenarios resulted in 105 hours of truck travel time,
+whereas the \emph{30-IMT} scenarios reduced this total to 77 hours.
+
+Further analysis of \citet{truck_arrival_data} indicates that the
+\emph{20-IMT} fleet often dispatched the same truck to multiple
+incidents in quick succession, negatively impacting its arrival times.
+In contrast, the \emph{30-IMT} scenarios, with more vehicles available,
+were less likely to engage in this practice.
+
+\textless\textless{} To do: Consider exploring the dispatch patterns of
+the \emph{NEW} trucks in the \emph{30-IMT} scenarios, or alternatively,
+analyze the average number of trips per truck, drawing from the previous
+discussion. Determine which approach would yield more meaningful
+results. \textgreater\textgreater{}
+
+Figure~\ref{fig-truck_arrival_plot} provides a detailed view of how
+arrival times varied across scenarios, with data points representing the
+difference in arrival times between the \emph{20-IMT} and \emph{30-IMT}
+scenarios. Positive values indicate quicker arrival times for the
+\emph{30-IMT} fleet, while negative values indicate the opposite. The
+general trend suggests that the \emph{30-IMT} fleet consistently
+achieved quicker arrival times, particularly in scenarios with a higher
+incident count.
+
+\begin{figure}
+
+{\centering \includegraphics{04_results_files/figure-pdf/fig-truck_arrival_plot-1.pdf}
+
+}
+
+\caption{\label{fig-truck_arrival_plot}Truck Arrival Comparison by
+Scenario}
+
+\end{figure}
+
+From Figure~\ref{fig-truck_arrival_plot}, it becomes evident that the
+\emph{30-IMT} vehicle fleet generally boasts shorter arrival times
+compared to the \emph{20-IMT} fleet. While outliers exist within each
+truck's grouping, it is particularly noticeable that in scenarios with a
+higher incidence of incidents (18, 19, 20, and 21), the addition of 10
+vehicles significantly enhances the overall arrival times of trucks,
+with the most pronounced improvements observed in the arrival times of
+the 2nd and 3rd trucks.
+
+In summary, the combined results from the Vehicle Hours of Delay (VHD)
+and IMT Vehicle analysis demonstrate the efficacy of IMT vehicles in
+mitigating delays, particularly on the road segments directly impacted
+by incidents and their immediate surroundings. Additionally, an increase
+in the size of the vehicle fleet is directly associated with reductions
+in both the average travel time per truck and the response times per
+incident, underscoring the benefits of a larger IMT fleet in emergency
+response situations.
+
+\begin{figure}
+
+{\centering \includegraphics{04_results_files/figure-pdf/fig-truck_violin_plot-1.pdf}
+
+}
+
+\caption{\label{fig-truck_violin_plot}Truck Arrival Violin Comparison}
+
+\end{figure}
+
+\textless\textless{} I probably like the scatter plots better, but am
+open to suggestions and wanted to include both for
+context\textgreater\textgreater{}
 
 \bookmarksetup{startatroot}
 
