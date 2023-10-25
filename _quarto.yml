@@ -5,15 +5,15 @@ project:
 book:
   title: "Simulating Incident Management Team Response and Performance"
   author:
-    - name: Gregory S. Macfarlane
-      orcid: 0000-0003-3999-7584
-      email: gregmacfarlane@gmail.com
-      affiliations:
-        - name: Civil and Construction Engineering Department, Brigham Young University
-          address: 430 EB
-          city: Provo
-          state: UT
-          postal-code: 84602
+    # - name: Gregory S. Macfarlane
+    #   orcid: 0000-0003-3999-7584
+    #   email: gregmacfarlane@gmail.com
+    #   affiliations:
+    #     - name: Civil and Construction Engineering Department, Brigham Young University
+    #       address: 430 EB
+    #       city: Provo
+    #       state: UT
+    #       postal-code: 84602
     - name: Daniel Jarvis
       email: 
       affiliations:
@@ -22,14 +22,14 @@ book:
           city: Provo
           state: UT
           postal-code: 84602
-    - name: Brynn Woolley
-      email: 
-      affiliations:
-        - name:  Brigham Young University
-          address: 430 EB
-          city: Provo
-          state: UT
-          postal-code: 84602
+    # - name: Brynn Woolley
+    #   email: 
+    #   affiliations:
+    #     - name:  Brigham Young University
+    #       address: 430 EB
+    #       city: Provo
+    #       state: UT
+    #       postal-code: 84602
     # to add additional authors, simply add another -name: tag 
   date: "6/25/2023"
   chapters:
@@ -56,19 +56,42 @@ book:
     readers. - Written by ChatGPT
 
 bibliography: references.bib
+csl: apa.csl
+# Layout options are simple/fancy, oneside/twoside, and masters/phd.
+# Leave options blank for defaults.
+# Defaults are simple for document style, and masters for degree type.
+layout: fancy, oneside, masters
+# If your degree is not a PhD or MS, then you can overwrite the degree using 
+# the \degree command: \degree{Bachelors of Science}
+# degree: Bachelors of Science with University Honors
+department: Civil and Construction Engineering
+# list your chair and any other members of your committee
+chair: Gregory S. Macfarlane
+committee:
+  - Grant G. Schultz
+  - Gustavious P. Williams
+# Include any keywords you would like for your thesis/dissertation
+keywords: 
+  - awesome stuff
+  - engineering
+acknowledgments: | 
+  Students should acknowledge funding sources. They may also use the acknowledgment page to express appreciation for the committee members, friends or family who provided support or aided the research, writing or technical aspects of the thesis/dissertation. Acknowledgments should be simple and in good taste.
 
 format:
   html:
     theme: cosmo
-  elsevier-pdf:
-    include-in-header: 
-      - packages.tex
-    journal:
-      name: Transportation Research Part A
-      cite-style: authoryear
+  byu-thesis-pdf:
     keep-tex: true
-    top-level-division: section
-    toc: false
+    highlight-style: arrow
+  # elsevier-pdf:
+  #   include-in-header: 
+  #     - packages.tex
+  #   journal:
+  #     name: Transportation Research Part A
+  #     cite-style: authoryear
+  #   keep-tex: true
+  #   top-level-division: section
+  #   toc: false
 
 editor: visual
 
