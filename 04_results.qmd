@@ -10,8 +10,6 @@
 # Other packages ------
 # These are packages that get used in this chapter but aren't part of the default set.
 
-library(mlogit)
-library(knitr)
 library(kableExtra)
 library(dplyr)
 library(tidyr)
@@ -36,9 +34,9 @@ Overall, it is apparent that the IMT vehicles' influence within the simulations 
 ### Network Hours of Delay
 The scenarios can be categorized based on incident response (i.e., *Incidents*, *20-Truck*, and *30-Truck*), the frequency of incidents (i.e., *Current Frequency* and *Increased Frequency*), or a combination of both. In evaluating the results of the 60 scenarios across all network links, or *Network Links*, groups were categorized by both incident response and frequency. The @tbl-network_delays_table provides a summary of the average total vehicle hours of delay (VHD) for each scenario groupings, categorized by incident response and frequency of incidents.
 
-```{r delay_table}
-tar_load(delay_table)
-```
+The scenarios can be categorized based on incident response (i.e., *Incidents*,
+*20-Truck*, and *30-Truck*), the frequency of incidents (i.e., *Current
+Frequency* and *Increased Frequency*), or a combination of both. In evaluating
 
 ```{r delay_comparison}
 #| label: tbl-network_delays_table
