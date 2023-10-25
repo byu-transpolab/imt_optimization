@@ -179,12 +179,18 @@ As highlighted by the work of @lou2011, in addition to fleet size, factors such 
 
 ### IMT Response Times
 
-This is the average truck arrival time table:
+In the study conducted by @schultz2019, it is highlighted that, in Utah, a one-minute increase in IMT response time (RT) results in an approximate 0.8-minute increase in average roadway clearance time (RCT). This finding emphasizes the critical factor of IMT response times in reducing clearance times and subsequent delays. In the simulation conducted, incidents requested the support of one to four IMT units, with response times varying across different scenarios. 
+
+On average, across 280 simulated incidents, the arrival times in the *30-IMT* scenarios were 4 minutes faster than those in the *20-IMT* scenario, as detailed in @tbl-truck_arrival_table, which compares the average arrival times of the 1st, 2nd, 3rd, and 4th trucks.
+
+```{r truck_csv}
+tar_load(truck_arrival_data)
+```
 
 ```{r truck_arrival_table, results='asis'}
 
-#| label: fig-truck_arrival_table
-#| fig-cap: Average Arrival Time Per Scenario
+#| label: tbl-truck_arrival_table
+#| tbl-cap: Average Arrival Time Per Scenario
 tar_load(truck_arrival_table)
 
 # Update Scenario values
@@ -209,8 +215,13 @@ formatted_table <- truck_arrival_table %>%
 formatted_table
 
 ```
+Examining @tbl-truck_arrival_table provides insight into the response patterns of IMT vehicles, highlighting their response to 280 out of 283 total incidents across both scenarios, with the remaining 3 incidents falling outside of the IMT operational hours. Within these responses, 116 incidents requested the assistance of a second IMT unit, 23 required a third, and 3 incidents called for a fourth truck. The scenarios including 30 IMT units consistently demonstrated faster average arrival times across nearly all categories, with the exception of the 4th truck arrival. This particular category, based on a limited sample of 3 incidents, showed mixed results; the 30-IMT fleet was faster in two instances but significantly slower in the third. Cumulatively, the *20-IMT* scenarios resulted in 105 hours of truck travel time, whereas the *30-IMT* scenarios reduced this total to 77 hours.
 
-This is the average truck arrival time plot:
+Further analysis of @truck_arrival_data indicates that the *20-IMT* fleet often dispatched the same truck to multiple incidents in quick succession, negatively impacting its arrival times. In contrast, the *30-IMT* scenarios, with more vehicles available, were less likely to engage in this practice.
+
+\<\< To do: Consider exploring the dispatch patterns of the *NEW* trucks in the *30-IMT* scenarios, or alternatively, analyze the average number of trips per truck, drawing from the previous discussion. Determine which approach would yield more meaningful results. \>\>
+
+@fig-truck_arrival_plot provides a detailed view of how arrival times varied across scenarios, with data points representing the difference in arrival times between the *20-IMT* and *30-IMT* scenarios. Positive values indicate quicker arrival times for the *30-IMT* fleet, while negative values indicate the opposite. The general trend suggests that the *30-IMT* fleet consistently achieved quicker arrival times, particularly in scenarios with a higher incident count.
 
 ```{r truck_arrival_plot}
 #| label: fig-truck_arrival_plot
@@ -219,6 +230,10 @@ tar_load(truck_arrival_plot)
 truck_arrival_plot
 ```
 
+From @fig-truck_arrival_plot, it becomes evident that the *30-IMT* vehicle fleet generally boasts shorter arrival times compared to the *20-IMT* fleet. While outliers exist within each truck's grouping, it is particularly noticeable that in scenarios with a higher incidence of incidents (18, 19, 20, and 21), the addition of 10 vehicles significantly enhances the overall arrival times of trucks, with the most pronounced improvements observed in the arrival times of the 2nd and 3rd trucks.
+
+In summary, the combined results from the Vehicle Hours of Delay (VHD) and IMT Vehicle analysis demonstrate the efficacy of IMT vehicles in mitigating delays, particularly on the road segments directly impacted by incidents and their immediate surroundings. Additionally, an increase in the size of the vehicle fleet is directly associated with reductions in both the average travel time per truck and the response times per incident, underscoring the benefits of a larger IMT fleet in emergency response situations.
+
 ```{r truck_violin_plot}
 #| label: fig-truck_violin_plot
 #| fig-cap: Truck Arrival Violin Comparison
@@ -226,4 +241,4 @@ tar_load(truck_arrival_violin_plot)
 truck_arrival_violin_plot
 ```
 
-\<\< TO DO: For optimal comprehension and flow, it is important to determine the most suitable sequence for presenting the results. The chosen order will ensure better transitions from the methodology section and will set the stage effectively for the conclusion.\>\>
+\<\< I probably like the scatter plots better, but am open to suggestions and wanted to include both for context\>\>  
