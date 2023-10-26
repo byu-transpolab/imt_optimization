@@ -1,0 +1,15 @@
+# Event Handlers
+This is the event handler
+```java
+public class Bike {
+    Integer gears = 0;
+    String color = "red";
+    Double price = 500.0;
+
+    Bike (Integer gears, String color, Double price) {
+        this.gears = gears;
+        this.color = color;
+        this.price = price;
+    }
+}
+```

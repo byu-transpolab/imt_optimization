@@ -39,6 +39,8 @@ book:
     - 04_results.qmd
     - 05_conclusion.qmd
     - references.qmd
+  appendices: 
+    - event_handlers.qmd
   abstract: |
     The abstract is a crucial component of any scientific paper, as it 
     provides a summary of the research and its main findings. This paper 

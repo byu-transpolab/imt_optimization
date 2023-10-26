@@ -15,11 +15,11 @@ library(dplyr)
 library(tidyr)
 ```
 
-This section details the outcomes of the Utah Incident Management Team Optimization project, employing the MATSim model to execute a series of simulations across a range of scenarios. Specifically, the scenarios—*Incidents*, *20-Truck*, and *30-Truck*—were compared with a 'Baseline' scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of Incident Management Teams (IMTs) in alleviating traffic disruptions. In total, 61 simulation scenarios were conducted, each undergoing 450 iterations within the MATSim framework to produce a convergence towards a state of equilibrium in travel behavior for most scenarios. This section offers an analysis of the simulation results, concentrating on pivotal comparative metrics such as vehicle hours of delay (VHD), the implications of incidents, and the response dynamics of the IMTs.
+This section details the outcomes of the Utah Incident Management Team Optimization project, employing the MATSim model to execute a series of simulations across a range of scenarios. Specifically, the scenarios---*Incidents*, *20-Truck*, and *30-Truck*---were compared with a 'Baseline' scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of Incident Management Teams (IMTs) in alleviating traffic disruptions. In total, 61 simulation scenarios were conducted, each undergoing 450 iterations within the MATSim framework to produce a convergence towards a state of equilibrium in travel behavior for most scenarios. This section offers an analysis of the simulation results, concentrating on pivotal comparative metrics such as vehicle hours of delay (VHD), the implications of incidents, and the response dynamics of the IMTs.
 
 ## Scenario Results from MATSim Simulations
 
-The investigation employed the MATSim model to perform 20 simulations for each of the three scenarios: *Incidents*, *20-Truck*, and *30-Truck*. In the *Incidents* scenario, a random subset of incidents was generated, without any intervention from Incident Management Teams (IMTs). The *20-Truck* scenario included the same random incidents, coupled with responsive measures from UDOT’s existing fleet of 20 IMT vehicles. The *30-Truck* scenario mirrored the *20-Truck* framework, albeit with an increased fleet, incorporating an additional 10 IMT vehicles.
+The investigation employed the MATSim model to perform 20 simulations for each of the three scenarios: *Incidents*, *20-Truck*, and *30-Truck*. In the *Incidents* scenario, a random subset of incidents was generated, without any intervention from Incident Management Teams (IMTs). The *20-Truck* scenario included the same random incidents, coupled with responsive measures from UDOT's existing fleet of 20 IMT vehicles. The *30-Truck* scenario mirrored the *20-Truck* framework, albeit with an increased fleet, incorporating an additional 10 IMT vehicles.
 
 These scenarios underwent comparisons against each other as well as against a *Baseline* scenario with no incidents or IMT deployment. In total, the study executed 61 simulation scenarios, each completing a total of 450 iterations within the MATSim model. This iterative approach ensured that a majority of scenarios gravitated towards a state where travel plans displayed minimal variance between successive iterations, effectively achieving an equilibrium in travel behavior by the simulation's end.
 
@@ -32,11 +32,10 @@ The primary metric used in analyzing the simulation scenarios is the total vehic
 Overall, it is apparent that the IMT vehicles' influence within the simulations is most apparent at the "Impact Link" level. However, their effects permeate every tier of analysis. While the outcomes of certain scenarios align with anticipated projections, others deviate from intuitive or hypothesized results. The subsequent analysis will commence with an exploration of the *Network Links* comparisons.
 
 ### Network Hours of Delay
+
 The scenarios can be categorized based on incident response (i.e., *Incidents*, *20-Truck*, and *30-Truck*), the frequency of incidents (i.e., *Current Frequency* and *Increased Frequency*), or a combination of both. In evaluating the results of the 60 scenarios across all network links, or *Network Links*, groups were categorized by both incident response and frequency. The @tbl-network_delays_table provides a summary of the average total vehicle hours of delay (VHD) for each scenario groupings, categorized by incident response and frequency of incidents.
 
-The scenarios can be categorized based on incident response (i.e., *Incidents*,
-*20-Truck*, and *30-Truck*), the frequency of incidents (i.e., *Current
-Frequency* and *Increased Frequency*), or a combination of both. In evaluating
+The scenarios can be categorized based on incident response (i.e., *Incidents*, *20-Truck*, and *30-Truck*), the frequency of incidents (i.e., *Current Frequency* and *Increased Frequency*), or a combination of both. In evaluating
 
 ```{r delay_comparison}
 #| label: tbl-network_delays_table
@@ -49,7 +48,7 @@ all_links_comparison_table |>
 
 \<\< I am going to fix the labeling of the tables an plots so they are easier to understand and follow the scenario groupings we established in the text -D.J. \>\>
 
-Comparing the results of each scenario groupings, its observed that scenarios including an IMT fleet of 30 vehicles experience the lowest average VHD. Following closely were the scenarios including the current fleet (20 IMTs), and, as anticipated, the incident-only scenarios registered the maximal Total VHD values. 
+Comparing the results of each scenario groupings, its observed that scenarios including an IMT fleet of 30 vehicles experience the lowest average VHD. Following closely were the scenarios including the current fleet (20 IMTs), and, as anticipated, the incident-only scenarios registered the maximal Total VHD values.
 
 Contrary to the anticipated correlation between more incidents and longer delays, the VHD patterns and incident frequency relationship is complex. In incident-only scenarios, a mere one percent increase in average total VHD occurs with increased incidents, relative to current frequency scenarios. Interestingly, scenarios incorporating both existing and increased IMT fleets exhibit a slight reduction in average delay, despite an uptick in incident frequency.
 
@@ -180,7 +179,7 @@ As highlighted by the work of @lou2011, in addition to fleet size, factors such 
 
 ### IMT Response Times
 
-In the study conducted by @schultz2019, it is highlighted that, in Utah, a one-minute increase in IMT response time (RT) results in an approximate 0.8-minute increase in average roadway clearance time (RCT). This finding emphasizes the critical factor of IMT response times in reducing clearance times and subsequent delays. In the simulation conducted, incidents requested the support of one to four IMT units, with response times varying across different scenarios. 
+In the study conducted by @schultz2019, it is highlighted that, in Utah, a one-minute increase in IMT response time (RT) results in an approximate 0.8-minute increase in average roadway clearance time (RCT). This finding emphasizes the critical factor of IMT response times in reducing clearance times and subsequent delays. In the simulation conducted, incidents requested the support of one to four IMT units, with response times varying across different scenarios.
 
 On average, across 280 simulated incidents, the arrival times in the *30-IMT* scenarios were 4 minutes faster than those in the *20-IMT* scenario, as detailed in @tbl-truck_arrival_table, which compares the average arrival times of the 1st, 2nd, 3rd, and 4th trucks.
 
@@ -216,6 +215,7 @@ formatted_table <- truck_arrival_table %>%
 formatted_table
 
 ```
+
 Examining @tbl-truck_arrival_table provides insight into the response patterns of IMT vehicles, highlighting their response to 280 out of 283 total incidents across both scenarios, with the remaining 3 incidents falling outside of the IMT operational hours. Within these responses, 116 incidents requested the assistance of a second IMT unit, 23 required a third, and 3 incidents called for a fourth truck. The scenarios including 30 IMT units consistently demonstrated faster average arrival times across nearly all categories, with the exception of the 4th truck arrival. This particular category, based on a limited sample of 3 incidents, showed mixed results; the 30-IMT fleet was faster in two instances but significantly slower in the third. Cumulatively, the *20-IMT* scenarios resulted in 105 hours of truck travel time, whereas the *30-IMT* scenarios reduced this total to 77 hours.
 
 Further analysis of @truck_arrival_data indicates that the *20-IMT* fleet often dispatched the same truck to multiple incidents in quick succession, negatively impacting its arrival times. In contrast, the *30-IMT* scenarios, with more vehicles available, were less likely to engage in this practice.
@@ -242,4 +242,4 @@ tar_load(truck_arrival_violin_plot)
 truck_arrival_violin_plot
 ```
 
-\<\< I probably like the scatter plots better, but am open to suggestions and wanted to include both for context\>\>  
+\<\< I probably like the scatter plots better, but am open to suggestions and wanted to include both for context\>\>
