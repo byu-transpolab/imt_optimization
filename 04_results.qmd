@@ -13,6 +13,7 @@
 library(kableExtra)
 library(dplyr)
 library(tidyr)
+library(targets)
 ```
 
 This section details the outcomes of the Utah Incident Management Team Optimization project, employing the MATSim model to execute a series of simulations across a range of scenarios. Specifically, the scenarios---*Incidents*, *20-Truck*, and *30-Truck*---were compared with a 'Baseline' scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of Incident Management Teams (IMTs) in alleviating traffic disruptions. In total, 61 simulation scenarios were conducted, each undergoing 450 iterations within the MATSim framework to produce a convergence towards a state of equilibrium in travel behavior for most scenarios. This section offers an analysis of the simulation results, concentrating on pivotal comparative metrics such as vehicle hours of delay (VHD), the implications of incidents, and the response dynamics of the IMTs.
@@ -58,7 +59,7 @@ Given that the table reveals average delay values aggregated across multiple sce
 
 ```{r all_links_plot}
 #| label: fig-network_violin_plot
-#| fig-cap: VHD for scenario groups in violins.
+#| fig-cap: Average network VHD violins.
 tar_load(all_links_plot)
 all_links_plot
 ```
@@ -92,7 +93,7 @@ For a more in=depth understanding of the variances within to the scenario groupi
 
 ```{r truck_data}
 #| label: fig-motorway_violin_plot
-#| fig-cap: VHD for scenario groups in violins.
+#| fig-cap: Average motorway VHD violins.
 tar_load(motorway_links_plot)
 motorway_links_plot
 ```
