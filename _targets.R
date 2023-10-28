@@ -24,6 +24,9 @@ tar_option_set(
 # for (file in list.files("R", full.names = TRUE)) source(file)
 
 
+# incident sampling script based on the python histograms script
+source("R/incident_sampling.R")
+
 # load network script. don't mess with it
 source("R/load_network.R")
 
@@ -47,10 +50,30 @@ source("R/truck_arrival_comparison.R")
 source("R/truck_arrival_plot.R")
 source("R/truck_arrival_violin.R")
 
-# source("other_functions.R") # Source other scripts as needed. # nolint
 
-# Replace the target list below with your own:
 list(
+  
+  # Load the combined incident excel data into a target file
+  tar_target(
+    name = all_incident_data,
+    command = "data/incident_data/Combinder_CAD_TS_2022_All_Modified_RCT.xlsm",
+    format = "file"  
+    ),
+  
+  
+  # source("R/incident_sampling.R")
+  # Make incident sampling plot
+  tar_target(
+    name = incident_sampling_data,
+    command = make_incident_sampling_data(all_incident_data)
+  ),
+  
+  # Make data for capacity restoration plot
+  tar_target(
+    name = imt_capacity_data,
+    command = create_imt_restore_data()
+  ),
+  
   
   # We add the Network and turn it into a tibble with these targets
   tar_target(

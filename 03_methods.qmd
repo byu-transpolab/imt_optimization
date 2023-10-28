@@ -1,5 +1,25 @@
 # Methodology
 
+```{r setup, file = "R/chapter_start.R", include = FALSE}
+# a number of commands need to run at the beginning of each chapter. This
+# includes loading libraries that I always use, as well as options for 
+# displaying numbers and text.
+```
+
+```{r setup2, include = FALSE}
+# Other packages ------
+# These are packages that get used in this chapter but aren't part of the default set.
+
+library(ggplot2)
+library(RColorBrewer)
+library(kableExtra)
+library(dplyr)
+library(tidyr)
+library(targets)
+library(ggpattern)
+library(extrafont)
+```
+
 This section outlines the methods used for the Utah Incident Management Team Optimization project model, building upon the main concepts discussed in sections 2.1 and 2.2 of the literature review. The primary goal of the model is to demonstrate the impact of traffic incidents on overall traffic flow and assess the effectiveness of Incident Management Teams (IMTs) within a simulated environment.
 
 Our methodology is structured around three main components: setting up IMT Vehicles and Incidents, understanding the functionality of the MATSim model, and establishing scenarios for comparative analysis. In the "IMT Vehicle Configuration and Incident Selection" section, we define the origins of variables such as the size of the IMT fleet, their initial placements, operational schedules, and specific details of incidents, including location, severity, and frequency. These factors are pivotal as they can significantly influence the network's performance metrics. Following this, in the section on "MATSim Model's Functionality," we detail how these variables are integrated and represented within the MATSim framework more closely align with real-world conditions, building upon the foundational work of @kaddoura2018.
@@ -18,7 +38,7 @@ Additionally, the nature and severity of incidents play a significant role in af
 
 The Utah Department of Transportation currently operates a fleet of 20 IMT vehicles, distributed across three zones corresponding to the counties of Davis, Salt Lake, and Utah within the Wasatch Front. @fig-IMT_Map visually represents the boundaries of each county and the initial locations of both existing and newly proposed IMT vehicles used in out simulated scenarios.
 
-![IMT Starting Locations.](figures/imt_gray_map.png){#fig-IMT_Map}
+![IMT starting locations.](figures/imt_gray_map.png){#fig-IMT_Map}
 
 In this figure, circles represent existing vehicles, while stars denote proposed additions. These starting locations aim to ensure a balanced distribution across each county, based on shift types---either day or afternoon. While this arrangement does not replicate the real-world starting points of IMT truck drivers, who typically commence their shifts from their homes, it is a pragmatic approach. Given that the majority of their operations are concentrated along major interstates such as I-15, I-80, and I-215, and considering the daily variability in starting locations, positioning them along these primary routes is logical for our MATSim Scenario simulations. Notably, the "Increased-IMT" scenario incorporates all vehicles from the "Existing" fleet, supplemented by an additional 10 vehicles distributed across the three counties.
 
@@ -40,7 +60,40 @@ We employed the Pandas library in Python to create a script that imports the dat
 
 Utilizing the incident data, we established a total of 20 scenarios, categorized into two distinct groups: Current Incident Frequencies and Increased Incident Frequencies. For the scenarios under Current Incident Frequencies, we employed the script described above to select ten days from a weighted sampling distribution, which determined the number of incidents to be simulated for each respective day. On the other hand, the scenarios categorized as Increased Incident Frequencies were designed to evaluate the resilience and performance of the IMT system when confronted with a substantial increase in daily incidents. Drawing from the upper range of the 2022 data, we identified days with incident counts varying from 18 to 21. To ensure a thorough and comprehensive evaluation, we decided to simulate additional days for each incident count, resulting in a distribution of two days with 21 incidents, two days with 20 incidents, three days with 19 incidents, and three days with 18 incidents. @fig-Inc_Sample visually represents the original distribution of daily incidents, as well as the distributions for both current and increased incident frequencies used in assigning the number of incidents to each simulation scenario.
 
-![Incident sampling distributions.](figures/inc_sampling.png){#fig-Inc_Sample}
+```{r incident_sampling_plot}
+#| label: fig-incident_sampling_plot
+#| fig-cap: Incident sampling distributions for current and increased incident frequencies.
+tar_load(incident_sampling_data)
+
+# Define the new color palette
+color_palette <- brewer.pal(n = 3, name = "Set2")
+
+# Plot
+incident_sampling_plot <- ggplot() +
+  geom_bar(data = subset(incident_sampling_data, category == "Original Distribution"), 
+           aes(x = as.factor(Total_Count), fill = category), 
+           position = position_dodge(width = 0.8), stat = "count", width = 0.8) +
+  geom_bar(data = subset(incident_sampling_data, category == "Current Frequency"), 
+           aes(x = as.factor(Total_Count), fill = category), 
+           position = position_dodge(width = 0.8), stat = "count", width = 0.8) +
+  geom_bar(data = subset(incident_sampling_data, category == "Increased Frequency"), 
+           aes(x = as.factor(Total_Count), fill = category), 
+           position = position_dodge(width = 0.8), stat = "count", width = 0.8) +
+  scale_fill_manual(values = setNames(color_palette, 
+                                      c("Original Distribution", "Current Frequency", "Increased Frequency"))) +
+  labs(x = 'Number of Incidents in a Given Day', y = 'Frequency') +
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 11) +
+  theme(legend.title = element_blank(),
+        legend.position = c(0.95, 0.95),
+        legend.justification = c("right", "top"),
+        legend.margin = margin(-10, -10, -10, -10),
+        legend.box.margin = margin(0, 0, 0, 0),
+        legend.key.size = unit(0.8, "cm"),
+        text = element_text(size = 11)) +
+  scale_x_discrete(limits = levels(as.factor(incident_sampling_data$Total_Count)))
+
+incident_sampling_plot
+```
 
 Upon determining the distribution of incidents for each scenario, we assigned a three-digit seed value to each of the twenty scenario groupings, serving both as an identifier and a tool for incident selection. Within MATSim, each scenario received a specified number of incidents and a seed value. Utilizing these parameters, a number of incidents 'X' was randomly selected from the list of 411 incidents, ensuring that the same incident did not occur more than once within a single simulation. For future research, additional parameters could be established for incident selection to ensure the creation of logical and realistic incident scenarios.
 
@@ -101,7 +154,29 @@ In the absence of clear comparative data, the practicality of the first option--
 
 @fig-Cap_Restore visually represents the potential impact of an incident without IMT intervention, contrasting it with scenarios involving the response of one or two IMT units. This illustration underscores the significance of IMT vehicles in incident management and their potential to mitigate the effects of incidents on network traffic flow.
 
-![IMT capacity restoration upon arrival.](figures/cap_restore.png){#fig-Cap_Restore}
+```{r incident_capacity_restore}
+#| label: fig-imt_capacity_restore
+#| fig-cap: IMT capacity restoration upon arrival example.
+tar_load(imt_capacity_data)
+
+# Define the new color palette
+color_palette <- brewer.pal(n = 3, name = "Set2")
+
+# Create the plot
+capacity_plot <- ggplot(imt_capacity_data, aes(x = time, y = capacity, color = group, linetype = group)) +
+  geom_line() +
+  geom_point(size = 3) +
+  labs(x = "Time (mins)", y = "Link Capacity Percent (%)") +
+  scale_x_continuous(breaks = seq(0, 120, 30)) +
+  scale_y_continuous(breaks = seq(0, 100, 25)) +
+  scale_color_manual(values = color_palette) +
+  scale_linetype_manual(values = c("No IMT Response" = "solid", "First IMT Response" = "dashed", "Second IMT Response" = "dashed")) +
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 11) +
+  theme(legend.position = "top", legend.title = element_blank()) +
+  guides(color = guide_legend(override.aes = list(linetype = c("solid", "dashed", "dashed"))))
+
+capacity_plot
+```
 
 ## Scenario Simulations and Comparisons
 
