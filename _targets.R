@@ -93,8 +93,9 @@ list(
     command = generate_link_delays_table("data/link_delays", network_table)
   ),
   
+  
   # Make the all_links summary table
-  # Uses the all_links_plots.R script
+  # source("R/all_links_plots.R")
   tar_target(
     name = delay_summary,
     command = write_delay_summary_table(delay_table),
@@ -114,6 +115,7 @@ list(
   ),
   
   # Make motorway_links summary table
+  # From R/Script: "R/motorway_links_plots.R"
   tar_target(
     name = motorway_delay_summary,
     command = write_motorway_summary_table(delay_table)
@@ -131,13 +133,16 @@ list(
     command = make_motorway_links_plot(motorway_delay_summary)
   ),
   
+  
   # Combine the impacted links files into a table
+  # From R/Script: "R/impacted_links_table.R"
   tar_target(
     name = impacted_links_table,
     command = write_impacted_links_table("data/incident_analysis/delay/incident_link_delays")
   ),
   
   # Group the impacted links by their type
+  # From R/Script: "R/impacted_links_summary.R"
   tar_target(
     name = impacted_links,
     command = write_sorted_impacted_links(impacted_links_table)

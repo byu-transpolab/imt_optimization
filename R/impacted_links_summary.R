@@ -37,6 +37,14 @@ library(RColorBrewer)
     
     summarize_impacted_link_table <- function(impacted_links){
       
+      # Mutate the scenario first
+      impacted_links <- impacted_links %>%
+        mutate(Scenario = case_when(
+          Scenario == "Current" ~ "20 IMT",
+          Scenario == "Increased" ~ "30 IMT",
+          TRUE ~ as.character(Scenario)
+        ))
+      
       # Check and handle non-numeric values in Incidents
       if(any(!grepl("^[0-9]+$", as.character(impacted_links$Incidents)))) {
         warning("Non-numeric values found in 'Incidents' and will be set to NA!")
@@ -72,21 +80,22 @@ library(RColorBrewer)
       impacted_links_summary <- bind_rows(increased_incidents, current_incidents)
       
       impacted_links_summary <- impacted_links_summary %>%
-        select(Scenario, incident_frequency, total_delay, `Average Delay Per Incident [hours]`)
+        select(Scenario, total_delay, total_incidents, incident_frequency, `Average Delay Per Incident [hours]`)
       
       impacted_summary_table <- impacted_links_summary %>%
         rename(
+          "Group" = "Scenario",
           "Incident Frequency" = "incident_frequency",
-          "Total VHD" = "total_delay"
+          "# of Incidents" = "total_incidents",
+          "Total VHD" = "total_delay",
+          "Avg. Delay Per Inc. [hrs.]" = "Average Delay Per Incident [hours]"
         )
       
       impacted_summary_table <- impacted_summary_table %>%
         arrange(
           factor(`Incident Frequency`, levels = c("Current", "Increased")),
-          factor(Scenario, levels = c("Baseline", "Incidents", "Current", "Increased")),
+          factor(Group, levels = c("Baseline", "Incidents", "20 IMT", "30 IMT")),
         )
       
       return(impacted_summary_table)
     }
-    
-    

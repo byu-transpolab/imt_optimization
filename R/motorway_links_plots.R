@@ -12,6 +12,14 @@ library(ggpattern)
       group_by(scenario, seed, incidents) %>%
       summarise(total_delay = sum(total, na.rm = TRUE))
     
+    # Mutate the scenario first
+    motorway_delay_table <- motorway_delay_table %>%
+      mutate(scenario = case_when(
+        scenario == "Current" ~ "20 IMT",
+        scenario == "Increased" ~ "30 IMT",
+        TRUE ~ as.character(scenario)
+      ))
+    
     # Filter rows where incidents are greater than 14
     increased_incidents <- motorway_delay_table %>%
       filter(incidents > 14) %>%
@@ -22,49 +30,56 @@ library(ggpattern)
     current_incidents <- motorway_delay_table %>%
       filter(incidents <= 14) %>%
       group_by(scenario) %>%
-      mutate(incident_frequency = "Current") %>%
-      mutate(incident_frequency = if_else(scenario == "Baseline", "", incident_frequency))
-    
+      mutate(incident_frequency = "Current")
+
     # Combine the tables
-    # The delay on the baseline scenario might be somewhat misleading because it is still running to finish its 450th iteration.
     motorway_delay_summary <- bind_rows(increased_incidents, current_incidents)
     
     # Create the group column
-    motorway_delay_summary$group <- paste(motorway_delay_summary$scenario, motorway_delay_summary$incident_frequency, sep = "_")
+    motorway_delay_summary$group <- ifelse(motorway_delay_summary$scenario == "Baseline",
+                                           "Baseline",
+                                           paste(motorway_delay_summary$scenario, 
+                                                 motorway_delay_summary$incident_frequency, sep = " "))
+    
     
     return (motorway_delay_summary)
   }
   
   write_motorway_comparison_table <- function(motorway_delay_summary){
+    
     # Group by scenario and incident frequency
     motorway_summary_table <- motorway_delay_summary %>%
+      mutate(incident_frequency = if_else
+             (scenario == "Baseline", "-", incident_frequency)) %>%
       group_by(scenario, incident_frequency) %>%
-      summarise(total_delay = sum(total_delay, na.rm = TRUE) / n()) %>%
+      summarise(average_delay = sum(total_delay, na.rm = TRUE) / n()) %>%
       # Rename columns
       rename(
-        "Scenario" = "scenario",
+        "Group" = "scenario",
         "Incident Frequency" = "incident_frequency",
-        "Total VHD" = "total_delay"
-      )
+        "Average VHD" = "average_delay"
+      ) %>%
+      # Round the Average VHD to the nearest whole number
+      mutate(`Average VHD` = round(`Average VHD`))
     
-    # Create the "Change In VHD" column
-    baseline_vhd <- motorway_summary_table$`Total VHD`[motorway_summary_table$Scenario == "Baseline"]
-    
-    # Calculate Absolute difference
-    # motorway_summary_table$`Change In VHD (Absolute)` <- motorway_summary_table$`Total VHD` - baseline_vhd
+    # Create the "VHD Change (%)" column
+    baseline_vhd <- motorway_summary_table$`Average VHD`[motorway_summary_table$Group == "Baseline"]
     
     # Calculate Percent difference
-    motorway_summary_table$`Change In VHD (Percent)` <- ((motorway_summary_table$`Total VHD` - baseline_vhd) / baseline_vhd) * 100
+    motorway_summary_table$`Change (%)` <- ((motorway_summary_table$`Average VHD` - baseline_vhd) / baseline_vhd) * 100
+    
+    # Round the 'Change (%)' to the first decimal point
+    motorway_summary_table <- motorway_summary_table %>%
+      mutate(`Change (%)` = round(`Change (%)`, 1))
     
     # Reorder columns for better readability
     motorway_summary_table <- motorway_summary_table %>% 
-      select(Scenario, `Incident Frequency`, `Total VHD`, `Change In VHD (Percent)`)
+      select(Group, `Incident Frequency`, `Average VHD`, `Change (%)`)
     
-    # Reorder the rows based on custom ordering of Scenario and Incident Frequency
+    # Reorder the rows based on custom ordering of Group and Incident Frequency
     motorway_summary_table <- motorway_summary_table %>%
       arrange(
-        factor(Scenario, levels = c("Baseline", "Incidents", "Current", "Increased")),
-        factor(`Incident Frequency`, levels = c("Current", "Increased", "Baseline"))
+        factor(Group, levels = c("Baseline", "Incidents", "Current", "Increased")),
       )
     
     return (motorway_summary_table)
@@ -72,41 +87,56 @@ library(ggpattern)
 
   make_motorway_links_plot <- function(motorway_delay_summary) {
     
-    ordered_groups <- c("Baseline_", "Incidents_Current", "Incidents_Increased", "Current_Current", "Current_Increased", "Increased_Current", "Increased_Increased")
+    # Filter out 'Baseline' and reorder the factor levels for 'group'
+    plot_data <- motorway_delay_summary %>%
+      filter(group != "Baseline") %>%
+      mutate(group = factor(group, levels = c("Incidents Current", "Incidents Increased",
+                                              "20 IMT Current", "20 IMT Increased", 
+                                              "30 IMT Current", "30 IMT Increased")))
     
-    # Set the levels of the factor for the group column
-    motorway_delay_summary$group <- factor(motorway_delay_summary$group, levels = ordered_groups)
-    
-    # Define colors based on your description
-    color_palette <- brewer.pal(n = length(ordered_groups) - 1, name = "Set2")
-    
-    # Get the baseline value
-    baseline_value <- mean(motorway_delay_summary$total_delay[motorway_delay_summary$group == "Baseline_"])
-    
-    # Exclude Baseline_Baseline from the motorway_delay_summary for plotting
-    plot_data <- motorway_delay_summary[motorway_delay_summary$group != "Baseline_",]
+    # Compute the mean of the 'total_delay' for the 'Baseline' group
+    baseline_value <- motorway_delay_summary %>%
+      filter(group == "Baseline") %>%
+      summarize(mean(total_delay)) %>%
+      pull()
     
     # Create the violin plot
-    motorway_links_plot <- ggplot(plot_data, 
-                                  aes(x = group, 
-                                      y = total_delay, 
-                                      fill = group)) +
-      geom_violin(trim = FALSE, scale = "width") + # trim=FALSE displays the entire violin
-      geom_hline(aes(yintercept = baseline_value), linetype = "dashed", color = "black", size = 1.2) +
+    motorway_links_plot <- ggplot(plot_data, aes(x = group, y = total_delay, fill = group)) +
+      geom_violin(trim = FALSE, scale = "width") +
+      # Add a horizontal reference line for the baseline value
+      geom_hline(aes(yintercept = baseline_value), linetype = "dashed", color = "black", linewidth = 1.2) +
+      # Overlay points that show the mean of each group
       stat_summary(fun = mean, geom = "point", shape = 23, size = 3, color = "black", position = position_dodge(width = 0.75)) +
-      scale_fill_manual(values = color_palette) +
-      labs(title = "Total Delay by Scenario",
-           x = "Scenario",
-           y = "Total Delay [hours]") +
+      # Set colors for the fill of each violin plot
+      scale_fill_manual(values = brewer.pal(n = 6, name = "Set2"), guide = "none") +
+      
+      # Modify the y-axis breaks and labels
+      scale_y_continuous(
+        breaks = function(b) {
+          breaks <- pretty(b)
+          breaks[which.min(abs(breaks - baseline_value))] <- baseline_value
+          if (20000 %in% breaks == FALSE) {
+            breaks <- c(breaks, 20000) # adding 20000 to the breaks if not already present
+            breaks <- sort(breaks)    # sorting to ensure proper order
+          }
+          breaks
+        },
+        labels = function(b) {
+          ifelse(b == baseline_value, "Baseline", format(round(b), big.mark = "", scientific = FALSE))
+        }
+      ) +
+      
+      
+      # Set the axis titles
+      labs(x = "Group", y = "Delay [hours]") +
+      
+      # Set theme adjustments
       theme_minimal() +
       theme(
-        plot.title = element_text(size = 16, hjust = 0.5, face = "bold"),
-        axis.title = element_text(size = 14, face = "bold"),
-        axis.text = element_text(size = 12),
-        legend.position = "top right",
-        legend.title = element_text(face = "bold")
-      ) +
-      annotate("text", x = 1, y = baseline_value - 500, label = "Baseline", color = "black", size = 4.5, hjust = 1) # Adjust y position (baseline_value - 20) to move text lower
+        axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+      )
     
     return(motorway_links_plot)
   }
+  

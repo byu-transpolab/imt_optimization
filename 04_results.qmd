@@ -18,9 +18,7 @@ library(tidyr)
 library(targets)
 library(ggpattern)
 library(extrafont)
-
-font_import()
-loadfonts(device = "win")
+library(scales)
 ```
 
 This section details the outcomes of the Utah Incident Management Team Optimization project, employing the MATSim model to execute a series of simulations across a range of scenarios. Specifically, the scenarios---*Incidents*, *20-Truck*, and *30-Truck*---were compared with a 'Baseline' scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of Incident Management Teams (IMTs) in alleviating traffic disruptions. In total, 61 simulation scenarios were conducted, each undergoing 450 iterations within the MATSim framework to produce a convergence towards a state of equilibrium in travel behavior for most scenarios. This section offers an analysis of the simulation results, concentrating on pivotal comparative metrics such as vehicle hours of delay (VHD), the implications of incidents, and the response dynamics of the IMTs.
@@ -51,7 +49,9 @@ The scenarios can be categorized based on incident response (i.e., *Incidents*, 
 tar_load(all_links_comparison_table)
 all_links_comparison_table |> 
   kbl(booktabs = TRUE) |> 
-  kable_styling()
+  kable_styling(latex_options = "striped") %>%
+  row_spec(0, bold = TRUE)
+
 ```
 
 \<\< I am going to fix the labeling of the tables an plots so they are easier to understand and follow the scenario groupings we established in the text -D.J. \>\>
@@ -68,7 +68,10 @@ Given that the table reveals average delay values aggregated across multiple sce
 #| label: fig-network_violin_plot
 #| fig-cap: Average network VHD violins.
 tar_load(all_links_plot)
-all_links_plot
+all_links_plot +
+  
+  # change the text style of the plot
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 12)
 ```
 
 Within this visualization, each violin illustrates the density distribution of delay values. The increased width in certain sections of the violin signifies regions where a number of simulations converged around a specific delay value. Conversely, the narrow sections denote fewer simulations converging around that delay metric. A dashed horizontal line has been superimposed to further explain each scenario, signifying the Baseline scenario as a reference point for comparison. Additionally, the diamond markers situated within each plot symbolize the mean delay for all simulations in the respective scenario group.
@@ -89,7 +92,8 @@ For the comparison of average simulation performances, the @tbl-motorway_delays_
 tar_load(motorway_summary_table)
 motorway_summary_table |> 
   kbl(booktabs = TRUE) |> 
-  kable_styling()
+  kable_styling(latex_options = "striped") %>%
+  row_spec(0, bold = TRUE)
 ```
 
 Compared to the @tbl-network_delays_table network_delays table, focusing solely on motorway links reveals that the average VHD surge for incidents-only scenarios relative to the baseline of the same links exceeds 45%. Interestingly, in comparison with the full network delay scenarios, both the *20-IMT* and *30-IMT* scenarios demonstrated improved average performances on motorways, converging towards, and occasionally even dropping below, the baseline delay measures on those links.
@@ -102,7 +106,13 @@ For a more in=depth understanding of the variances within to the scenario groupi
 #| label: fig-motorway_violin_plot
 #| fig-cap: Average motorway VHD violins.
 tar_load(motorway_links_plot)
-motorway_links_plot
+motorway_links_plot +
+
+  # change the text style of the plot
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 12) +
+
+ # Change the x-axis text angle and horizontal justification
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
 \<\< TO DO: fix the labeling on this figure. It's kind of gnarly \>\>
@@ -114,10 +124,6 @@ Continuing the discussion, the final tier for comparing VHD is the *Impacted Lin
 ### Impacted Links
 
 Impacted links are described as the links where an incident occurs, along with its first two *Feeder* links. These are the two links through which traffic most commonly flows before reaching the incident motorway link. Given the variation in link lengths within the motorway, in certain instances, taking into account just two additional links may not adequately capture the delay prompted by a specific incident. Nevertheless, the @tbl-impacted_links offers significant insights about how delay on impacted links fluctuates based on the simulation scenario. For context regarding the table, Total VHD is computed by considering the duration of the incidents (from start to finish) and adding one hour post resolution of the incident. In the simulations conducted, IMT vehicles only enhance the capacity of the incident link, without shortening its duration. Therefore, for the 'Incident Impact Time', which encompasses the incident duration and an added hour, the delay values of the incident link and its two Feeder Links are aggregated to compute a 'Delay from Incident \[hours\]' variable, showcased in the subsequent scatter plot. To develop the summary_table, the values from all 'Delay from Incident \[hours\]' entries within a scenario and incident frequency group were summed. This sum equates to the Total VHD of delay value for each respective scenario. The results are presented below:
-
-```{r impacted_links}
-tar_load(impacted_links)
-```
 
 ```{r impacted_summary_table}
 #| label: tbl-impacted_links

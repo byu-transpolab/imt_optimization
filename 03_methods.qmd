@@ -18,6 +18,7 @@ library(tidyr)
 library(targets)
 library(ggpattern)
 library(extrafont)
+library(scales)
 ```
 
 This section outlines the methods used for the Utah Incident Management Team Optimization project model, building upon the main concepts discussed in sections 2.1 and 2.2 of the literature review. The primary goal of the model is to demonstrate the impact of traffic incidents on overall traffic flow and assess the effectiveness of Incident Management Teams (IMTs) within a simulated environment.
@@ -63,26 +64,43 @@ Utilizing the incident data, we established a total of 20 scenarios, categorized
 ```{r incident_sampling_plot}
 #| label: fig-incident_sampling_plot
 #| fig-cap: Incident sampling distributions for current and increased incident frequencies.
+# Load the incident sampling data
 tar_load(incident_sampling_data)
 
-# Define the new color palette
+# Define a new color palette
 color_palette <- brewer.pal(n = 3, name = "Set2")
 
-# Plot
+# Create the plot
 incident_sampling_plot <- ggplot() +
+  
+  # Add bars for the 'Original Distribution' category
   geom_bar(data = subset(incident_sampling_data, category == "Original Distribution"), 
            aes(x = as.factor(Total_Count), fill = category), 
-           position = position_dodge(width = 0.8), stat = "count", width = 0.8) +
+           position = "dodge", stat = "count", width = 0.8) +
+  
+  # Add bars for the 'Current Frequency' category
   geom_bar(data = subset(incident_sampling_data, category == "Current Frequency"), 
            aes(x = as.factor(Total_Count), fill = category), 
-           position = position_dodge(width = 0.8), stat = "count", width = 0.8) +
+           position = "dodge", stat = "count", width = 0.8) +
+  
+  # Add bars for the 'Increased Frequency' category
   geom_bar(data = subset(incident_sampling_data, category == "Increased Frequency"), 
            aes(x = as.factor(Total_Count), fill = category), 
-           position = position_dodge(width = 0.8), stat = "count", width = 0.8) +
+           position = "dodge", stat = "count", width = 0.8) +
+  
+  # Set the colors for the fill based on the defined color palette
   scale_fill_manual(values = setNames(color_palette, 
-                                      c("Original Distribution", "Current Frequency", "Increased Frequency"))) +
+                                      c("Original Distribution", 
+                                        "Current Frequency", 
+                                        "Increased Frequency"))) +
+  
+  # Add labels for the x and y axes
   labs(x = 'Number of Incidents in a Given Day', y = 'Frequency') +
+  
+  # Use a minimal theme and set the base font family and size
   theme_minimal(base_family = "TeX Gyre Pagella", base_size = 11) +
+  
+  # Customize the appearance of the legend and text
   theme(legend.title = element_blank(),
         legend.position = c(0.95, 0.95),
         legend.justification = c("right", "top"),
@@ -90,8 +108,11 @@ incident_sampling_plot <- ggplot() +
         legend.box.margin = margin(0, 0, 0, 0),
         legend.key.size = unit(0.8, "cm"),
         text = element_text(size = 11)) +
+  
+  # Define the order of the x-axis categories
   scale_x_discrete(limits = levels(as.factor(incident_sampling_data$Total_Count)))
 
+# Print the plot
 incident_sampling_plot
 ```
 
@@ -157,20 +178,24 @@ In the absence of clear comparative data, the practicality of the first option--
 ```{r incident_capacity_restore}
 #| label: fig-imt_capacity_restore
 #| fig-cap: IMT capacity restoration upon arrival example.
+# Load the capacity data points
 tar_load(imt_capacity_data)
 
 # Define the new color palette
 color_palette <- brewer.pal(n = 3, name = "Set2")
 
 # Create the plot
-capacity_plot <- ggplot(imt_capacity_data, aes(x = time, y = capacity, color = group, linetype = group)) +
+capacity_plot <- ggplot(imt_capacity_data, aes(x = time, y = capacity, 
+                                               color = group, linetype = group)) +
   geom_line() +
   geom_point(size = 3) +
   labs(x = "Time (mins)", y = "Link Capacity Percent (%)") +
   scale_x_continuous(breaks = seq(0, 120, 30)) +
   scale_y_continuous(breaks = seq(0, 100, 25)) +
   scale_color_manual(values = color_palette) +
-  scale_linetype_manual(values = c("No IMT Response" = "solid", "First IMT Response" = "dashed", "Second IMT Response" = "dashed")) +
+  scale_linetype_manual(values = c("No IMT Response" = "solid", 
+                                   "First IMT Response" = "dashed", 
+                                   "Second IMT Response" = "dashed")) +
   theme_minimal(base_family = "TeX Gyre Pagella", base_size = 11) +
   theme(legend.position = "top", legend.title = element_blank()) +
   guides(color = guide_legend(override.aes = list(linetype = c("solid", "dashed", "dashed"))))
@@ -188,25 +213,18 @@ These network and plans files were integrated into our simulation scenarios, alo
 
 This section outlines the methodology employed for selecting incidents in a set of 20 simulated "days." These simulations are categorized into two distinct groups: one reflecting the current distribution of incidents managed by the Utah Highway Patrol, and another representing a 10-day period with an elevated frequency of incidents, based on the upper range of daily incident data gathered in 2022.
 
-Each of the 20 scenarios was assigned a unique random seed value, ensuring variability in incident selection across simulations. Subsequently, each group of scenarios was further divided into three distinct simulation conditions. The first condition, referred to as "Incidents-Only," includes only the incidents without any IMT intervention. The second condition incorporates the incidents along with the deployment of 20 IMT vehicles, while the third condition includes the incidents and an increased fleet of 30 IMT vehicles. For ease of organization and comparison, each scenario was assigned a unique code, such as "1-10-257." In this coding system, the first digit denotes the scenario type (Incidents-Only, 20 IMTs, or 30 IMTs), the second digit represents the number of incidents included in the simulation, and the third digit corresponds to the seed value used for random incident selection. In total, seven overarching scenario groups were established, as outlined below:
+Each of the 20 scenarios was assigned a unique random seed value, ensuring variability in incident selection across simulations. Subsequently, each group of scenarios was further divided into three distinct simulation conditions. The first condition, referred to as "Incidents-Only," includes only the incidents without any IMT intervention. The second condition incorporates the incidents along with the deployment of 20 IMT vehicles, while the third condition includes the incidents and an increased fleet of 30 IMT vehicles. For ease of organization and comparison, each scenario was assigned a unique code, such as "1-10-257." In this coding system, the first digit denotes the scenario type (Incidents-Only, 20 IMTs, or 30 IMTs), the second digit represents the number of incidents included in the simulation, and the third digit corresponds to the seed value used for random incident selection. 
 
-1\. An incidents only scenario with no IMTs and current incident frequency.
+In total, six scenario groups were established, as outlined below:
 
-2\. An incidents only scenario with no IMTs and increased incident frequency.
-
-3\. Current IMT resources (20 vehicles) with current incident frequency.
-
-4\. Current IMT resources (20 vehicles) with increased incident frequency.
-
-5\. Increased IMT resources (30 vehicles) with the current frequency of incidents.
-
-6\. Increased IMT resources (30 vehicles) with the increased frequency of incidents.
-
-7\. A baseline with no IMTs and no Incidents.
+- No IMT, current incident frequency
+- No IMT, increased incident frequency
+- 20 IMT, current incident frequency
+- 20 IMT, increased incident frequency
+- 30 IMT, current incident frequency
+- 30 IMT, increased incident frequency
 
 It is important to note, as described in the IMT Vehicle Setup section, that not all IMT vehicles are operational simultaneously. Due to scheduling constraints, the actual number of vehicles on the road at any given time is typically approximately half of the total fleet size.
-
-\<\< Brynn has prepared a table detailing these different scenario types, which we could include here if desired. \>\>
 
 ### Comparative Measures
 

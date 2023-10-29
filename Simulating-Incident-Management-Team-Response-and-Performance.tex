@@ -1288,36 +1288,30 @@ such as ``1-10-257.'' In this coding system, the first digit denotes the
 scenario type (Incidents-Only, 20 IMTs, or 30 IMTs), the second digit
 represents the number of incidents included in the simulation, and the
 third digit corresponds to the seed value used for random incident
-selection. In total, seven overarching scenario groups were established,
-as outlined below:
+selection.
 
-1. An incidents only scenario with no IMTs and current incident
-frequency.
+In total, six scenario groups were established, as outlined below:
 
-2. An incidents only scenario with no IMTs and increased incident
-frequency.
-
-3. Current IMT resources (20 vehicles) with current incident frequency.
-
-4. Current IMT resources (20 vehicles) with increased incident
-frequency.
-
-5. Increased IMT resources (30 vehicles) with the current frequency of
-incidents.
-
-6. Increased IMT resources (30 vehicles) with the increased frequency of
-incidents.
-
-7. A baseline with no IMTs and no Incidents.
+\begin{itemize}
+\tightlist
+\item
+  No IMT, current incident frequency
+\item
+  No IMT, increased incident frequency
+\item
+  20 IMT, current incident frequency
+\item
+  20 IMT, increased incident frequency
+\item
+  30 IMT, current incident frequency
+\item
+  30 IMT, increased incident frequency
+\end{itemize}
 
 It is important to note, as described in the IMT Vehicle Setup section,
 that not all IMT vehicles are operational simultaneously. Due to
 scheduling constraints, the actual number of vehicles on the road at any
 given time is typically approximately half of the total fleet size.
-
-\textless\textless{} Brynn has prepared a table detailing these
-different scenario types, which we could include here if desired.
-\textgreater\textgreater{}
 
 \hypertarget{comparative-measures}{%
 \subsection{Comparative Measures}\label{comparative-measures}}
@@ -1448,16 +1442,16 @@ Frequency}), or a combination of both. In evaluating
 \centering
 \begin{tabular}[t]{llrr}
 \toprule
-Scenario & Incident Frequency & Total VHD & Change In VHD (Percent)\\
+\textbf{Group} & \textbf{Incident Frequency} & \textbf{Average VHD} & \textbf{VHD Change (\%)}\\
 \midrule
-Baseline & - & 74567.77 & 0.00000\\
-Incidents & Current & 103159.47 & 38.34323\\
-Incidents & Increased & 104178.46 & 39.70976\\
-Current & Current & 96696.80 & 29.67640\\
-Current & Increased & 95677.82 & 28.30988\\
+\cellcolor{gray!6}{Baseline} & \cellcolor{gray!6}{-} & \cellcolor{gray!6}{74568} & \cellcolor{gray!6}{0.0}\\
+Incidents & Current & 103159 & 38.3\\
+\cellcolor{gray!6}{Incidents} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{104178} & \cellcolor{gray!6}{39.7}\\
+20 IMT & Current & 96697 & 29.7\\
+\cellcolor{gray!6}{20 IMT} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{95678} & \cellcolor{gray!6}{28.3}\\
 \addlinespace
-Increased & Current & 93768.77 & 25.74973\\
-Increased & Increased & 93559.64 & 25.46926\\
+30 IMT & Current & 93769 & 25.7\\
+\cellcolor{gray!6}{30 IMT} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{93560} & \cellcolor{gray!6}{25.5}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1553,16 +1547,16 @@ categorized by scenario and incident frequency values.
 \centering
 \begin{tabular}[t]{llrr}
 \toprule
-Scenario & Incident Frequency & Total VHD & Change In VHD (Percent)\\
+\textbf{Group} & \textbf{Incident Frequency} & \textbf{Average VHD} & \textbf{VHD Change (\%)}\\
 \midrule
-Baseline &  & 15334.62 & 0.00000\\
-Incidents & Current & 24242.22 & 58.08817\\
-Incidents & Increased & 22320.84 & 45.55852\\
-Current & Current & 18924.17 & 23.40814\\
-Current & Increased & 19176.08 & 25.05094\\
+\cellcolor{gray!6}{Baseline} & \cellcolor{gray!6}{-} & \cellcolor{gray!6}{15335} & \cellcolor{gray!6}{0.0}\\
+Incidents & Current & 24242 & 58.1\\
+\cellcolor{gray!6}{Incidents} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{22321} & \cellcolor{gray!6}{45.6}\\
+20 IMT & Current & 18924 & 23.4\\
+\cellcolor{gray!6}{20 IMT} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{19176} & \cellcolor{gray!6}{25.0}\\
 \addlinespace
-Increased & Current & 17568.57 & 14.56803\\
-Increased & Increased & 18326.92 & 19.51338\\
+30 IMT & Current & 17569 & 14.6\\
+\cellcolor{gray!6}{30 IMT} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{18327} & \cellcolor{gray!6}{19.5}\\
 \bottomrule
 \end{tabular}
 \end{table}
