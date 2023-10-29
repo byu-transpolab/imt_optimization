@@ -150,20 +150,26 @@ list(
   
   # Summarize the impacted link data here
   tar_target(
-    name = impacted_summary_table,
-    command = summarize_impacted_link_table(impacted_links)
+    name = impacted_links_combine,
+    command = summarize_impacted_link_data(impacted_links)
+  ),
+  
+  # Write table for report
+  tar_target(
+    name = impacted_links_summary,
+    command = write_impacted_link_summary_table(impacted_links_combine)
   ),
   
   tar_target(
     name = delay_per_seed,
-    command = write_delay_per_seed_table(impacted_links)
+    command = write_sorted_impacted_links(impacted_links)
   ),
   
-  # Make the impacted links scatter plot
-  tar_target(
-    name = impacted_links_plot,
-    command = make_impacted_links_plot(delay_per_seed)
-  ),
+  # # Make the impacted links scatter plot
+  # tar_target(
+  #   name = impacted_links_plot,
+  #   command = make_impacted_links_plot(delay_per_seed)
+  # ),
   
   # We make the truck travel from the truck_travel csv file
   tar_target(

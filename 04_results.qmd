@@ -128,10 +128,16 @@ Impacted links are described as the links where an incident occurs, along with i
 ```{r impacted_summary_table}
 #| label: tbl-impacted_links
 #| tbl-cap: Impacted Links Table
-tar_load(impacted_summary_table)
-impacted_summary_table |> 
-  kbl(booktabs = TRUE) |> 
-  kable_styling()
+tar_load(impacted_links_summary)
+# Specify the note
+note_text <- "Note: Current Frequency contains 90 Incidents and Increased Frequency contains 193 Incidents"
+
+# Create the table with the note below it
+impacted_links_summary %>% 
+  kbl(booktabs = TRUE) %>%
+  kable_styling(latex_options = "striped") %>%
+  row_spec(0, bold = TRUE) %>%
+  add_footnote(note_text)
 ```
 
 The table presents a division of the Baseline scenario into two segments, for a more accurate comparison with the other three scenarios. Despite the absence of incidents in the Baseline scenario, its values are derived from the aggregate delay times of the same links included in the other scenarios.

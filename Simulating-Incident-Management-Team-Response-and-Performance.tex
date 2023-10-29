@@ -1645,18 +1645,19 @@ scenario. The results are presented below:
 \centering
 \begin{tabular}[t]{llrr}
 \toprule
-Scenario & Incident Frequency & Total VHD & Average Delay Per Incident [hours]\\
+\textbf{Group} & \textbf{Incident Frequency} & \textbf{Total VHD} & \textbf{Avg. Delay Per Inc. [hrs.]}\\
 \midrule
-Baseline & Current & 325.9379 & 3.621532\\
-Incidents & Current & 3808.4663 & 42.316293\\
-Current & Current & 722.5639 & 8.028488\\
-Increased & Current & 365.7804 & 4.064227\\
-Baseline & Increased & 540.1243 & 2.798571\\
+\cellcolor{gray!6}{Baseline} & \cellcolor{gray!6}{Current} & \cellcolor{gray!6}{326} & \cellcolor{gray!6}{3.6}\\
+Incidents & Current & 3808 & 42.3\\
+\cellcolor{gray!6}{20 IMT} & \cellcolor{gray!6}{Current} & \cellcolor{gray!6}{723} & \cellcolor{gray!6}{8.0}\\
+30 IMT & Current & 366 & 4.1\\
+\cellcolor{gray!6}{Baseline} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{540} & \cellcolor{gray!6}{2.8}\\
 \addlinespace
-Incidents & Increased & 3153.5052 & 16.339405\\
-Current & Increased & 1644.9305 & 8.522956\\
-Increased & Increased & 1115.3168 & 5.778844\\
+Incidents & Increased & 3154 & 16.3\\
+\cellcolor{gray!6}{20 IMT} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{1645} & \cellcolor{gray!6}{8.5}\\
+30 IMT & Increased & 1115 & 5.8\\
 \bottomrule
+\multicolumn{4}{l}{\textsuperscript{a} Note: Current Frequency contains 90 Incidents and Increased Frequency contains 193 Incidents}\\
 \end{tabular}
 \end{table}
 

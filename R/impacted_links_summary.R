@@ -35,7 +35,7 @@ library(RColorBrewer)
       return(delay_per_seed)
     }
     
-    summarize_impacted_link_table <- function(impacted_links){
+    summarize_impacted_link_data <- function(impacted_links){
       
       # Mutate the scenario first
       impacted_links <- impacted_links %>%
@@ -77,25 +77,28 @@ library(RColorBrewer)
                `Average Delay Per Incident [hours]` = total_delay / total_incidents)
       
       # Combine the tables
-      impacted_links_summary <- bind_rows(increased_incidents, current_incidents)
+      impacted_links_combine <- bind_rows(increased_incidents, current_incidents)
       
-      impacted_links_summary <- impacted_links_summary %>%
-        select(Scenario, total_delay, total_incidents, incident_frequency, `Average Delay Per Incident [hours]`)
+      return(impacted_links_combine)
+    }
+    
+    write_impacted_link_summary_table <- function(impacted_links_combine) {
       
-      impacted_summary_table <- impacted_links_summary %>%
+      impacted_links_summary <- impacted_links_combine %>%
+        select(Scenario, incident_frequency, total_delay, `Average Delay Per Incident [hours]`) %>%
         rename(
           "Group" = "Scenario",
           "Incident Frequency" = "incident_frequency",
-          "# of Incidents" = "total_incidents",
           "Total VHD" = "total_delay",
           "Avg. Delay Per Inc. [hrs.]" = "Average Delay Per Incident [hours]"
-        )
-      
-      impacted_summary_table <- impacted_summary_table %>%
+        ) %>%
         arrange(
           factor(`Incident Frequency`, levels = c("Current", "Increased")),
-          factor(Group, levels = c("Baseline", "Incidents", "20 IMT", "30 IMT")),
-        )
+          factor(Group, levels = c("Baseline", "Incidents", "20 IMT", "30 IMT"))
+        ) %>%
+        mutate(`Total VHD` = round(`Total VHD`))  %>%
+        mutate(`Avg. Delay Per Inc. [hrs.]` = round(`Avg. Delay Per Inc. [hrs.]`, 1))
+        
       
-      return(impacted_summary_table)
+      return(impacted_links_summary)
     }
