@@ -47,6 +47,10 @@ source("R/truck_travel_comparison.R")
 
 # truck arrival r-scripts
 source("R/truck_arrival_comparison.R")
+
+source("R/truck_arrival_plot_data.R")
+source("R/truck_arrival_plot.R")
+
 source("R/truck_arrival_plot.R")
 source("R/truck_arrival_violin.R")
 
@@ -162,14 +166,14 @@ list(
   
   tar_target(
     name = delay_per_seed,
-    command = write_sorted_impacted_links(impacted_links)
+    command = write_delay_per_seed_table(impacted_links)
   ),
   
-  # # Make the impacted links scatter plot
-  # tar_target(
-  #   name = impacted_links_plot,
-  #   command = make_impacted_links_plot(delay_per_seed)
-  # ),
+  # Make the impacted links scatter plot
+  tar_target(
+    name = impacted_links_plot,
+    command = make_impacted_links_plot(delay_per_seed)
+  ),
   
   # We make the truck travel from the truck_travel csv file
   tar_target(
@@ -204,7 +208,7 @@ list(
   
   # We make the truck_arrival_data from its corresponding CSV
   tar_target(
-    name = truck_arrival_data,
+    name = truck_arrival_csv,
     command = "data/truck_data/arrival_times.csv",
     format = "file"
   ),
@@ -212,16 +216,27 @@ list(
   # Make the truck_arrival_table
   tar_target(
     name= truck_arrival_table,
-    command = write_truck_arrival_table(truck_arrival_data)
+    command = write_truck_arrival_table(truck_arrival_csv)
   ),
   
+  # Truck arrival_data for plot
+  # Truck arrival_data for plot
+  tar_target(
+    name = truck_arrival_data, 
+    command = write_truck_arrival_plot_data(truck_arrival_csv)
+  ),
+  tar_target(
+    name = arrival_plot_data, 
+    command = truck_arrival_data$plot_data
+  ),
+  tar_target(
+    name = arrival_summary_data, 
+    command = truck_arrival_data$summary_data
+  ),
   tar_target(
     name = truck_arrival_plot,
-    command = make_truck_arrival_plot(truck_arrival_data)
-  ),
-  
-  tar_target(
-    name = truck_arrival_violin_plot,
-    command = make_truck_violin_plot(truck_arrival_data)
+    command = make_truck_arrival_plot(arrival_plot_data, arrival_summary_data)
   )
+  
 )
+  

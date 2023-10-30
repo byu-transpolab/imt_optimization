@@ -1,9 +1,4 @@
-install.packages("ggpattern")
 
-library(dplyr)
-library(ggplot2)
-library(RColorBrewer)
-library(ggpattern)
 
 write_delay_summary_table <- function(delay_table){
   delay_per_seed <- delay_table %>%

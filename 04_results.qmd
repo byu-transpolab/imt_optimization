@@ -12,10 +12,8 @@
 
 library(ggplot2)
 library(RColorBrewer)
-library(kableExtra)
 library(dplyr)
 library(tidyr)
-library(targets)
 library(ggpattern)
 library(extrafont)
 library(scales)
@@ -45,7 +43,7 @@ The scenarios can be categorized based on incident response (i.e., *Incidents*, 
 
 ```{r delay_comparison}
 #| label: tbl-network_delays_table
-#| tbl-cap: Average VHD for Scenario Groups
+#| tbl-cap: Average Delay for Scenario Groups
 tar_load(all_links_comparison_table)
 all_links_comparison_table |> 
   kbl(booktabs = TRUE) |> 
@@ -66,10 +64,9 @@ Given that the table reveals average delay values aggregated across multiple sce
 
 ```{r all_links_plot}
 #| label: fig-network_violin_plot
-#| fig-cap: Average network VHD violins.
+#| fig-cap: Average network delay violins.
 tar_load(all_links_plot)
 all_links_plot +
-  
   # change the text style of the plot
   theme_minimal(base_family = "TeX Gyre Pagella", base_size = 12)
 ```
@@ -104,7 +101,7 @@ For a more in=depth understanding of the variances within to the scenario groupi
 
 ```{r truck_data}
 #| label: fig-motorway_violin_plot
-#| fig-cap: Average motorway VHD violins.
+#| fig-cap: Average motorway delay violins.
 tar_load(motorway_links_plot)
 motorway_links_plot +
 
@@ -130,14 +127,14 @@ Impacted links are described as the links where an incident occurs, along with i
 #| tbl-cap: Impacted Links Table
 tar_load(impacted_links_summary)
 # Specify the note
-note_text <- "Note: Current Frequency contains 90 Incidents and Increased Frequency contains 193 Incidents"
+note_a <- "Note: Current contains 90 incidents, Increased contains 193"
 
 # Create the table with the note below it
 impacted_links_summary %>% 
   kbl(booktabs = TRUE) %>%
   kable_styling(latex_options = "striped") %>%
   row_spec(0, bold = TRUE) %>%
-  add_footnote(note_text)
+  add_footnote(note_a)
 ```
 
 The table presents a division of the Baseline scenario into two segments, for a more accurate comparison with the other three scenarios. Despite the absence of incidents in the Baseline scenario, its values are derived from the aggregate delay times of the same links included in the other scenarios.
@@ -150,9 +147,16 @@ For a more detailed observation, the @fig-impacted_links_plot scatter plot below
 
 ```{r impacted_links_plot}
 #| label: fig-impacted_links_plot
-#| fig-cap: Average VHD per incident sorted by Seed.
+#| fig-cap: Delay on impacted links sorted by seed. 
 tar_load(impacted_links_plot)
-impacted_links_plot
+impacted_links_plot +
+  # change the text style of the plot
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 12) +
+  theme(legend.position = c(0.95, 0.95),
+        legend.justification = c("right", "top"),
+        legend.background = element_rect(fill = "gray95", color = "gray50", linewidth = 0.5),
+        legend.title.align = 0.5)
+
 ```
 
 The scatter plot provides deeper insight into the nuances of the average incident impact calculations. In a manner similar to the @tbl-impacted_links, the scatter plot presents delay in terms of average delay per incident, which averages the delays from the incident links and their corresponding feeder links. At first glance, the data points representing the Baseline and Increased-IMT scenarios (in pink and green) seem to situate to the left of the blue dots depicting the Incidents-only scenarios. However, upon closer examination, one might discern that in certain scenarios, the Current-Fleet, Improved-Fleet, and occasionally both, perform sub-optimally compared to the Incidents-Only scenarios. This might initially appear counter intuitive, hinting at the possibility that factors beyond link capacity can influence delay. There exists an inherent randomness in MATSim's iterative process. The manner in which agents re-plan their journeys might, at times, influence delay as significantly, if not more, than variations in link capacity stemming from incidents and IMT arrivals. Notably, for the four Scenario IDs with the highest Average Incident Delays, the IMT units appear to substantially reduce the average delay on the affected links.
@@ -167,15 +171,27 @@ Equally critical to understanding how IMT implementation affects agent delay and
 
 Travel times for IMT trucks can be extracted from the event files, which are produced as a standard MATSim output. These files provide insights into the distance and time traveled by each IMT vehicle. Utilizing this truck travel data, plots were generated to illustrate the average travel times and distances for each dispatched truck within a given scenario. @fig-truck_time_plot illustrates the average travel time for each dispatched vehicle:
 
-```{r truck_csv}
-tar_load(truck_csv)
-```
-
 ```{r truck_time_plot}
 #| label: fig-truck_time_plot
-#| fig-cap: Average Time Traveled Per Scenario per Dispatched Truck
+#| fig-cap: Average truck travel time sorted by seed.
 tar_load(truck_time_plot)
-truck_time_plot
+truck_time_plot +
+    scale_fill_brewer(palette = "Set2") +
+    scale_color_brewer(palette = "Set2", labels = c("20 IMT", "30 IMT")) +
+    scale_size_continuous(breaks = c(5, 10, 15, 20), range = c(2, 8)) +  # Adjust range to make points smaller
+    guides(fill = guide_legend(order = 1, override.aes = list(size = 6), 
+                               title.position = "top", title.hjust = 0.5, ncol = 2, direction = "horizontal"),
+           color = guide_legend(order = 1, override.aes = list(size = 6), 
+                                title.position = "top", title.hjust = 0.5, ncol = 2, direction = "horizontal"),
+          size = guide_legend(order = 2, title.position = "top", 
+                               title.hjust = 0.5, ncol = 4, direction = "horizontal")) +
+  
+    theme_minimal(base_family = "TeX Gyre Pagella", base_size = 12) +
+    theme(
+      legend.position = "top",
+      axis.text.x = element_text(angle = 45, hjust = 1),
+    )
+
 ```
 
 To computed the average travel time per truck we took the cumulative travel time for all dispatched vehicles in every scenario and then divided it by the number of trucks deployed. Furthermore, an analysis of the @truck_csv data reveals that scenarios with an "Increased" fleet of 30 vehicles generally dispatched more trucks than scenarios with a fleet of only 20 vehicles. A nearly analogous methodology was employed to generate the @fig-truck_distance_plot discussed in the subsequent section.
@@ -186,9 +202,24 @@ As with the variation in truck_time across different scenario, there is a clear 
 
 ```{r truck_time_plot}
 #| label: fig-truck_distance_plot
-#| fig-cap: Average Distance Traveled Per Scenario per Dispatched Truck
+#| fig-cap: Average truck distance traveled sorted by seed.
 tar_load(truck_distance_plot)
-truck_distance_plot
+truck_distance_plot +
+    scale_fill_manual(values = c(brewer.pal(8, "Set2")[3], brewer.pal(8, "Set2")[4])) +
+    scale_color_manual(values = c(brewer.pal(8, "Set2")[3], brewer.pal(8, "Set2")[4]), labels = c("20 IMT", "30 IMT")) +
+    scale_size_continuous(breaks = c(5, 10, 15, 20), range = c(2, 8)) +  # Adjust range to make points smaller
+    guides(fill = guide_legend(order = 1, override.aes = list(size = 6), 
+                               title.position = "top", title.hjust = 0.5, ncol = 2, direction = "horizontal"),
+           color = guide_legend(order = 1, override.aes = list(size = 6), 
+                                title.position = "top", title.hjust = 0.5, ncol = 2, direction = "horizontal"),
+          size = guide_legend(order = 2, title.position = "top", 
+                               title.hjust = 0.5, ncol = 4, direction = "horizontal")) +
+  
+    theme_minimal(base_family = "TeX Gyre Pagella", base_size = 12) +
+    theme(
+      legend.position = "top",
+      axis.text.x = element_text(angle = 45, hjust = 1),
+    )
 ```
 
 The data presented in the above figure establishes a direct correlation between an increased number of vehicles and a decrease in average distance traveled per truck. Notably, the *30-IMT* fleet benefited in both time and distance scenarios by commencing from identical locations as the *20-IMT* fleet scenarios. This advantage was made more noticeable by the addition of vehicles to bridge the spatial intervals between the existing vehicles.
@@ -203,36 +234,20 @@ In the study conducted by @schultz2019, it is highlighted that, in Utah, a one-m
 
 On average, across 280 simulated incidents, the arrival times in the *30-IMT* scenarios were 4 minutes faster than those in the *20-IMT* scenario, as detailed in @tbl-truck_arrival_table, which compares the average arrival times of the 1st, 2nd, 3rd, and 4th trucks.
 
-```{r truck_arrival_data}
-tar_load(truck_arrival_data)
-```
-
 ```{r truck_arrival_table, results='asis'}
 #| label: tbl-truck_arrival_table
-#| tbl-cap: Average Arrival Time Per Scenario
+#| tbl-cap: Average Truck Arrival Times
 tar_load(truck_arrival_table)
 
-# This code formatted the table nice but cause problems when I tried to render the PDF
-
 # Update Scenario values
-truck_arrival_table$Scenario <- recode(truck_arrival_table$Scenario, "2" = "20 IMTs", "3" = "30 IMTs")
+truck_arrival_table$Group <- recode(truck_arrival_table$Group, "2" = "20 IMTs", "3" = "30 IMTs")
 
-# Ensure that all text columns are treated as character
-truck_arrival_table <- truck_arrival_table %>%
-  mutate(across(where(is.character), as.character))
+truck_arrival_table |> 
+  kbl(booktabs = TRUE) %>%
+  kable_styling(latex_options = "striped") %>%
+  row_spec(0, bold = TRUE) |> 
+  row_spec(3, background = "gray65") # Light gray background for the last row
 
-# Apply formatting
-formatted_table <- truck_arrival_table %>%
-  mutate(across(-Scenario, ~ifelse(Scenario == "Number of Incidents", as.integer(.), .))) %>%
-  mutate(across(where(is.numeric), scales::comma)) %>%
-  mutate(Scenario = cell_spec(Scenario, bold = TRUE, color = ifelse(Scenario == "Number of Incidents", "black", "black"))) %>%
-  kbl(booktabs = TRUE, escape = FALSE, 
-      align = c('l', rep('c', ncol(truck_arrival_table) - 1))) %>%
-  kable_styling(bootstrap_options = c("striped")) %>%
-  row_spec(3, bold = TRUE, background = "#D3D3D3") # Light gray background for the last row
-
-# Print the formatted table
-formatted_table
 
 ```
 
@@ -246,20 +261,20 @@ Further analysis of @truck_arrival_data indicates that the *20-IMT* fleet often 
 
 ```{r truck_arrival_plot}
 #| label: fig-truck_arrival_plot
-#| fig-cap: Truck Arrival Comparison by Scenario
+#| fig-cap: Difference in IMT Arrival Times, 20 IMTs minus 30 IMTs.
 tar_load(truck_arrival_plot)
-truck_arrival_plot
+truck_arrival_plot +
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 12) +
+  theme(legend.position = "top",
+        legend.justification = c("center"),
+        legend.background = element_rect(fill = "gray95", color = "gray50", linewidth = 0.5),
+        legend.title.align = 0.5,
+        legend.title = element_blank(),  # Add this line to remove the legend title
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+
 ```
 
 From @fig-truck_arrival_plot, it becomes evident that the *30-IMT* vehicle fleet generally boasts shorter arrival times compared to the *20-IMT* fleet. While outliers exist within each truck's grouping, it is particularly noticeable that in scenarios with a higher incidence of incidents (18, 19, 20, and 21), the addition of 10 vehicles significantly enhances the overall arrival times of trucks, with the most pronounced improvements observed in the arrival times of the 2nd and 3rd trucks.
 
 In summary, the combined results from the Vehicle Hours of Delay (VHD) and IMT Vehicle analysis demonstrate the efficacy of IMT vehicles in mitigating delays, particularly on the road segments directly impacted by incidents and their immediate surroundings. Additionally, an increase in the size of the vehicle fleet is directly associated with reductions in both the average travel time per truck and the response times per incident, underscoring the benefits of a larger IMT fleet in emergency response situations.
-
-```{r truck_violin_plot}
-#| label: fig-truck_violin_plot
-#| fig-cap: Truck Arrival Violin Comparison
-tar_load(truck_arrival_violin_plot)
-truck_arrival_violin_plot
-```
-
-\<\< I probably like the scatter plots better, but am open to suggestions and wanted to include both for context\>\>

@@ -1437,12 +1437,12 @@ Frequency}), or a combination of both. In evaluating
 
 \hypertarget{tbl-network_delays_table}{}
 \begin{table}
-\caption{\label{tbl-network_delays_table}Average VHD for Scenario Groups }\tabularnewline
+\caption{\label{tbl-network_delays_table}Average Delay for Scenario Groups }\tabularnewline
 
 \centering
 \begin{tabular}[t]{llrr}
 \toprule
-\textbf{Group} & \textbf{Incident Frequency} & \textbf{Average VHD} & \textbf{VHD Change (\%)}\\
+\textbf{Group} & \textbf{Incident Frequency} & \textbf{Average VHD} & \textbf{Change (\%)}\\
 \midrule
 \cellcolor{gray!6}{Baseline} & \cellcolor{gray!6}{-} & \cellcolor{gray!6}{74568} & \cellcolor{gray!6}{0.0}\\
 Incidents & Current & 103159 & 38.3\\
@@ -1492,7 +1492,7 @@ through various violin plots.
 
 }
 
-\caption{\label{fig-network_violin_plot}Average network VHD violins.}
+\caption{\label{fig-network_violin_plot}Average network delay violins.}
 
 \end{figure}
 
@@ -1590,7 +1590,8 @@ insights.
 
 }
 
-\caption{\label{fig-motorway_violin_plot}Average motorway VHD violins.}
+\caption{\label{fig-motorway_violin_plot}Average motorway delay
+violins.}
 
 \end{figure}
 
@@ -1657,7 +1658,7 @@ Incidents & Increased & 3154 & 16.3\\
 \cellcolor{gray!6}{20 IMT} & \cellcolor{gray!6}{Increased} & \cellcolor{gray!6}{1645} & \cellcolor{gray!6}{8.5}\\
 30 IMT & Increased & 1115 & 5.8\\
 \bottomrule
-\multicolumn{4}{l}{\textsuperscript{a} Note: Current Frequency contains 90 Incidents and Increased Frequency contains 193 Incidents}\\
+\multicolumn{4}{l}{\textsuperscript{a} Note: Current contains 90 incidents, Increased contains 193}\\
 \end{tabular}
 \end{table}
 
@@ -1698,8 +1699,8 @@ with the seed value 141). The scatter plot is presented as follows:
 
 }
 
-\caption{\label{fig-impacted_links_plot}Average VHD per incident sorted
-by Seed.}
+\caption{\label{fig-impacted_links_plot}Delay on impacted links sorted
+by seed.}
 
 \end{figure}
 
@@ -1758,8 +1759,8 @@ each dispatched vehicle:
 
 }
 
-\caption{\label{fig-truck_time_plot}Average Time Traveled Per Scenario
-per Dispatched Truck}
+\caption{\label{fig-truck_time_plot}Average truck travel time sorted by
+seed.}
 
 \end{figure}
 
@@ -1787,8 +1788,8 @@ results are visualized in the Figure~\ref{fig-truck_distance_plot}.
 
 }
 
-\caption{\label{fig-truck_distance_plot}Average Distance Traveled Per
-Scenario per Dispatched Truck}
+\caption{\label{fig-truck_distance_plot}Average truck distance traveled
+sorted by seed.}
 
 \end{figure}
 
@@ -1844,16 +1845,16 @@ times of the 1st, 2nd, 3rd, and 4th trucks.
 
 \hypertarget{tbl-truck_arrival_table}{}
 \begin{table}
-\caption{\label{tbl-truck_arrival_table}Average Arrival Time Per Scenario }\tabularnewline
+\caption{\label{tbl-truck_arrival_table}Average Truck Arrival Times }\tabularnewline
 
 \centering
-\begin{tabular}[t]{lcccccc}
+\begin{tabular}[t]{lllllr}
 \toprule
-Scenario & Average Truck Arrival Time [mins] & 1st Truck Average [mins] & 2nd Truck Average [mins] & 3rd Truck Average [mins] & 4th Truck Average [mins] & Total Truck Travel [hours]\\
+\textbf{Group} & \textbf{All Trucks [mins]} & \textbf{1st [mins]} & \textbf{2nd [mins]} & \textbf{3rd [mins]} & \textbf{Total [hours]}\\
 \midrule
-\textcolor{black}{\textbf{20 IMTs}} & 15 & 11.1 & 21.1 & 28.9 & 30.1 & 105\\
-\textcolor{black}{\textbf{30 IMTs}} & 11 & 8.9 & 13.2 & 21.2 & 34.9 & 77\\
-\cellcolor[HTML]{D3D3D3}{\textbf{\textcolor{black}{\textbf{Number of Incidents}}}} & \cellcolor[HTML]{D3D3D3}{\textbf{280}} & \cellcolor[HTML]{D3D3D3}{\textbf{280.0}} & \cellcolor[HTML]{D3D3D3}{\textbf{116.0}} & \cellcolor[HTML]{D3D3D3}{\textbf{23.0}} & \cellcolor[HTML]{D3D3D3}{\textbf{3.0}} & \cellcolor[HTML]{D3D3D3}{\textbf{280}}\\
+\cellcolor{gray!6}{20 IMTs} & \cellcolor{gray!6}{15.0} & \cellcolor{gray!6}{11.1} & \cellcolor{gray!6}{21.1} & \cellcolor{gray!6}{28.9} & \cellcolor{gray!6}{105}\\
+30 IMTs & 11.0 & 8.9 & 13.2 & 21.2 & 77\\
+\cellcolor{gray65}{\cellcolor{gray!6}{\# of Incidents}} & \cellcolor{gray65}{\cellcolor{gray!6}{280}} & \cellcolor{gray65}{\cellcolor{gray!6}{280}} & \cellcolor{gray65}{\cellcolor{gray!6}{116}} & \cellcolor{gray65}{\cellcolor{gray!6}{23}} & \cellcolor{gray65}{\cellcolor{gray!6}{280}}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1899,8 +1900,8 @@ incident count.
 
 }
 
-\caption{\label{fig-truck_arrival_plot}Truck Arrival Comparison by
-Scenario}
+\caption{\label{fig-truck_arrival_plot}Difference in IMT Arrival Times,
+20 IMTs minus 30 IMTs.}
 
 \end{figure}
 
@@ -1921,20 +1922,6 @@ in the size of the vehicle fleet is directly associated with reductions
 in both the average travel time per truck and the response times per
 incident, underscoring the benefits of a larger IMT fleet in emergency
 response situations.
-
-\begin{figure}
-
-{\centering \includegraphics{04_results_files/figure-pdf/fig-truck_violin_plot-1.pdf}
-
-}
-
-\caption{\label{fig-truck_violin_plot}Truck Arrival Violin Comparison}
-
-\end{figure}
-
-\textless\textless{} I probably like the scatter plots better, but am
-open to suggestions and wanted to include both for
-context\textgreater\textgreater{}
 
 \bookmarksetup{startatroot}
 
