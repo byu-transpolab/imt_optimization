@@ -39,7 +39,7 @@ Additionally, the nature and severity of incidents play a significant role in af
 
 The Utah Department of Transportation currently operates a fleet of 20 IMT vehicles, distributed across three zones corresponding to the counties of Davis, Salt Lake, and Utah within the Wasatch Front. @fig-IMT_Map visually represents the boundaries of each county and the initial locations of both existing and newly proposed IMT vehicles used in out simulated scenarios.
 
-![IMT starting locations.](figures/imt_gray_map.png){#fig-IMT_Map}
+![IMT starting locations example map.](figures/imt_gray_map.png){#fig-IMT_Map}
 
 In this figure, circles represent existing vehicles, while stars denote proposed additions. These starting locations aim to ensure a balanced distribution across each county, based on shift types---either day or afternoon. While this arrangement does not replicate the real-world starting points of IMT truck drivers, who typically commence their shifts from their homes, it is a pragmatic approach. Given that the majority of their operations are concentrated along major interstates such as I-15, I-80, and I-215, and considering the daily variability in starting locations, positioning them along these primary routes is logical for our MATSim Scenario simulations. Notably, the "Increased-IMT" scenario incorporates all vehicles from the "Existing" fleet, supplemented by an additional 10 vehicles distributed across the three counties.
 
