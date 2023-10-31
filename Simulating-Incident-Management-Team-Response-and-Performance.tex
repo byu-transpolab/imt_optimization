@@ -691,6 +691,14 @@ contribute to the realism and precision of our traffic simulations,
 particularly in the context of responding to roadway incidents, ensuring
 that our model provides accurate and reliable results.
 
+\hypertarget{sec-MATSim_Score}{%
+\subsection{Replanning and Scoring}\label{sec-MATSim_Score}}
+
+\textless\textless{} I need to read up in the MATSim textbook and look
+at our model a little bit more to write this section well. I'll get to
+it once I'm done editing the rest of this section
+\textgreater\textgreater{}
+
 \hypertarget{sec-NCE}{%
 \subsection{Network Change Events}\label{sec-NCE}}
 
@@ -710,11 +718,49 @@ configuration file to facilitate a time-variant network. These events
 can modify a link's free-flow speed, number of lanes, or capacity. To
 initiate a network change event, the system requires specific
 information including the time of the event \texttt{startTime}, the
-affected link(s) (link refID), the type of change (free-flow speed,
-lanes, or capacity), and the value of the change.
+affected link(s) \texttt{link\ refID}, the type of change
+\texttt{free-flow\ speed}, \texttt{lanes}, or \texttt{capacity}, and the
+value of the change. NCE are the tools used in this study to demonstrate
+the impact of both incidents and IMT arrivals.
 
 \hypertarget{sec-imt_response}{%
-\subsection{IMT Response}\label{sec-imt_response}}
+\subsection{IMT Assignment and Response}\label{sec-imt_response}}
+
+Within MATSim, the dispatch of one or more IMT is prompted by the
+occurrence of an incident. The optimal IMT vehicle for the situation is
+determined using a least-cost path dispatch algorithm, which bases its
+calculations on vehicle paths while considering factors such as
+congestion and link speed. The success of these methods heavily relies
+on the IMT units' capability to navigate through traffic. In cases where
+all IMT units are occupied at the time of an incident, the algorithm
+waits until a unit becomes available, and subsequently dispatches it to
+the incident site.
+
+Upon an IMT's arrival at an incident site, a NCE is activated via an
+event handler, a MATSim tool that functions to log simulation events in
+real-time. While incidents reduce a link's capacity, the IMT's arrival
+triggers an NCE that restores 25\% of the capacity gap on the affected
+link, with the capacity gap defined as the difference between a link's
+full and reduced capacity during an incident. In situations requiring
+the response of multiple IMT units, each arriving team contributes to
+restoring an additional 25\% of the existing capacity gap.
+
+Figure~\ref{fig-imt_capacity_restore} demonstrates the potential impact
+of an incident lacking IMT intervention, compared with scenarios that
+include the response of one or two IMT. This illustration highlights the
+critical role of IMT, showcasing their ability to alleviate the impacts
+of incidents on network traffic flow.
+
+\begin{figure}
+
+{\centering \includegraphics{03_methods_files/figure-pdf/fig-imt_capacity_restore-1.pdf}
+
+}
+
+\caption{\label{fig-imt_capacity_restore}IMT capacity restoration upon
+arrival example.}
+
+\end{figure}
 
 \hypertarget{sec-model_imp}{%
 \section{Model Implementaiton}\label{sec-model_imp}}
@@ -724,6 +770,61 @@ lanes, or capacity), and the value of the change.
 
 \hypertarget{sec-inc_data}{%
 \subsection{Incident Data and Sampling}\label{sec-inc_data}}
+
+(\textbf{hyer2023?}) undertook concurrent IMT research and compiled a
+comprehensive dataset of incidents requiring IMT intervention, drawing
+on data from the UHP. He carefully ensured the completeness of each
+incident record in the dataset, capturing crucial details such as the
+incident start and end times, RCT, location, and extent of capacity
+reduction.
+
+Analyzing data from 2018 and 2022, (\textbf{hyer2023?}) successfully
+identified 411 unique incidents with varying degrees of severity,
+ranging from property damage to fatal incidents. We utilized this
+carefully curated dataset to selectively include specific incidents in
+the MATSim model. It is crucial to acknowledge that these 411 incidents
+only constitute a portion of all incidents reported by UHP during this
+time frame. A significant number of additional incidents were not
+considered in the analysis due to the absence of vital metrics necessary
+for a comprehensive evaluation (e.g., start time, RCT, etc.).
+Nevertheless, the integration of the 411 analyzed incidents with the
+additional incomplete records provides insights, aiding in the
+quantification of the total number of incidents within a specific time
+period. These combined incident records were used in modeling daily
+incident frequencies.
+
+To generate ten distinct values representing daily incident frequencies,
+we employed a randomized sampling technique. These values were
+collectively termed Current Incident Frequencies as they were derived
+from the original distribution of daily incidents. Furthermore, we
+formulated a second set of ten daily incident values, named Increased
+Incident Frequencies. These values were extracted from the upper portion
+of the 2022 incident data and were specifically designed to assess the
+resilience and efficacy of the IMT system under scenarios of markedly
+increased daily incidents. The visual depiction of the original
+distribution of daily incidents, alongside the distributions for both
+the Current and Increased Incident Frequencies, is illustrated in
+Figure~\ref{fig-incident_sampling_plot}.
+
+\begin{figure}
+
+{\centering \includegraphics{03_methods_files/figure-pdf/fig-incident_sampling_plot-1.pdf}
+
+}
+
+\caption{\label{fig-incident_sampling_plot}Incident sampling
+distributions for current and increased incident frequencies.}
+
+\end{figure}
+
+In total, twenty values were selected, evenly split with ten allocated
+to the Current Incident Frequency category, and the remaining ten to the
+Increased Incident Frequency category. Each value was subsequently
+paired with a unique three-digit seed number, utilized internally within
+MATSim to ensure a randomized selection of incidents for each simulation
+scenario. Following this, we employed the MATSim
+\protect\hyperlink{sec-NCE}{Network Change Events} to integrate the
+incidents into the simulation.
 
 \hypertarget{sec-scenarios}{%
 \subsection{Scenarios}\label{sec-scenarios}}
@@ -796,91 +897,6 @@ allowing for vehicle movement across counties based on incident
 proximity. With these vehicle configurations established, we now turn
 our attention to the incident data the sampling used in establishing
 simulated scenarios.
-
-\hypertarget{incident-data}{%
-\subsection{Incident Data}\label{incident-data}}
-
-Joel Hyer, a student at Brigham Young University, conducted concurrent
-research to acquire a dataset of incidents having received Utah Incident
-Management Team (IMT) intervention, sourcing data from TransSuite and
-the Utah Highway Patrol. He ensured that each incident record in the
-dataset was complete, providing essential details such as start and end
-times (with the latter derived from the Roadway Clearance Time (RCT)),
-location, and the degree of capacity reduction.
-
-From the data collected in 2018 and 2022, Joel compiled a comprehensive
-list of 411 unique incidents, ranging in severity from property damage
-to fatal accidents. This dataset served as the foundation for selecting
-incidents to include in the MATSim model. However, it is important to
-note that this list does not represent the total number of incidents
-responded to by UHP and IMT services. The `master list' contains all
-incidents responded to by the Utah Highway Patrol and provides a more
-accurate depiction of daily incidents. Even still, it is important to
-acknowledge that both data sets only include incidents that received a
-response from UHP or IMT services, omitting those that did not.
-
-\hypertarget{incident-sampling}{%
-\subsection{Incident Sampling}\label{incident-sampling}}
-
-To accurately model the daily frequency of incidents, we conducted a
-thorough analysis of the `master list' of incident data, from which we
-derived a distribution of incident count frequencies to inform our
-sampling methodology.
-
-We employed the Pandas library in Python to create a script that imports
-the data into a data frame, eliminates any duplicate entries, and
-refines the `Call Received Time' and `Call Type' columns. We then
-aggregated the data by date and call type, counted the incidents, and
-generated a new data frame that details the daily frequency of
-incidents. These frequencies served as the foundation for creating a
-weighted distribution, which in turn facilitated our sampling process.
-To ensure consistency and replicability of our results, we integrated a
-fixed random seed value into our script. This setup allowed us to
-perform random sampling, extracting ten days from the incident number
-distribution based on the established frequencies. These ten values were
-then utilized to simulate ten scenarios based on observed or current
-incident frequencies.
-
-Utilizing the incident data, we established a total of 20 scenarios,
-categorized into two distinct groups: Current Incident Frequencies and
-Increased Incident Frequencies. For the scenarios under Current Incident
-Frequencies, we employed the script described above to select ten days
-from a weighted sampling distribution, which determined the number of
-incidents to be simulated for each respective day. On the other hand,
-the scenarios categorized as Increased Incident Frequencies were
-designed to evaluate the resilience and performance of the IMT system
-when confronted with a substantial increase in daily incidents. Drawing
-from the upper range of the 2022 data, we identified days with incident
-counts varying from 18 to 21. To ensure a thorough and comprehensive
-evaluation, we decided to simulate additional days for each incident
-count, resulting in a distribution of two days with 21 incidents, two
-days with 20 incidents, three days with 19 incidents, and three days
-with 18 incidents. \textbf{?@fig-Inc\_Sample} visually represents the
-original distribution of daily incidents, as well as the distributions
-for both current and increased incident frequencies used in assigning
-the number of incidents to each simulation scenario.
-
-\begin{figure}
-
-{\centering \includegraphics{03_methods_files/figure-pdf/fig-incident_sampling_plot-1.pdf}
-
-}
-
-\caption{\label{fig-incident_sampling_plot}Incident sampling
-distributions for current and increased incident frequencies.}
-
-\end{figure}
-
-Upon determining the distribution of incidents for each scenario, we
-assigned a three-digit seed value to each of the twenty scenario
-groupings, serving both as an identifier and a tool for incident
-selection. Within MATSim, each scenario received a specified number of
-incidents and a seed value. Utilizing these parameters, a number of
-incidents `X' was randomly selected from the list of 411 incidents,
-ensuring that the same incident did not occur more than once within a
-single simulation. For future research, additional parameters could be
-established for incident selection to ensure the creation of logical and
-realistic incident scenarios.
 
 \hypertarget{matsim-functionality}{%
 \section{MATSim Functionality}\label{matsim-functionality}}
@@ -957,139 +973,6 @@ generally impacts all agents, both regular and IMT vehicles. However, if
 a subnetwork is employed, IMT trucks, akin to other emergency vehicles
 such as ambulances and firetrucks, experience less disruption from
 congestion caused by daily traffic or unexpected incidents.
-
-\hypertarget{within-day-replanning}{%
-\subsection{Within-Day Replanning}\label{within-day-replanning}}
-
-\textless\textless{} The model was meant to incorporates the concept of
-within-day replanning to a certain extent, as elaborated in Chapter 30
-of the MATSim textbook. I loaded the within-day replanning module but
-didn't specify which agents needed to use it or the times that they
-needed to use it. \textgreater\textgreater{}
-
-\textless\textless{} Dr.~Macfarlane. Within-day replanning is not being
-implemented in the way that I thought that it was. After re-reading the
-literature review I realized that I had confused the replanning that
-occurs from iteration to iteration with the replanning mentioned by
-Kaddoura \& Nagel (2018) that only occurs for specific agents within the
-simulation. \textgreater\textgreater{}
-
-\textless\textless{} I do think it is still worth mentioning their
-research, and I can discuss how we could have used within-day replanning
-more effectively in the limitations section of this report. I am sorry
-for the confusion and for not realizing the problem earlier. Perhaps
-this section in the Methodology could discuss the strategy the model
-uses from iteration to iteration. \textgreater\textgreater{}
-
-\textless\textless{} I'll likely move this section to the limitations
-and talk about it, but wanted to leave you a note here just in case you
-were looking for this section - Daniel Jarvis\textgreater\textgreater{}
-
-\hypertarget{vehicle-assignment}{%
-\subsection{Vehicle Assignment}\label{vehicle-assignment}}
-
-In the MATSim simulation, the dispatch of one or more Incident
-Management Team (IMT) vehicles is triggered when an incident occurs. The
-selection of the most appropriate IMT vehicle for the task is determined
-by a dispatch algorithm. This algorithm may base its decision on either
-a least-cost path calculation, which takes into account factors such as
-congestion and link speed, or it may opt for the shortest path between
-the vehicle's current location and the incident site. The effectiveness
-of these methods is contingent upon the IMT units' ability to navigate
-through traffic. In scenarios where a subnetwork is employed, IMT
-trucks, like other emergency vehicles, are less impacted by congestion
-and variations in free-flow speed. This could render the shortest path
-calculation a more viable option. On the other hand, if IMT vehicles are
-subject to the same traffic conditions as regular vehicles, a least-cost
-path calculation might be the more prudent choice within the simulation.
-
-In this project, the Utah IMT system operates collaboratively with the
-Utah Highway Patrol, sharing a common dispatch service. IMT vehicles,
-equipped with sirens and flashing lights similar to those on highway
-patrol vehicles, are assigned to specific zones and have the capability
-to navigate through traffic like other emergency vehicles. Given this
-capability, the dispatch system prioritizes the IMT vehicle that can
-reach the incident site most efficiently, taking into account the
-current traffic conditions. This operational protocol ensures that,
-within the simulated scenarios, the IMT vehicle selected is not merely
-the closest in terms of distance, but also the most strategically
-positioned to respond swiftly and effectively.
-
-Upon arrival at an incident site, IMT vehicles play a crucial role,
-primarily through their interaction with Network Change Events (NCEs)
-within the ongoing simulation. They utilize the same mechanisms as
-incidents to effect changes in the network, contributing to the dynamic
-and responsive nature of the simulation. This ensures that the
-simulation remains a valuable tool for understanding and planning for
-real-world scenarios, particularly those involving roadway incidents and
-the subsequent deployment of IMT vehicles.
-
-It is important to note that resource limitations may sometimes restrict
-the number of IMT units available to respond to an incident. In
-instances where an incident would ideally be managed by 2 or 3 IMT
-units, only a single vehicle might be dispatched, potentially leading to
-extended management or cleanup times. This limitation, along with its
-implications, will be discussed in more detail in the conclusion and
-limitations section of this report.
-
-\hypertarget{incident-response}{%
-\subsection{Incident Response}\label{incident-response}}
-
-Network Change Events (NCEs) play a crucial role in the MATSim network,
-simulating the effects of incidents on agents and demonstrating how
-these events impact user behavior. Additionally, NCEs highlight the
-influence of Incident Management Teams (IMTs) on agents' travel times
-and paths, providing a comprehensive view of incident response.
-
-Upon the occurrence of an incident, the vehicle assignment algorithm is
-tasked with dispatching IMT units, leading to a critical decision: what
-impact will the IMT vehicles have on the affected links? Two primary
-strategies are considered:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Incident Duration Reduction: The IMT vehicles can decrease the
-  duration for which the link's capacity is reduced, effectively
-  shortening the incident's length.
-\item
-  Capacity Restoration: Upon their arrival, IMT vehicles can restore a
-  certain percentage of the link's lost capacity.
-\end{enumerate}
-
-The decision between these strategies is dependent on the data available
-to the user. In the context of this project there is a lack of
-comprehensive data comparing incidents with and without IMT or highway
-patrol intervention. This data gap, highlighted in our literature
-review, prevents an accurate prediction of an incident's potential
-duration without external assistance and hinders informed
-decision-making in incident management.
-
-In the absence of clear comparative data, the practicality of the first
-option---incident duration reduction---remains uncertain. However, this
-study has adopted the second strategy, capacity restoration, with IMT
-vehicles restoring 25\% of the capacity gap on an incident link upon
-their arrival. This capacity gap is defined as the difference between a
-link's full capacity and its reduced capacity during an incident.
-
-\textbf{?@fig-Cap\_Restore} visually represents the potential impact of
-an incident without IMT intervention, contrasting it with scenarios
-involving the response of one or two IMT units. This illustration
-underscores the significance of IMT vehicles in incident management and
-their potential to mitigate the effects of incidents on network traffic
-flow.
-
-\begin{figure}
-
-{\centering \includegraphics{03_methods_files/figure-pdf/fig-imt_capacity_restore-1.pdf}
-
-}
-
-\caption{\label{fig-imt_capacity_restore}IMT capacity restoration upon
-arrival example.}
-
-\end{figure}
 
 \hypertarget{scenario-simulations-and-comparisons}{%
 \section{Scenario Simulations and
@@ -1782,6 +1665,33 @@ geographic scope. You should also provide a map for future research.
 
 Finally, you should underline the contributions of this work and any
 practical relevance.
+
+\hypertarget{within-day-replanning}{%
+\subsection{Within-Day Replanning}\label{within-day-replanning}}
+
+\textless\textless{} The model was meant to incorporates the concept of
+within-day replanning to a certain extent, as elaborated in Chapter 30
+of the MATSim textbook. I loaded the within-day replanning module but
+didn't specify which agents needed to use it or the times that they
+needed to use it. \textgreater\textgreater{}
+
+\textless\textless{} Dr.~Macfarlane. Within-day replanning is not being
+implemented in the way that I thought that it was. After re-reading the
+literature review I realized that I had confused the replanning that
+occurs from iteration to iteration with the replanning mentioned by
+Kaddoura \& Nagel (2018) that only occurs for specific agents within the
+simulation. \textgreater\textgreater{}
+
+\textless\textless{} I do think it is still worth mentioning their
+research, and I can discuss how we could have used within-day replanning
+more effectively in the limitations section of this report. I am sorry
+for the confusion and for not realizing the problem earlier. Perhaps
+this section in the Methodology could discuss the strategy the model
+uses from iteration to iteration. \textgreater\textgreater{}
+
+\textless\textless{} I'll likely move this section to the limitations
+and talk about it, but wanted to leave you a note here just in case you
+were looking for this section - Daniel Jarvis\textgreater\textgreater{}
 
 \bookmarksetup{startatroot}
 

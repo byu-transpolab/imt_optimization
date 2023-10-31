@@ -33,17 +33,76 @@ For the purposes of our research, we developed the ImtModule, a specialized MATS
 
 In this section, we describe some of the specific tools within MATSim that we used and adapted to construct a comprehensive and functional model for both processing and analysis. These tools include Network Change Events, Vehicle Assignment, and Incident Response. Together, they contribute to the realism and precision of our traffic simulations, particularly in the context of responding to roadway incidents, ensuring that our model provides accurate and reliable results.
 
+### Replanning and Scoring {#sec-MATSim_Score}
+
+\<\< I need to read up in the MATSim textbook and look at our model a little bit more to write this section well. I'll get to it once I'm done editing the rest of this section \>\>
+
 ### Network Change Events {#sec-NCE}
 
 Within a MATSim network, each link is characterized by specific attributes such as type, length, number of lanes, free-flow speed, and capacity. To effectively simulate unexpected events and their subsequent impacts on traffic flow, it is essential to dynamically adjust these attributes. This capability, termed a Time-Dependent Network, is elaborated upon in the MATSim textbook [@rieser2016] and is vital for ensuring the realism and accuracy of our simulation.
 
-Network Change Events (NCE) serve as the mechanism within MATSim for modifying network attributes at precise moments during a simulation. Detailed in Section 6.1 of the MATSim textbook [@rieser2016], the implementation of NCE requires specific adjustments to the MATSim configuration file to facilitate a time-variant network. These events can modify a link's free-flow speed, number of lanes, or capacity. To initiate a network change event, the system requires specific information including the time of the event `startTime`, the affected link(s) `link refID`, the type of change `free-flow speed`, `lanes`, or `capacity`, and the value of the change.
+Network Change Events (NCE) serve as the mechanism within MATSim for modifying network attributes at precise moments during a simulation. Detailed in Section 6.1 of the MATSim textbook [@rieser2016], the implementation of NCE requires specific adjustments to the MATSim configuration file to facilitate a time-variant network. These events can modify a link's free-flow speed, number of lanes, or capacity. To initiate a network change event, the system requires specific information including the time of the event `startTime`, the affected link(s) `link refID`, the type of change `free-flow speed`, `lanes`, or `capacity`, and the value of the change. NCE are the tools used in this study to demonstrate the impact of both incidents and IMT arrivals.
 
-### IMT Response {#sec-imt_response}
+### IMT Assignment and Response {#sec-imt_response}
+
+Within MATSim, the dispatch of one or more IMT is prompted by the occurrence of an incident. The optimal IMT for the situation is determined using a least-cost path dispatch algorithm, which bases its calculations on vehicle paths while considering factors such as congestion and link speed. The success of these methods heavily relies on the IMT units' capability to navigate through traffic. In cases where all IMT units are occupied at the time of an incident, the algorithm waits until a unit becomes available, and subsequently dispatches it to the incident site.
+
+Upon an IMT's arrival at an incident site, a NCE is activated via an event handler, a MATSim tool that functions to log simulation events in real-time. While incidents reduce a link's capacity, the IMT's arrival triggers a NCE that restores 25% of the capacity gap on the affected link. The capacity gap is defined as the difference between the link’s full capacity and its reduced capacity during an incident. In situations requiring the response of multiple IMT, each arriving unit restores an additional 25% of the existing capacity gap.
+
+@fig-imt_capacity_restore demonstrates the potential impact of an incident lacking IMT intervention, compared with scenarios that include the response of one or two IMT units. This illustration highlights the critical role of IMTs, showcasing their ability to mitigate incident impacts on network traffic flow.
+
+```{r incident_capacity_restore}
+#| label: fig-imt_capacity_restore
+#| fig-cap: IMT capacity restoration upon arrival example.
+# Load the capacity data points
+tar_load(imt_capacity_data)
+
+# Define the new color palette
+color_palette <- brewer.pal(n = 3, name = "Set2")
+
+# Create the plot
+capacity_plot <- ggplot(imt_capacity_data, aes(x = time, y = capacity, 
+                                               color = group, linetype = group)) +
+  geom_line() +
+  geom_point(size = 3) +
+  labs(x = "Time (mins)", y = "Link Capacity Percent (%)") +
+  scale_x_continuous(breaks = seq(0, 120, 30)) +
+  scale_y_continuous(breaks = seq(0, 100, 25)) +
+  scale_color_manual(values = color_palette) +
+  scale_linetype_manual(values = c("No IMT Response" = "solid", 
+                                   "First IMT Response" = "dashed", 
+                                   "Second IMT Response" = "dashed")) +
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 11) +
+  theme(legend.position = "top", legend.title = element_blank()) +
+  guides(color = guide_legend(override.aes = list(linetype = c("solid", "dashed", "dashed"))))
+
+capacity_plot
+```
 
 ## Model Implementaiton {#sec-model_imp}
 
+To run the MATSim model with the ImtModule extension a number of input resources are necessary. To function properly the model need the following:
+
+- A plans file detailing the agents that will be modeled as well as their origins and destinations
+- A network file with interconnected links by which the agents from within the plans file can travel
+- A configurations file that outlines the scoring metrics of the simulation and establishes parameters pertaining to agent and IMT travel patterns
+- An IMT file outlining the IMT starting locations and hours of operation
+- An incidents file, containing the necessary data needed to effect NCE randomly throughout the simulation
+
+The network and plans files used came from @lant2021 and @day2022 who developed and calibrated them as part of their research projects studying accessibility and ride-hailing throughout the Wasatch Front. The configurations file used in the model was based an adaptation of @kaddoura2018 of the file used by their MATSim incident analysis study. It was altered slightly to accommodate the IMT development but was largely left unaltered from the parameters they had set. The IMT file was produced with data provided by UDOT and UHP as outline in [IMT Setup](#sec-MATSim_mod). The incident data was produced by @hyer2023 in his research of IMT performance measures and is explain in [Incident Data and Sampling](#sec-inc_data) 
+
 ### IMT Setup {#sec-IMT_setup}
+
+The Utah Department of Transportation currently operates a fleet of 20 IMT vehicles, distributed across three zones corresponding to the counties of Davis, Salt Lake, and Utah within the Wasatch Front. @fig-IMT_Map visually represents the boundaries of each county and the initial locations of both existing and newly proposed IMT vehicles used in out simulated scenarios.
+
+![IMT starting locations example map.](figures/imt_gray_map.png){#fig-IMT_Map}
+
+In this figure, circles represent existing vehicles, while stars denote proposed additions. These starting locations aim to ensure a balanced distribution across each county, based on shift types---either day or afternoon. While this arrangement does not replicate the real-world starting points of IMT truck drivers, who typically commence their shifts from their homes, it is a pragmatic approach. Given that the majority of their operations are concentrated along major interstates such as I-15, I-80, and I-215, and considering the daily variability in starting locations, positioning them along these primary routes is logical for our MATSim Scenario simulations. Notably, the "Increased-IMT" scenario incorporates all vehicles from the "Existing" fleet, supplemented by an additional 10 vehicles distributed across the three counties.
+
+Our investigation primarily focuses on analyzing the potential impacts of augmenting the IMT fleet, rather than the influence of their starting locations. We hypothesize that an increase in vehicle numbers, assuming an equitable distribution, could enhance IMT effectiveness.
+
+Additionally, vehicle scheduling is a critical aspect of our setup. All three counties operate IMT vehicles across day and afternoon shifts, with specific timeframes detailed in the trucks file for MATSim scenario runs. Although IMT vehicles typically do not cross county borders during operations, our MATSim network does not impose such constraints, allowing for vehicle movement across counties based on incident proximity. With these vehicle configurations established, we now turn our attention to the incident data the sampling used in establishing simulated scenarios.
+
 
 ### Incident Data and Sampling {#sec-inc_data}
 
@@ -109,7 +168,7 @@ incident_sampling_plot <- ggplot() +
 incident_sampling_plot
 ```
 
-Twenty values in total were selected, with ten being part of the Current Incident Frequency grouping and the other ten as part of the Increased Incident Frequency grouping. Each of these value was then assigned a three digit seed number which was used internally within MATSim to randomize the incident selection for for each scenario. The [Network Change Events](#sec-NCE) MATSim tool was then used to incorporate incidents into the simulation.
+In total, twenty values were selected, evenly split with ten allocated to the Current Incident Frequency category, and the remaining ten to the Increased Incident Frequency category. Each value was subsequently paired with a unique three-digit seed number, utilized internally within MATSim to ensure a randomized selection of incidents for each simulation scenario. Following this, we employed the MATSim  [Network Change Events](#sec-NCE) to integrate the incidents into the simulation.
 
 ### Scenarios {#sec-scenarios}
 
@@ -119,31 +178,7 @@ The strategic placement and sizing of IMT fleets are pivotal in optimizing vehic
 
 Additionally, the nature and severity of incidents play a significant role in affecting average travel times and delays, as evidenced by the research of @kaddoura2018. The 'Incident Data' and 'Incident Sampling' subsections elaborate on our methodology for selecting incidents for the simulation scenarios, utilizing data from concurrent research efforts.
 
-### IMT Vehicle Setup
 
-The Utah Department of Transportation currently operates a fleet of 20 IMT vehicles, distributed across three zones corresponding to the counties of Davis, Salt Lake, and Utah within the Wasatch Front. @fig-IMT_Map visually represents the boundaries of each county and the initial locations of both existing and newly proposed IMT vehicles used in out simulated scenarios.
-
-![IMT starting locations example map.](figures/imt_gray_map.png){#fig-IMT_Map}
-
-In this figure, circles represent existing vehicles, while stars denote proposed additions. These starting locations aim to ensure a balanced distribution across each county, based on shift types---either day or afternoon. While this arrangement does not replicate the real-world starting points of IMT truck drivers, who typically commence their shifts from their homes, it is a pragmatic approach. Given that the majority of their operations are concentrated along major interstates such as I-15, I-80, and I-215, and considering the daily variability in starting locations, positioning them along these primary routes is logical for our MATSim Scenario simulations. Notably, the "Increased-IMT" scenario incorporates all vehicles from the "Existing" fleet, supplemented by an additional 10 vehicles distributed across the three counties.
-
-Our investigation primarily focuses on analyzing the potential impacts of augmenting the IMT fleet, rather than the influence of their starting locations. We hypothesize that an increase in vehicle numbers, assuming an equitable distribution, could enhance IMT effectiveness.
-
-Additionally, vehicle scheduling is a critical aspect of our setup. All three counties operate IMT vehicles across day and afternoon shifts, with specific timeframes detailed in the trucks file for MATSim scenario runs. Although IMT vehicles typically do not cross county borders during operations, our MATSim network does not impose such constraints, allowing for vehicle movement across counties based on incident proximity. With these vehicle configurations established, we now turn our attention to the incident data the sampling used in establishing simulated scenarios.
-
-### Incident Data
-
-Joel Hyer, a student at Brigham Young University, conducted concurrent research to acquire a dataset of incidents having received Utah Incident Management Team (IMT) intervention, sourcing data from TransSuite and the Utah Highway Patrol. He ensured that each incident record in the dataset was complete, providing essential details such as start and end times (with the latter derived from the Roadway Clearance Time (RCT)), location, and the degree of capacity reduction.
-
-From the data collected in 2018 and 2022, Joel compiled a comprehensive list of 411 unique incidents, ranging in severity from property damage to fatal accidents. This dataset served as the foundation for selecting incidents to include in the MATSim model. However, it is important to note that this list does not represent the total number of incidents responded to by UHP and IMT services. The 'master list' contains all incidents responded to by the Utah Highway Patrol and provides a more accurate depiction of daily incidents. Even still, it is important to acknowledge that both data sets only include incidents that received a response from UHP or IMT services, omitting those that did not.
-
-### Incident Sampling
-
-To accurately model the daily frequency of incidents, we conducted a thorough analysis of the 'master list' of incident data, from which we derived a distribution of incident count frequencies to inform our sampling methodology.
-
-We employed the Pandas library in Python to create a script that imports the data into a data frame, eliminates any duplicate entries, and refines the 'Call Received Time' and 'Call Type' columns. We then aggregated the data by date and call type, counted the incidents, and generated a new data frame that details the daily frequency of incidents. These frequencies served as the foundation for creating a weighted distribution, which in turn facilitated our sampling process. To ensure consistency and replicability of our results, we integrated a fixed random seed value into our script. This setup allowed us to perform random sampling, extracting ten days from the incident number distribution based on the established frequencies. These ten values were then utilized to simulate ten scenarios based on observed or current incident frequencies.
-
-Upon determining the distribution of incidents for each scenario, we assigned a three-digit seed value to each of the twenty scenario groupings, serving both as an identifier and a tool for incident selection. Within MATSim, each scenario received a specified number of incidents and a seed value. Utilizing these parameters, a number of incidents 'X' was randomly selected from the list of 411 incidents, ensuring that the same incident did not occur more than once within a single simulation. For future research, additional parameters could be established for incident selection to ensure the creation of logical and realistic incident scenarios.
 
 ## MATSim Functionality
 
@@ -166,68 +201,6 @@ This approach ensures a dynamic and responsive simulation, reflecting the real-w
 
 Contrary to the work of @kaddoura2018, our study does not take into account long-term capacity reduction events such as road construction, focusing exclusively on short-term incidents like accidents or vehicle breakdowns. The reduced capacity of a specific link generally impacts all agents, both regular and IMT vehicles. However, if a subnetwork is employed, IMT trucks, akin to other emergency vehicles such as ambulances and firetrucks, experience less disruption from congestion caused by daily traffic or unexpected incidents.
 
-### Within-Day Replanning
-
-\<\< The model was meant to incorporates the concept of within-day replanning to a certain extent, as elaborated in Chapter 30 of the MATSim textbook. I loaded the within-day replanning module but didn't specify which agents needed to use it or the times that they needed to use it. \>\>
-
-\<\< Dr. Macfarlane. Within-day replanning is not being implemented in the way that I thought that it was. After re-reading the literature review I realized that I had confused the replanning that occurs from iteration to iteration with the replanning mentioned by @kaddoura2018 that only occurs for specific agents within the simulation. \>\>
-
-\<\< I do think it is still worth mentioning their research, and I can discuss how we could have used within-day replanning more effectively in the limitations section of this report. I am sorry for the confusion and for not realizing the problem earlier. Perhaps this section in the Methodology could discuss the strategy the model uses from iteration to iteration. \>\>
-
-\<\< I'll likely move this section to the limitations and talk about it, but wanted to leave you a note here just in case you were looking for this section - Daniel Jarvis\>\>
-
-### Vehicle Assignment
-
-In the MATSim simulation, the dispatch of one or more Incident Management Team (IMT) vehicles is triggered when an incident occurs. The selection of the most appropriate IMT vehicle for the task is determined by a dispatch algorithm. This algorithm may base its decision on either a least-cost path calculation, which takes into account factors such as congestion and link speed, or it may opt for the shortest path between the vehicle's current location and the incident site. The effectiveness of these methods is contingent upon the IMT units' ability to navigate through traffic. In scenarios where a subnetwork is employed, IMT trucks, like other emergency vehicles, are less impacted by congestion and variations in free-flow speed. This could render the shortest path calculation a more viable option. On the other hand, if IMT vehicles are subject to the same traffic conditions as regular vehicles, a least-cost path calculation might be the more prudent choice within the simulation.
-
-In this project, the Utah IMT system operates collaboratively with the Utah Highway Patrol, sharing a common dispatch service. IMT vehicles, equipped with sirens and flashing lights similar to those on highway patrol vehicles, are assigned to specific zones and have the capability to navigate through traffic like other emergency vehicles. Given this capability, the dispatch system prioritizes the IMT vehicle that can reach the incident site most efficiently, taking into account the current traffic conditions. This operational protocol ensures that, within the simulated scenarios, the IMT vehicle selected is not merely the closest in terms of distance, but also the most strategically positioned to respond swiftly and effectively.
-
-Upon arrival at an incident site, IMT vehicles play a crucial role, primarily through their interaction with Network Change Events (NCEs) within the ongoing simulation. They utilize the same mechanisms as incidents to effect changes in the network, contributing to the dynamic and responsive nature of the simulation. This ensures that the simulation remains a valuable tool for understanding and planning for real-world scenarios, particularly those involving roadway incidents and the subsequent deployment of IMT vehicles.
-
-It is important to note that resource limitations may sometimes restrict the number of IMT units available to respond to an incident. In instances where an incident would ideally be managed by 2 or 3 IMT units, only a single vehicle might be dispatched, potentially leading to extended management or cleanup times. This limitation, along with its implications, will be discussed in more detail in the conclusion and limitations section of this report.
-
-### Incident Response
-
-Network Change Events (NCEs) play a crucial role in the MATSim network, simulating the effects of incidents on agents and demonstrating how these events impact user behavior. Additionally, NCEs highlight the influence of Incident Management Teams (IMTs) on agents' travel times and paths, providing a comprehensive view of incident response.
-
-Upon the occurrence of an incident, the vehicle assignment algorithm is tasked with dispatching IMT units, leading to a critical decision: what impact will the IMT vehicles have on the affected links? Two primary strategies are considered:
-
-1.  Incident Duration Reduction: The IMT vehicles can decrease the duration for which the link's capacity is reduced, effectively shortening the incident's length.
-2.  Capacity Restoration: Upon their arrival, IMT vehicles can restore a certain percentage of the link's lost capacity.
-
-The decision between these strategies is dependent on the data available to the user. In the context of this project there is a lack of comprehensive data comparing incidents with and without IMT or highway patrol intervention. This data gap, highlighted in our literature review, prevents an accurate prediction of an incident's potential duration without external assistance and hinders informed decision-making in incident management.
-
-In the absence of clear comparative data, the practicality of the first option---incident duration reduction---remains uncertain. However, this study has adopted the second strategy, capacity restoration, with IMT vehicles restoring 25% of the capacity gap on an incident link upon their arrival. This capacity gap is defined as the difference between a link's full capacity and its reduced capacity during an incident.
-
-@fig-Cap_Restore visually represents the potential impact of an incident without IMT intervention, contrasting it with scenarios involving the response of one or two IMT units. This illustration underscores the significance of IMT vehicles in incident management and their potential to mitigate the effects of incidents on network traffic flow.
-
-```{r incident_capacity_restore}
-#| label: fig-imt_capacity_restore
-#| fig-cap: IMT capacity restoration upon arrival example.
-# Load the capacity data points
-tar_load(imt_capacity_data)
-
-# Define the new color palette
-color_palette <- brewer.pal(n = 3, name = "Set2")
-
-# Create the plot
-capacity_plot <- ggplot(imt_capacity_data, aes(x = time, y = capacity, 
-                                               color = group, linetype = group)) +
-  geom_line() +
-  geom_point(size = 3) +
-  labs(x = "Time (mins)", y = "Link Capacity Percent (%)") +
-  scale_x_continuous(breaks = seq(0, 120, 30)) +
-  scale_y_continuous(breaks = seq(0, 100, 25)) +
-  scale_color_manual(values = color_palette) +
-  scale_linetype_manual(values = c("No IMT Response" = "solid", 
-                                   "First IMT Response" = "dashed", 
-                                   "Second IMT Response" = "dashed")) +
-  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 11) +
-  theme(legend.position = "top", legend.title = element_blank()) +
-  guides(color = guide_legend(override.aes = list(linetype = c("solid", "dashed", "dashed"))))
-
-capacity_plot
-```
 
 ## Scenario Simulations and Comparisons
 

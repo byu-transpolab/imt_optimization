@@ -3,3 +3,13 @@
 This section need not be overly long. You should address any limitations of your results, such as dependence on underlying assumptions or geographic scope. You should also provide a map for future research.
 
 Finally, you should underline the contributions of this work and any practical relevance.
+
+### Within-Day Replanning
+
+\<\< The model was meant to incorporates the concept of within-day replanning to a certain extent, as elaborated in Chapter 30 of the MATSim textbook. I loaded the within-day replanning module but didn't specify which agents needed to use it or the times that they needed to use it. \>\>
+
+\<\< Dr. Macfarlane. Within-day replanning is not being implemented in the way that I thought that it was. After re-reading the literature review I realized that I had confused the replanning that occurs from iteration to iteration with the replanning mentioned by @kaddoura2018 that only occurs for specific agents within the simulation. \>\>
+
+\<\< I do think it is still worth mentioning their research, and I can discuss how we could have used within-day replanning more effectively in the limitations section of this report. I am sorry for the confusion and for not realizing the problem earlier. Perhaps this section in the Methodology could discuss the strategy the model uses from iteration to iteration. \>\>
+
+\<\< I'll likely move this section to the limitations and talk about it, but wanted to leave you a note here just in case you were looking for this section - Daniel Jarvis\>\>
