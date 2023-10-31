@@ -21,12 +21,25 @@ library(extrafont)
 library(scales)
 ```
 
-This section outlines the methods used for the Utah Incident Management Team Optimization model, building upon the main concepts discussed in [IMT Optimization](#sec-lit_imt_opt) and [Incident Modeling](#sec-lit_inc_mod) sections of the [Literature Review](#sec-literature). The primary goal of the model is to demonstrate the impact of traffic incidents on overall traffic delay and assess the effectiveness of IMT within a simulated environment.
+As highlighted in the [Literature Review](#sec-literature), there is substantial evidence indicating that IMT can effectively reduce RCT and ECU following traffic incidents. Additionally, the effectiveness of DTA models in analyzing the impact of such incidents has been well-documented. However, there is a lack of comprehensive research evaluating IMT impact on entire traffic networks and their associated agents. To address this gap, it is necessary that we develop a model  capable of simulating both traffic incidents and the ensuing IMT interventions, with the objective of gauging the efficiency of IMT deployments. Due to its proficiency in regional-scale incident simulation and its authentic portrayal of driver behavior, MATSim has been identified as the most suitable model for this research. This section describes the methodology, expounding on the model’s capabilities, the requisite data inputs, and the benchmarks established for determining IMT efficacy.
 
 Our methodology is structured around three main components: the functionality of the MATSim model, the setup of IMT vehicles and incidents, and the scenarios for comparative analysis. In the [Model Design in MATSim](#sec-MATSim_mod) we describe the structure of the model and the functions it uses to represent incidents and IMT response. In [Model Implementaiton](#sec-model_imp) we outline the structure of the simulation by first describing [IMT Setup](#sec-IMT_setup), then [Incident Data and Sampling](#sec-inc_data) and conclude by describing the [Scenarios](#sec-scenarios) used for evaluating the impact of incidents and IMT.
 
-
 ## Model Design in MATSim {#sec-MATSim_mod}
+
+MATSim is an open-source framework used for conducting extensive, agent-based transportation simulations on a large scale. Operating as a dynamic traffic simulation, it plays crucial roles in demand modeling and agent-based mobility analysis [@dobler2016]. Thanks to its open-source architecture, MATSim enables the seamless integration of a diverse array of modules and packages into its models. Users across the platform can create, import, and modify these components, fostering a collaborative and innovative environment.
+
+For the purposes of our research, we developed the ImtModule, a specialized MATSim extension designed to process incidents and IMT responses within the simulation. This module leverages existing research on incident simulation, Demand Rapid Transit (DRT), event handling, and vehicle dispatch algorithms, building upon these foundations to enhance the functionality of our model.
+
+In this section, we describe some of the specific tools within MATSim that we used and adapted to construct a comprehensive and functional model for both processing and analysis. These tools include Network Change Events, Vehicle Assignment, and Incident Response. Together, they contribute to the realism and precision of our traffic simulations, particularly in the context of responding to roadway incidents, ensuring that our model provides accurate and reliable results.
+
+### Network Change Events {#sec-NCE}
+
+Within a MATSim network, each link is characterized by specific attributes such as type, length, number of lanes, free-flow speed, and capacity. To effectively simulate unexpected events and their subsequent impacts on traffic flow, it is essential to dynamically adjust these attributes. This capability, termed a Time-Dependent Network, is elaborated upon in the MATSim textbook [@rieser2016] and is vital for ensuring the realism and accuracy of our simulation.
+
+Network Change Events (NCE) serve as the mechanism within MATSim for modifying network attributes at precise moments during a simulation. Detailed in Section 6.1 of the MATSim textbook [@rieser2016], the implementation of NCE requires specific adjustments to the MATSim configuration file to facilitate a time-variant network. These events can modify a link's free-flow speed, number of lanes, or capacity. To initiate a network change event, the system requires specific information including the time of the event `startTime`, the affected link(s) `link refID`, the type of change `free-flow speed`, `lanes`, or `capacity`, and the value of the change.
+
+### IMT Response {#sec-imt_response}
 
 ## Model Implementaiton {#sec-model_imp}
 
@@ -34,39 +47,12 @@ Our methodology is structured around three main components: the functionality of
 
 ### Incident Data and Sampling {#sec-inc_data}
 
-### Scenarios {#sec-scenarios}
+@hyer2023 undertook concurrent IMT research and compiled a comprehensive dataset of incidents requiring IMT intervention, drawing on data from the UHP. He carefully ensured the completeness of each incident record in the dataset, capturing crucial details such as the incident start and end times, RCT, location, and extent of capacity reduction.
 
-## IMT Vehicle Configuration and Incident Selection
+Analyzing data from 2018 and 2022, @hyer2023 successfully identified 411 unique incidents with varying degrees of severity, ranging from property damage to fatal incidents. We utilized this carefully curated dataset to selectively include specific incidents in the MATSim model. It is crucial to acknowledge that these 411 incidents only constitute a portion of all incidents reported by UHP during this time frame. A significant number of additional incidents were not considered in the analysis due to the absence of vital metrics necessary for a comprehensive evaluation (e.g., start time, RCT, etc.). Nevertheless, the integration of the 411 analyzed incidents with the additional incomplete records provides insights, aiding in the quantification of the total number of incidents within a specific time period. These combined incident records were used in modeling daily incident frequencies.
 
-The strategic placement and sizing of IMT fleets are pivotal in optimizing vehicle response times, a relationship explored in depth by @lou2011 and @pal2002. Furthermore, @schultz2019 established a significant link between response time (RT) and roadway clearance time (RCT). In the 'IMT Vehicle Setup' subsection, we describe the organization of the IMT vehicle, taking these relationships into account and adhering to recommendations from Utah Highway Patrol officials specific to this project.
+To generate ten distinct values representing daily incident frequencies, we employed a randomized sampling technique. These values were collectively termed Current Incident Frequencies as they were derived from the original distribution of daily incidents. Furthermore, we formulated a second set of ten daily incident values, named Increased Incident Frequencies. These values were extracted from the upper portion of the 2022 incident data and were specifically designed to assess the resilience and efficacy of the IMT system under scenarios of markedly increased daily incidents. The visual depiction of the original distribution of daily incidents, alongside the distributions for both the Current and Increased Incident Frequencies, is illustrated in @fig-incident_sampling_plot.
 
-Additionally, the nature and severity of incidents play a significant role in affecting average travel times and delays, as evidenced by the research of @kaddoura2018. The 'Incident Data' and 'Incident Sampling' subsections elaborate on our methodology for selecting incidents for the simulation scenarios, utilizing data from concurrent research efforts.
-
-### IMT Vehicle Setup
-
-The Utah Department of Transportation currently operates a fleet of 20 IMT vehicles, distributed across three zones corresponding to the counties of Davis, Salt Lake, and Utah within the Wasatch Front. @fig-IMT_Map visually represents the boundaries of each county and the initial locations of both existing and newly proposed IMT vehicles used in out simulated scenarios.
-
-![IMT starting locations example map.](figures/imt_gray_map.png){#fig-IMT_Map}
-
-In this figure, circles represent existing vehicles, while stars denote proposed additions. These starting locations aim to ensure a balanced distribution across each county, based on shift types---either day or afternoon. While this arrangement does not replicate the real-world starting points of IMT truck drivers, who typically commence their shifts from their homes, it is a pragmatic approach. Given that the majority of their operations are concentrated along major interstates such as I-15, I-80, and I-215, and considering the daily variability in starting locations, positioning them along these primary routes is logical for our MATSim Scenario simulations. Notably, the "Increased-IMT" scenario incorporates all vehicles from the "Existing" fleet, supplemented by an additional 10 vehicles distributed across the three counties.
-
-Our investigation primarily focuses on analyzing the potential impacts of augmenting the IMT fleet, rather than the influence of their starting locations. We hypothesize that an increase in vehicle numbers, assuming an equitable distribution, could enhance IMT effectiveness.
-
-Additionally, vehicle scheduling is a critical aspect of our setup. All three counties operate IMT vehicles across day and afternoon shifts, with specific timeframes detailed in the trucks file for MATSim scenario runs. Although IMT vehicles typically do not cross county borders during operations, our MATSim network does not impose such constraints, allowing for vehicle movement across counties based on incident proximity. With these vehicle configurations established, we now turn our attention to the incident data the sampling used in establishing simulated scenarios.
-
-### Incident Data
-
-Joel Hyer, a student at Brigham Young University, conducted concurrent research to acquire a dataset of incidents having received Utah Incident Management Team (IMT) intervention, sourcing data from TransSuite and the Utah Highway Patrol. He ensured that each incident record in the dataset was complete, providing essential details such as start and end times (with the latter derived from the Roadway Clearance Time (RCT)), location, and the degree of capacity reduction.
-
-From the data collected in 2018 and 2022, Joel compiled a comprehensive list of 411 unique incidents, ranging in severity from property damage to fatal accidents. This dataset served as the foundation for selecting incidents to include in the MATSim model. However, it is important to note that this list does not represent the total number of incidents responded to by UHP and IMT services. The 'master list' contains all incidents responded to by the Utah Highway Patrol and provides a more accurate depiction of daily incidents. Even still, it is important to acknowledge that both data sets only include incidents that received a response from UHP or IMT services, omitting those that did not.
-
-### Incident Sampling
-
-To accurately model the daily frequency of incidents, we conducted a thorough analysis of the 'master list' of incident data, from which we derived a distribution of incident count frequencies to inform our sampling methodology.
-
-We employed the Pandas library in Python to create a script that imports the data into a data frame, eliminates any duplicate entries, and refines the 'Call Received Time' and 'Call Type' columns. We then aggregated the data by date and call type, counted the incidents, and generated a new data frame that details the daily frequency of incidents. These frequencies served as the foundation for creating a weighted distribution, which in turn facilitated our sampling process. To ensure consistency and replicability of our results, we integrated a fixed random seed value into our script. This setup allowed us to perform random sampling, extracting ten days from the incident number distribution based on the established frequencies. These ten values were then utilized to simulate ten scenarios based on observed or current incident frequencies.
-
-Utilizing the incident data, we established a total of 20 scenarios, categorized into two distinct groups: Current Incident Frequencies and Increased Incident Frequencies. For the scenarios under Current Incident Frequencies, we employed the script described above to select ten days from a weighted sampling distribution, which determined the number of incidents to be simulated for each respective day. On the other hand, the scenarios categorized as Increased Incident Frequencies were designed to evaluate the resilience and performance of the IMT system when confronted with a substantial increase in daily incidents. Drawing from the upper range of the 2022 data, we identified days with incident counts varying from 18 to 21. To ensure a thorough and comprehensive evaluation, we decided to simulate additional days for each incident count, resulting in a distribution of two days with 21 incidents, two days with 20 incidents, three days with 19 incidents, and three days with 18 incidents. @fig-Inc_Sample visually represents the original distribution of daily incidents, as well as the distributions for both current and increased incident frequencies used in assigning the number of incidents to each simulation scenario.
 
 ```{r incident_sampling_plot}
 #| label: fig-incident_sampling_plot
@@ -123,6 +109,40 @@ incident_sampling_plot <- ggplot() +
 incident_sampling_plot
 ```
 
+Twenty values in total were selected, with ten being part of the Current Incident Frequency grouping and the other ten as part of the Increased Incident Frequency grouping. Each of these value was then assigned a three digit seed number which was used internally within MATSim to randomize the incident selection for for each scenario. The [Network Change Events](#sec-NCE) MATSim tool was then used to incorporate incidents into the simulation.
+
+### Scenarios {#sec-scenarios}
+
+## IMT Vehicle Configuration and Incident Selection
+
+The strategic placement and sizing of IMT fleets are pivotal in optimizing vehicle response times, a relationship explored in depth by @lou2011 and @pal2002. Furthermore, @schultz2019 established a significant link between response time (RT) and roadway clearance time (RCT). In the 'IMT Vehicle Setup' subsection, we describe the organization of the IMT vehicle, taking these relationships into account and adhering to recommendations from Utah Highway Patrol officials specific to this project.
+
+Additionally, the nature and severity of incidents play a significant role in affecting average travel times and delays, as evidenced by the research of @kaddoura2018. The 'Incident Data' and 'Incident Sampling' subsections elaborate on our methodology for selecting incidents for the simulation scenarios, utilizing data from concurrent research efforts.
+
+### IMT Vehicle Setup
+
+The Utah Department of Transportation currently operates a fleet of 20 IMT vehicles, distributed across three zones corresponding to the counties of Davis, Salt Lake, and Utah within the Wasatch Front. @fig-IMT_Map visually represents the boundaries of each county and the initial locations of both existing and newly proposed IMT vehicles used in out simulated scenarios.
+
+![IMT starting locations example map.](figures/imt_gray_map.png){#fig-IMT_Map}
+
+In this figure, circles represent existing vehicles, while stars denote proposed additions. These starting locations aim to ensure a balanced distribution across each county, based on shift types---either day or afternoon. While this arrangement does not replicate the real-world starting points of IMT truck drivers, who typically commence their shifts from their homes, it is a pragmatic approach. Given that the majority of their operations are concentrated along major interstates such as I-15, I-80, and I-215, and considering the daily variability in starting locations, positioning them along these primary routes is logical for our MATSim Scenario simulations. Notably, the "Increased-IMT" scenario incorporates all vehicles from the "Existing" fleet, supplemented by an additional 10 vehicles distributed across the three counties.
+
+Our investigation primarily focuses on analyzing the potential impacts of augmenting the IMT fleet, rather than the influence of their starting locations. We hypothesize that an increase in vehicle numbers, assuming an equitable distribution, could enhance IMT effectiveness.
+
+Additionally, vehicle scheduling is a critical aspect of our setup. All three counties operate IMT vehicles across day and afternoon shifts, with specific timeframes detailed in the trucks file for MATSim scenario runs. Although IMT vehicles typically do not cross county borders during operations, our MATSim network does not impose such constraints, allowing for vehicle movement across counties based on incident proximity. With these vehicle configurations established, we now turn our attention to the incident data the sampling used in establishing simulated scenarios.
+
+### Incident Data
+
+Joel Hyer, a student at Brigham Young University, conducted concurrent research to acquire a dataset of incidents having received Utah Incident Management Team (IMT) intervention, sourcing data from TransSuite and the Utah Highway Patrol. He ensured that each incident record in the dataset was complete, providing essential details such as start and end times (with the latter derived from the Roadway Clearance Time (RCT)), location, and the degree of capacity reduction.
+
+From the data collected in 2018 and 2022, Joel compiled a comprehensive list of 411 unique incidents, ranging in severity from property damage to fatal accidents. This dataset served as the foundation for selecting incidents to include in the MATSim model. However, it is important to note that this list does not represent the total number of incidents responded to by UHP and IMT services. The 'master list' contains all incidents responded to by the Utah Highway Patrol and provides a more accurate depiction of daily incidents. Even still, it is important to acknowledge that both data sets only include incidents that received a response from UHP or IMT services, omitting those that did not.
+
+### Incident Sampling
+
+To accurately model the daily frequency of incidents, we conducted a thorough analysis of the 'master list' of incident data, from which we derived a distribution of incident count frequencies to inform our sampling methodology.
+
+We employed the Pandas library in Python to create a script that imports the data into a data frame, eliminates any duplicate entries, and refines the 'Call Received Time' and 'Call Type' columns. We then aggregated the data by date and call type, counted the incidents, and generated a new data frame that details the daily frequency of incidents. These frequencies served as the foundation for creating a weighted distribution, which in turn facilitated our sampling process. To ensure consistency and replicability of our results, we integrated a fixed random seed value into our script. This setup allowed us to perform random sampling, extracting ten days from the incident number distribution based on the established frequencies. These ten values were then utilized to simulate ten scenarios based on observed or current incident frequencies.
+
 Upon determining the distribution of incidents for each scenario, we assigned a three-digit seed value to each of the twenty scenario groupings, serving both as an identifier and a tool for incident selection. Within MATSim, each scenario received a specified number of incidents and a seed value. Utilizing these parameters, a number of incidents 'X' was randomly selected from the list of 411 incidents, ensuring that the same incident did not occur more than once within a single simulation. For future research, additional parameters could be established for incident selection to ensure the creation of logical and realistic incident scenarios.
 
 ## MATSim Functionality
@@ -135,7 +155,6 @@ In this section, we delve into some of the specific tools within MATSim that we 
 
 ### Network Change Events
 
-In a MATSim network, each link is characterized by specific attributes such as type, length, number of lanes, free-flow speed, and capacity. To effectively simulate unexpected events and their subsequent impacts on traffic flow, it is essential to dynamically adjust these attributes. This capability, termed a Time-Dependent Network, is elaborated upon in the MATSim textbook and is vital for ensuring the realism and accuracy of our simulation.
 
 Network Change Events (NCEs) serve as the mechanism within MATSim for modifying network attributes at precise moments during a simulation. Detailed in Section 6.1 of the MATSim textbook, the implementation of NCEs necessitates specific adjustments to the MATSim configuration file to facilitate a time-variant network. These events can modify a link's free-flow speed, number of lanes, or capacity. To initiate a network change event, the system requires specific information including the time of the event (startTime), the affected link(s) (link refID), the type of change (free-flow speed, lanes, or capacity), and the value of the change.
 

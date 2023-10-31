@@ -23,7 +23,7 @@ make_incident_sampling_data <- function(all_incident_data) {
     current_sample_df <- create_df(c(4, 5, 7, 7, 10, 11, 11, 11, 12, 12), 
                                    "Current Frequency")
     
-    inc_freq_df <- create_df(c(18, 18, 19, 19, 20, 21), "Increased Frequency")
+    inc_freq_df <- create_df(c(18, 18, 18, 19, 19, 19, 20, 20, 21, 21), "Increased Frequency")
     
     # Combine the datasets
     incident_sampling_data <- bind_rows(grouped, current_sample_df, inc_freq_df)

@@ -602,13 +602,14 @@ disruptions'' (Li \& Ferguson, 2020, p. 96). Their findings validate the
 conclusions of Sisiopiku et al. (2007) that making incident information
 available to agents leads to decreases in travel time and congestion.
 
-In essence, the studies described in this subsection validate the
-effectiveness of the DTA models in simulating traffic incidents,
-congestion, and travel times. This evidence accentuates how the proper
-application of DTA models can account for traffic incidents and incident
-management response, thereby enhancing the realism of the models. This
-type of model, in turn, can facilitate more effective policy
-investigation, as noted by Kaddoura \& Nagel (2018).
+This subsection highlight the capabilities of DTA models to simulate the
+complexities of traffic incidents, congestion, and travel times. It
+highlights how incorporating incident management responses into the
+models would enhance their ability to simulate realistic traffic
+conditions and support policy analysis. Given its capacity to model
+large-scale networks, integrate real-world data, and replicate realistic
+driver behavior, MATSim is deemed particularly suitable for this
+project. It will be employed to assess the effectiveness of IMT in Utah.
 
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
@@ -635,14 +636,21 @@ scope for evaluating IMT deployment strategies and their effectiveness.
 \hypertarget{sec-methods}{%
 \chapter{Methodology}\label{sec-methods}}
 
-This section outlines the methods used for the Utah Incident Management
-Team Optimization model, building upon the main concepts discussed in
-\protect\hyperlink{sec-lit_imt_opt}{IMT Optimization} and
-\protect\hyperlink{sec-lit_inc_mod}{Incident Modeling} sections of the
-\protect\hyperlink{sec-literature}{Literature Review}. The primary goal
-of the model is to demonstrate the impact of traffic incidents on
-overall traffic delay and assess the effectiveness of IMT within a
-simulated environment.
+As highlighted in the \protect\hyperlink{sec-literature}{Literature
+Review}, there is substantial evidence indicating that IMT can
+effectively reduce RCT and ECU following traffic incidents.
+Additionally, the effectiveness of DTA models in analyzing the impact of
+such incidents has been well-documented. However, there is a lack of
+comprehensive research evaluating IMT impact on entire traffic networks
+and their associated agents. To address this gap, it is necessary that
+we develop a model capable of simulating both traffic incidents and the
+ensuing IMT interventions, with the objective of gauging the efficiency
+of IMT deployments. Due to its proficiency in regional-scale incident
+simulation and its authentic portrayal of driver behavior, MATSim has
+been identified as the most suitable model for this research. This
+section describes the methodology, expounding on the model's
+capabilities, the requisite data inputs, and the benchmarks established
+for determining IMT efficacy.
 
 Our methodology is structured around three main components: the
 functionality of the MATSim model, the setup of IMT vehicles and
@@ -658,6 +666,55 @@ used for evaluating the impact of incidents and IMT.
 
 \hypertarget{sec-MATSim_mod}{%
 \section{Model Design in MATSim}\label{sec-MATSim_mod}}
+
+MATSim is an open-source framework used for conducting extensive,
+agent-based transportation simulations on a large scale. Operating as a
+dynamic traffic simulation, it plays crucial roles in demand modeling
+and agent-based mobility analysis (Dobler \& Nagel, 2016). Thanks to its
+open-source architecture, MATSim enables the seamless integration of a
+diverse array of modules and packages into its models. Users across the
+platform can create, import, and modify these components, fostering a
+collaborative and innovative environment.
+
+For the purposes of our research, we developed the ImtModule, a
+specialized MATSim extension designed to process incidents and IMT
+responses within the simulation. This module leverages existing research
+on incident simulation, Demand Rapid Transit (DRT), event handling, and
+vehicle dispatch algorithms, building upon these foundations to enhance
+the functionality of our model.
+
+In this section, we describe some of the specific tools within MATSim
+that we used and adapted to construct a comprehensive and functional
+model for both processing and analysis. These tools include Network
+Change Events, Vehicle Assignment, and Incident Response. Together, they
+contribute to the realism and precision of our traffic simulations,
+particularly in the context of responding to roadway incidents, ensuring
+that our model provides accurate and reliable results.
+
+\hypertarget{sec-NCE}{%
+\subsection{Network Change Events}\label{sec-NCE}}
+
+Within a MATSim network, each link is characterized by specific
+attributes such as type, length, number of lanes, free-flow speed, and
+capacity. To effectively simulate unexpected events and their subsequent
+impacts on traffic flow, it is essential to dynamically adjust these
+attributes. This capability, termed a Time-Dependent Network, is
+elaborated upon in the MATSim textbook (Rieser, 2016) and is vital for
+ensuring the realism and accuracy of our simulation.
+
+Network Change Events (NCE) serve as the mechanism within MATSim for
+modifying network attributes at precise moments during a simulation.
+Detailed in Section 6.1 of the MATSim textbook (Rieser, 2016), the
+implementation of NCE requires specific adjustments to the MATSim
+configuration file to facilitate a time-variant network. These events
+can modify a link's free-flow speed, number of lanes, or capacity. To
+initiate a network change event, the system requires specific
+information including the time of the event \texttt{startTime}, the
+affected link(s) (link refID), the type of change (free-flow speed,
+lanes, or capacity), and the value of the change.
+
+\hypertarget{sec-imt_response}{%
+\subsection{IMT Response}\label{sec-imt_response}}
 
 \hypertarget{sec-model_imp}{%
 \section{Model Implementaiton}\label{sec-model_imp}}
@@ -853,14 +910,6 @@ that our model provides accurate and reliable results.
 
 \hypertarget{network-change-events}{%
 \subsection{Network Change Events}\label{network-change-events}}
-
-In a MATSim network, each link is characterized by specific attributes
-such as type, length, number of lanes, free-flow speed, and capacity. To
-effectively simulate unexpected events and their subsequent impacts on
-traffic flow, it is essential to dynamically adjust these attributes.
-This capability, termed a Time-Dependent Network, is elaborated upon in
-the MATSim textbook and is vital for ensuring the realism and accuracy
-of our simulation.
 
 Network Change Events (NCEs) serve as the mechanism within MATSim for
 modifying network attributes at precise moments during a simulation.
@@ -1757,6 +1806,10 @@ management impacts using traffic simulation. \emph{Intelligent Transport
 Systems, IEE Proceedings}, \emph{153}, 242--252.
 \url{https://doi.org/10.1049/ip-its:20055005}
 
+\leavevmode\vadjust pre{\hypertarget{ref-dobler2016}{}}%
+Dobler, C., \& Nagel, K. (2016). \emph{Within-day replanning}. {Ubiquity
+Press}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-kaddoura2018}{}}%
 Kaddoura, I., \& Nagel, K. (2018). Using real-world traffic incident
 data in transport modeling. \emph{Procedia Computer Science},
@@ -1789,6 +1842,10 @@ operations planning. \emph{Annals of Operations Research},
 Pal, R., \& Sinha, K. C. (2002). {SIMULATION MODEL FOR EVALUATING AND
 IMPROVING EFFECTIVENESS OF FREEWAY SERVICE PATROL PROGRAMS}.
 \emph{Journal of Transportation Engineering}, \emph{128}(4).
+
+\leavevmode\vadjust pre{\hypertarget{ref-rieser2016}{}}%
+Rieser, H., Nagel. (2016). \emph{MATSim data containers}. {Ubiquity
+Press}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-schultz2019}{}}%
 Schultz, G. G., Saito, M., Eggett, D. L., Bennett, L. S., Hadfield, M.
