@@ -454,7 +454,7 @@ Their capability to represent variance over time makes DTA models
 particularly advantageous for depicting the unpredictability of
 incidents. A study conducted by Sisiopiku et al. (2007), which explored
 the effects of congestion, underscored the applications of
-simulation-based DTA modeling in incident management, advocating for
+simulation-based DTA modeling in incident management. It advocated for
 dynamic assignment as the optimal approach for incident modeling.
 Sisiopiku describes their methodology as follows:
 
@@ -493,35 +493,34 @@ conditions simulated by VISTA.'' This critique does not invalidate
 Sisiopiku's findings but highlights the limitations of VISTA in
 reflecting real-world travel behavior.
 
-VISTA is categorized as a large-scale, or mesoscopic, model, suitable
-for modeling extensive networks. Conversely, small-scale, or
-microscopic, models, capable of tracking precise vehicle locations,
-driver behavior, and vehicle characteristics, offer a highly realistic
-representation but are impractical for large regions (Boyles, 2018). In
-Australia, Dia \& Cottman (2006) utilized the Visual Simulation Model
-(VISSIM) to assess the impacts of incident management on two arterial
-routes connecting the western suburbs of Brisbane to the Central
-Business District. Although VISSIM is a primary traffic modeling tool
-for UDOT, its detailed precision renders it impractical for modeling
-incidents and IMT impacts along the Utah Wasatch Front. Given this
-research's scope, a large-scale dynamic model would likely be the most
-suitable choice.
+VISTA is categorized as a large-scale, or mesoscopic, model suitable for
+modeling extensive networks. Conversely, small-scale, or microscopic,
+models, capable of tracking precise vehicle locations, driver behavior,
+and vehicle characteristics, offer a highly realistic representation but
+are impractical for large regions (Boyles, 2018). In Australia, Dia \&
+Cottman (2006) utilized the Visual Simulation Model (VISSIM) to assess
+the impacts of incident management on two arterial routes connecting the
+western suburbs of Brisbane to the Central Business District. Although
+VISSIM is a primary traffic modeling tool for UDOT, its detailed
+precision renders it impractical for modeling incidents and IMT impacts
+along the Utah Wasatch Front. Given this research's scope, a large-scale
+dynamic model would likely be the most suitable choice.
 
-Interestingly, in 2002, Pal \& Sinha (2002) developed a digital model to
+Interestingly, in 2002, Pal \& Sinha (2002) developed a model to
 replicate the impacts of incidents and IMT on traffic conditions in
 Indiana, with objectives similar to this study, utilizing overall
-traffic conditions as the performance indicator for IMT. Various
-configurations of response vehicles were simulated, incorporating
-probability distributions of crash data, vehicle speed, and carrying
-capacity. The study's results informed recommendations on fleet size,
-operation hours, patrol area design, and dispatching policy
-improvements. However, since mesoscopic traffic simulations in 2002
-couldn't simulate incident response units, Pal \& Sinha had to create
-their model from scratch. Unfortunately, their model and methodology
-seem tailored specifically for their study and may not be applicable to
-this project's context. Additionally, it's worth noting that the region
-their model covered is smaller than the area served by the Utah IMT
-program.
+traffic conditions as the performance indicator for IMT effectiveness.
+Various configurations of response vehicles were simulated,
+incorporating probability distributions of crash data, vehicle speed,
+and roadway carrying capacity. The study's results informed
+recommendations on fleet size, operation hours, patrol area design, and
+dispatching policy improvements. However, since mesoscopic traffic
+simulations in 2002 couldn't simulate incident response units, Pal \&
+Sinha had to create their model from scratch. Unfortunately, their model
+and methodology seem tailored specifically for their study and may not
+be applicable to this project's context. Additionally, it's worth noting
+that the region their model covered is smaller than the area served by
+the Utah IMT program.
 
 Similar to VISTA, MATSim, the Multi-Agent Transport Simulation toolkit,
 stands as another large-scale modeling system that has proven effective
@@ -529,7 +528,7 @@ in conducting large-scale incident simulations. Despite certain
 similarities, MATSim presents attributes that could potentially offer a
 more accurate representation of real-world scenarios and driver
 behaviors. Contrary to the model crafted by Pal and Sinha, MATSim
-operates as an open-source framework making it ideal for adapting to
+operates as an open-source framework, making it ideal for adapting to
 different scenarios. Notably, MATSim facilitates the integration of
 real-world data, enhancing the authenticity and precision of network
 simulations. This capability is particularly pertinent to this project,
@@ -537,28 +536,24 @@ as prior research conducted by (\textbf{hyer2023?}) has made recent UDOT
 incident and IMT data available, which could be integrated into the
 simulation model for more robust and realistic results. Although MATSim
 has been employed to assess network impacts of incidents, its
-application in incident management studies remains an largely
-unexplored, presenting an opportunity for further investigation and
-potential breakthroughs in the field.
+application in incident management studies remains a largely unexplored
+area, presenting an opportunity for further investigation and potential
+breakthroughs in the field.
 
-A significant incident modeling, plan-based system study used MATSim to
-simulate traffic incidents (Kaddoura \& Nagel, 2018). Their research
-explains that MATSim models transport users as individual agents. MATSim
-is iterative and allows users to adjust travel plans during a single
-iteration, from iteration to iteration, or both (Kaddoura \& Nagel,
-2018). Kaddoura and Nagel accessed their incident data via the HERE
-application programming interface for traffic incidents. This incident
-data included Traffic Message Channel (TMC) information indicating an
-incident's cause and severity. With such robust data, Kaddoura and Nagel
-could categorize incidents as long or short-term and model each
-accordingly in MATSim. Long-term effects include multiple-day lane
-closures, whereas short-term incidents affect transport supply for less
-than a day. Their simulation was based on an inner-city network in
-Berlin, Germany. Figure~\ref{fig-berlin_cap} mapped on the Berlin
-network illustrates the type of incidents modeled and their severity. In
-this example, a crash on the southern inner-city motorway ring road led
-to a full road closure, and several construction sites caused partial
-capacity reductions.
+Kaddoura and Nagel conducted a comprehensive study on incident modeling
+using MATSim, representing transport users as individual agents within
+an iterative framework that allows for adjustments to travel plans both
+within and between iterations (Kaddoura \& Nagel, 2018). They accessed
+incident data, including Traffic Message Channel (TMC) information
+detailing cause and severity, via the HERE application programming
+interface. This rich dataset enabled the classification of incidents as
+either long-term, such as multiple-day lane closures, or short-term,
+affecting transport supply for less than a day. Applying their model to
+an inner-city network in Berlin, Germany, Figure~\ref{fig-berlin_cap}
+illustrates the modeled incident severities, including a crash on the
+southern inner-city motorway ring road that resulted in a full road
+closure and several construction sites causing partial capacity
+reductions.
 
 \begin{figure}
 
@@ -587,84 +582,57 @@ more realistic, allowing for an improved policy investigation''
 and Nagel is just one example of research on MATSim's capacity for
 incident-based simulations.
 
-A MATSim model developed by Li \& Ferguson (2020-01-01, 2020-01)
-included various rescheduling options, such as departure time, mode
-choice, and trip cancellation. Their simulation found that if travelers
-received notice of an incident, they would either depart early from
-their place of origin or switch to public transport (Li \& Ferguson,
-2020-01-01, 2020-01). The process proposed by Li and Ferguson is
-beneficial because it allows agents to reassess their mode choice or
-route assignment based on the notice of a reported incident. Li and
-Ferguson show that users care about total travel time and travel time
-variability (risk tolerance to a certain degree). The receiving of
-notifications about incidents by agents impacted both factors. They
-concluded that ``the provision of real-time traffic information is a
-useful approach to mitigating the side-effects of incidents through
-helping transport users efficiently adapt their day plans'' (Li \&
-Ferguson, 2020-01-01, 2020-01, p. 96).
+A MATSim model developed by Li \& Ferguson (2020) included various
+rescheduling options, such as departure time, mode choice, and trip
+cancellation. Their simulation found that if travelers received notice
+of an incident, they would either depart early from their place of
+origin or switch to public transport (Li \& Ferguson, 2020). The process
+proposed by Li and Ferguson is beneficial because it allows agents to
+reassess their mode choice or route assignment based on the notice of a
+reported incident. Li and Ferguson show that users care about total
+travel time and travel time variability (risk tolerance to a certain
+degree). The receiving of notifications about incidents by agents
+impacted both factors. They concluded that ``the provision of real-time
+traffic information is a useful approach to mitigating the side-effects
+of incidents through helping transport users efficiently adapt their day
+plans'' (Li \& Ferguson, 2020, p. 96). Additionally, they found that
+``most of the travelers notified of being affected by incidents are
+simulated to depart early or switch to public transport, which
+effectively reduces the average travel time delay caused by
+disruptions'' (Li \& Ferguson, 2020, p. 96). Their findings validate the
+conclusions of Sisiopiku et al. (2007) that making incident information
+available to agents leads to decreases in travel time and congestion.
 
-Additionally, they found that ``most of the travelers notified of being
-affected by incidents are simulated to depart early or switch to public
-transport, which effectively reduces the average travel time delay
-caused by disruptions'' (Li \& Ferguson, 2020-01-01, 2020-01, p. 96).
-Their findings validate the conclusions of Sisiopiku et al. (2007) that
-making incident information available to agents leads to decreases in
-travel time and congestion. Like the studies already mentioned, there
-have been various modifications to and research on MATSim and its
-capacity.
-
-In Thailand's capital, Bangkok, a study conducted by Peungnumsai et al.
-(2019) demonstrated the potency of the MATSim framework in portraying
-the impact of rush hour congestion on select traffic links. Peungnumsai
-ran various simulation iterations, loading the selected links with a
-different number of agents: 10, 100, and 500. The data collected and the
-subsequent analysis substantiated MATSim's capability to demonstrate the
-congestion-induced variations in travel time. Furthermore, it was
-observed that as the number of agents in the simulation increased, there
-was a proportional surge in computing time, physical memory usage, and
-the size of the output file. Despite the scale of these simulations
-being relatively small, MATSim has the capacity to simulate up to 10-100
-million agents, encompassing various modes of transportation like
-bicycles, motorbikes, cars, buses, and taxis (Peungnumsai et al., 2019).
-
-In a contrasting study conducted in Copenhagen, Denmark, Paulsen et al.
-(2018) utilized MATSim to contrast the reliability of automobile and
-railway travel times. His methodology involved using an extension of
-MATSim centered around an event-based public transport router, which
-facilitates optimal route selection for public transport users by
-comparing the effectiveness of routes over several iterations. Paulsen's
-simulation of travel times for both cars and trains yielded an
-interesting finding: passenger delays were significantly influenced by
-the adaptiveness of their chosen routes. However, he noted that
-passenger travel times tended to be more unpredictable than trains,
-which escalated with the degree of route adaptiveness. He concluded that
-the adaptiveness of route selection contributed to significant travel
-time fluctuations, a conclusion that aligns with the findings of Li \&
-Ferguson (2020-01-01, 2020-01).
-
-In essence, the studies encapsulated in Section 2.2 validate the
+In essence, the studies described in this subsection validate the
 effectiveness of the open-source software MATSim, in simulating traffic
 incidents, congestion, and travel times. This evidence accentuates how
 the proper application of MATSim or similar Dynamic Traffic Assignment
-(DTA) models can account for traffic incidents, thereby enhancing the
-realism of the models. This type of model, in turn, can facilitate more
-effective policy investigation, as noted by Kaddoura \& Nagel (2018).
+(DTA) models can account for traffic incidents and incident management
+response, thereby enhancing the realism of the models. This type of
+model, in turn, can facilitate more effective policy investigation, as
+noted by Kaddoura \& Nagel (2018).
 
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
 
-As explained in this section, there has been extensive research into
-IMT's effectiveness and ability to restore traffic flow following long-
-and short-term disturbances. Additionally, several studies have examined
-how to effectively model traffic incidents and show their impact on
-travel time, congestion, and mode choice. However, in these vast arrays
-of findings, there is a gap in research on modeling IMT effectiveness
-and incident impact on a loaded network with realistic agents. As a
-result, it is difficult for researchers to understand how changes to
-incident generation or IMT availability may impact traffic conditions.
-In this research, we seek to combine these two strands, attempting to
-model incident response in a mesoscopic simulation framework to bring
-realism and detail to the IMT deployment question.
+This literature review has provided a comprehensive overview of the
+extensive research on the effectiveness of IMT in reducing RCT and ECU
+during incident responses. It has also highlighted studies focused on
+optimizing the size and distribution of IMT. However, these studies do
+not include the broader implications of incidents and IMT responses on
+large-scale networks and their agents. On the other hand, while DTA
+modeling studies have effectively leveraged mesoscopic simulations to
+explore the impact of incidents on network dynamics and driver behavior,
+they often fall short in examining the influence of IMT or other
+incident management strategies. This creates a research gap in
+understanding the effectiveness of IMT and the impact of incidents on a
+congested network populated with realistic agents. Bridging this gap is
+crucial, as it enables researchers to better grasp how alterations in
+incident occurrence or IMT availability might influence overall traffic
+conditions. In our research, we aim to merge these two areas of study,
+attempting to model incident response within a mesoscopic simulation
+framework, thereby infusing realism and detail into the exploration of
+IMT deployment strategies.
 
 \bookmarksetup{startatroot}
 
@@ -1805,9 +1773,9 @@ Park, Md. ). Dept. of C. and E. E. (2012). \emph{Enhancement of freeway
 incident traffic management and resulting benefits.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-li2020}{}}%
-Li, J., \& Ferguson, N. (2020-01-01, 2020-01). A multi-dimensional
-rescheduling model in disrupted transport network using rule-based
-decision making. \emph{Procedia Computer Science}, \emph{170}, 90--97.
+Li, J., \& Ferguson, N. (2020). A multi-dimensional rescheduling model
+in disrupted transport network using rule-based decision making.
+\emph{Procedia Computer Science}, \emph{170}, 90--97.
 \url{https://doi.org/10.1016/j.procs.2020.03.012}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lou2011}{}}%
@@ -1826,17 +1794,6 @@ operations planning. \emph{Annals of Operations Research},
 Pal, R., \& Sinha, K. C. (2002). {SIMULATION MODEL FOR EVALUATING AND
 IMPROVING EFFECTIVENESS OF FREEWAY SERVICE PATROL PROGRAMS}.
 \emph{Journal of Transportation Engineering}, \emph{128}(4).
-
-\leavevmode\vadjust pre{\hypertarget{ref-paulsen2018}{}}%
-Paulsen, M., Rasmussen, T. K., \& Nielsen, O. A. (2018). \emph{Modelling
-railway-induced passenger delays in multi-modal public transport
-networks: {An} agent-based copenhagen case study using empirical train
-delay data: 14th conference on advanced systems in public transport and
-{TransitData} 2018}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-peungnumsai2019}{}}%
-Peungnumsai, A., Miyazaki, H., Witayangkurn, A., \& Kii, M. (2019).
-\emph{A review of {MATSim}: {A} pilot study of chatuchak, bangkok}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-schultz2019}{}}%
 Schultz, G. G., Saito, M., Eggett, D. L., Bennett, L. S., Hadfield, M.
