@@ -318,7 +318,7 @@ effectiveness and traffic incident modeling. It underscores the
 importance of strategic IMT deployment and the necessity for continuous
 evaluation and adaption of IMT strategies to meet the evolving demands
 of highway operation systems. The paper proceeds in a typical order.
-\protect\hyperlink{sec-litreview}{Literature Review} contains a
+\protect\hyperlink{sec-literature}{Literature Review} contains a
 discussion of previous research into IMT effectiveness and optimization.
 \protect\hyperlink{sec-methods}{Methodology} describes the simulation
 and scenario construction, while
@@ -353,25 +353,24 @@ teams operated by departments of transportation or similar agencies and
 not on other types of first responders.
 
 FHWA has established performance measures to develop a framework to
-quantify improvements to IMT operations and traffic (FHWA, 2000). A
-specific measure related to this research is roadway clearance time
-(RCT): the time between the first recordable awareness of the incident
-and the time all lanes open for traffic flow. Numerous studies have
-assessed the impact of Traffic Incident Management programs on traffic
-conditions, utilizing the performance measures provided by FHWA. A
-particularly noteworthy study conducted by Schultz et al. (2019)
-explores the relationship between IMT response time (RT) and RCT. This
-research leveraged interconnected data from the Utah Department of
-Transportation (UDOT) and the Utah Highway Patrol (UHP), aiming to
-quantify the traffic improvements resulting from swift IMT interventions
-at incident sites. Analyzing 121 incidents, the study found that a
-one-minute delay in IMT response correlated with a 0.8-minute increase
-in RCT. This delay also impacted an additional 93 vehicles, added
-roughly 34.6 minutes to the network's total estimated travel time, and
-resulted in an extra \$925 in excess user costs (ECU). Schultz et al.
-(2019) established a clear connection between timely IMT responses and
-improved traffic conditions, underscoring the importance of rapid
-intervention.
+quantify improvements to IMT operations (FHWA, 2000). A specific measure
+related to this research is roadway clearance time (RCT): the time
+between the first recordable awareness of the incident and the time all
+lanes open for traffic flow. Numerous studies have assessed the impact
+of Traffic Incident Management programs on traffic conditions, utilizing
+the performance measures provided by FHWA. A particularly noteworthy
+study conducted by Schultz et al. (2019) explores the relationship
+between IMT response time (RT) and RCT. This research leveraged
+interconnected data from the Utah Department of Transportation (UDOT)
+and the Utah Highway Patrol (UHP), aiming to quantify the traffic
+improvements resulting from swift IMT interventions at incident sites.
+Analyzing 121 incidents, the study found that a one-minute delay in IMT
+response correlated with a 0.8-minute increase in RCT. This delay also
+impacted an additional 93 vehicles, added roughly 34.6 minutes to the
+network's total estimated travel time, and resulted in an extra \$925 in
+excess user costs (ECU). Schultz et al. (2019) established a clear
+connection between timely IMT responses and improved traffic conditions,
+underscoring the importance of rapid intervention.
 
 Skabardonis et al. (1998) confirmed the effectiveness of IMT in their
 study, concluding that IMT in California effectively reduced incident RT
@@ -383,22 +382,22 @@ authors determined that IMT units had a cost-to-benefit ratio of 5:1.
 They also concluded that CHP officers spent less time on incidents
 (including vehicle breakdowns) when assisted by IMT services.
 
-\hypertarget{imt-optimization}{%
-\section{IMT Optimization}\label{imt-optimization}}
+\hypertarget{sec-lit_imt_opt}{%
+\section{IMT Optimization}\label{sec-lit_imt_opt}}
 
 Given the evidence that IMT programs improve traffic conditions and
-reduce costs for government entities and individuals, it becomes
-paramount to further research avenues to maximize these benefits. One
-possible strategy is the strategic placement of IMT units, optimizing
-their spatial effectiveness to enhance their impact. Enhancing IMT
-programs often focuses on the precise deployment of individual trucks
-and the strategic positioning of IMT depots---locations where inactive
-trucks await dispatch. For scenarios where IMT vehicles are actively on
-patrol, research often concerns designing an efficient service area.
-Various methodologies have been applied to tackle this allocation
-challenge. While some studies employ statistical models, incorporating a
-range of variables to maximize specific performance measures given
-constraints, others opt for digital modeling as a solution.
+reduce costs for government entities and individuals, it becomes crucial
+to further research avenues to maximize these benefits. One possible
+strategy is the strategic placement of IMT units, optimizing their
+spatial effectiveness to enhance their impact. Enhancing IMT programs
+often focuses on the precise deployment of individual trucks and the
+strategic positioning of IMT depots---locations where inactive trucks
+await dispatch. For scenarios where IMT vehicles are actively on patrol,
+research often concerns designing an efficient service area. Various
+methodologies have been applied to tackle this allocation challenge.
+While some studies employ statistical models, incorporating a range of
+variables to maximize specific performance measures given constraints,
+others opt for digital modeling as a solution.
 
 For instance, Ozbay et al. (2013) designed a mixed-integer programming
 model with probabilistic constraints to optimize the allocation of IMT
@@ -443,8 +442,8 @@ paves the way for our subsequent discussion on Incident Modeling, where
 we will discuss the advancements and applications of this innovative
 research domain.
 
-\hypertarget{incident-modeling}{%
-\section{Incident Modeling}\label{incident-modeling}}
+\hypertarget{sec-lit_inc_mod}{%
+\section{Incident Modeling}\label{sec-lit_inc_mod}}
 
 The majority of traffic models utilized to study the impacts of
 incidents and incident management are Dynamic Traffic Assignment (DTA)
@@ -604,35 +603,32 @@ conclusions of Sisiopiku et al. (2007) that making incident information
 available to agents leads to decreases in travel time and congestion.
 
 In essence, the studies described in this subsection validate the
-effectiveness of the open-source software MATSim, in simulating traffic
-incidents, congestion, and travel times. This evidence accentuates how
-the proper application of MATSim or similar Dynamic Traffic Assignment
-(DTA) models can account for traffic incidents and incident management
-response, thereby enhancing the realism of the models. This type of
-model, in turn, can facilitate more effective policy investigation, as
-noted by Kaddoura \& Nagel (2018).
+effectiveness of the DTA models in simulating traffic incidents,
+congestion, and travel times. This evidence accentuates how the proper
+application of DTA models can account for traffic incidents and incident
+management response, thereby enhancing the realism of the models. This
+type of model, in turn, can facilitate more effective policy
+investigation, as noted by Kaddoura \& Nagel (2018).
 
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
 
-This literature review has provided a comprehensive overview of the
-extensive research on the effectiveness of IMT in reducing RCT and ECU
-during incident responses. It has also highlighted studies focused on
-optimizing the size and distribution of IMT. However, these studies do
-not include the broader implications of incidents and IMT responses on
-large-scale networks and their agents. On the other hand, while DTA
-modeling studies have effectively leveraged mesoscopic simulations to
-explore the impact of incidents on network dynamics and driver behavior,
-they often fall short in examining the influence of IMT or other
-incident management strategies. This creates a research gap in
-understanding the effectiveness of IMT and the impact of incidents on a
-congested network populated with realistic agents. Bridging this gap is
-crucial, as it enables researchers to better grasp how alterations in
-incident occurrence or IMT availability might influence overall traffic
-conditions. In our research, we aim to merge these two areas of study,
-attempting to model incident response within a mesoscopic simulation
-framework, thereby infusing realism and detail into the exploration of
-IMT deployment strategies.
+This literature review provides an overview of the extensive research on
+the effectiveness of IMT in reducing RCT and ECU during incident
+responses. It has also highlighted studies focused on optimizing the
+size and distribution of IMT. However, these studies do not include the
+broader implications of incidents and IMT responses on large-scale
+networks and their agents. On the other hand, while DTA modeling studies
+have effectively explored the impact of incidents on network dynamics
+and driver behavior, they often fall short in examining the influence of
+IMT or other incident management strategies. This creates a research gap
+in understanding the effectiveness of IMT and the impact of incidents on
+congested networks. Bridging this gap is crucial, as it enables
+researchers to better grasp how alterations in incident occurrence or
+IMT availability might influence overall traffic conditions. In our
+research, we aim to merge these two areas of study, attempting to model
+incident response within a simulation framework, thereby broadening the
+scope for evaluating IMT deployment strategies and their effectiveness.
 
 \bookmarksetup{startatroot}
 
@@ -640,41 +636,40 @@ IMT deployment strategies.
 \chapter{Methodology}\label{sec-methods}}
 
 This section outlines the methods used for the Utah Incident Management
-Team Optimization project model, building upon the main concepts
-discussed in sections 2.1 and 2.2 of the literature review. The primary
-goal of the model is to demonstrate the impact of traffic incidents on
-overall traffic flow and assess the effectiveness of Incident Management
-Teams (IMTs) within a simulated environment.
+Team Optimization model, building upon the main concepts discussed in
+\protect\hyperlink{sec-lit_imt_opt}{IMT Optimization} and
+\protect\hyperlink{sec-lit_inc_mod}{Incident Modeling} sections of the
+\protect\hyperlink{sec-literature}{Literature Review}. The primary goal
+of the model is to demonstrate the impact of traffic incidents on
+overall traffic delay and assess the effectiveness of IMT within a
+simulated environment.
 
-Our methodology is structured around three main components: setting up
-IMT Vehicles and Incidents, understanding the functionality of the
-MATSim model, and establishing scenarios for comparative analysis. In
-the ``IMT Vehicle Configuration and Incident Selection'' section, we
-define the origins of variables such as the size of the IMT fleet, their
-initial placements, operational schedules, and specific details of
-incidents, including location, severity, and frequency. These factors
-are pivotal as they can significantly influence the network's
-performance metrics. Following this, in the section on ``MATSim Model's
-Functionality,'' we detail how these variables are integrated and
-represented within the MATSim framework more closely align with
-real-world conditions, building upon the foundational work of Kaddoura
-\& Nagel (2018).
+Our methodology is structured around three main components: the
+functionality of the MATSim model, the setup of IMT vehicles and
+incidents, and the scenarios for comparative analysis. In the
+\protect\hyperlink{sec-MATSim_mod}{Model Design in MATSim} we describe
+the structure of the model and the functions it uses to represent
+incidents and IMT response. In \protect\hyperlink{sec-model_imp}{Model
+Implementaiton} we outline the structure of the simulation by first
+describing \protect\hyperlink{sec-IMT_setup}{IMT Setup}, then
+\protect\hyperlink{sec-inc_data}{Incident Data and Sampling} and
+conclude by describing the \protect\hyperlink{sec-scenarios}{Scenarios}
+used for evaluating the impact of incidents and IMT.
 
-Lastly, ``Scenario Simulations and Comparisons'' presents the range of
-simulated scenarios used for comparison purposes. This section also
-outlines the inputs for each scenario including the network, plans, and
-configurations files used and their origins. The section explains the
-comparative measures to be used in comparing scenarios against one
-another which occurs in the results section of the report.
+\hypertarget{sec-MATSim_mod}{%
+\section{Model Design in MATSim}\label{sec-MATSim_mod}}
 
-In the final subsection, ``Scenario Simulations and Comparisons,'' we
-describe the assortment of scenarios that were simulated and the
-rationale behind their selection. This part of the document describes
-the specific inputs for each scenario, including the network, plans, and
-configuration files, as well as their origins. Additionally, it details
-the comparative measures employed to evaluate the scenarios against one
-another, with a detailed analysis presented in the results section of
-the report.
+\hypertarget{sec-model_imp}{%
+\section{Model Implementaiton}\label{sec-model_imp}}
+
+\hypertarget{sec-IMT_setup}{%
+\subsection{IMT Setup}\label{sec-IMT_setup}}
+
+\hypertarget{sec-inc_data}{%
+\subsection{Incident Data and Sampling}\label{sec-inc_data}}
+
+\hypertarget{sec-scenarios}{%
+\subsection{Scenarios}\label{sec-scenarios}}
 
 \hypertarget{imt-vehicle-configuration-and-incident-selection}{%
 \section{IMT Vehicle Configuration and Incident

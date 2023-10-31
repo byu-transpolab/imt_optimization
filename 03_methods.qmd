@@ -21,13 +21,20 @@ library(extrafont)
 library(scales)
 ```
 
-This section outlines the methods used for the Utah Incident Management Team Optimization project model, building upon the main concepts discussed in sections 2.1 and 2.2 of the literature review. The primary goal of the model is to demonstrate the impact of traffic incidents on overall traffic flow and assess the effectiveness of Incident Management Teams (IMTs) within a simulated environment.
+This section outlines the methods used for the Utah Incident Management Team Optimization model, building upon the main concepts discussed in [IMT Optimization](#sec-lit_imt_opt) and [Incident Modeling](#sec-lit_inc_mod) sections of the [Literature Review](#sec-literature). The primary goal of the model is to demonstrate the impact of traffic incidents on overall traffic delay and assess the effectiveness of IMT within a simulated environment.
 
-Our methodology is structured around three main components: setting up IMT Vehicles and Incidents, understanding the functionality of the MATSim model, and establishing scenarios for comparative analysis. In the "IMT Vehicle Configuration and Incident Selection" section, we define the origins of variables such as the size of the IMT fleet, their initial placements, operational schedules, and specific details of incidents, including location, severity, and frequency. These factors are pivotal as they can significantly influence the network's performance metrics. Following this, in the section on "MATSim Model's Functionality," we detail how these variables are integrated and represented within the MATSim framework more closely align with real-world conditions, building upon the foundational work of @kaddoura2018.
+Our methodology is structured around three main components: the functionality of the MATSim model, the setup of IMT vehicles and incidents, and the scenarios for comparative analysis. In the [Model Design in MATSim](#sec-MATSim_mod) we describe the structure of the model and the functions it uses to represent incidents and IMT response. In [Model Implementaiton](#sec-model_imp) we outline the structure of the simulation by first describing [IMT Setup](#sec-IMT_setup), then [Incident Data and Sampling](#sec-inc_data) and conclude by describing the [Scenarios](#sec-scenarios) used for evaluating the impact of incidents and IMT.
 
-Lastly, "Scenario Simulations and Comparisons" presents the range of simulated scenarios used for comparison purposes. This section also outlines the inputs for each scenario including the network, plans, and configurations files used and their origins. The section explains the comparative measures to be used in comparing scenarios against one another which occurs in the results section of the report.
 
-In the final subsection, "Scenario Simulations and Comparisons," we describe the assortment of scenarios that were simulated and the rationale behind their selection. This part of the document describes the specific inputs for each scenario, including the network, plans, and configuration files, as well as their origins. Additionally, it details the comparative measures employed to evaluate the scenarios against one another, with a detailed analysis presented in the results section of the report.
+## Model Design in MATSim {#sec-MATSim_mod}
+
+## Model Implementaiton {#sec-model_imp}
+
+### IMT Setup {#sec-IMT_setup}
+
+### Incident Data and Sampling {#sec-inc_data}
+
+### Scenarios {#sec-scenarios}
 
 ## IMT Vehicle Configuration and Incident Selection
 
