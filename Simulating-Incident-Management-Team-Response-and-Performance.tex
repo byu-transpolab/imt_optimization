@@ -308,21 +308,21 @@ IMT interventions on a simulated network.
 
 In this research we utilized the the Mutli-Agent Transportion Simulation
 (MATSim) to model roadway conditions along the Wasatch Front region of
-Utah. The model was used to evaluate IMT operational effectiveness
-through various traffic incident scenarios. After conducting 60
-simulation, we compared their outcomes and evaluated the effectiveness
-of IMT at improving traffic conditions and reducing congestion.
+Utah. The model was used to evaluate IMT effectiveness within various
+traffic incident scenarios. After conducting 60 simulations, we compared
+their outcomes and evaluated the effectiveness of IMT at improving
+traffic conditions and reducing congestion.
 
-This paper contributes to the existing body of knowledge on IMT and
-traffic incident modeling. It underscores the importance of strategic
-IMT deployment and the necessity for continuous evaluation and adaption
-of IMT strategies to meet the evolving demands of highway operation
-systems. The paper proceeds in a typical order.
+This paper contributes to the existing body of knowledge on IMT
+effectiveness and traffic incident modeling. It underscores the
+importance of strategic IMT deployment and the necessity for continuous
+evaluation and adaption of IMT strategies to meet the evolving demands
+of highway operation systems. The paper proceeds in a typical order.
 \protect\hyperlink{sec-litreview}{Literature Review} contains a
-discussion of previous research into IMT motivations, effectiveness, and
-optimization. \# \protect\hyperlink{sec-methods}{Methodology} describes
-the simulation methodology and scenario construction, while
-\protect\hyperlink{sec-results}{Results} presents the results of the
+discussion of previous research into IMT effectiveness and optimization.
+\protect\hyperlink{sec-methods}{Methodology} describes the simulation
+and scenario construction, while
+\protect\hyperlink{sec-results}{Results} presents the findings of the
 analysis alongside a discussion of their implications. The paper
 concludes in \protect\hyperlink{sec-conclusions}{Conclusions} with an
 outline of future research motivated by this study's limitations.
@@ -332,8 +332,8 @@ outline of future research motivated by this study's limitations.
 \hypertarget{sec-literature}{%
 \chapter{Literature Review}\label{sec-literature}}
 
-Traffic incident management in general --- and IMT in particular --- are
-not strictly new innovations. The Federal Highway Administration (FHWA)
+Traffic incident management in general---and IMT in particular---are not
+strictly new innovations. The Federal Highway Administration (FHWA)
 publishes the \emph{Traffic Incident Management Handbook} (FHWA, 2000),
 which defines traffic incident management as:
 
@@ -350,61 +350,38 @@ aspects of incident management, including the responsibilities of
 emergency medical teams, law enforcement, and other responding entities.
 For this research, we focus on the dedicated traffic incident management
 teams operated by departments of transportation or similar agencies and
-not other types of first responders.
+not on other types of first responders.
 
-The FHWA has established performance measures to develop a framework to
-quantify improvements to IMT operations and traffic (FHWA, 2000). Two
-specific measures related to this research are: first, roadway clearance
-time (RCT) is the time between the first recordable awareness of the
-incident to the time all lanes open for traffic flow; second, incident
-clearance time (ICT) is the time between the first recordable awareness
-of the incident and when the last responder has left the scene.
-
-Numerous studies have assessed the impact of Traffic Incident Management
-(TIM) programs on traffic conditions, utilizing performance indicators
-such as those provided by the Federal Highway Administration (FHWA). A
+FHWA has established performance measures to develop a framework to
+quantify improvements to IMT operations and traffic (FHWA, 2000). A
+specific measure related to this research is roadway clearance time
+(RCT): the time between the first recordable awareness of the incident
+and the time all lanes open for traffic flow. Numerous studies have
+assessed the impact of Traffic Incident Management programs on traffic
+conditions, utilizing the performance measures provided by FHWA. A
 particularly noteworthy study conducted by Schultz et al. (2019)
-explores the relationship between the response times of Incident
-Management Teams (IMT) and various traffic parameters, including roadway
-clearance time (RCT), estimated travel time (ETT), and excess user cost
-(EUC). This research leveraged interconnected data from the Utah
-Department of Transportation (UDOT) and the Utah Highway Patrol, aiming
-to quantify the traffic improvements resulting from swift IMT
-interventions at accident sites. Analyzing 121 incidents, the study
-found that a one-minute delay in IMT response correlated with a
-0.8-minute increase in RCT. This delay also impacted an additional 93
-vehicles, added roughly 34.6 minutes to the network's total estimated
-travel time, and resulted in an extra \$925 in excess user costs. In
-essence, Schultz et al. (2019) established a clear connection between
-timely IMT responses and improved traffic conditions, underscoring the
-importance of rapid intervention.
+explores the relationship between IMT response time (RT) and RCT. This
+research leveraged interconnected data from the Utah Department of
+Transportation (UDOT) and the Utah Highway Patrol, aiming to quantify
+the traffic improvements resulting from swift IMT interventions at
+accident sites. Analyzing 121 incidents, the study found that a
+one-minute delay in IMT response correlated with a 0.8-minute increase
+in RCT. This delay also impacted an additional 93 vehicles, added
+roughly 34.6 minutes to the network's total estimated travel time, and
+resulted in an extra \$925 in excess user costs (ECU). Schultz et al.
+(2019) established a clear connection between timely IMT responses and
+improved traffic conditions, underscoring the importance of rapid
+intervention.
 
-Kim et al. (2012), in a study of Maryland's Coordinated Highways Action
-Response Team (CHART) operations, devised a model using CHART's data to
-compute the costs associated with traffic delay. The team established a
-marginal cost-to-benefit ratio to discern the ideal fleet size. They
-first estimated the reduction in traffic delay under various highway
-response unit strategies. Subsequently, they calculated the costs of
-fuel consumption, emissions, and delay times and converted these into
-monetary values. These figures were then multiplied by the delay's
-duration to obtain the traffic delay's marginal costs. The research
-determined that each additional unit added provided a greater benefit
-than its associated cost until seven highway response units were
-deployed. This finding implies that while there is a significant
-cost-to-benefit ratio with the optimal number of response teams, the
-benefit diminishes when adding too many teams. Determining the ideal
-number of teams is a function of budget, network size, and incident
-frequency.
-
-Skabardonis (1998) concluded in a study of the California Freeway
-Service Patrol (FSP) IMT service that, on average, total incident
-response time was 15 minutes longer when California Highway Patrol (CHP)
-units responded without the support of IMT units. Using a system to
-assign a cost per traveler per unit of time to vehicles in the observed
-area, the authors determined that IMT units had a cost-to-benefit ratio
-of 5:1. They also concluded that CHP officers spent less time on
-incidents (including vehicle breakdowns) when assisted by incident
-management team services.~
+Skabardonis et al. (1998) confirmed the effectiveness of IMT in their
+study, concluding that IMT in California effectively reduced incident RT
+and excess user costs. Skabardonis et al. (1998) found that, on average,
+total incident RT was 15 minutes longer when California Highway Patrol
+(CHP) responded without the support of IMT. Using a system to assign a
+cost per traveler per unit of time to vehicles in the observed area, the
+authors determined that IMT units had a cost-to-benefit ratio of 5:1.
+They also concluded that CHP officers spent less time on incidents
+(including vehicle breakdowns) when assisted by IMT services.
 
 \hypertarget{imt-optimization}{%
 \section{IMT Optimization}\label{imt-optimization}}
@@ -412,93 +389,73 @@ management team services.~
 Given the evidence that IMT programs improve traffic conditions and
 reduce costs for government entities and individuals, it becomes
 paramount to further research avenues to maximize these benefits. One
-effective strategy is the strategic placement of IMT units, optimizing
-their spatial effectiveness to enhance their impact.
+possible strategy is the strategic placement of IMT units, optimizing
+their spatial effectiveness to enhance their impact. Enhancing IMT
+programs often focuses on the precise deployment of individual trucks
+and the strategic positioning of IMT depots---locations where inactive
+trucks await dispatch. For scenarios where IMT vehicles are actively on
+patrol, research often concerns designing an efficient service area.
+Various methodologies have been applied to tackle this allocation
+challenge. While some studies employ statistical models, incorporating a
+range of variables to maximize specific performance measures given
+constraints, others opt for digital modeling as a solution.
 
-Enhancing IMT programs often focus on the precise deployment of
-individual trucks and the strategic positioning of IMT
-depots---locations where inactive trucks await dispatch. For scenarios
-where IMT vehicles are actively on patrol, research often concerns
-designing an efficient service area or ``beat.'' Various methodologies
-have been applied to tackle this allocation challenge. While some
-studies employ statistical models, incorporating a range of variables to
-maximize specific performance measures given constraints, others opt for
-digital modeling as a solution.
+For instance, Ozbay et al. (2013) designed a mixed-integer programming
+model with probabilistic constraints to optimize the allocation of IMT
+across ``depots'' or staging areas in New Jersey. This innovative
+approach, grounded in known probabilities of various incident types,
+strategically positions IMT units to respond to incidents, taking into
+account future probabilities on the network. The primary goals were to
+minimize incident management costs and maximize the likelihood that
+every incident receive assistance. The model was applied to a simplified
+South Jersey Highway network, utilizing traffic incident data from the
+region to inform demand distribution. Through this application, an
+optimal number of depots and truck assignments were determined. However,
+the lack of a comparative analysis with pre-existing depot and unit
+distributions meant that the exact improvements yielded by the model
+remained unquantified.
 
-For instance, Lou et al. (2011-04-01, 2011-04) explored strategies aimed
-at minimizing IMT response time. They developed a mixed-integer
-nonlinear optimization model and proposed different algorithms to
-address this problem. The research modeled IMT units as roaming entities
-within specific freeway sections, aiming to determine the optimal unit
-locations for minimizing response times. Incident frequencies were
-generated randomly on the network, given mean and standard deviations of
-incident occurrence on each link in the network. The study focused on
-developing and optimizing these algorithms for broad implementation
-rather than focusing on any particular network or reducing response
-times in specific areas. They implemented a template ``Sioux Falls''
-network into the model as a practical demonstration. Compared to the
-existing deployment plan in Sioux Falls, the algorithm-generated plans
-could potentially reduce total response time by 16.5-20.8\%.
-
-Ozbay et al. (2013) designed a mixed-integer programming model with
-probabilistic constraints to optimize the allocation of Incident
-Management Team (IMT) units across ``depots'' or staging areas in New
-Jersey. This innovative approach, grounded in known probabilities of
-various incident types, strategically positions IMT units to respond to
-incidents, taking into account future probabilities on the network. The
-primary goals were to minimize incident management costs and maximize
-utility. The model was applied to a simplified South Jersey Highway
-network, utilizing traffic incident data from the region to inform
-demand distribution. Through this application, an optimal number of
-depots and truck assignments were determined based on a \$500,000 budget
-for the entire program. However, the lack of a comparative analysis with
-pre-existing depot and unit distributions meant that the exact
-improvements yielded by the model remained unquantified.
-
-Digital models of IMTs have been developed in the past with various
-software packages. Pal \& Sinha (2002) developed a digital model to
-replicate IMT impacts on traffic conditions. Overall traffic time in the
-system was used as the performance indicator of the units. The software
-program was developed from scratch as existing programs at the time used
-in mesoscopic traffic simulation could not simulate incident response
-units. Various configurations of response vehicles were simulated using
-probability distributions of crash data, vehicle speed, and carrying
-capacity. Given the study results, suggestions were made regarding fleet
-size, hours of operation, patrol area design, and improvements regarding
-the dispatching policy.
-
-These models, whether simulations and optimization problems, have served
-their intended purposes effectively, but they fall short in mimicking
-real-world scenarios as accurately as MATSim simulations do. Unlike
-other models, MATSim allows for the integration of real-world data,
-facilitating the creation of more realistic network simulations.
-Additionally, it provides tools such as network change events and
-within-day replanning, which contribute to a more accurate modeling of
-driver behavior. These tools and their applications will be explored in
-more detail in subsequent chapters.
+Where Ozbay et al. (2013) focused on optimizing the IMT allocation in
+specific zones, others have researched their effectiveness as roaming
+entities. Lou et al. (2011) developed a mixed-integer nonlinear
+optimization model and proposed different algorithms to minimize the RT
+of IMT. They modeled IMT within specific freeway sections, and incident
+frequencies were generated randomly on the network, given the mean and
+standard deviations of incident occurrence on each link in the network.
+The study focused on developing and optimizing these algorithms for
+broad implementation rather than focusing on any particular network or
+reducing response times in specific areas. They implemented a template
+Sioux Falls network into the model as a practical demonstration.
+Compared to the existing deployment plan in Sioux Falls, the
+algorithm-generated plans could potentially reduce total RT by
+16.5-20.8\%.
 
 An important consideration in determining the optimal location and fleet
-size of IMT units is the metric by which the system is judged. The FHWA
-has established performance measures by which IMTs were evaluated;
-however, some researchers have felt that other metrics proved helpful in
-specific scenarios. Pal \& Sinha (2002) use a metric of total traffic
-time to analyze the model. Total traffic time is a practical approach as
-traffic slowdowns incur financial costs and other burdens on the
-individual and community (Bivina et al., 2016-01-01, 2016-01). An
-economic cost-based model is implemented in some research on incident
-management programs. Kim et al. (2012) use assumed values of fuel price
-and pollution externalities gathered from previous research to assign a
-monetary value to consequences of traffic delay in time and
-environmental costs. The study focuses on optimizing IMT programs in
-general based on specific budgets. Kim and Chang do not implement IMT
-units directly in their traffic simulation. The total traffic time and
-financial costs are similar in their fundamental nature in that
-financial costs are a function of the traffic delay. From another
-perspective, Ozbay et al. (2013) developed a statistical model where the
-costs associated with response times are minimized to meet budget
-constraints. Deciding what factors are most important to measure in the
-traffic simulation, like costs or response time, will help the
-decision-making process behind IMT allocation.
+size of IMT units is the metric by which the system is judged. The
+studies of Ozbay et al. (2013) and Lou et al. (2011) optimize IMT units
+based on RT and response rates, and the majority of studies regarding
+IMT effectiveness focus on the FHWA measures of RCT, RT, and ECU.
+However, some researchers have felt that other metrics proved helpful in
+specific scenarios. Kim et al. (2012) utilized assumed values of fuel
+price and pollution externalities from prior studies to quantify the
+time and environmental costs of traffic delays, subsequently providing
+recommendations to the Maryland DOT on IMT resource allocations, taking
+into account the statistical likelihood of incidents in specific areas,
+their projected impact, and the operational benefits of incident
+management.
+
+Each of the studies mentioned attempts to understand optimal IMT
+deployment based on ad-hoc models, specially constructed utility
+functions, or similar stand-alone efforts. While these efforts provide
+valuable insights, they might be limited in their scope, as they do not
+explicitly attempt to model the traffic delay associated with incident
+management at a large scale. Research modeling the effects of incidents
+on region-scale traffic networks is a recent innovation, providing a
+more holistic view of the impact. This approach is potentially
+beneficial for comprehensively assessing the effectiveness of IMT and
+paves the way for our subsequent discussion on Incident Modeling, where
+we will discuss the advancements and applications of this innovative
+research domain.
 
 \hypertarget{incident-modeling}{%
 \section{Incident Modeling}\label{incident-modeling}}
@@ -908,12 +865,12 @@ Selection}\label{imt-vehicle-configuration-and-incident-selection}}
 
 The strategic placement and sizing of IMT fleets are pivotal in
 optimizing vehicle response times, a relationship explored in depth by
-Lou et al. (2011-04-01, 2011-04) and Pal \& Sinha (2002). Furthermore,
-Schultz et al. (2019) established a significant link between response
-time (RT) and roadway clearance time (RCT). In the `IMT Vehicle Setup'
-subsection, we describe the organization of the IMT vehicle, taking
-these relationships into account and adhering to recommendations from
-Utah Highway Patrol officials specific to this project.
+Lou et al. (2011) and Pal \& Sinha (2002). Furthermore, Schultz et al.
+(2019) established a significant link between response time (RT) and
+roadway clearance time (RCT). In the `IMT Vehicle Setup' subsection, we
+describe the organization of the IMT vehicle, taking these relationships
+into account and adhering to recommendations from Utah Highway Patrol
+officials specific to this project.
 
 Additionally, the nature and severity of incidents play a significant
 role in affecting average travel times and delays, as evidenced by the
@@ -1842,15 +1799,15 @@ present study, it presents an intriguing avenue for future
 investigations using the IMT deployment MATSim package associated with
 this report.
 
-As highlighted by the work of Lou et al. (2011-04-01, 2011-04), in
-addition to fleet size, factors such as, vehicle starting locations, and
-whether IMTs operate as `roaming entities' can all influence their
-response times. Altering the initial positions of the vehicles or
-directing them along specific routes, as opposed to a stationary start,
-can have substantial impacts on both the time and distance they cover,
-with potential advantages or drawbacks. However, it is important to note
-that determining the \emph{optimal} starting points for IMT vehicles was
-not the primary focus of the Utah Department of Transportation in this
+As highlighted by the work of Lou et al. (2011), in addition to fleet
+size, factors such as, vehicle starting locations, and whether IMTs
+operate as `roaming entities' can all influence their response times.
+Altering the initial positions of the vehicles or directing them along
+specific routes, as opposed to a stationary start, can have substantial
+impacts on both the time and distance they cover, with potential
+advantages or drawbacks. However, it is important to note that
+determining the \emph{optimal} starting points for IMT vehicles was not
+the primary focus of the Utah Department of Transportation in this
 research. While this particular dimension was not explored in our
 present study, it provides a compelling direction for future
 investigations using the IMT deployment MATSim package associated with
@@ -1983,12 +1940,6 @@ Axhausen, K. W., Horni, A., \& Nagel, K. (2016-08-10, 2016-08).
 Bennett, L. S. (2021). \emph{Analysis of benefits of an expansion to
 UDOT's incident management program}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-bivina2016}{}}%
-Bivina, G. R., Landge, V., \& Kumar, V. S. S. (2016-01-01, 2016-01).
-Socio economic valuation of traffic delays. \emph{Transportation
-Research Procedia}, \emph{17}, 513--520.
-\url{https://doi.org/10.1016/j.trpro.2016.11.104}
-
 \leavevmode\vadjust pre{\hypertarget{ref-boyles2018}{}}%
 Boyles, S. (2018-01-22, 2018-01). \emph{Introduction to dynamic traffic
 assignment}.
@@ -2020,11 +1971,10 @@ decision making. \emph{Procedia Computer Science}, \emph{170}, 90--97.
 \url{https://doi.org/10.1016/j.procs.2020.03.012}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lou2011}{}}%
-Lou, Y., Yin, Y., \& Lawphongpanich, S. (2011-04-01, 2011-04). Freeway
-service patrol deployment planning for incident management and
-congestion mitigation. \emph{Transportation Research Part C: Emerging
-Technologies}, \emph{19}(2), 283--295.
-\url{https://doi.org/10.1016/j.trc.2010.05.014}
+Lou, Y., Yin, Y., \& Lawphongpanich, S. (2011). Freeway service patrol
+deployment planning for incident management and congestion mitigation.
+\emph{Transportation Research Part C: Emerging Technologies},
+\emph{19}(2), 283--295. \url{https://doi.org/10.1016/j.trc.2010.05.014}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ozbay2013}{}}%
 Ozbay, K., Iyigun, C., Baykal-Gursoy, M., \& Xiao, W. (2013).
@@ -2061,8 +2011,9 @@ for incident management. \emph{Transportation Research Record},
 \emph{1994}(1), 110--116. \url{https://doi.org/10.3141/1994-15}
 
 \leavevmode\vadjust pre{\hypertarget{ref-skabardonis1998}{}}%
-Skabardonis, A. (1998). Evaluation of the freeway service patrol ({FSP})
-in los angeles. \emph{PATH Research Report}.
+Skabardonis, A., Petty, K., Varaiya, P., \& Bertini, R. (1998).
+Evaluation of the freeway service patrol ({FSP}) in los angeles.
+\emph{PATH Research Report}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-vanlint2012}{}}%
 van Lint, H., Miete, O., Taale, H., \& Hoogendoorn, S. (2012-01-01,
