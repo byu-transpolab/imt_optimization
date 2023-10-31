@@ -1,4 +1,4 @@
-# Methodology
+# Methodology {#sec-methods}
 
 ```{r setup, file = "R/chapter_start.R", include = FALSE}
 # a number of commands need to run at the beginning of each chapter. This
@@ -213,16 +213,16 @@ These network and plans files were integrated into our simulation scenarios, alo
 
 This section outlines the methodology employed for selecting incidents in a set of 20 simulated "days." These simulations are categorized into two distinct groups: one reflecting the current distribution of incidents managed by the Utah Highway Patrol, and another representing a 10-day period with an elevated frequency of incidents, based on the upper range of daily incident data gathered in 2022.
 
-Each of the 20 scenarios was assigned a unique random seed value, ensuring variability in incident selection across simulations. Subsequently, each group of scenarios was further divided into three distinct simulation conditions. The first condition, referred to as "Incidents-Only," includes only the incidents without any IMT intervention. The second condition incorporates the incidents along with the deployment of 20 IMT vehicles, while the third condition includes the incidents and an increased fleet of 30 IMT vehicles. For ease of organization and comparison, each scenario was assigned a unique code, such as "1-10-257." In this coding system, the first digit denotes the scenario type (Incidents-Only, 20 IMTs, or 30 IMTs), the second digit represents the number of incidents included in the simulation, and the third digit corresponds to the seed value used for random incident selection. 
+Each of the 20 scenarios was assigned a unique random seed value, ensuring variability in incident selection across simulations. Subsequently, each group of scenarios was further divided into three distinct simulation conditions. The first condition, referred to as "Incidents-Only," includes only the incidents without any IMT intervention. The second condition incorporates the incidents along with the deployment of 20 IMT vehicles, while the third condition includes the incidents and an increased fleet of 30 IMT vehicles. For ease of organization and comparison, each scenario was assigned a unique code, such as "1-10-257." In this coding system, the first digit denotes the scenario type (Incidents-Only, 20 IMTs, or 30 IMTs), the second digit represents the number of incidents included in the simulation, and the third digit corresponds to the seed value used for random incident selection.
 
 In total, six scenario groups were established, as outlined below:
 
-- No IMT, current incident frequency
-- No IMT, increased incident frequency
-- 20 IMT, current incident frequency
-- 20 IMT, increased incident frequency
-- 30 IMT, current incident frequency
-- 30 IMT, increased incident frequency
+-   No IMT, current incident frequency
+-   No IMT, increased incident frequency
+-   20 IMT, current incident frequency
+-   20 IMT, increased incident frequency
+-   30 IMT, current incident frequency
+-   30 IMT, increased incident frequency
 
 It is important to note, as described in the IMT Vehicle Setup section, that not all IMT vehicles are operational simultaneously. Due to scheduling constraints, the actual number of vehicles on the road at any given time is typically approximately half of the total fleet size.
 

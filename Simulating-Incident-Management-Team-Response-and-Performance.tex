@@ -198,8 +198,9 @@ Performance}
   \committeemember{Gustavious P. Williams}
 
 \keywords{
-    awesome stuff;  
-    engineering
+    Demand Responsive Transport; Incident Management Teams; MATSim --
+Multi-Agent Transport Simulation; Network Change Events;  
+    Transportation Modeling
 }
 
 \begin{document}
@@ -231,11 +232,36 @@ Written by ChatGPT
 \cleardoublepage
 
 \begin{acknowledgments}
-Students should acknowledge funding sources. They may also use the
-acknowledgment page to express appreciation for the committee members,
-friends or family who provided support or aided the research, writing or
-technical aspects of the thesis/dissertation. Acknowledgments should be
-simple and in good taste.
+I would like to express my sincere gratitude to the Utah Department of
+Transportation for their generous financial support, which was
+instrumental in bringing this research and thesis project to fruition.
+My heartfelt thanks also go to the technical advisory committee, whose
+guidance and constructive feedback have been invaluable throughout the
+course of this research. Their deep insights into Utah's traffic
+incident management programs played a crucial role in shaping this work.
+
+I am also immensely grateful to my fellow research assistants at BYU,
+Joel Hyer, Harrison Holdsworth, and Brynn Woolley. Joel, through his
+work on the IMT Performance Phase III project, provided essential
+information on IMT performance, as well as incident data and metrics,
+all of which were pivotal to this project. Harrison's contributions were
+multifaceted; he not only compiled research on IMT optimization, but
+also assisted in writing the literature review for this report and
+served as a vital link between Joel's project and my own research.
+Brynn's expertise was invaluable in the development of the
+transportation model used in this project, and her assistance in
+analyzing its outputs, as well as her help in the production and editing
+of this thesis document, were greatly appreciated.
+
+I want to express my profound appreciation to my faculty advisors and
+the members of the thesis committee, Drs. Macfarlane, Schultz, and
+Williams. Special gratitude is extended to Dr.~Macfarlane, whose role as
+an outstanding faculty advisor, teacher, mentor, and friend has been
+invaluable throughout my academic journey. His patience, counsel, and
+support have been crucial at every phase of this project. I am deeply
+thankful for his belief in my potential and his consistent
+encouragement, which have been instrumental in my personal growth and
+the success of this research.
 \end{acknowledgments}
 \cleardoublepage
 
@@ -254,44 +280,51 @@ simple and in good taste.
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
 
-Incident Management Teams (IMT) have become an integral strategy in
-various regions to enhance highway system operations, particularly
-during peak periods when user costs and roadway congestion can escalate
-due to traffic incidents. These teams are adept at quickly addressing a
-range of incidents, from minor vehicle breakdowns to severe multi-car
-collisions, assisting other first response agencies in managing traffic
-and restoring normal conditions.
+Incident Management Teams (IMT) are service vehicles that collaborate
+with highway patrol teams to manage traffic after an incident and
+provide timely roadside assistance. They are strategically important for
+improving highway operations, particularly during peak traffic times,
+helping to effectively alleviate congestion and associated user costs.
+Capable of quickly addressing a range of incidents, from minor vehicle
+breakdowns to severe multi-car collisions, IMT are crucial in
+controlling traffic and restoring normal flow on the roadways.
 
-Despite the substantial benefits and increasing reliance on IMT, there
-is a notable gap in academic research, particularly in effectiveness
-studies and prospective analyses that explore the potential impacts of
-increased system deployment and the challenges posed by a rise in
-traffic incidents. This could be attributed to factors such as driver
-distraction, population growth, or other external influences. This
-research aims to fill this gap, employing a mesoscopic-simulation
-approach within the MATSim transportation modeling framework to
-represent both incidents and IMT responses in a comprehensive manner.
+States like Utah have long benefited from IMT, witnessing notable
+reductions in congestion and traffic-related costs (Bennett, 2021). The
+effectiveness of IMT, influenced by factors such as response times
+(Schultz et al., 2019), fleet size (Kim et al., 2012), and deployment
+locations (Ozbay et al., 2013), is well-documented. However, the current
+understanding primarily stems from ad-hoc models and independent
+initiatives, leaving a gap in regional-scale traffic delay modeling
+associated with incident management.
 
-Implemented in a scenario representing the Wasatch Front (Salt Lake
-City) region of Utah, our study delves into the operational dynamics of
-IMT, simulating various traffic incident scenarios to understand how
-changes in resource allocation and incident concentration can influence
-IMT effectiveness. Through a series of 20 simulations across three
-distinct scenarios, we provide a detailed comparative analysis,
-highlighting the potential for significant reductions in vehicle hours
-of delay and improvements in traffic flow consistency.
+A study conducted by Kaddoura \& Nagel (2018) highlights the potential
+of large-scale traffic models to evaluate the regional impact of
+incidents. However, their model does not evaluate the impact of IMT
+strategies. This research aims to address this limitation, merging
+insights on IMT effectiveness with a large-scale regional traffic model.
+This approach is meant to highlight the impacts of traffic incidents and
+IMT interventions on a simulated network.
 
-This paper contributes to the existing body of knowledge on IMT,
-offering insights into their operational dynamics and areas for
-optimization. It underscores the importance of strategic IMT deployment
-and the necessity for continuous evaluation and adaptation of IMT
-strategies to meet the evolving demands of highway system operations.
-The paper proceeds in a typical order. A discussion of previous research
-into IMT motivations, effectiveness, and optimization follows this
-introduction. \textbf{?@sec-methods} describes the simulation
-methodology and scenario construction, while \textbf{?@sec-results}
-presents the results of the analysis alongside a discussion of their
-implications. The paper concludes in \textbf{?@sec-conclusion} with an
+In this research we utilized the the Mutli-Agent Transportion Simulation
+(MATSim) to model roadway conditions along the Wasatch Front region of
+Utah. The model was used to evaluate IMT operational effectiveness
+through various traffic incident scenarios. After conducting 60
+simulation, we compared their outcomes and evaluated the effectiveness
+of IMT at improving traffic conditions and reducing congestion.
+
+This paper contributes to the existing body of knowledge on IMT and
+traffic incident modeling. It underscores the importance of strategic
+IMT deployment and the necessity for continuous evaluation and adaption
+of IMT strategies to meet the evolving demands of highway operation
+systems. The paper proceeds in a typical order.
+\protect\hyperlink{sec-litreview}{Literature Review} contains a
+discussion of previous research into IMT motivations, effectiveness, and
+optimization. \# \protect\hyperlink{sec-methods}{Methodology} describes
+the simulation methodology and scenario construction, while
+\protect\hyperlink{sec-results}{Results} presents the results of the
+analysis alongside a discussion of their implications. The paper
+concludes in \protect\hyperlink{sec-conclusions}{Conclusions} with an
 outline of future research motivated by this study's limitations.
 
 \bookmarksetup{startatroot}
@@ -330,33 +363,33 @@ of the incident and when the last responder has left the scene.
 Numerous studies have assessed the impact of Traffic Incident Management
 (TIM) programs on traffic conditions, utilizing performance indicators
 such as those provided by the Federal Highway Administration (FHWA). A
-particularly noteworthy study conducted by Schultz et al. (2019-04-01,
-2019-04) explores the relationship between the response times of
-Incident Management Teams (IMT) and various traffic parameters,
-including roadway clearance time (RCT), estimated travel time (ETT), and
-excess user cost (EUC). This research leveraged interconnected data from
-the Utah Department of Transportation (UDOT) and the Utah Highway
-Patrol, aiming to quantify the traffic improvements resulting from swift
-IMT interventions at accident sites. Analyzing 121 incidents, the study
+particularly noteworthy study conducted by Schultz et al. (2019)
+explores the relationship between the response times of Incident
+Management Teams (IMT) and various traffic parameters, including roadway
+clearance time (RCT), estimated travel time (ETT), and excess user cost
+(EUC). This research leveraged interconnected data from the Utah
+Department of Transportation (UDOT) and the Utah Highway Patrol, aiming
+to quantify the traffic improvements resulting from swift IMT
+interventions at accident sites. Analyzing 121 incidents, the study
 found that a one-minute delay in IMT response correlated with a
 0.8-minute increase in RCT. This delay also impacted an additional 93
 vehicles, added roughly 34.6 minutes to the network's total estimated
 travel time, and resulted in an extra \$925 in excess user costs. In
-essence, Schultz et al. (2019-04-01, 2019-04) established a clear
-connection between timely IMT responses and improved traffic conditions,
-underscoring the importance of rapid intervention.
+essence, Schultz et al. (2019) established a clear connection between
+timely IMT responses and improved traffic conditions, underscoring the
+importance of rapid intervention.
 
-Kim et al. (2012-04-01, 2012-04), in a study of Maryland's Coordinated
-Highways Action Response Team (CHART) operations, devised a model using
-CHART's data to compute the costs associated with traffic delay. The
-team established a marginal cost-to-benefit ratio to discern the ideal
-fleet size. They first estimated the reduction in traffic delay under
-various highway response unit strategies. Subsequently, they calculated
-the costs of fuel consumption, emissions, and delay times and converted
-these into monetary values. These figures were then multiplied by the
-delay's duration to obtain the traffic delay's marginal costs. The
-research determined that each additional unit added provided a greater
-benefit than its associated cost until seven highway response units were
+Kim et al. (2012), in a study of Maryland's Coordinated Highways Action
+Response Team (CHART) operations, devised a model using CHART's data to
+compute the costs associated with traffic delay. The team established a
+marginal cost-to-benefit ratio to discern the ideal fleet size. They
+first estimated the reduction in traffic delay under various highway
+response unit strategies. Subsequently, they calculated the costs of
+fuel consumption, emissions, and delay times and converted these into
+monetary values. These figures were then multiplied by the delay's
+duration to obtain the traffic delay's marginal costs. The research
+determined that each additional unit added provided a greater benefit
+than its associated cost until seven highway response units were
 deployed. This finding implies that while there is a significant
 cost-to-benefit ratio with the optimal number of response teams, the
 benefit diminishes when adding too many teams. Determining the ideal
@@ -407,20 +440,20 @@ network into the model as a practical demonstration. Compared to the
 existing deployment plan in Sioux Falls, the algorithm-generated plans
 could potentially reduce total response time by 16.5-20.8\%.
 
-Ozbay et al. (2013-03-01, 2013-03) designed a mixed-integer programming
-model with probabilistic constraints to optimize the allocation of
-Incident Management Team (IMT) units across ``depots'' or staging areas
-in New Jersey. This innovative approach, grounded in known probabilities
-of various incident types, strategically positions IMT units to respond
-to incidents, taking into account future probabilities on the network.
-The primary goals were to minimize incident management costs and
-maximize utility. The model was applied to a simplified South Jersey
-Highway network, utilizing traffic incident data from the region to
-inform demand distribution. Through this application, an optimal number
-of depots and truck assignments were determined based on a \$500,000
-budget for the entire program. However, the lack of a comparative
-analysis with pre-existing depot and unit distributions meant that the
-exact improvements yielded by the model remained unquantified.
+Ozbay et al. (2013) designed a mixed-integer programming model with
+probabilistic constraints to optimize the allocation of Incident
+Management Team (IMT) units across ``depots'' or staging areas in New
+Jersey. This innovative approach, grounded in known probabilities of
+various incident types, strategically positions IMT units to respond to
+incidents, taking into account future probabilities on the network. The
+primary goals were to minimize incident management costs and maximize
+utility. The model was applied to a simplified South Jersey Highway
+network, utilizing traffic incident data from the region to inform
+demand distribution. Through this application, an optimal number of
+depots and truck assignments were determined based on a \$500,000 budget
+for the entire program. However, the lack of a comparative analysis with
+pre-existing depot and unit distributions meant that the exact
+improvements yielded by the model remained unquantified.
 
 Digital models of IMTs have been developed in the past with various
 software packages. Pal \& Sinha (2002) developed a digital model to
@@ -453,19 +486,19 @@ time to analyze the model. Total traffic time is a practical approach as
 traffic slowdowns incur financial costs and other burdens on the
 individual and community (Bivina et al., 2016-01-01, 2016-01). An
 economic cost-based model is implemented in some research on incident
-management programs. Kim et al. (2012-04-01, 2012-04) use assumed values
-of fuel price and pollution externalities gathered from previous
-research to assign a monetary value to consequences of traffic delay in
-time and environmental costs. The study focuses on optimizing IMT
-programs in general based on specific budgets. Kim and Chang do not
-implement IMT units directly in their traffic simulation. The total
-traffic time and financial costs are similar in their fundamental nature
-in that financial costs are a function of the traffic delay. From
-another perspective, Ozbay et al. (2013-03-01, 2013-03) developed a
-statistical model where the costs associated with response times are
-minimized to meet budget constraints. Deciding what factors are most
-important to measure in the traffic simulation, like costs or response
-time, will help the decision-making process behind IMT allocation.
+management programs. Kim et al. (2012) use assumed values of fuel price
+and pollution externalities gathered from previous research to assign a
+monetary value to consequences of traffic delay in time and
+environmental costs. The study focuses on optimizing IMT programs in
+general based on specific budgets. Kim and Chang do not implement IMT
+units directly in their traffic simulation. The total traffic time and
+financial costs are similar in their fundamental nature in that
+financial costs are a function of the traffic delay. From another
+perspective, Ozbay et al. (2013) developed a statistical model where the
+costs associated with response times are minimized to meet budget
+constraints. Deciding what factors are most important to measure in the
+traffic simulation, like costs or response time, will help the
+decision-making process behind IMT allocation.
 
 \hypertarget{incident-modeling}{%
 \section{Incident Modeling}\label{incident-modeling}}
@@ -704,23 +737,23 @@ Nagel, 2016). The elements described above make up the plan-based
 system.
 
 A significant incident modeling, plan-based system study used MATSim to
-simulate traffic incidents (Kaddoura \& Nagel, 2018-01-01, 2018-01).
-Their research explains that MATSim models transport users as individual
-agents. MATSim is iterative and allows users to adjust travel plans
-during a single iteration, from iteration to iteration, or both
-(Kaddoura \& Nagel, 2018-01-01, 2018-01). Kaddoura and Nagel accessed
-their incident data via the HERE application programming interface for
-traffic incidents. This incident data included Traffic Message Channel
-(TMC) information indicating an incident's cause and severity. With such
-robust data, Kaddoura and Nagel could categorize incidents as long or
-short-term and model each accordingly in MATSim. Long-term effects
-include multiple-day lane closures, whereas short-term incidents affect
-transport supply for less than a day. Their simulation was based on an
-inner-city network in Berlin, Germany. Figure 3: Traffic incidents
-mapped on the Berlin network illustrates the type of incidents modeled
-and their severity. In this example, a crash on the southern inner-city
-motorway ring road led to a full road closure, and several construction
-sites caused partial capacity reductions.
+simulate traffic incidents (Kaddoura \& Nagel, 2018). Their research
+explains that MATSim models transport users as individual agents. MATSim
+is iterative and allows users to adjust travel plans during a single
+iteration, from iteration to iteration, or both (Kaddoura \& Nagel,
+2018). Kaddoura and Nagel accessed their incident data via the HERE
+application programming interface for traffic incidents. This incident
+data included Traffic Message Channel (TMC) information indicating an
+incident's cause and severity. With such robust data, Kaddoura and Nagel
+could categorize incidents as long or short-term and model each
+accordingly in MATSim. Long-term effects include multiple-day lane
+closures, whereas short-term incidents affect transport supply for less
+than a day. Their simulation was based on an inner-city network in
+Berlin, Germany. Figure 3: Traffic incidents mapped on the Berlin
+network illustrates the type of incidents modeled and their severity. In
+this example, a crash on the southern inner-city motorway ring road led
+to a full road closure, and several construction sites caused partial
+capacity reductions.
 
 \begin{figure}
 
@@ -732,21 +765,21 @@ sites caused partial capacity reductions.
 
 \end{figure}
 
-Kaddoura \& Nagel (2018-01-01, 2018-01) found that long-term traffic
-incidents increase traffic congestion and the average car travel time by
-313 sec (+18\%) per trip. Short-term traffic incidents increase the
-average travel time per car trip by another 136 sec (+8\%).
-Additionally, they found that for 44\% of all car trips, the agent's
-transport route contained at least one road segment for which the
-capacity or speed limit was reduced because of an incident. Their study
-concluded that networks in which transport users had high levels of
-knowledge about the incidents and resulting traffic congestion still
-experienced an increase in travel time caused by long and short-term
-incidents. Finally, Kaddoura and Nagel asserted that ``accounting for
-traffic incidents makes the model more realistic, allowing for an
-improved policy investigation'' (Kaddoura \& Nagel, 2018-01-01, 2018-01,
-p. 885). The modeling performed by Kaddoura and Nagel is just one
-example of research on MATSim's capacity for incident-based simulations.
+Kaddoura \& Nagel (2018) found that long-term traffic incidents increase
+traffic congestion and the average car travel time by 313 sec (+18\%)
+per trip. Short-term traffic incidents increase the average travel time
+per car trip by another 136 sec (+8\%). Additionally, they found that
+for 44\% of all car trips, the agent's transport route contained at
+least one road segment for which the capacity or speed limit was reduced
+because of an incident. Their study concluded that networks in which
+transport users had high levels of knowledge about the incidents and
+resulting traffic congestion still experienced an increase in travel
+time caused by long and short-term incidents. Finally, Kaddoura and
+Nagel asserted that ``accounting for traffic incidents makes the model
+more realistic, allowing for an improved policy investigation''
+(Kaddoura \& Nagel, 2018, p. 885). The modeling performed by Kaddoura
+and Nagel is just one example of research on MATSim's capacity for
+incident-based simulations.
 
 A MATSim model developed by Li \& Ferguson (2020-01-01, 2020-01)
 included various rescheduling options, such as departure time, mode
@@ -809,8 +842,7 @@ incidents, congestion, and travel times. This evidence accentuates how
 the proper application of MATSim or similar Dynamic Traffic Assignment
 (DTA) models can account for traffic incidents, thereby enhancing the
 realism of the models. This type of model, in turn, can facilitate more
-effective policy investigation, as noted by Kaddoura \& Nagel
-(2018-01-01, 2018-01).
+effective policy investigation, as noted by Kaddoura \& Nagel (2018).
 
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
@@ -830,8 +862,8 @@ realism and detail to the IMT deployment question.
 
 \bookmarksetup{startatroot}
 
-\hypertarget{methodology}{%
-\chapter{Methodology}\label{methodology}}
+\hypertarget{sec-methods}{%
+\chapter{Methodology}\label{sec-methods}}
 
 This section outlines the methods used for the Utah Incident Management
 Team Optimization project model, building upon the main concepts
@@ -852,7 +884,7 @@ performance metrics. Following this, in the section on ``MATSim Model's
 Functionality,'' we detail how these variables are integrated and
 represented within the MATSim framework more closely align with
 real-world conditions, building upon the foundational work of Kaddoura
-\& Nagel (2018-01-01, 2018-01).
+\& Nagel (2018).
 
 Lastly, ``Scenario Simulations and Comparisons'' presents the range of
 simulated scenarios used for comparison purposes. This section also
@@ -877,19 +909,18 @@ Selection}\label{imt-vehicle-configuration-and-incident-selection}}
 The strategic placement and sizing of IMT fleets are pivotal in
 optimizing vehicle response times, a relationship explored in depth by
 Lou et al. (2011-04-01, 2011-04) and Pal \& Sinha (2002). Furthermore,
-Schultz et al. (2019-04-01, 2019-04) established a significant link
-between response time (RT) and roadway clearance time (RCT). In the `IMT
-Vehicle Setup' subsection, we describe the organization of the IMT
-vehicle, taking these relationships into account and adhering to
-recommendations from Utah Highway Patrol officials specific to this
-project.
+Schultz et al. (2019) established a significant link between response
+time (RT) and roadway clearance time (RCT). In the `IMT Vehicle Setup'
+subsection, we describe the organization of the IMT vehicle, taking
+these relationships into account and adhering to recommendations from
+Utah Highway Patrol officials specific to this project.
 
 Additionally, the nature and severity of incidents play a significant
 role in affecting average travel times and delays, as evidenced by the
-research of Kaddoura \& Nagel (2018-01-01, 2018-01). The `Incident Data'
-and `Incident Sampling' subsections elaborate on our methodology for
-selecting incidents for the simulation scenarios, utilizing data from
-concurrent research efforts.
+research of Kaddoura \& Nagel (2018). The `Incident Data' and `Incident
+Sampling' subsections elaborate on our methodology for selecting
+incidents for the simulation scenarios, utilizing data from concurrent
+research efforts.
 
 \hypertarget{imt-vehicle-setup}{%
 \subsection{IMT Vehicle Setup}\label{imt-vehicle-setup}}
@@ -1100,15 +1131,14 @@ MATSim within-day replanning module further enhances this
 responsiveness, enabling the rerouting of other agents on the road in
 the aftermath of an incident.
 
-Contrary to the work of Kaddoura \& Nagel (2018-01-01, 2018-01), our
-study does not take into account long-term capacity reduction events
-such as road construction, focusing exclusively on short-term incidents
-like accidents or vehicle breakdowns. The reduced capacity of a specific
-link generally impacts all agents, both regular and IMT vehicles.
-However, if a subnetwork is employed, IMT trucks, akin to other
-emergency vehicles such as ambulances and firetrucks, experience less
-disruption from congestion caused by daily traffic or unexpected
-incidents.
+Contrary to the work of Kaddoura \& Nagel (2018), our study does not
+take into account long-term capacity reduction events such as road
+construction, focusing exclusively on short-term incidents like
+accidents or vehicle breakdowns. The reduced capacity of a specific link
+generally impacts all agents, both regular and IMT vehicles. However, if
+a subnetwork is employed, IMT trucks, akin to other emergency vehicles
+such as ambulances and firetrucks, experience less disruption from
+congestion caused by daily traffic or unexpected incidents.
 
 \hypertarget{within-day-replanning}{%
 \subsection{Within-Day Replanning}\label{within-day-replanning}}
@@ -1123,8 +1153,8 @@ needed to use it. \textgreater\textgreater{}
 implemented in the way that I thought that it was. After re-reading the
 literature review I realized that I had confused the replanning that
 occurs from iteration to iteration with the replanning mentioned by
-Kaddoura \& Nagel (2018-01-01, 2018-01) that only occurs for specific
-agents within the simulation. \textgreater\textgreater{}
+Kaddoura \& Nagel (2018) that only occurs for specific agents within the
+simulation. \textgreater\textgreater{}
 
 \textless\textless{} I do think it is still worth mentioning their
 research, and I can discuss how we could have used within-day replanning
@@ -1259,11 +1289,11 @@ These network and plans files were integrated into our simulation
 scenarios, alongside the ImtModule described earlier, and other
 configuration parameters. The config parameters were primarily
 established by the configuration settings employed by Kaddoura \& Nagel
-(2018-01-01, 2018-01) in their MATSim incident simulations. With all
-parameters set up and organized, a total of 60 simulation scenarios were
-executed to facilitate a thorough comparative analysis. The subsequent
-section provides a detailed outline of these scenarios and the
-methodology employed to compare and contrast their respective outcomes.
+(2018) in their MATSim incident simulations. With all parameters set up
+and organized, a total of 60 simulation scenarios were executed to
+facilitate a thorough comparative analysis. The subsequent section
+provides a detailed outline of these scenarios and the methodology
+employed to compare and contrast their respective outcomes.
 
 \hypertarget{incident-imt-scenario}{%
 \subsection{Incident \& IMT Scenario}\label{incident-imt-scenario}}
@@ -1355,8 +1385,8 @@ safety.
 
 \bookmarksetup{startatroot}
 
-\hypertarget{results}{%
-\chapter{Results}\label{results}}
+\hypertarget{sec-results}{%
+\chapter{Results}\label{sec-results}}
 
 This section details the outcomes of the Utah Incident Management Team
 Optimization project, employing the MATSim model to execute a series of
@@ -1829,13 +1859,13 @@ this report.
 \hypertarget{imt-response-times}{%
 \subsection{IMT Response Times}\label{imt-response-times}}
 
-In the study conducted by Schultz et al. (2019-04-01, 2019-04), it is
-highlighted that, in Utah, a one-minute increase in IMT response time
-(RT) results in an approximate 0.8-minute increase in average roadway
-clearance time (RCT). This finding emphasizes the critical factor of IMT
-response times in reducing clearance times and subsequent delays. In the
-simulation conducted, incidents requested the support of one to four IMT
-units, with response times varying across different scenarios.
+In the study conducted by Schultz et al. (2019), it is highlighted that,
+in Utah, a one-minute increase in IMT response time (RT) results in an
+approximate 0.8-minute increase in average roadway clearance time (RCT).
+This finding emphasizes the critical factor of IMT response times in
+reducing clearance times and subsequent delays. In the simulation
+conducted, incidents requested the support of one to four IMT units,
+with response times varying across different scenarios.
 
 On average, across 280 simulated incidents, the arrival times in the
 \emph{30-IMT} scenarios were 4 minutes faster than those in the
@@ -1925,8 +1955,8 @@ response situations.
 
 \bookmarksetup{startatroot}
 
-\hypertarget{conclusions}{%
-\chapter{Conclusions}\label{conclusions}}
+\hypertarget{sec-conclusions}{%
+\chapter{Conclusions}\label{sec-conclusions}}
 
 This section need not be overly long. You should address any limitations
 of your results, such as dependence on underlying assumptions or
@@ -1949,6 +1979,10 @@ practical relevance.
 Axhausen, K. W., Horni, A., \& Nagel, K. (2016-08-10, 2016-08).
 \emph{The multi-agent transport simulation {MATSim}}. {Ubiquity Press}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-bennett2021}{}}%
+Bennett, L. S. (2021). \emph{Analysis of benefits of an expansion to
+UDOT's incident management program}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-bivina2016}{}}%
 Bivina, G. R., Landge, V., \& Kumar, V. S. S. (2016-01-01, 2016-01).
 Socio economic valuation of traffic delays. \emph{Transportation
@@ -1970,16 +2004,14 @@ Dobler, C., \& Nagel, K. (2016). \emph{Within-day replanning}. {Ubiquity
 Press}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-kaddoura2018}{}}%
-Kaddoura, I., \& Nagel, K. (2018-01-01, 2018-01). Using real-world
-traffic incident data in transport modeling. \emph{Procedia Computer
-Science}, \emph{130}, 880--885.
-\url{https://doi.org/10.1016/j.procs.2018.04.084}
+Kaddoura, I., \& Nagel, K. (2018). Using real-world traffic incident
+data in transport modeling. \emph{Procedia Computer Science},
+\emph{130}, 880--885. \url{https://doi.org/10.1016/j.procs.2018.04.084}
 
 \leavevmode\vadjust pre{\hypertarget{ref-kim2012}{}}%
 Kim, W., Franz, M., Chang, G.-L., \& University of Maryland (College
-Park, Md. ). Dept. of C. and E. E. (2012-04-01, 2012-04).
-\emph{Enhancement of freeway incident traffic management and resulting
-benefits.}
+Park, Md. ). Dept. of C. and E. E. (2012). \emph{Enhancement of freeway
+incident traffic management and resulting benefits.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-li2020}{}}%
 Li, J., \& Ferguson, N. (2020-01-01, 2020-01). A multi-dimensional
@@ -1995,9 +2027,9 @@ Technologies}, \emph{19}(2), 283--295.
 \url{https://doi.org/10.1016/j.trc.2010.05.014}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ozbay2013}{}}%
-Ozbay, K., Iyigun, C., Baykal-Gursoy, M., \& Xiao, W. (2013-03-01,
-2013-03). Probabilistic programming models for traffic incident
-management operations planning. \emph{Annals of Operations Research},
+Ozbay, K., Iyigun, C., Baykal-Gursoy, M., \& Xiao, W. (2013).
+Probabilistic programming models for traffic incident management
+operations planning. \emph{Annals of Operations Research},
 \emph{203}(1), 389--406. \url{https://doi.org/10.1007/s10479-012-1174-6}
 
 \leavevmode\vadjust pre{\hypertarget{ref-pal2002}{}}%
@@ -2019,8 +2051,8 @@ Peungnumsai, A., Miyazaki, H., Witayangkurn, A., \& Kii, M. (2019).
 \leavevmode\vadjust pre{\hypertarget{ref-schultz2019}{}}%
 Schultz, G. G., Saito, M., Eggett, D. L., Bennett, L. S., Hadfield, M.
 G., Civil, B. Y. University. Dept. of, \& Environmental Engineering.
-(2019-04-01, 2019-04). \emph{Analysis of performance measures of traffic
-incident management in utah}.
+(2019). \emph{Analysis of performance measures of traffic incident
+management in utah}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-sisiopiku2007}{}}%
 Sisiopiku, V. P., Li, X., Mouskos, K. C., Kamga, C., Barrett, C., \&
