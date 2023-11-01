@@ -31,11 +31,21 @@ MATSim is an open-source framework used for conducting extensive, agent-based tr
 
 For the purposes of our research, we developed the ImtModule, a specialized MATSim extension designed to process incidents and IMT responses within the simulation. This module leverages existing research on incident simulation, Demand Rapid Transit (DRT), event handling, and vehicle dispatch algorithms, building upon these foundations to enhance the functionality of our model.
 
-In this section, we describe some of the specific tools within MATSim that we used and adapted to construct a comprehensive and functional model. These tools include Replanning, Scoring, Network Change Events, Vehicle Assignment, and Incident Response. Together, they contribute to the realism and precision of our traffic simulations, particularly in the context of responding to roadway incidents, ensuring that our model provides accurate and reliable results.
+In this section, we describe some of the specific tools within MATSim that we used and adapted to construct a comprehensive and functional model. These tools include Scoring,Replanning, Network Change Events, Vehicle Assignment, and Incident Response. Together, they contribute to the realism and precision of our traffic simulations, particularly in the context of responding to roadway incidents, ensuring that our model provides accurate and reliable results.
 
-### Replanning and Scoring {#sec-MATSim_Score}
+### Scoring and Replanning {#sec-MATSim_Score}
 
-\<\< I need to read up in the MATSim textbook and look at our model a little bit more to write this section well. I'll get to it once I'm done editing the rest of this section \>\>
+In MATSim, each individual within the simulation is called an agent. These agents follow daily schedules, partaking in various activities and modes of travel. Their actions are evaluated using a point system, which takes into account the specifics of their travel, as highlighted by @nagel2016. Timely arrivals at destinations are rewarded with positive points, whereas delays result in deductions. Furthermore, different transportation modes are assigned utility scores, which play a crucial role in shaping the agents' travel preferences and decisions.
+
+Each agent possesses a memory that stores plans from a certain number of iterations, as well as replanning strategies that dictate how agents can adjust their plans from iteration to iteration @horni2016. The size of an agent's memory is typically dependent on the size of the model being run. In the case of the large-scale Utah model, we opted to limit the agents' plan memory to just five iterations. The replanning strategies used include selecting the plan with the highest score 80% of the time, opting to reroute 10% of the time, and adjusting activity timings for the remaining 10%.
+
+Our selection of scoring and replanning parameters drew from the research conducted by @kaddoura2018. While their methodology appeared sound at the outset, a more customized approach for our Utah model would have been preferred. For example, the scoring factors for transit and biking in the Berlin-based model by @kaddoura2018 were higher than what would typically apply in Utah. This likely resulted in an inflated estimation of agents opting for these transportation modes, diverging from actual observations in Utah.
+
+Despite these challenges, the chosen parameters were ultimately successful in steering agents towards a stable state of travel equilibrium. Each simulation in the study ran for 450 iterations within the MATSim framework. This process facilitated a convergence towards equilibrium in travel behavior for the majority of scenarios.
+
+\<\< I feel like this last paragraph is somewhat out of place here, but I don't know if it belongs at the end of the section either \>\> 
+
+\<\< I'm also just struggling with this section in general. I think its good to talk about the strategies that were used, but I feel like it's getting a little too in the weed, while at the same time I'm not sure how to explain what is going on more simply. I also wonder if that little bit about how our model likely over predicted the usage of bikes and transits belongs in the limitations rather than here in the methods. \>\>
 
 ### Network Change Events {#sec-NCE}
 
