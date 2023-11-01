@@ -21,19 +21,11 @@ library(scales)
 
 This section details the outcomes of the Utah IMT Optimization project, employing the MATSim model to execute a series of simulations across a range of scenario groups. Specifically, the groups---Incidents, 20-IMT, and 30-IMT---were compared with a Baseline scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of IMT in alleviating traffic disruptions.
 
-## Scenario Results from MATSim Simulations
-
-The investigation employed the MATSim model to perform 20 simulations for each of the three scenarios: *Incidents*, *20-Truck*, and *30-Truck*. In the *Incidents* scenario, a random subset of incidents was generated, without any intervention from Incident Management Teams (IMTs). The *20-Truck* scenario included the same random incidents, coupled with responsive measures from UDOT's existing fleet of 20 IMT vehicles. The *30-Truck* scenario mirrored the *20-Truck* framework, albeit with an increased fleet, incorporating an additional 10 IMT vehicles.
-
-These scenarios underwent comparisons against each other as well as against a *Baseline* scenario with no incidents or IMT deployment. In total, the study executed 61 simulation scenarios, each completing a total of 450 iterations within the MATSim model. This iterative approach ensured that a majority of scenarios gravitated towards a state where travel plans displayed minimal variance between successive iterations, effectively achieving an equilibrium in travel behavior by the simulation's end.
-
-The following sections of this chapter are structured to a analysis of the results derived from these scenarios. This analysis uses comparative metrics such as vehicle hours of delay (VHD), the consequences of traffic incidents, and the dynamics of the IMT responses in relation to these incidents.
+The following sections analyze the results derived from the simulated scenarios. This analysis uses comparative metrics such as vehicle hours of delay (VHD), the consequences of traffic incidents, and the dynamics of the IMT responses in relation to the incidents they manage.
 
 ## Vehicle Hours of Delay
 
-The primary metric used in analyzing the simulation scenarios is the total vehicle hours of delay (VHD). This analysis is structured across three distinct tiers: *Network Links*, *Motorway Links*, and *Impacted Links*.
-
-Overall, it is apparent that the IMT vehicles' influence within the simulations is most apparent at the "Impact Link" level. However, their effects permeate every tier of analysis. While the outcomes of certain scenarios align with anticipated projections, others deviate from intuitive or hypothesized results. The subsequent analysis will commence with an exploration of the *Network Links* comparisons.
+The studies referenced in the [IMT Optimization](#sec-lit_imt_opt) section of the [Literature Review](#sec-literature) demonstrate the efficacy of IMT in reducing RCT and ECU on roadway segments affected by incidents. Similarly, the results from our transportation model highlight the impact of IMT at reducing delay, particularly when focusing on the segments of roadways where incidents occurred; see [Impacted Links](#sec-impacted). In contrast to the cited studies, our model also explored the broader implications, or ripple effects, of incidents and their corresponding IMT responses. In a majority of scenarios, these results also indicated a positive correlation between IMT response and a decrease in VHD.
 
 ### Network Hours of Delay
 
@@ -118,7 +110,7 @@ As depicted in the violin plot, both the "incidents-only" scenario groupings exh
 
 Continuing the discussion, the final tier for comparing VHD is the *Impacted Links* on the network. These refer to the links where the simulated incidents take place, as well as the two links immediately preceding each incident link.
 
-### Impacted Links
+### Impacted Links {#sec-impacted}
 
 Impacted links are described as the links where an incident occurs, along with its first two *Feeder* links. These are the two links through which traffic most commonly flows before reaching the incident motorway link. Given the variation in link lengths within the motorway, in certain instances, taking into account just two additional links may not adequately capture the delay prompted by a specific incident. Nevertheless, the @tbl-impacted_links offers significant insights about how delay on impacted links fluctuates based on the simulation scenario. For context regarding the table, Total VHD is computed by considering the duration of the incidents (from start to finish) and adding one hour post resolution of the incident. In the simulations conducted, IMT vehicles only enhance the capacity of the incident link, without shortening its duration. Therefore, for the 'Incident Impact Time', which encompasses the incident duration and an added hour, the delay values of the incident link and its two Feeder Links are aggregated to compute a 'Delay from Incident \[hours\]' variable, showcased in the subsequent scatter plot. To develop the summary_table, the values from all 'Delay from Incident \[hours\]' entries within a scenario and incident frequency group were summed. This sum equates to the Total VHD of delay value for each respective scenario. The results are presented below:
 
