@@ -62,7 +62,7 @@ list(
     name = all_incident_data,
     command = "data/incident_data/Combinder_CAD_TS_2022_All_Modified_RCT.xlsm",
     format = "file"  
-    ),
+  ),
   
   
   # source("R/incident_sampling.R")
@@ -199,7 +199,7 @@ list(
     name = truck_distance,
     command = write_truck_distance_data(truck_csv)
   ),
-
+  
   # Make truck_time_plot
   tar_target(
     name = truck_distance_plot,
@@ -239,4 +239,3 @@ list(
   )
   
 )
-  

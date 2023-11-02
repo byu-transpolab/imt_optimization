@@ -9,6 +9,7 @@ make_impacted_links_plot <- function(delay_per_seed) {
   # Mutate the scenario first
   delay_per_seed <- delay_per_seed %>%
     mutate(Scenario = case_when(
+      Scenario == "Incidents" ~ "No IMT",
       Scenario == "Current" ~ "20 IMT",
       Scenario == "Increased" ~ "30 IMT",
       TRUE ~ as.character(Scenario)
@@ -44,7 +45,7 @@ make_impacted_links_plot <- function(delay_per_seed) {
     labs(x = "Delay on Impacted Links [hours]",
          y = "Seed ID") +
     scale_color_brewer(palette = "Set2", 
-                       breaks = c("Baseline", "Incidents", "20 IMT", "30 IMT")) +  # Order of scenarios
+                       breaks = c("Baseline", "No IMT", "20 IMT", "30 IMT")) +  # Order of scenarios
     scale_x_continuous(limits = c(NA, 400), 
                        breaks = seq(0, 400, 100),
                        labels = c(as.character(seq(0, 300, 100)), "400+")) +  # X-axis limits, increments, and labeling

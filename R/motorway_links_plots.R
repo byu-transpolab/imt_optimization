@@ -8,6 +8,7 @@
     # Mutate the scenario first
     motorway_delay_table <- motorway_delay_table %>%
       mutate(scenario = case_when(
+        scenario == "Incidents" ~ "No IMT",
         scenario == "Current" ~ "20 IMT",
         scenario == "Increased" ~ "30 IMT",
         TRUE ~ as.character(scenario)
@@ -72,7 +73,7 @@
     # Reorder the rows based on custom ordering of Group and Incident Frequency
     motorway_summary_table <- motorway_summary_table %>%
       arrange(
-        factor(Group, levels = c("Baseline", "Incidents", "Current", "Increased")),
+        factor(Group, levels = c("Baseline", "No IMT", "Current", "Increased")),
       )
     
     return (motorway_summary_table)
@@ -83,7 +84,7 @@
     # Filter out 'Baseline' and reorder the factor levels for 'group'
     plot_data <- motorway_delay_summary %>%
       filter(group != "Baseline") %>%
-      mutate(group = factor(group, levels = c("Incidents Current", "Incidents Increased",
+      mutate(group = factor(group, levels = c("No IMT Current", "No IMT Increased",
                                               "20 IMT Current", "20 IMT Increased", 
                                               "30 IMT Current", "30 IMT Increased")))
     

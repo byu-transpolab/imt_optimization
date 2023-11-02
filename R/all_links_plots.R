@@ -8,6 +8,7 @@ write_delay_summary_table <- function(delay_table){
   # Mutate the scenario first
   delay_per_seed <- delay_per_seed %>%
     mutate(scenario = case_when(
+      scenario == "Incidents" ~ "No IMT",
       scenario == "Current" ~ "20 IMT",
       scenario == "Increased" ~ "30 IMT",
       TRUE ~ as.character(scenario)
@@ -65,7 +66,7 @@ write_all_links_comparison_table <- function(delay_summary){
   # Reorder the rows based on custom ordering of Scenario and Incident Frequency
   all_links_comparison_table <- all_links_comparison_table %>%
     arrange(
-      factor(Group, levels = c("Baseline", "Incidents","20 IMT", "30 IMT"))
+      factor(Group, levels = c("Baseline", "No IMT","20 IMT", "30 IMT"))
     )
   
   return (all_links_comparison_table)
@@ -78,7 +79,7 @@ make_all_links_plot <- function(delay_summary) {
   # Filter out 'Baseline' and reorder the factor levels for 'scenario'
   plot_data <- delay_summary %>%
     filter(scenario != "Baseline") %>%
-    mutate(scenario = factor(scenario, levels = c("Incidents", "20 IMT", "30 IMT")))
+    mutate(scenario = factor(scenario, levels = c("No IMT", "20 IMT", "30 IMT")))
   
   # Compute the mean of the 'total_delay' for the 'Baseline' scenario
   baseline_value <- delay_summary %>%
