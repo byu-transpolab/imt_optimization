@@ -1561,147 +1561,191 @@ situations.
 \hypertarget{sec-conclusions}{%
 \chapter{Conclusions}\label{sec-conclusions}}
 
-This study aimed to model and assess the response and efficiency of IMT
-in the Utah Wasatch Front Region. Existing research affirms the
-effectiveness of IMT in alleviating the repercussions of traffic
-incidents and other disruptions, such as vehicle breakdowns (Skabardonis
-et al., 1998; see \textbf{schultz?}). Furthermore, mesoscopic DTA
-modeling has proven to be a valuable tool for extensive studies on the
-impacts of incidents and incident management (see Kaddoura \& Nagel,
-2018; Li \& Ferguson, 2020). However, there seems to be a research gap
-regarding the application of large-scale simulation models that both
-emulate and evaluate IMT performance. Recognizing the potential of
-simulation models to offer novel insights and alternative perspectives
-on IMT effectiveness, we deemed this area worthy of exploration.
-Additionally, simulation models afford the opportunity to conduct
-hypothetical scenario analyses, which might be impractical with the
-traditional methodologies used for assessing IMT performance. Motivated
-by these considerations, we developed an IMT simulation model to capture
-and represent their operational effectiveness across Utah.
+This study aimed to understand and assess the effectiveness of IMT in
+the Utah Wasatch Front Region, using simulation modeling. Prior research
+has established the role of IMT in significantly reducing the impacts of
+traffic disruptions, such as incidents and vehicle breakdowns
+(Skabardonis et al., 1998; \textbf{schultz?}). Furthermore, mesoscopic
+DTA modeling has proven beneficial for in-depth analyses of incident
+impacts and management strategies (Kaddoura \& Nagel, 2018; Li \&
+Ferguson, 2020).
 
-Due to its cooperative open-source design, capacity for managing
-substantial data inputs, and potential for accurately simulating
-real-world behaviors, we selected the Multi-Agent Transportation
-Simulation (MATSim) as the platform for conducting our simulation study.
-Within this modeling framework, we executed simulations based on a
-network and plans file calibrated by Day (2022), a comprehensive list of
-incidents compiled by Hyer (2023) and the Utah Highway Patrol (UHP), IMT
-data supplied by the Utah Department of Transportation (UDOT), and
-simulation parameters derived from the incident-based research conducted
-by Kaddoura \& Nagel (2018). Furthermore, we crafted a specialized
-extension package for MATSim to facilitate the generation of incidents
-and orchestrate the IMT responses within our simulation. Upon its
-completion, the model was employed to conduct simulations across 60
-distinct scenarios, each representing a unique combination of incident
-conditions and IMT configurations.
+However, there is a noticeable lack of large-scale simulation models
+applied to evaluating IMT performance. These models offer unique
+insights and enable scenario testing that may be challenging with
+traditional methods. To address this gap, we developed a specific
+simulation model for assessing IMT operations across Utah, aiming to
+improve our understanding and the effectiveness of these teams.
 
-The existing incident management program in Utah is equipped with 20
-IMT. This particular fleet was utilized in one-third (or 20) of our
-simulated scenarios and was evaluated in comparison to two other groups:
-a scenario without any IMT intervention and a scenario augmented with a
-fleet of 30 IMT. Out of the sixty scenarios conducted, half were modeled
-on incident frequencies derived from a sample of currently observed
-daily incidents. The remaining half were based on escalated incident
-frequencies, extracted from the higher spectrum of observed daily
-incidents.
+We utilized our model to analyze VHD and various IMT performance
+measures across different incident types and IMT configurations. Our
+analysis primarily focused on comparing the outcomes based on the number
+of IMT deployed in each scenario. The results indicated that the
+existing fleet of 20 IMTs deployed by UDOT effectively reduces delays
+and responds to incidents. In comparison to scenarios with incidents
+alone, a 20 IMT configuration reduced highway delays by 18.2\%,
+resulting in an average VHD reduction of 4232 per simulated day.
+Increasing the fleet size to 30 IMT led to a reduction in delay of
+22.9\% and an average VHD savings of 5334.
 
-In total, six distinct scenario groups were established for our
-analysis:
+Additionally, in our simulation, a fleet of 30 IMTs showed quicker
+response times to incidents compared to a fleet of 20 IMT, with average
+response times decreasing from 15.0 minutes to 11.0 minutes. Notably,
+the 15.0-minute average arrival time for the 20 IMT scenarios aligns
+closely with the actual median arrival time recorded in Hyer's 2023
+study on Utah IMT performance (Hyer, 2023). Additionally, increasing the
+IMT fleet to 30 resulted in a cumulative reduction of 28 hours in travel
+time across 20 scenarios. This translates to an average decrease of 1.4
+hours in IMT travel time per simulated day.
+
+\hypertarget{sec-implications}{%
+\section{Implications}\label{sec-implications}}
+
+In their study on Utah's IMT performance, Schultz et al. (2019) found
+that a one-minute delay in IMT response time led to a 0.8-minute
+increase in RCT, an additional 34.6 minutes in total estimated travel
+time, and an increase of \$925 in ECU. Building on these findings, we
+estimate that reducing the IMT response time by an average of four
+minutes --- a potential outcome of adding 10 more IMT to the fleet ---
+could result in ECU savings of approximately \$3,700 per incident.
+
+As UDOT evaluates the effectiveness of their IMT program and
+contemplates potential expansion, this study's insights become a crucial
+asset for informed decision-making. Our
+\protect\hyperlink{sec-results}{Results} suggest that augmenting the IMT
+fleet has the potential to decrease VHD and enhance the speed of
+incident response.
+
+The model we developed for this project addresses two significant
+`what-if' scenarios, applicable to UDOT or any other transportation
+agency aiming to optimize their IMT program:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  No IMT, with current incident frequency
+  What if the incidence of traffic disruptions in our region surges? How
+  might this impact our incident management program's effectiveness?
 \item
-  No IMT, with increased incident frequency
-\item
-  20 IMTs, with current incident frequency
-\item
-  20 IMTs, with increased incident frequency
-\item
-  30 IMTs, with current incident frequency
-\item
-  30 IMTs, with increased incident frequency
+  What if we decide to augment our IMT fleet? What are the potential
+  advantages and potential challenges associated with this expansion?
 \end{enumerate}
 
-Our hypothesis posited that an uptick in incidents would correlate with
-a degradation in IMT performance. Furthermore, we anticipated that a
-bolstered fleet of 30 IMTs would demonstrate superior efficiency in
-comparison to the standard 20 IMT fleet. Broadly speaking, the results
-from our simulation validated these hypotheses. However, it is important
-to note that there was a degree of variability observed within the
-results.
+While our primary objective was to address these scenarios, the model's
+versatility enables future exploration of additional questions, such as:
 
-Comparisons among the scenarios were based on two performance measures:
-- VHD. Which was analyzed at for the network as whole, motorway links,
-and links on which the incidents occurred and those directly upstream of
-them. - IMT travel statistics. Analyzing average truck travel time,
-average distance traveled, and average arrival at incidents.
-
-Table~\ref{tbl-VHD_summary_table} summarizes the VHD at its tiers of
-comparison
-
-\hypertarget{tbl-VHD_summary_table}{}
-\begin{table}
-\caption{\label{tbl-VHD_summary_table}VHD Summary Results }\tabularnewline
-
-\centering
-\begin{tabular}[t]{llll}
-\toprule
-\textbf{Level} & \textbf{Group} & \textbf{Average VHD} & \textbf{Percent Change}\\
-\midrule
-\cellcolor{gray!6}{Network} & \cellcolor{gray!6}{Baseline} & \cellcolor{gray!6}{74568} & \cellcolor{gray!6}{0\%}\\
-Network & No IMT & 103669 & 39\%\\
-\cellcolor{gray!6}{Network} & \cellcolor{gray!6}{20 IMT} & \cellcolor{gray!6}{96187} & \cellcolor{gray!6}{29\%}\\
-Network & 30 IMT & 93664 & 25.6\%\\
-\cellcolor{gray!6}{} & \cellcolor{gray!6}{} & \cellcolor{gray!6}{ \vphantom{1}} & \cellcolor{gray!6}{}\\
-\addlinespace
-Motorway & Baseline & 15335 & 0\%\\
-\cellcolor{gray!6}{Motorway} & \cellcolor{gray!6}{No IMT} & \cellcolor{gray!6}{23282} & \cellcolor{gray!6}{51.8\%}\\
-Motorway & 20 IMT & 19050 & 24.2\%\\
-\cellcolor{gray!6}{Motorway} & \cellcolor{gray!6}{30 IMT} & \cellcolor{gray!6}{17948} & \cellcolor{gray!6}{17\%}\\
- &  &  & \\
-\addlinespace
-\cellcolor{gray!6}{Impacted} & \cellcolor{gray!6}{Baseline} & \cellcolor{gray!6}{3.1} & \cellcolor{gray!6}{0\%}\\
-Impacted & No IMT & 24.6 & 703.9\%\\
-\cellcolor{gray!6}{Impacted} & \cellcolor{gray!6}{20 IMT} & \cellcolor{gray!6}{8.4} & \cellcolor{gray!6}{173.4\%}\\
-Impacted & 30 IMT & 5.2 & 71\%\\
-\bottomrule
-\multicolumn{4}{l}{\textsuperscript{a} Note: If the delay in Seed 141 is removed from the Impacted-No Incidents group, the Average VHD drops to a more reasonable 14.62, and the}\\
-\multicolumn{4}{l}{percent change becomes 377.7\%}\\
-\end{tabular}
-\end{table}
+\begin{itemize}
+\tightlist
+\item
+  Identifying the optimal deployment locations for IMTs in our system.
+\item
+  Assessing whether the current operational hours of the IMT program are
+  optimal.
+\end{itemize}
 
 \hypertarget{sec-limitations}{%
 \section{Limitations}\label{sec-limitations}}
 
-\hypertarget{within-day-replanning}{%
-\subsection{Within-Day Replanning}\label{within-day-replanning}}
+The limitations of this study are mainly attributed to the model we
+developed and the aspects that can be enhanced. As outlined in
+\protect\hyperlink{sec-inc_modeling}{Incident Modeling}, we opted for
+MATSim to simulate IMT performance due to its ability to handle
+large-scale networks, incorporate real-world data, and mimic authentic
+driver behavior. While MATSim can be proficient in emulating realistic
+driver behavior, there are additional practices and methods that we did
+not utilize, which could have further optimized its performance.
 
-\textless\textless{} The model was meant to incorporates the concept of
-within-day replanning to a certain extent, as elaborated in Chapter 30
-of the MATSim textbook. I loaded the within-day replanning module but
-didn't specify which agents needed to use it or the times that they
-needed to use it. \textgreater\textgreater{}
+\hypertarget{sec-within-day}{%
+\subsection{Within-Day Replanning}\label{sec-within-day}}
 
-\textless\textless{} Dr.~Macfarlane. Within-day replanning is not being
-implemented in the way that I thought that it was. After re-reading the
-literature review I realized that I had confused the replanning that
-occurs from iteration to iteration with the replanning mentioned by
-Kaddoura \& Nagel (2018) that only occurs for specific agents within the
-simulation. \textgreater\textgreater{}
+In the \protect\hyperlink{sec-MATSim_Score}{Scoring and Replanning}
+section, we describe how agents in MATSim alter their routes through an
+iterative scoring process influenced by various factors including late
+arrival, mode choice, and activity type. Although this method is
+generally effective, it may present challenges when simulating
+unforeseen events like traffic incidents.
 
-\textless\textless{} I do think it is still worth mentioning their
-research, and I can discuss how we could have used within-day replanning
-more effectively in the limitations section of this report. I am sorry
-for the confusion and for not realizing the problem earlier. Perhaps
-this section in the Methodology could discuss the strategy the model
-uses from iteration to iteration. \textgreater\textgreater{}
+As Dobler \& Nagel (2016) highlights in his chapter of the MATSim
+manual, employing a within-day replanning tool is helpful within the
+MATSim framework, especially for handling unexpected situations. He
+notes that while the iterative modeling approach of MATSim is adept at
+reaching user equilibrium under typical conditions, it tends to falter
+during sudden events. This can result in seemingly irrational behaviors,
+such as agents changing routes before an incident actually takes place.
 
-\textless\textless{} I'll likely move this section to the limitations
-and talk about it, but wanted to leave you a note here just in case you
-were looking for this section - Daniel Jarvis\textgreater\textgreater{}
+The scenario depicted in Figure~\ref{fig-within_day} serves as an
+illustrative example of the potential routing issues that can arise in
+MATSim when within-day replanning is not utilized. In this instance, an
+agent is navigating from a start point marked by the red dot to a
+destination marked by the green dot. At 14:02, a traffic incident
+disrupts the agent's original route. Nevertheless, due to the
+anticipatory nature of MATSim's iterative approach, the agent already
+reroutes at 14:00---two minutes before the incident occurs. This early
+route change showcases the challenges of solely relying on an iterative
+modeling strategy for responding to sudden events. It also emphasizes
+the benefit of incorporating a within-day replanning feature, which
+relies on a single iteration to provide more accurate and realistic
+navigational adjustments.
+
+\begin{figure}
+
+{\centering \includegraphics{figures/within_day.png}
+
+}
+
+\caption{\label{fig-within_day}Within-day replanning approach for a
+MATSim routing problem.}
+
+\end{figure}
+
+Unfortunately, the problem showcased in Figure~\ref{fig-within_day}
+surfaced at times throughout our MATSim simulations. In certain
+scenarios, agents preemptively avoided specific road links anticipated
+to have incidents, rather than adhering to more realistic behavior
+patterns observed on real roads. Typically, drivers maintain their
+intended course until directly confronted with congestion or delays, at
+which point they may choose to reroute. This variance between the
+simulated and actual driver responses to unforeseen road incidents
+underscores a key area for enhancement in our simulation model, ensuring
+it more accurately reflects genuine driving behavior.
+
+\hypertarget{sec-parameters}{%
+\subsection{Initial Parameters}\label{sec-parameters}}
+
+As outlined in \protect\hyperlink{sec-model_imp}{Model Implementation},
+we largely derived the initial scoring configuration parameters for our
+model from the configuration file used by Kaddoura \& Nagel (2018) in
+their MATSim incidents model. Despite the similarities between our
+simulations, it is important to note that their model was set in Berlin,
+Germany, where average travel patterns, particularly in terms of mode
+choice, differ from those in the United States, and more specifically,
+Utah. The mode choice parameters in their configuration tended to favor
+higher rates of biking and transit use than would likely occur in a
+network representing the Utah Wasatch Front. While the absence of
+\protect\hyperlink{sec-within-day}{Within-Day Replanning} may have had a
+more significant impact, one of the
+\protect\hyperlink{sec-next_steps}{Next Steps} for enhancing our model
+should certainly involve adjusting the configuration file to more
+accurately reflect the authentic travel behaviors of Utah residents.
+
+\hypertarget{sec-next_steps}{%
+\section{Next Steps}\label{sec-next_steps}}
+
+Moving forward, enhancing the simulation of IMT response and performance
+could be achieved by implementing the adjustments mentioned in the
+\protect\hyperlink{sec-limitations}{Limitations}, specifically
+concerning the replanning and configuration settings of the MATSim
+model. Future steps could also involve exploring additional methods for
+simulated analysis of IMT performance measures. Depending on the
+specific requirements of UDOT or other transportation agencies, the
+simulation could be modified to evaluate optimal IMT starting locations,
+hours of operation, or their overall cost-benefit ratio.
+
+Overall, the simulation we developed largely corroborates previous
+findings regarding the efficacy of IMT. While it necessitates certain
+adjustments to enhance its reliability, it demonstrates potential as a
+tool for examining IMT performance in ways that previous studies have
+not.
 
 \bookmarksetup{startatroot}
 
