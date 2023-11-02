@@ -37,7 +37,7 @@ make_truck_time_plot <- function(truck_time) {
                shape = 21, 
                color = "black") +
     labs(x = "Seed",
-         y = "Time per Truck (mins.)",
+         y = "Time per IMT (mins.)",
          color = "Group",
          size = "Incidents",
          fill = "Group")
@@ -87,7 +87,7 @@ make_truck_distance_plot <- function(truck_distance) {
                shape = 21, 
                color = "black") +
     labs(x = "Seed",
-         y = "Distance per Truck (miles)",
+         y = "Distance per IMT (miles)",
          color = "Group",
          size = "Incidents",
          fill = "Group")
