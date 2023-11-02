@@ -1,27 +1,5 @@
 # Conclusions {#sec-conclusions}
 
-```{r setup, file = "R/chapter_start.R", include = FALSE}
-# a number of commands need to run at the beginning of each chapter. This
-# includes loading libraries that I always use, as well as options for 
-# displaying numbers and text.
-```
-
-```{r setup2, include = FALSE}
-# Other packages ------
-# These are packages that get used in this chapter but aren't part of the default set.
-
-library(ggplot2)
-library(RColorBrewer)
-library(kableExtra)
-library(dplyr)
-library(tidyr)
-library(targets)
-library(ggpattern)
-library(extrafont)
-library(scales)
-library(targets)
-```
-
 This study aimed to understand and assess the effectiveness of IMT in the Utah Wasatch Front Region, using simulation modeling. Prior research has established the role of IMT in significantly reducing the impacts of traffic disruptions, such as incidents and vehicle breakdowns [@schultz; @skabardonis1998]. Furthermore, mesoscopic DTA modeling has proven beneficial for in-depth analyses of incident impacts and management strategies [@kaddoura2018; @li2020].
 
 However, there is a noticeable lack of large-scale simulation models applied to evaluating IMT performance. These models offer unique insights and enable scenario testing that may be challenging with traditional methods. To address this gap, we developed a specific simulation model for assessing IMT operations across Utah, aiming to improve our understanding and the effectiveness of these teams.
@@ -48,15 +26,26 @@ While our primary objective was to address these scenarios, the model’s versat
 
 ## Limitations {#sec-limitations}
 
+The limitations of this study are mainly attributed to the model we developed and the aspects that can be enhanced. As outlined in [Incident Modeling](#sec-inc_modeling), we opted for MATSim to simulate IMT performance due to its ability to handle large-scale networks, incorporate real-world data, and mimic authentic driver behavior. While MATSim can be proficient in emulating realistic driver behavior, there are additional practices and methods that we did not utilize, which could have further optimized its performance.
 
 ### Within-Day Replanning {#sec-within-day}
 
-\<\< The model was meant to incorporates the concept of within-day replanning to a certain extent, as elaborated in Chapter 30 of the MATSim textbook. I loaded the within-day replanning module but didn't specify which agents needed to use it or the times that they needed to use it. \>\>
+In the [Scoring and Replanning](#sec-MATSim_Score) section, we describe how agents in MATSim alter their routes through an iterative scoring process influenced by various factors including late arrival, mode choice, and activity type. Although this method is generally effective, it may present challenges when simulating unforeseen events like traffic incidents.
 
-\<\< Dr. Macfarlane. Within-day replanning is not being implemented in the way that I thought that it was. After re-reading the literature review I realized that I had confused the replanning that occurs from iteration to iteration with the replanning mentioned by @kaddoura2018 that only occurs for specific agents within the simulation. \>\>
+As @dobler2016 highlights in his chapter of the MATSim manual, employing a within-day replanning tool is helpful within the MATSim framework, especially for handling unexpected situations. He notes that while the iterative modeling approach of MATSim is adept at reaching user equilibrium under typical conditions, it tends to falter during sudden events. This can result in seemingly irrational behaviors, such as agents changing routes before an incident actually takes place.
 
-\<\< I do think it is still worth mentioning their research, and I can discuss how we could have used within-day replanning more effectively in the limitations section of this report. I am sorry for the confusion and for not realizing the problem earlier. Perhaps this section in the Methodology could discuss the strategy the model uses from iteration to iteration. \>\>
+The scenario depicted in @fig-within_day serves as an illustrative example of the potential routing issues that can arise in MATSim when within-day replanning is not utilized. In this instance, an agent is navigating from a start point marked by the red dot to a destination marked by the green dot. At 14:02, a traffic incident disrupts the agent’s original route. Nevertheless, due to the anticipatory nature of MATSim's iterative approach, the agent already reroutes at 14:00—two minutes before the incident occurs. This early route change showcases the challenges of solely relying on an iterative modeling strategy for responding to sudden events. It also emphasizes the benefit of incorporating a within-day replanning feature, which relies on a single iteration to provide more accurate and realistic navigational adjustments.
 
-\<\< I'll likely move this section to the limitations and talk about it, but wanted to leave you a note here just in case you were looking for this section - Daniel Jarvis\>\>
+![Within-day replanning approach for a MATSim routing problem.](figures/within_day.png){#fig-within_day}
+
+Unfortunately, the problem showcased in @fig-within_day surfaced at times throughout our MATSim simulations. In certain scenarios, agents preemptively avoided specific road links anticipated to have incidents, rather than adhering to more realistic behavior patterns observed on real roads. Typically, drivers maintain their intended course until directly confronted with congestion or delays, at which point they may choose to reroute. This variance between the simulated and actual driver responses to unforeseen road incidents underscores a key area for enhancement in our simulation model, ensuring it more accurately reflects genuine driving behavior.
+
+### Initial Parameters {#sec-parameters}
+
+As outlined in [Model Implementation](#sec-model_imp), we largely derived the initial scoring configuration parameters for our model from the configuration file used by @kaddoura2018 in their MATSim incidents model. Despite the similarities between our simulations, it is important to note that their model was set in Berlin, Germany, where average travel patterns, particularly in terms of mode choice, differ from those in the United States, and more specifically, Utah. The mode choice parameters in their configuration tended to favor higher rates of biking and transit use than would likely occur in a network representing the Utah Wasatch Front. While the absence of [Within-Day Replanning](#sec-within-day) may have had a more significant impact, one of the [Next Steps](#sec-next_steps) for enhancing our model should certainly involve adjusting the configuration file to more accurately reflect the authentic travel behaviors of Utah residents.
 
 ## Next Steps {#sec-next_steps}
+
+Moving forward, enhancing the simulation of IMT response and performance could be achieved by implementing the adjustments mentioned in the [Limitations](#sec-limitations), specifically concerning the replanning and configuration settings of the MATSim model. Future steps could also involve exploring additional methods for simulated analysis of IMT performance measures. Depending on the specific requirements of UDOT or other transportation agencies, the simulation could be modified to evaluate optimal IMT starting locations, hours of operation, or their overall cost-benefit ratio. 
+
+Overall, the simulation we developed largely corroborates previous findings regarding the efficacy of IMT. While it necessitates certain adjustments to enhance its reliability, it demonstrates potential as a tool for examining IMT performance in ways that previous studies have not.
