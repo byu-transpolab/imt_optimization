@@ -35,7 +35,7 @@ In the comparison of network VHD across simulations, the scenarios were grouped 
 
 ```{r delay_comparison}
 #| label: tbl-network_delays_table
-#| tbl-cap: Average Delay for Scenario Groups
+#| tbl-cap: Average Delay on Network
 tar_load(all_links_comparison_table)
 all_links_comparison_table |> 
   kbl(booktabs = TRUE) |> 
@@ -120,7 +120,7 @@ Impacted Links examined VHD on incident links and their immediate upstream count
 
 ```{r impacted_summary_table}
 #| label: tbl-impacted_links
-#| tbl-cap: Impacted Links Table
+#| tbl-cap: Impacted Links Delay
 tar_load(impacted_links_summary)
 # Specify the note
 note_a <- "Note: Current contains 90 incidents, Increased contains 193"
@@ -256,7 +256,7 @@ An in-depth examination of the IMT travel data reveals that in the 20 IMT scenar
 
 ```{r truck_arrival_plot}
 #| label: fig-truck_arrival_plot
-#| fig-cap: Difference in IMT Arrival Times, 20 IMTs minus 30 IMTs.
+#| fig-cap: Difference in IMT Arrival Times, 20 IMT minus 30 IMT.
 tar_load(truck_arrival_plot)
 truck_arrival_plot +
   theme_minimal(base_family = "TeX Gyre Pagella", base_size = 12) +

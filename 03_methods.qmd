@@ -122,7 +122,7 @@ To generate ten distinct values representing daily incident frequencies, we empl
 
 ```{r incident_sampling_plot}
 #| label: fig-incident_sampling_plot
-#| fig-cap: Incident sampling distributions for current and increased incident frequencies.
+#| fig-cap: Sampling distributions for incident frequencies.
 # Load the incident sampling data
 tar_load(incident_sampling_data)
 
