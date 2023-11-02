@@ -1,0 +1,15 @@
+﻿Level,Group,Average VHD,Percent Change 
+Network,Baseline,74567.7700,0.000%
+Network,No IMT,103668.9650,39.027%
+Network,20 IMT,96187.3100,28.993%
+Network,30 IMT,93664.2050,25.610%
+Motorway,Baseline,15334.6200,0.000%
+Motorway,No IMT,23281.5300,51.823%
+Motorway,20 IMT,19050.1250,24.230%
+Motorway,30 IMT,17947.745,17.041%
+Impacted,Baseline,3.060290459,0.000%
+Impacted,No IMT,24.60060601,703.865%
+Impacted,20 IMT,8.365704594,173.363%
+Impacted,30 IMT,5.233559011,71.015%
+,,,
+,,,

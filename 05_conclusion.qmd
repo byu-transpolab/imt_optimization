@@ -4,16 +4,46 @@ This study aimed to model and assess the response and efficiency of IMT in the U
 
 Due to its cooperative open-source design, capacity for managing substantial data inputs, and potential for accurately simulating real-world behaviors, we selected the Multi-Agent Transportation Simulation (MATSim) as the platform for conducting our simulation study. Within this modeling framework, we executed simulations based on a network and plans file calibrated by @day2022, a comprehensive list of incidents compiled by @hyer2023 and the Utah Highway Patrol (UHP), IMT data supplied by the Utah Department of Transportation (UDOT), and simulation parameters derived from the incident-based research conducted by @kaddoura2018. Furthermore, we crafted a specialized extension package for MATSim to facilitate the generation of incidents and orchestrate the IMT responses within our simulation. Upon its completion, the model was employed to conduct simulations across 60 distinct scenarios, each representing a unique combination of incident conditions and IMT configurations.
 
+The existing incident management program in Utah is equipped with 20 IMT. This particular fleet was utilized in one-third (or 20) of our simulated scenarios and was evaluated in comparison to two other groups: a scenario without any IMT intervention and a scenario augmented with a fleet of 30 IMT. Out of the sixty scenarios conducted, half were modeled on incident frequencies derived from a sample of currently observed daily incidents. The remaining half were based on escalated incident frequencies, extracted from the higher spectrum of observed daily incidents.
+
+In total, six distinct scenario groups were established for our analysis:
+
+1. No IMT, with current incident frequency
+2. No IMT, with increased incident frequency
+3. 20 IMTs, with current incident frequency
+4. 20 IMTs, with increased incident frequency
+5. 30 IMTs, with current incident frequency
+6. 30 IMTs, with increased incident frequency
+
+Our hypothesis posited that an uptick in incidents would correlate with a degradation in IMT performance. Furthermore, we anticipated that a bolstered fleet of 30 IMTs would demonstrate superior efficiency in comparison to the standard 20 IMT fleet. Broadly speaking, the results from our simulation validated these hypotheses. However, it is important to note that there was a degree of variability observed within the results.
+
+Comparisons among the scenarios were based on VHD and IMT operational measures such as average travel time, average distance traveled, and average arrival time at incidents.
+
+@tbl-VHD_summary_table summarizes the VHD at its tiers of comparison
+
+```{r delay_comparison}
+#| label: tbl-VHD_summary_table
+#| tbl-cap: VHD Summary Results
+tar_load(VHD_conclusions_table)
+
+note_a <- "Note: If the delay in Seed 141 is removed from the Impacted-No Incidents group, the Average VHD drops to a more reasonable 14.62, and the percent change becomes 377.7%"
 
 
+VHD_conclusions_table <- VHD_conclusions_table %>%
+  mutate(across(everything(), as.character))
+
+VHD_conclusions_table <- VHD_conclusions_table %>%
+  add_row(Level = "", Group = "", `Average VHD` = "", `Percent Change` = "", .after = 4) %>%
+  add_row(Level = "", Group = "", `Average VHD` = "", `Percent Change` = "", .after = 9)
+
+VHD_conclusions_table |> 
+  kbl(booktabs = TRUE) |> 
+  kable_styling(latex_options = "striped") %>%
+  row_spec(0, bold = TRUE) %>%
+  add_footnote(note_a)
 
 
-
-
-
-This section need not be overly long. You should address any limitations of your results, such as dependence on underlying assumptions or geographic scope. You should also provide a map for future research.
-
-Finally, you should underline the contributions of this work and any practical relevance.
+```
 
 
 ## Limitations {#sec-limitations}

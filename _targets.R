@@ -54,6 +54,8 @@ source("R/truck_arrival_plot.R")
 source("R/truck_arrival_plot.R")
 source("R/truck_arrival_violin.R")
 
+source("R/conclusions_tables.R")
+
 
 list(
   
@@ -236,6 +238,17 @@ list(
   tar_target(
     name = truck_arrival_plot,
     command = make_truck_arrival_plot(arrival_plot_data, arrival_summary_data)
+  ),
+  
+  tar_target(
+    name = vhd_summary_csv,
+    command ="data/conclusions/vhd_summary.csv",
+    format = "file"  
+  ),
+  
+  tar_target(
+    name= VHD_conclusions_table,
+    command = read_vhd_summary(vhd_summary_csv)
   )
   
 )
