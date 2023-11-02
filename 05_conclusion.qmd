@@ -1,32 +1,32 @@
 # Conclusions {#sec-conclusions}
 
-This study aimed to understand and assess the effectiveness of IMT in the Utah Wasatch Front Region, using simulation modeling. Prior research has established the role of IMT in significantly reducing the impacts of traffic disruptions, such as incidents and vehicle breakdowns [@schultz; @skabardonis1998]. Furthermore, mesoscopic DTA modeling has proven beneficial for in-depth analyses of incident impacts and management strategies [@kaddoura2018; @li2020].
+This study sought to understand and assess the effectiveness of IMT in the Utah Wasatch Front Region, using simulation modeling. Prior research has established the role of IMT in significantly reducing the impacts of traffic disruptions, such as incidents and vehicle breakdowns [@schultz2019; @skabardonis1998]. Furthermore, mesoscopic DTA modeling has proven beneficial for in-depth analyses of incident impacts and management strategies [@kaddoura2018; @li2020].
 
-However, there is a noticeable lack of large-scale simulation models applied to evaluating IMT performance. These models offer unique insights and enable scenario testing that may be challenging with traditional methods. To address this gap, we developed a specific simulation model for assessing IMT operations across Utah, aiming to improve our understanding and the effectiveness of these teams.
+However, there is a noticeable lack of large-scale simulation models applied to evaluating IMT performance. These models offer unique insights and enable scenario testing that may be challenging with traditional methods. To address this gap, we developed a specific simulation model for assessing IMT operations across Utah, seeking to improve our understanding and the effectiveness of these teams.
 
-We utilized our model to analyze VHD and various IMT performance measures across different incident types and IMT configurations. Our analysis primarily focused on comparing the outcomes based on the number of IMT deployed in each scenario. The results indicated that the existing fleet of 20 IMTs deployed by UDOT effectively reduces delays and responds to incidents. In comparison to scenarios with incidents alone, a 20 IMT configuration reduced highway delays by 18.2%, resulting in an average VHD reduction of 4232 per simulated day. Increasing the fleet size to 30 IMT led to a reduction in delay of 22.9% and an average VHD savings of 5334.
+We utilized our model to analyze vehicle hours of delay (VHD) and various IMT performance measures across different incident types and IMT configurations. Our analysis primarily focused on comparing the outcomes based on the number of IMT deployed in each scenario. The results indicated that the existing fleet of 20 IMT deployed by UDOT effectively respond to incidents and reduce delay. In comparison to scenarios with incidents alone, a 20 IMT configuration reduced highway delays by 18.2%, resulting in an average VHD reduction of 4232 hours per simulated day. Increasing the fleet size to 30 IMT led to a reduction in delay of 22.9% and an average VHD savings of 5334 hours.
 
 Additionally, in our simulation, a fleet of 30 IMTs showed quicker response times to incidents compared to a fleet of 20 IMT, with average response times decreasing from 15.0 minutes to 11.0 minutes. Notably, the 15.0-minute average arrival time for the 20 IMT scenarios aligns closely with the actual median arrival time recorded in Hyer’s 2023 study on Utah IMT performance [@hyer2023]. Additionally, increasing the IMT fleet to 30 resulted in a cumulative reduction of 28 hours in travel time across 20 scenarios. This translates to an average decrease of 1.4 hours in IMT travel time per simulated day.
 
 ## Implications {#sec-implications}
 
-In their study on Utah’s IMT performance, @schultz2019 found that a one-minute delay in IMT response time led to a 0.8-minute increase in RCT, an additional 34.6 minutes in total estimated travel time, and an increase of \$925 in ECU. Building on these findings, we estimate that reducing the IMT response time by an average of four minutes — a potential outcome of adding 10 more IMT to the fleet — could result in ECU savings of approximately \$3,700 per incident.
+In their study on Utah’s IMT performance, @schultz2019 found that a one-minute delay in IMT response time led to a 0.8-minute increase in roadway clearance time (RCT), an additional 34.6 minutes in total estimated travel time, and an increase of \$925 in excess user cost (EUC). Building on these findings, we estimate that reducing the IMT response time by an average of four minutes — a potential outcome of adding 10 more IMT to the fleet — could result in EUC savings of approximately \$3,700 per incident.
 
-As UDOT evaluates the effectiveness of their IMT program and contemplates potential expansion, this study's insights become a crucial asset for informed decision-making. Our [Results](#sec-results) suggest that augmenting the IMT fleet has the potential to decrease VHD and enhance the speed of incident response.
+As UDOT evaluates the effectiveness of their IMT program and contemplates potential expansion, this study's insights become a crucial asset for informed decision-making. Our [Results](#sec-results) suggest that increasing the IMT fleet has the potential to decrease VHD and enhance the speed of incident response.
 
 The model we developed for this project addresses two significant 'what-if' scenarios, applicable to UDOT or any other transportation agency aiming to optimize their IMT program:
 
 1. What if the incidence of traffic disruptions in our region surges? How might this impact our incident management program's effectiveness?
-2. What if we decide to augment our IMT fleet? What are the potential advantages and potential challenges associated with this expansion?
+2. What if we decide to increase our IMT fleet? What are the potential advantages and potential challenges associated with this expansion?
 
 While our primary objective was to address these scenarios, the model’s versatility enables future exploration of additional questions, such as:
 
--   Identifying the optimal deployment locations for IMTs in our system.
+-   Identifying the optimal deployment locations for IMT in our system.
 -   Assessing whether the current operational hours of the IMT program are optimal.
 
 ## Limitations {#sec-limitations}
 
-The limitations of this study are mainly attributed to the model we developed and the aspects that can be enhanced. As outlined in [Incident Modeling](#sec-inc_modeling), we opted for MATSim to simulate IMT performance due to its ability to handle large-scale networks, incorporate real-world data, and mimic authentic driver behavior. While MATSim can be proficient in emulating realistic driver behavior, there are additional practices and methods that we did not utilize, which could have further optimized its performance.
+The limitations of this study are mainly attributed to the model we developed and the aspects that can be enhanced. As outlined in [Incident Modeling](#sec-inc_modeling), we opted for MATSim to simulate IMT performance due to its ability to handle large-scale networks, incorporate real-world data, and mimic authentic driver behavior. While MATSim can realistically portray driver behavior, employing additional methods could have further enhanced its performance in our simulations.
 
 ### Within-Day Replanning {#sec-within-day}
 
@@ -38,7 +38,7 @@ The scenario depicted in @fig-within_day serves as an illustrative example of th
 
 ![Within-day replanning approach for a MATSim routing problem.](figures/within_day.png){#fig-within_day}
 
-Unfortunately, the problem showcased in @fig-within_day surfaced at times throughout our MATSim simulations. In certain scenarios, agents preemptively avoided specific road links anticipated to have incidents, rather than adhering to more realistic behavior patterns observed on real roads. Typically, drivers maintain their intended course until directly confronted with congestion or delays, at which point they may choose to reroute. This variance between the simulated and actual driver responses to unforeseen road incidents underscores a key area for enhancement in our simulation model, ensuring it more accurately reflects genuine driving behavior.
+Unfortunately, the problem showcased in @fig-within_day surfaced at times throughout our MATSim simulations. In certain scenarios, agents preemptively avoided specific road links anticipated to have incidents, rather than adhering to more realistic behavior patterns observed on real roads. Typically, drivers maintain their intended course until directly confronted with congestion or delays, at which point they may choose to reroute. This variance between the simulated and actual driver responses to unforeseen road incidents underscores a key area for enhancement in our simulation model, ensuring it more accurately reflects realistic driving behavior.
 
 ### Initial Parameters {#sec-parameters}
 

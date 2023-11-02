@@ -42,20 +42,27 @@ book:
   appendices: 
     - event_handlers.qmd
   abstract: |
-    The abstract is a crucial component of any scientific paper, as it 
-    provides a summary of the research and its main findings. This paper 
-    provides guidelines for writing an effective scientific abstract. 
-    The first step is to identify the key elements of the research, such 
-    as the research question, methods, results, and conclusions. Next, 
-    the abstract should be written in a clear and concise manner, using 
-    simple language and avoiding technical jargon. The abstract should 
-    also be structured, with a clear introduction, methods section, results 
-    section, and conclusion. Additionally, the abstract should accurately 
-    and succinctly convey the main findings of the research, highlighting the 
-    significance and implications of the work. By following these 
-    guidelines, researchers can ensure that their abstract effectively communicates 
-    the key aspects of their research and attracts the attention of potential 
-    readers. - Written by ChatGPT
+    The effectiveness of the Incident Management Teams (IMT) is well documented, 
+    and the capability of large-scale simulation models to demonstrate the impacts 
+    of incidents is also widely acknowledged. However, using a large-scale 
+    simulation approach to analyze IMT performance remains largely unresearched. 
+    This study employs the Multi-Agent Transport Simulation (MATSim) to model the 
+    effects of incidents and IMT responses on the regional network in Utah's Wasatch Front.
+    
+    This simulation approach largely confirmed findings from similar studies, 
+    demonstrating that IMT effectively reduce incident delays and decrease congestion
+    for users. Furthermore, the simulation allowed an exploration of the 
+    hypothetical impacts of increasing the number of incidents in a scenario 
+    or expanding the number of IMT within a system. 
+    Variations in these parameters revealed that increased incidents strain the 
+    system and cause additional delays. In contrast, additional IMT help to mitigate 
+    the impact of those incidents and improved average IMT response times.
+
+    While the MATSim model we built has room for improvement, it illustrates 
+    how large-scale dynamic modeling can evaluate incident management strategies 
+    beyond previous analysis methods. Looking ahead, the model developed in this 
+    study shows promise as a tool for examining IMT performance in ways that previous 
+    studies have not.
 
 bibliography: references.bib
 csl: apa.csl
