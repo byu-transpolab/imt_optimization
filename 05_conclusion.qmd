@@ -1,5 +1,16 @@
 # Conclusions {#sec-conclusions}
 
+This study aimed to model and assess the response and efficiency of IMT in the Utah Wasatch Front Region. Existing research affirms the effectiveness of IMT in alleviating the repercussions of traffic incidents and other disruptions, such as vehicle breakdowns [see @schultz; @skabardonis1998]. Furthermore, mesoscopic DTA modeling has proven to be a valuable tool for extensive studies on the impacts of incidents and incident management [see @kaddoura2018; @li2020]. However, there seems to be a research gap regarding the application of large-scale simulation models that both emulate and evaluate IMT performance. Recognizing the potential of simulation models to offer novel insights and alternative perspectives on IMT effectiveness, we deemed this area worthy of exploration. Additionally, simulation models afford the opportunity to conduct hypothetical scenario analyses, which might be impractical with the traditional methodologies used for assessing IMT performance. Motivated by these considerations, we developed an IMT simulation model to capture and represent their operational effectiveness across Utah.
+
+Due to its cooperative open-source design, capacity for managing substantial data inputs, and potential for accurately simulating real-world behaviors, we selected the Multi-Agent Transportation Simulation (MATSim) as the platform for conducting our simulation study. Within this modeling framework, we executed simulations based on a network and plans file calibrated by @day2022, a comprehensive list of incidents compiled by @hyer2023 and the Utah Highway Patrol (UHP), IMT data supplied by the Utah Department of Transportation (UDOT), and simulation parameters derived from the incident-based research conducted by @kaddoura2018. Furthermore, we crafted a specialized extension package for MATSim to facilitate the generation of incidents and orchestrate the IMT responses within our simulation. Upon its completion, the model was employed to conduct simulations across 60 distinct scenarios, each representing a unique combination of incident conditions and IMT configurations.
+
+
+
+
+
+
+
+
 This section need not be overly long. You should address any limitations of your results, such as dependence on underlying assumptions or geographic scope. You should also provide a map for future research.
 
 Finally, you should underline the contributions of this work and any practical relevance.
