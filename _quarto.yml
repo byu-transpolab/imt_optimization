@@ -42,27 +42,25 @@ book:
   appendices: 
     - event_handlers.qmd
   abstract: |
-    The effectiveness of the Incident Management Teams (IMT) is well documented, 
-    and the capability of large-scale simulation models to demonstrate the impacts 
-    of incidents is also widely acknowledged. However, using a large-scale 
-    simulation approach to analyze IMT performance remains largely unresearched. 
-    This study employs the Multi-Agent Transport Simulation (MATSim) to model the 
-    effects of incidents and IMT responses on the regional network in Utah's Wasatch Front.
+    The effectiveness of Incident Management Teams (IMT) in reducing the duration 
+    and impact of traffic incidents is well-documented. The capacity of large-scale 
+    simulation models to illustrate the negative effects of these incidents on 
+    vehicle delays and excess user costs (EUC) is also widely recognized. 
+    However, there is a gap in research integrating large-scale simulation modeling 
+    with IMT performance analysis. This study uses the Multi-Agent Transport Simulation 
+    (MATSim) to assess how incidents and IMT influence Utah’s Wasatch Front regional 
+    network and evaluates their performance under hypothetical scenarios.
     
-    This simulation approach largely confirmed findings from similar studies, 
-    demonstrating that IMT effectively reduce incident delays and decrease congestion
-    for users. Furthermore, the simulation allowed an exploration of the 
-    hypothetical impacts of increasing the number of incidents in a scenario 
-    or expanding the number of IMT within a system. 
-    Variations in these parameters revealed that increased incidents strain the 
-    system and cause additional delays. In contrast, additional IMT help to mitigate 
-    the impact of those incidents and improved average IMT response times.
-
-    While the MATSim model we built has room for improvement, it illustrates 
-    how large-scale dynamic modeling can evaluate incident management strategies 
-    beyond previous analysis methods. Looking ahead, the model developed in this 
-    study shows promise as a tool for examining IMT performance in ways that previous 
-    studies have not.
+    Our findings validate the role of IMT in decreasing delays and EUC. 
+    The simulation investigates the potential effects of increased incident 
+    frequency and IMT expansion, revealing that more incidents increase delays, 
+    whereas more IMT units can mitigate these effects and improve response times.
+    
+    The MATSim model we developed demonstrates the potential of dynamic large-scale 
+    modeling to evaluate incident management strategies in ways that previous 
+    studies did not. This model could serve as a valuable tool for further evaluating 
+    the performance of Utah’s IMT program, with the potential to offer new perspectives 
+    on optimizing team deployment and scheduling efficiency.
 
 bibliography: references.bib
 csl: apa.csl
@@ -81,17 +79,41 @@ committee:
   - Gustavious P. Williams
 # Include any keywords you would like for your thesis/dissertation
 keywords:
-  - Demand Responsive Transport
   - Incident Management Teams
-  - MATSim – Multi-Agent Transport Simulation
-  - Network Change Events
+  - Incident Simulation
   - Transportation Modeling
 acknowledgments: | 
-  I would like to express my sincere gratitude to the Utah Department of Transportation for their generous financial support, which was instrumental in bringing this research and thesis project to fruition. My heartfelt thanks also go to the technical advisory committee, whose guidance and constructive feedback have been invaluable throughout the course of this research. Their deep insights into Utah’s traffic incident management programs played a crucial role in shaping this work.
+  I want to extend my gratitude to the Utah Department of Transportation for 
+  their substantial financial backing, which was essential for the completion 
+  of my research and thesis project. I am equally grateful to the technical 
+  advisory committee, whose expert guidance and invaluable feedback were 
+  critical throughout my research endeavor. Their in-depth understanding of 
+  Utah’s traffic incident management programs was a crucial contributor to the 
+  successful outcome of this study.
   
-  I am also immensely grateful to my fellow research assistants at BYU, Joel Hyer, Harrison Holdsworth, and Brynn Woolley. Joel, through his work on the IMT Performance Phase III project, provided essential information on IMT performance, as well as incident data and metrics, all of which were pivotal to this project. Harrison’s contributions were multifaceted; he not only compiled research on IMT optimization, but also assisted in writing the literature review for this report and served as a vital link between Joel’s project and my own research. Brynn’s expertise was invaluable in the development of the transportation model used in this project, and her assistance in analyzing its outputs, as well as her help in the production and editing of this thesis document, were greatly appreciated.
+  My sincere thanks are extended to my fellow research assistants at BYU—Joel Hyer, 
+  Harrison Holdsworth, and Brynn Woolley. Joel’s insightful analysis and the vital 
+  data he provided from the IMT Performance Phase III project were indispensable. 
+  Harrison's wide-ranging input, from his diligent compilation of research on IMT 
+  optimization to his collaborative efforts in drafting the literature review, 
+  proved instrumental. His ability to seamlessly connect Joel's work with my 
+  research was invaluable. Brynn's expertise in developing the transportation model, 
+  her astute analysis of its findings, and her assistance in refining and 
+  editing this report added significantly to the quality of my work.
   
-  I want to express my profound appreciation to my faculty advisors and the members of the thesis committee, Drs. Macfarlane, Schultz, and Williams. Special gratitude is extended to Dr. Macfarlane, whose role as an outstanding faculty advisor, teacher, mentor, and friend has been invaluable throughout my academic journey. His patience, counsel, and support have been crucial at every phase of this project. I am deeply thankful for his belief in my potential and his consistent encouragement, which have been instrumental in my personal growth and the success of this research.
+  Profound appreciation is due to my faculty advisors and the members of my 
+  thesis committee, Drs. Macfarlane, Schultz, and Williams, for their unwavering 
+  support. I am particularly indebted to Dr. Macfarlane for his exceptional mentorship 
+  as an advisor, educator, and friend. His patience, wisdom, and encouragement have 
+  been instrumental at every stage of my academic journey. His faith in me and 
+  consistent support have been the pillars of my personal development 
+  and the achievements of this research.
+  
+  Lastly, I offer thanks to my parents, Duane and Jodi Jarvis, for their 
+  steadfast encouragement and belief in me throughout my academic pursuits. 
+  Their encouragement and reassurance have been a source of immense strength, 
+  especially during this significant stage of my life. I am forever grateful 
+  for the stability and unwavering support they have so selflessly provided.
 
 format:
   html:
