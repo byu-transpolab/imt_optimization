@@ -293,19 +293,18 @@ so selflessly provided.
 \chapter{Introduction}\label{introduction}}
 
 \footnote{This is a draft of a manuscript, authored by Jarvis,
-  Macfarlane, Woolley, and Schultz. It is prepared for submission to the
-  Transportation Research Board. Any use of the pronoun `we' throughout
-  this document refers collectively to the research team, all of whom
-  will be listed as authors upon the manuscript's publication as an
-  article.}Incident Management Teams (IMT) are service vehicles that
-collaborate with highway patrol units to manage traffic after an
-incident and provide timely roadside assistance. They are strategically
-important for improving highway operations, particularly during peak
-traffic times, helping to effectively alleviate congestion and
-associated user costs. Capable of quickly addressing a range of
-incidents from minor vehicle breakdowns to severe multi-car collisions,
-IMT are crucial in controlling traffic and restoring normal flow on the
-roadways.
+  Macfarlane, Woolley, and Schultz. It is prepared to be submitted to
+  the Transportation Research Board. Any use of the pronoun `we' in this
+  document refers collectively to the research team, all of whom will be
+  listed as authors upon the manuscript's publication as an article.}
+Incident Management Teams (IMT) are service vehicles that collaborate
+with highway patrol units to manage traffic after an incident and
+provide timely roadside assistance. They are strategically important for
+improving highway operations, particularly during peak traffic times,
+helping to effectively alleviate congestion and associated user costs.
+Capable of quickly addressing a range of incidents from minor vehicle
+breakdowns to severe multi-car collisions, IMT are crucial in
+controlling traffic and restoring normal flow on the roadways.
 
 States like Utah have long benefited from IMT, witnessing notable
 reductions in congestion and traffic-related costs (Bennett, 2021). The
@@ -323,7 +322,7 @@ congestion and average vehicle travel times within a simulated network.
 However, their model does not evaluate the impact of IMT strategies.
 This research aims to address this limitation by merging insights on IMT
 effectiveness with a large-scale regional traffic model. This approach
-is designed to underscore the impacts of traffic incidents and IMT
+is designed to highlight the impacts of traffic incidents and IMT
 interventions within a simulated network.
 
 In this research, we present a model of IMT response to incidents on
@@ -358,15 +357,11 @@ outline of future research motivated by this study's limitations.
 Traffic incident management in general --- and IMT in particular --- are
 not strictly new innovations. The Federal Highway Administration (FHWA)
 publishes the \emph{Traffic Incident Management Handbook} (FHWA, 2000),
-which defines traffic incident management as:
-
-\begin{quote}
+which defines traffic incident management as:\\
 \emph{The systematic, planned, and coordinated use of human,
 institutional, mechanical, and technical resources to reduce the
 duration and impact of incidents and improve the safety of motorists,
-crash victims, and incident responders. (p.~1-1)}
-\end{quote}
-
+crash victims, and incident responders. (p.~1-1)}\\
 The handbook details the process of how to implement a traffic incident
 management program as well as improve it. The manual covers various
 aspects of incident management, including the responsibilities of
@@ -398,11 +393,11 @@ underscoring the importance of rapid intervention.
 Skabardonis et al. (1998) confirmed the effectiveness of IMT in their
 study, concluding that IMT in California effectively reduced incident RT
 and ECU. Skabardonis et al. (1998) found that, on average, total
-incident RT was 15 minutes longer when California Highway Patrol (CHP)
+incident RT was 15 minutes longer when California Highway Patrol
 responded without the support of IMT. Using a system to assign a cost
 per traveler per unit of time to vehicles in the observed area, the
 authors determined that IMT units had a cost-to-benefit ratio of 5:1.
-They also concluded that CHP officers spent less time on incidents
+They also concluded that patrol officers spent less time on incidents
 (including vehicle breakdowns) when assisted by IMT services.
 
 \hypertarget{sec-lit_imt_opt}{%
@@ -430,7 +425,7 @@ strategically positions IMT units to respond to incidents, taking into
 account future probabilities on the network. The primary goals were to
 minimize incident management costs and maximize the likelihood that
 every incident receive assistance. The model was applied to a simplified
-South Jersey Highway network, utilizing traffic incident data from the
+New Jersey highway network, utilizing traffic incident data from the
 region to inform demand distribution. Through this application, an
 optimal number of depots and truck assignments were determined. However,
 the lack of a comparative analysis with pre-existing depot and unit
@@ -468,17 +463,17 @@ research domain.
 \hypertarget{sec-inc_modeling}{%
 \section{Incident Modeling}\label{sec-inc_modeling}}
 
-The majority of traffic models utilized to study the impacts of
-incidents and incident management are Dynamic Traffic Assignment (DTA)
-models. These models demonstrate how congestion and travel times
-fluctuate over time, varying for different vehicles (Boyles, 2018).
-Their capability to represent variance over time make DTA models
-particularly advantageous for depicting the unpredictability of
-incidents. A study conducted by Sisiopiku et al. (2007), which explored
-the effects of congestion, underscored the applications of
-simulation-based DTA modeling in incident management. It advocated for
-dynamic assignment as the optimal approach for incident modeling.
-Sisiopiku describes their methodology as follows:
+The majority of traffic models used to study the impacts of incidents
+and incident management are Dynamic Traffic Assignment (DTA) models.
+These models demonstrate how congestion and travel times fluctuate over
+time, varying for different vehicles (Boyles, 2018). Their capability to
+represent variance over time make DTA models particularly advantageous
+for depicting the unpredictability of incidents. A study conducted by
+Sisiopiku et al. (2007), which explored the effects of congestion,
+underscored the applications of simulation-based DTA modeling in
+incident management. It advocated for dynamic assignment as the optimal
+approach for incident modeling. Sisiopiku describes their methodology as
+follows:
 
 \begin{quote}
 \emph{The overall approach in this study is to use the DTA capabilities
