@@ -466,8 +466,8 @@ research domain.
 The majority of traffic models used to study the impacts of incidents
 and incident management are Dynamic Traffic Assignment (DTA) models.
 These models demonstrate how congestion and travel times fluctuate over
-time, varying for different vehicles (Boyles, 2018). Their capability to
-represent variance over time make DTA models particularly advantageous
+time, varying for different vehicles (Boyles, 2018). The capability to
+represent travel time variance make DTA models particularly advantageous
 for depicting the unpredictability of incidents. A study conducted by
 Sisiopiku et al. (2007), which explored the effects of congestion,
 underscored the applications of simulation-based DTA modeling in
@@ -524,37 +524,35 @@ along the Utah Wasatch Front. Given this research's scope, a large-scale
 dynamic model would likely be the most suitable choice.
 
 Interestingly, Pal \& Sinha (2002) developed a model to replicate the
-impacts of incidents and IMT on traffic conditions in Indiana, with
-objectives similar to this study, utilizing overall traffic conditions
-as the performance indicator for IMT effectiveness. Various
-configurations of response vehicles were simulated, incorporating
-probability distributions of crash data, vehicle speed, and roadway
-carrying capacity. The study's results informed recommendations on fleet
-size, operation hours, patrol area design, and dispatching policy
-improvements. However, since mesoscopic traffic simulations in 2002
-couldn't simulate incident response units, Pal \& Sinha had to create
-their model from scratch. Unfortunately, their model and methodology
-seem tailored specifically for their study and may not be applicable to
-this project's context. Additionally, it's worth noting that the region
-their model covered is smaller than the area served by the Utah IMT
-program.
+impacts of incidents and IMT on traffic conditions in Indiana utilizing
+overall traffic conditions as the performance indicator for IMT
+effectiveness. Various configurations of response vehicles were
+simulated, incorporating probability distributions of crash data,
+vehicle speed, and roadway carrying capacity. The study's results
+informed recommendations on fleet size, operation hours, patrol area
+design, and dispatching policy improvements. However, since mesoscopic
+traffic simulations in 2002 couldn't simulate incident response units,
+Pal \& Sinha had to create their model from scratch. Unfortunately,
+their model and methodology seem tailored specifically for their study
+and may not be applicable to this project's context.
 
 Similar to VISTA, MATSim, the Multi-Agent Transport Simulation toolkit,
 stands as another large-scale modeling system that has proven effective
-in conducting large-scale incident simulations. Despite certain
-similarities, MATSim presents attributes that could potentially offer a
+in conducting large-scale incident simulations. While VISTA and MATSim
+both have the capability to simulate the regional impact of traffic
+incidents, MATSim presents attributes that could potentially offer a
 more accurate representation of real-world scenarios and driver
-behaviors. Contrary to the model crafted by Pal and Sinha, MATSim
-operates as an open-source framework, making it ideal for adapting to
-different scenarios. Notably, MATSim facilitates the integration of real
-world data, enhancing the authenticity and precision of network
-simulations. This capability is particularly pertinent to this project,
-as prior research conducted by Hyer (2023) has made recent UDOT incident
-and IMT data available, which could be integrated into the simulation
-model for more robust and realistic results. Although MATSim has been
-employed to assess network impacts of incidents, its application in
-incident management studies remains a largely unexplored area,
-presenting an opportunity for further investigation and potential
+behaviors. Also, contrary to the model crafted by Pal \& Sinha (2002),
+MATSim operates as an open-source framework, making it ideal for
+adapting to different scenarios. Notably, MATSim facilitates the
+integration of real world data, enhancing the authenticity and precision
+of network simulations. This capability is particularly pertinent to
+this project, as prior research conducted by Hyer (2023) has made recent
+UDOT incident and IMT data available, which could be integrated into the
+simulation model for more robust and realistic results. Although MATSim
+has been employed to assess network impacts of incidents, its
+application in incident management studies remains a largely unexplored
+area, presenting an opportunity for further investigation and potential
 breakthroughs in the field.
 
 Kaddoura \& Nagel (2018) conducted a comprehensive study on incident
@@ -576,7 +574,7 @@ modeled incident severities.
 }
 
 \caption{\label{fig-berlin_cap}Traffic incidents mapped on the Berlin
-network.}
+network. (Kaddoura \& Nagel, 2018)}
 
 \end{figure}
 
@@ -618,19 +616,19 @@ validate the conclusions of Sisiopiku et al. (2007) that making incident
 information available to agents leads to decreases in travel time and
 congestion.
 
-This subsection highlight the capabilities of DTA models to simulate the
-complexities of traffic incidents, congestion, and travel times. It
+This subsection highlights the capabilities of DTA models to simulate
+the complexities of traffic incidents, congestion, and travel times. It
 highlights how incorporating incident management responses into the
 models would enhance their ability to simulate realistic traffic
 conditions and support policy analysis. Given its capacity to model
 large-scale networks, integrate real-world data, and replicate realistic
 driver behavior, MATSim is deemed particularly suitable for this
-project. It will be employed to assess the effectiveness of IMT in Utah.
+project.
 
 \hypertarget{sec-lit_summary}{%
 \section{Summary}\label{sec-lit_summary}}
 
-\protect\hyperlink{sec-literature}{Literature Review} provides an
+\protect\hyperlink{sec-literature}{The literature review} provides an
 overview of the extensive research on the effectiveness of IMT in
 reducing RCT and ECU during incident responses. It has also highlighted
 studies focused on optimizing the size and distribution of IMT. However,
@@ -652,9 +650,9 @@ scope for evaluating IMT deployment strategies and their effectiveness.
 \hypertarget{sec-methods}{%
 \chapter{Methodology}\label{sec-methods}}
 
-As highlighted in the \protect\hyperlink{sec-literature}{Literature
-Review}, there is substantial evidence indicating that IMT can
-effectively reduce RCT and ECU following traffic incidents.
+As highlighted in the \protect\hyperlink{sec-literature}{literature
+review}, there is substantial evidence indicating that IMT can
+effectively reduce RCT and EUC following traffic incidents.
 Additionally, the effectiveness of DTA models in analyzing the impact of
 such incidents has been well-documented. However, there is a lack of
 comprehensive research evaluating IMT impact on entire traffic networks
@@ -670,15 +668,15 @@ for determining IMT effectiveness.
 
 Our methodology is structured around three main components: the
 functionality of the MATSim model, the setup of IMT vehicles and
-incidents, and the scenarios for comparative analysis. In
-\protect\hyperlink{sec-MATSim_mod}{Model Design} we describe the
-structure of the model and the functions it uses to represent incidents
-and IMT response. In \protect\hyperlink{sec-model_imp}{Model
-Implementaiton} we outline the data structure of the model by first
-describing \protect\hyperlink{sec-IMT_setup}{IMT Setup}, then
-\protect\hyperlink{sec-inc_data}{Incident Data and Sampling} and
-conclude by describing the \protect\hyperlink{sec-scenarios}{Scenarios}
-used for evaluating the impact of incidents and IMT.
+incidents, and the scenarios for comparative analysis. In the
+\protect\hyperlink{sec-MATSim_mod}{model design} subsection we describe
+the structure of the model and the functions it uses to represent
+incidents and IMT response. In \protect\hyperlink{sec-model_imp}{model
+implementaiton} we outline the data structure of the model by describing
+the \protect\hyperlink{sec-IMT_setup}{setup of IMT} and explaining our
+\protect\hyperlink{sec-inc_data}{incident data and sampling} methods. We
+conclude by describing the \protect\hyperlink{sec-scenarios}{scenarios}
+we used for evaluating the impact of incidents and IMT.
 
 \hypertarget{sec-MATSim_mod}{%
 \section{Model Design}\label{sec-MATSim_mod}}
@@ -701,9 +699,9 @@ the functionality of our model.
 
 In this section, we describe some of the specific tools within MATSim
 that we used and adapted to construct a comprehensive and functional
-model. These tools include \protect\hyperlink{sec-MATSim_score}{Scoring
-and Replanning}, \protect\hyperlink{sec-NCE}{Network Change Events}, and
-\protect\hyperlink{sec-imt_response}{IMT Assignment and Response}.
+model. These tools include \protect\hyperlink{sec-MATSim_score}{scoring
+and replanning}, \protect\hyperlink{sec-NCE}{network change events}, and
+\protect\hyperlink{sec-imt_response}{IMT assignment and response}.
 Together, they contribute to the realism and precision of our traffic
 simulations, particularly in the context of responding to roadway
 incidents, ensuring that our model provides accurate and reliable
@@ -746,24 +744,50 @@ parameters were primarily selected based on insights from the incident
 research conducted Kaddoura \& Nagel (2018) and the parameters used in
 their model.
 
-As detailed in \protect\hyperlink{sec-model_imp}{Model Implementaiton},
-the plans file used to generate simulations in MATSim was considerably
-massive, encapsulating travel data for over 2 million agents. Our
-objective, utilizing the complete plans file, was to guide the simulated
-agents toward an equilibrium in travel behavior. To achieve this, we
-employed the following methodology: 1. We processed both the network and
-plans files over the course of 350 simulated iterations with incidents
-or IMT included. 2. Using the output from this preliminary scenario, we
-established a `hot start' for the subsequent scenarios incorporating
-incidents and IMT responses. At this stage, a significant portion of
-agents had already identified efficient travel routes to their
-destinations. This preliminary phase of running the plans file was
-intended to expedite the convergence towards a balanced state in travel
-behavior for scenarios that included incidents and IMT responses. 3. To
-achieve equilibrium in travel behavior, we conducted an additional 100
-iterations in the simulations that accounted for incidents and IMT
-responses, ensuring a more comprehensive stabilization across the
-majority of scenarios.
+As will be detailed in the \protect\hyperlink{sec-model_imp}{model
+implementaiton} section, the plans file used to generate simulations in
+MATSim was exceptionally large, encompassing travel data for over 2
+million agents. Our objective, utilizing the complete plans file, was to
+guide the simulated agents toward an equilibrium in travel behavior. To
+achieve this, we employed the following methodology:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We processed both the network and plans files over the course of 350
+  simulated iterations with incidents or IMT included.
+\item
+  Using the output from this preliminary scenario, we established a `hot
+  start' for the subsequent scenarios incorporating incidents and IMT
+  responses. At this stage, a significant portion of agents had already
+  identified efficient travel routes to their destinations. This
+  preliminary phase of running the plans file was intended to expedite
+  the convergence towards a balanced state in travel behavior for
+  scenarios that included incidents and IMT responses.
+\item
+  To achieve equilibrium in travel behavior, we conducted an additional
+  100 iterations in the simulations that accounted for incidents and IMT
+  responses, ensuring a more comprehensive stabilization across the
+  majority of scenarios.
+\end{enumerate}
+
+Figure~\ref{fig-score_output} illustrates a MATSim scoring output from a
+scenario that included incidents and IMT. This figure shows that there
+were significant adjustments to plans and corresponding scores during
+the initial 60 iterations, with the system's executed scores gradually
+stabilizing as the simulation neared its completion.
+
+\begin{figure}
+
+{\centering \includegraphics{figures/scorestats.png}
+
+}
+
+\caption{\label{fig-score_output}MATSim scoring statistics output
+example.}
+
+\end{figure}
 
 \hypertarget{sec-NCE}{%
 \subsection{Network Change Events}\label{sec-NCE}}
