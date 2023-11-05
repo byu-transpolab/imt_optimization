@@ -972,18 +972,18 @@ the total number of incidents within a specific time period. These
 combined incident recorded informed the modeling of daily incident
 frequencies but were not used for incident sampling in the simulation
 
-To generate distinct values representing daily incident frequencies, we
-employed a randomized sampling technique. These values were collectively
-termed Current Incident Frequencies as they were derived from the
-original distribution of daily incidents. Furthermore, we formulated a
-second set of daily incident values, named Increased Incident
-Frequencies. These values were extracted from the upper portion of the
-2022 incident data and were specifically designed to assess the
-resilience and efficacy of the IMT system under scenarios of markedly
-increased daily incidents. The visual depiction of the original
-distribution of daily incidents, alongside the distributions for both
-the Current and Increased Incident Frequencies, is illustrated in
-Figure~\ref{fig-incident_sampling_plot}.
+To generate 10 distinct values representing daily incident frequencies,
+we employed a randomized sampling technique. These values were
+collectively termed Current Incident Frequencies as they were derived
+from the original distribution of daily incidents. Furthermore, we
+formulated a second set of 10 additional daily incident values, named
+Increased Incident Frequencies. These values were extracted from the
+upper portion of the 2022 incident data and were specifically designed
+to assess the resilience and efficacy of the IMT system under scenarios
+of markedly increased daily incidents. The visual depiction of the
+original distribution of daily incidents, alongside the distributions
+for both the Current and Increased Incident Frequencies, is illustrated
+in Figure~\ref{fig-incident_sampling_plot}.
 
 \begin{figure}
 
@@ -1017,8 +1017,8 @@ simulations where incidents occur without any IMT intervention. The
 second group includes incidents and the deployment of 20 IMT, while the
 third group features incidents managed by 30 IMT.
 
-In total, six scenario groups, each with 10 random incident sets, were
-established, as follows:
+In total, six scenario groups, each with 10 random ``days'' with
+distinct incident sets, were established, as follows:
 
 \begin{itemize}
 \tightlist
@@ -1684,9 +1684,6 @@ driver behavior. While MATSim can realistically portray driver behavior,
 employing additional methods could have further enhanced its performance
 in our simulations.
 
-\hypertarget{sec-within-day}{%
-\subsection{Within-Day Replanning}\label{sec-within-day}}
-
 In the \protect\hyperlink{sec-MATSim_Score}{Scoring and Replanning}
 section, we describe how agents in MATSim alter their routes through an
 iterative scoring process influenced by various factors including late
@@ -1737,25 +1734,6 @@ delays, at which point they may choose to reroute. This variance between
 the simulated and actual driver responses to unforeseen road incidents
 underscores a key area for enhancement in our simulation model, ensuring
 it more accurately reflects realistic driving behavior.
-
-\hypertarget{sec-parameters}{%
-\subsection{Initial Parameters}\label{sec-parameters}}
-
-As outlined in \protect\hyperlink{sec-model_imp}{Model Implementation},
-we largely derived the initial scoring configuration parameters for our
-model from the configuration file used by Kaddoura \& Nagel (2018) in
-their MATSim incidents model. Despite the similarities between our
-simulations, it is important to note that their model was set in Berlin,
-Germany, where average travel patterns, particularly in terms of mode
-choice, differ from those in the United States, and more specifically,
-Utah. The mode choice parameters in their configuration tended to favor
-higher rates of biking and transit use than would likely occur in a
-network representing the Utah Wasatch Front. While the absence of
-\protect\hyperlink{sec-within-day}{Within-Day Replanning} may have had a
-more significant impact, one of the
-\protect\hyperlink{sec-next_steps}{Next Steps} for enhancing our model
-should certainly involve adjusting the configuration file to more
-accurately reflect the authentic travel behaviors of Utah residents.
 
 \hypertarget{sec-next_steps}{%
 \section{Next Steps}\label{sec-next_steps}}

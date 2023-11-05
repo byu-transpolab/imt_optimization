@@ -47,7 +47,7 @@ As will be detailed in the [model implementaiton](#sec-model_imp) section, the p
 2.  Using the output from this preliminary scenario, we established a 'hot start' for the subsequent scenarios incorporating incidents and IMT responses. At this stage, a significant portion of agents had already identified efficient travel routes to their destinations. This preliminary phase of running the plans file was intended to expedite the convergence towards a balanced state in travel behavior for scenarios that included incidents and IMT responses.
 3.  To achieve equilibrium in travel behavior, we conducted an additional 100 iterations in the simulations that accounted for incidents and IMT responses, ensuring a more comprehensive stabilization across the majority of scenarios.
 
-@fig-score_output illustrates a MATSim scoring output from a scenario that included incidents and IMT. This figure shows that there were significant adjustments to plans and corresponding scores during the initial 60 iterations, with the system's exEUCted scores gradually stabilizing as the simulation neared its completion.
+@fig-score_output illustrates a MATSim scoring output from a scenario that included incidents and IMT. This figure shows that there were significant adjustments to plans and corresponding scores during the initial 60 iterations, with the system's executed scores gradually stabilizing as the simulation neared its completion.
 
 ![MATSim scoring statistics output example.](figures/scorestats.png){#fig-score_output}
 
@@ -188,7 +188,7 @@ In total, twenty values were selected, evenly split with ten allocated to the Cu
 
 In [Incident Data and Sampling](#sec-inc_data) and @fig-incident_sampling_plot, we observe the establishment and categorization of twenty distinct incident seeds into either Current or Increased Incident frequencies. Each seed gave rise to three separate simulation groups. The first group, No IMT, exclusively features simulations where incidents occur without any IMT intervention. The second group includes incidents and the deployment of 20 IMT, while the third group features incidents managed by 30 IMT.
 
-In total, six scenario groups, each with 10 random "days" with distinct incident sets, were established, as follows:
+In total, six scenario groups, each containing 10 random "days" with distinct incident sets, were established, as follows:
 
 -   No IMT, current incident frequency
 -   No IMT, increased incident frequency

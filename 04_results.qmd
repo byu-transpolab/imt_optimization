@@ -21,9 +21,9 @@ library(extrafont)
 library(scales)
 ```
 
-This section details the outcomes of the Utah IMT Optimization project, employing the MATSim model to exEUCte a series of simulations across a range of scenario groups. Specifically, the groups---No IMT, 20 IMT, and 30 IMT---were compared with a Baseline scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of IMT in alleviating traffic disruptions.
+This section details the outcomes of the Utah IMT Optimization project, employing the MATSim model to execute a series of simulations across a range of scenario groups. Specifically, the groups---No IMT, 20 IMT, and 30 IMT---were compared with a Baseline scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of IMT in alleviating traffic disruptions.
 
-The following sections analyze the results derived from the simulated scenarios. This analysis uses comparative metrics such as vehicle hours of delay (VHD), the consequences of traffic incidents, and the dynamics of the IMT responses in relation to the incidents they manage.
+The following sections analyze the results derived from the simulated scenarios. This analysis uses comparative metrics such as VHD, the consequences of traffic incidents, and the dynamics of the IMT responses in relation to the incidents they manage.
 
 ## Vehicle Hours of Delay
 
