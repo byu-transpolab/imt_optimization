@@ -23,9 +23,9 @@ write_truck_arrival_table <- function(truck_arrival_csv) {
       `All IMT [mins]` = sprintf("%.1f", mean(c(diff1, diff2, diff3, diff4), na.rm=TRUE)),
       `1st [mins]` = sprintf("%.1f", mean(diff1, na.rm=TRUE)),
       `2nd [mins]` = sprintf("%.1f", mean(diff2, na.rm=TRUE)),
-      `3rd [mins]` = sprintf("%.1f", mean(diff3, na.rm=TRUE)),
+      `3rd [mins]` = sprintf("%.1f", mean(diff3, na.rm=TRUE))
       # `4th [mins]` = sprintf("%.1f", mean(diff4, na.rm=TRUE)),
-      `Total [hours]` = round(sum(`Total Truck Travel [hours]`, na.rm=TRUE))
+      # `Total [hours]` = round(sum(`Total Truck Travel [hours]`, na.rm=TRUE))
     )
   
   # Correct rounding for number of incidents
@@ -37,13 +37,13 @@ write_truck_arrival_table <- function(truck_arrival_csv) {
   total_hours <- sum(data$`Total Truck Travel [hours]`, na.rm=TRUE)
   
   incident_row <- data.frame(
-    Scenario = "Incidents",
+    Scenario = "Number of Incidents",
     `All IMT [mins]` = num_incidents_1st_truck,
     `1st [mins]` = num_incidents_1st_truck,
     `2nd [mins]` = num_incidents_2nd_truck,
-    `3rd [mins]` = num_incidents_3rd_truck,
+    `3rd [mins]` = num_incidents_3rd_truck
     # `4th [mins]` = num_incidents_4th_truck,
-    `Total [hours]` = num_incidents_1st_truck
+    # `Total [hours]` = num_incidents_1st_truck
   )
   
   names(incident_row) <- names(output)

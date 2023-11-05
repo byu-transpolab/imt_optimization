@@ -47,7 +47,7 @@ As will be detailed in the [model implementaiton](#sec-model_imp) section, the p
 2.  Using the output from this preliminary scenario, we established a 'hot start' for the subsequent scenarios incorporating incidents and IMT responses. At this stage, a significant portion of agents had already identified efficient travel routes to their destinations. This preliminary phase of running the plans file was intended to expedite the convergence towards a balanced state in travel behavior for scenarios that included incidents and IMT responses.
 3.  To achieve equilibrium in travel behavior, we conducted an additional 100 iterations in the simulations that accounted for incidents and IMT responses, ensuring a more comprehensive stabilization across the majority of scenarios.
 
-@fig-score_output illustrates a MATSim scoring output from a scenario that included incidents and IMT. This figure shows that there were significant adjustments to plans and corresponding scores during the initial 60 iterations, with the system's executed scores gradually stabilizing as the simulation neared its completion.
+@fig-score_output illustrates a MATSim scoring output from a scenario that included incidents and IMT. This figure shows that there were significant adjustments to plans and corresponding scores during the initial 60 iterations, with the system's exEUCted scores gradually stabilizing as the simulation neared its completion.
 
 ![MATSim scoring statistics output example.](figures/scorestats.png){#fig-score_output}
 
@@ -121,7 +121,7 @@ Our research primarily concentrates on evaluating the potential impacts of expan
 
 Analyzing data from 2018 and 2022, @hyer2023 successfully identified 411 unique incidents with varying degrees of severity, ranging from property damage to fatal incidents. We utilized this carefully curated dataset to selectively include specific incidents in the MATSim model. It is important to acknowledge that these 411 incidents only constitute a portion of all incidents reported by UHP during this time frame. A number of additional incidents were excluded from the analysis because they lacked essential information on duration, capacity reduction, or location, all of which are necessary for a comprehensive evaluation. Nevertheless, the integration of the 411 analyzed incidents with the additional incomplete records provides insights, aiding in quantifying the total number of incidents within a specific time period. These combined incident recorded informed the modeling of daily incident frequencies but were not used for incident sampling in the simulation
 
-To generate distinct values representing daily incident frequencies, we employed a randomized sampling technique. These values were collectively termed Current Incident Frequencies as they were derived from the original distribution of daily incidents. Furthermore, we formulated a second set of daily incident values, named Increased Incident Frequencies. These values were extracted from the upper portion of the 2022 incident data and were specifically designed to assess the resilience and efficacy of the IMT system under scenarios of markedly increased daily incidents. The visual depiction of the original distribution of daily incidents, alongside the distributions for both the Current and Increased Incident Frequencies, is illustrated in @fig-incident_sampling_plot.
+To generate 10 distinct values representing daily incident frequencies, we employed a randomized sampling technique. These values were collectively termed Current Incident Frequencies as they were derived from the original distribution of daily incidents. Furthermore, we formulated a second set of 10 additional daily incident values, named Increased Incident Frequencies. These values were extracted from the upper portion of the 2022 incident data and were specifically designed to assess the resilience and efficacy of the IMT system under scenarios of markedly increased daily incidents. The visual depiction of the original distribution of daily incidents, alongside the distributions for both the Current and Increased Incident Frequencies, is illustrated in @fig-incident_sampling_plot.
 
 ```{r incident_sampling_plot}
 #| label: fig-incident_sampling_plot
@@ -188,7 +188,7 @@ In total, twenty values were selected, evenly split with ten allocated to the Cu
 
 In [Incident Data and Sampling](#sec-inc_data) and @fig-incident_sampling_plot, we observe the establishment and categorization of twenty distinct incident seeds into either Current or Increased Incident frequencies. Each seed gave rise to three separate simulation groups. The first group, No IMT, exclusively features simulations where incidents occur without any IMT intervention. The second group includes incidents and the deployment of 20 IMT, while the third group features incidents managed by 30 IMT.
 
-In total, six scenario groups, each with 10 random incident sets, were established, as follows:
+In total, six scenario groups, each with 10 random "days" with distinct incident sets, were established, as follows:
 
 -   No IMT, current incident frequency
 -   No IMT, increased incident frequency

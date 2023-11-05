@@ -76,10 +76,13 @@ write_all_links_comparison_table <- function(delay_summary){
 # This function creates a violin plot for delay summaries, excluding the baseline from the plot but showing it as a reference line.
 make_all_links_plot <- function(delay_summary) {
   
-  # Filter out 'Baseline' and reorder the factor levels for 'scenario'
+  # Combine 'scenario' and 'incident_frequency' into a new 'group' factor
   plot_data <- delay_summary %>%
     filter(scenario != "Baseline") %>%
-    mutate(scenario = factor(scenario, levels = c("No IMT", "20 IMT", "30 IMT")))
+    mutate(group = interaction(scenario, incident_frequency, sep = " "),
+           group = factor(group, levels = c("No IMT Current", "No IMT Increased",
+                                            "20 IMT Current", "20 IMT Increased", 
+                                            "30 IMT Current", "30 IMT Increased")))
   
   # Compute the mean of the 'total_delay' for the 'Baseline' scenario
   baseline_value <- delay_summary %>%
@@ -87,15 +90,15 @@ make_all_links_plot <- function(delay_summary) {
     summarize(mean(total_delay)) %>%
     pull()
   
-  # Begin creating the plot
-  all_links_plot <- ggplot(plot_data, aes(x = scenario, y = total_delay, fill = scenario)) +
+  # Create the violin plot
+  all_links_plot <- ggplot(plot_data, aes(x = group, y = total_delay, fill = group)) +
     geom_violin(trim = FALSE, scale = "width") +
     # Add a horizontal reference line for the baseline value
     geom_hline(aes(yintercept = baseline_value), linetype = "dashed", color = "black", linewidth = 1.2) +
     # Overlay points that show the mean of each group
     stat_summary(fun = mean, geom = "point", shape = 23, size = 3, color = "black", position = position_dodge(width = 0.75)) +
     # Set colors for the fill of each violin plot
-    scale_fill_manual(values = brewer.pal(n = 3, name = "Set2"), guide = "none") +
+    scale_fill_manual(values = brewer.pal(n = 6, name = "Set2"), guide = "none") +
     
     # Modify the y-axis breaks and labels
     scale_y_continuous(
@@ -103,22 +106,20 @@ make_all_links_plot <- function(delay_summary) {
         breaks <- pretty(b)
         breaks[which.min(abs(breaks - baseline_value))] <- baseline_value
         breaks
-      },
-      labels = function(b) {
-        ifelse(b == baseline_value, "Baseline", format(round(b), big.mark = "", scientific = FALSE))
-      }) +
+    }, 
+    labels = function(b) {
+      ifelse(b == baseline_value, "Baseline", format(round(b), big.mark = "", scientific = FALSE))
+    }
+  ) +
     
     # Set the axis titles
     labs(x = "Group", y = "Delay [hours]") +
-    
-    # Set theme adjustments
     theme_minimal() +
     theme(
-      axis.title = element_text(face = "bold")
+      axis.title = element_text(face = "bold"),
+      axis.text.x = element_text(angle = 45, hjust = 1),
     )
-  
-  # Return the created plot
+      
+  # Since we are no longer faceting, remove the facet_wrap line
   return(all_links_plot)
 }
-
-
