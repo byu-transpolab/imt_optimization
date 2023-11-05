@@ -574,7 +574,7 @@ modeled incident severities.
 }
 
 \caption{\label{fig-berlin_cap}Traffic incidents mapped on the Berlin
-network. (Kaddoura \& Nagel, 2018)}
+network (Kaddoura \& Nagel (2018)).}
 
 \end{figure}
 
@@ -816,24 +816,30 @@ the impact of both incidents and IMT arrivals.
 \hypertarget{sec-imt_response}{%
 \subsection{IMT Assignment and Response}\label{sec-imt_response}}
 
-Within MATSim, the dispatch of one or more IMT is triggered by the
+Within MATSim, the deployment of one or more IMT is triggered by the
 occurrence of an incident. The optimal IMT for the situation is
-determined using a least-cost path dispatch algorithm, which bases its
-calculations on vehicle paths while considering factors such as
-congestion and link speed. The success of these methods heavily relies
-on the IMT units' capability to navigate through traffic. In cases where
-all IMT are occupied at the time of an incident, the algorithm waits
-until a vehicle becomes available, and subsequently dispatches it to the
-incident site.
+determined using a least-cost path algorithm, which calculates the
+quickest route based on real-time traffic conditions like congestion and
+link speeds. The IMT that can reach the incident location the fastest,
+accounting for current roadway speeds and congestion, is then
+dispatched. If all IMT are occupied at the time of an incident, the
+algorithm waits until an IMT becomes available and then dispatches it to
+the site of the incident.
 
-Upon an IMT's arrival at an incident, a NCE is activated via an event
-handler, a MATSim tool that functions to log simulation events in
-real-time. While incidents reduce a link's capacity, the IMT's arrival
-triggers a NCE that restores 25\% of the capacity gap on the affected
-link. The capacity gap is defined as the difference between the link's
-full capacity and its reduced capacity during an incident. For incidents
-requiring the response of multiple IMT, each arriving unit restores an
-additional 25\% of the existing capacity gap.
+When an IMT arrives at an incident within MATSim, a NCE is activated by
+an event handler, a MATSim tool that logs simulation events as they
+occur. This NCE demonstrates the IMT's impact by restoring 25\% of the
+link's capacity that was reduced due to the incident. The arrival of
+each additional IMT unit contributes another 25\% to the link's
+capacity. This approach to capacity adjustment is based on our incident
+database, which primarily includes incidents where IMT were deployed; in
+contrast, data on incidents without IMT response was limited. Therefore,
+the model assumes that IMT involvement leads to capacity improvement,
+rather than estimating RCT in the absence of IMT intervention. After
+consultation with UDOT and UHP, we determined that a 25\% capacity
+restoration by each IMT unit is a reasonable estimate for our study,
+despite the lack of detailed research on the specific effects of IMT on
+roadway capacity restoration.
 
 Figure~\ref{fig-imt_capacity_restore} demonstrates the potential impact
 of an incident lacking IMT intervention, compared with scenarios that
@@ -853,7 +859,7 @@ arrival example.}
 \end{figure}
 
 \hypertarget{sec-model_imp}{%
-\section{Model Implementaiton}\label{sec-model_imp}}
+\section{Model Implementation in Utah}\label{sec-model_imp}}
 
 To run the MATSim model with the ImtModule extension, a number of input
 resources are necessary. For the model to function properly, the
@@ -863,7 +869,7 @@ following are needed:
 \tightlist
 \item
   A plans file detailing the agents to be modeled, as well as their
-  origins and destinations.
+  activity.
 \item
   A network file with interconnected links, enabling travel for the
   agents specified in the plans file.
@@ -918,20 +924,23 @@ IMT vehicles across each county. Typically, IMT vehicles do not cross
 county borders during operations since dispatch services are organized
 at the county level. However, our MATSim network does not enforce such
 restrictions, permitting vehicles to traverse county lines based on the
-proximity of incidents. The specific starting points are noted in the
+proximity to incidents. The specific starting points are noted in the
 IMT file as starting links, streamlining their integration into MATSim.
-While Figure~\ref{fig-IMT_Map} showcases the IMT distribution during the
-evening shift, it is crucial to highlight that IMT distribution remains
-largely unaltered throughout the morning and afternoon shifts. The
-initial setup of IMT, although it does not replicate the real-world
-scenario of drivers beginning their shifts from home, provides a viable
-solution for our simulations. Considering the significant number of IMT
-operations along major highways such as I-15, I-80, and I-215, and the
-daily variations in real-world starting locations, this strategic
-placement along key routes is justified. In the 30 IMT scenario, all
-vehicles from the 20 IMT scenarios are retained and augmented with an
-additional 10 IMT, ensuring comprehensive coverage across all three
-counties.
+IMT are also assigned operational hours, or shifts, which are then
+programmed into MATSim to represent the units' availability. In Utah,
+these shifts typically consist of a morning shift beginning at 6:00 AM
+and an evening shift ending at 10:30 PM. While Figure~\ref{fig-IMT_Map}
+showcases the IMT distribution during the evening shift, it is crucial
+to highlight that IMT distribution remains largely unaltered throughout
+the morning and afternoon shifts. The initial setup of IMT, although it
+does not replicate the real-world scenario of drivers beginning their
+shifts from home, provides a viable solution for our simulations.
+Considering the significant number of IMT operations along major
+highways such as I-15, I-80, and I-215, and the daily variations in
+real-world starting locations, this strategic placement along key routes
+is justified. In the 30 IMT scenario, all vehicles from the 20 IMT
+scenarios are retained and augmented with an additional 10 IMT, ensuring
+comprehensive coverage across all three counties.
 
 Our research primarily concentrates on evaluating the potential impacts
 of expanding the IMT fleet, rather than examining the effects of their
@@ -954,21 +963,22 @@ property damage to fatal incidents. We utilized this carefully curated
 dataset to selectively include specific incidents in the MATSim model.
 It is important to acknowledge that these 411 incidents only constitute
 a portion of all incidents reported by UHP during this time frame. A
-significant number of additional incidents were not considered in the
-analysis due to the absence of vital metrics necessary for a
-comprehensive evaluation (e.g., start time, RCT, etc.). Nevertheless,
-the integration of the 411 analyzed incidents with the additional
-incomplete records provides insights, aiding in quantifying the total
-number of incidents within a specific time period. These combined
-incident records were used in modeling daily incident frequencies.
+number of additional incidents were excluded from the analysis because
+they lacked essential information on duration, capacity reduction, or
+location, all of which are necessary for a comprehensive evaluation.
+Nevertheless, the integration of the 411 analyzed incidents with the
+additional incomplete records provides insights, aiding in quantifying
+the total number of incidents within a specific time period. These
+combined incident recorded informed the modeling of daily incident
+frequencies but were not used for incident sampling in the simulation
 
-To generate ten distinct values representing daily incident frequencies,
-we employed a randomized sampling technique. These values were
-collectively termed Current Incident Frequencies as they were derived
-from the original distribution of daily incidents. Furthermore, we
-formulated a second set of ten daily incident values, named Increased
-Incident Frequencies. These values were extracted from the upper portion
-of the 2022 incident data and were specifically designed to assess the
+To generate distinct values representing daily incident frequencies, we
+employed a randomized sampling technique. These values were collectively
+termed Current Incident Frequencies as they were derived from the
+original distribution of daily incidents. Furthermore, we formulated a
+second set of daily incident values, named Increased Incident
+Frequencies. These values were extracted from the upper portion of the
+2022 incident data and were specifically designed to assess the
 resilience and efficacy of the IMT system under scenarios of markedly
 increased daily incidents. The visual depiction of the original
 distribution of daily incidents, alongside the distributions for both
@@ -1005,15 +1015,10 @@ or Increased Incident frequencies. Each seed gave rise to three separate
 simulation groups. The first group, No IMT, exclusively features
 simulations where incidents occur without any IMT intervention. The
 second group includes incidents and the deployment of 20 IMT, while the
-third group features incidents managed by 30 IMT. To facilitate
-efficient organization and comparative analysis, each scenario was
-assigned a unique identifier, such as ``1-10-257.'' Within this coding
-system, the first digit specifies the simulation group (No IMT, 20 IMT,
-or 30 IMT), the second denotes the number of incidents included in the
-simulation, and the third digit corresponds to the seed value utilized
-for random incident selection.
+third group features incidents managed by 30 IMT.
 
-In total, six scenario groups were established, as follows:
+In total, six scenario groups, each with 10 random incident sets, were
+established, as follows:
 
 \begin{itemize}
 \tightlist
@@ -1031,28 +1036,30 @@ In total, six scenario groups were established, as follows:
   30 IMT, increased incident frequency
 \end{itemize}
 
-It is important to note, as described in
-\protect\hyperlink{sec-IMT_setup}{IMT Setup}, that not all IMT vehicles
-are operational simultaneously. Due to scheduling constraints, the
-actual number of IMT on the road at any given time is typically half of
-the total fleet size.
+It is important to note, as described in the
+\protect\hyperlink{sec-IMT_setup}{IMT setup} section, that not all IMT
+vehicles are operational simultaneously. Due to scheduling constraints,
+the actual number of IMT on the road at any given time is typically half
+of the total fleet size.
 
-The study utilizes the MATSim model for conducting simulations across
-all three groups: No IMT, 20 IMT, and 30 IMT. Each simulation underwent
-an internal comparison, as well as comparison against a Baseline
-scenario devoid of incidents or IMT intervention. This comprehensive
-analysis affords a holistic approach in assessing IMT effects on traffic
-dynamics and their operational efficiency.
+Scenarios are compared according to their IMT group, and against a
+baseline scenario devoid of any incidents or IMT intervention. The
+primary metric for traffic impact analysis in this study is vehicle
+hours of delay (VHD). In calculating average VHD per group, we took the
+summation of the delay in each scenario and divided it by the number of
+scenarios in each group (10) as shown in Equation~\ref{eq-vhd_group}:
 
-The primary metric for traffic impact analysis in this study is the
-total vehicle hours of delay (VHD), dissected through three
-investigative tiers: Network Links, Motorway Links, and Impacted Links.
-Network Links offer a macroscopic view of the network-wide delay,
-Motorway Links focused on major highways and freeways, and Impacted
-Links provide a microscopic view of the delays at incident sites and
-their immediate upstream links. This tiered approach ensures a thorough
-analysis, capturing the overarching impact on traffic flow while also
-honing in on critical areas affected by incidents.
+\begin{equation}\protect\hypertarget{eq-vhd_group}{}{
+\text{Average VHD per group} = \frac{\sum_{i=1}^{10} D_i}{10}
+}\label{eq-vhd_group}\end{equation} where \(D_i\) is the delay in each
+scenario. VHD in each group were analyzed at three levels: Network
+Links, Motorway Links, and Impacted Links. Network Links offer a
+macroscopic view of the network-wide delay, Motorway Links focused on
+major highways and freeways, and Impacted Links provide a microscopic
+view of the delays at incident sites and their immediate upstream links.
+This tiered approach ensures a thorough analysis, capturing the
+overarching impact on traffic flow while also honing in on critical
+areas affected by incidents.
 
 In addition to VHD, the study investigates the performance and
 operational efficiency of IMT. Metrics such as the average travel times,

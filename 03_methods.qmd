@@ -21,7 +21,7 @@ library(extrafont)
 library(scales)
 ```
 
-As highlighted in the [literature review](#sec-literature), there is substantial evidence indicating that IMT can effectively reduce RCT and EUC following traffic incidents. Additionally, the effectiveness of DTA models in analyzing the impact of such incidents has been well-documented. However, there is a lack of comprehensive research evaluating IMT impact on entire traffic networks and their associated agents. To address this gap, it is necessary that we develop a model  capable of simulating both traffic incidents and the ensuing IMT interventions, with the objective of gauging the efficiency of IMT deployments. Due to its proficiency in regional-scale incident simulation and its authentic portrayal of driver behavior, MATSim has been identified as the most suitable model for this research. This section describes the methodology, expounding on the model’s capabilities, the requisite data inputs, and the benchmarks established for determining IMT effectiveness.
+As highlighted in the [literature review](#sec-literature), there is substantial evidence indicating that IMT can effectively reduce RCT and EUC following traffic incidents. Additionally, the effectiveness of DTA models in analyzing the impact of such incidents has been well-documented. However, there is a lack of comprehensive research evaluating IMT impact on entire traffic networks and their associated agents. To address this gap, it is necessary that we develop a model capable of simulating both traffic incidents and the ensuing IMT interventions, with the objective of gauging the efficiency of IMT deployments. Due to its proficiency in regional-scale incident simulation and its authentic portrayal of driver behavior, MATSim has been identified as the most suitable model for this research. This section describes the methodology, expounding on the model's capabilities, the requisite data inputs, and the benchmarks established for determining IMT effectiveness.
 
 Our methodology is structured around three main components: the functionality of the MATSim model, the setup of IMT vehicles and incidents, and the scenarios for comparative analysis. In the [model design](#sec-MATSim_mod) subsection we describe the structure of the model and the functions it uses to represent incidents and IMT response. In [model implementaiton](#sec-model_imp) we outline the data structure of the model by describing the [setup of IMT](#sec-IMT_setup) and explaining our [incident data and sampling](#sec-inc_data) methods. We conclude by describing the [scenarios](#sec-scenarios) we used for evaluating the impact of incidents and IMT.
 
@@ -43,9 +43,9 @@ Each agent possesses a memory that stores plans from a certain number of iterati
 
 As will be detailed in the [model implementaiton](#sec-model_imp) section, the plans file used to generate simulations in MATSim was exceptionally large, encompassing travel data for over 2 million agents. Our objective, utilizing the complete plans file, was to guide the simulated agents toward an equilibrium in travel behavior. To achieve this, we employed the following methodology:
 
-1. We processed both the network and plans files over the course of 350 simulated iterations with incidents or IMT included.
-2. Using the output from this preliminary scenario, we established a 'hot start' for the subsequent scenarios incorporating incidents and IMT responses. At this stage, a significant portion of agents had already identified efficient travel routes to their destinations. This preliminary phase of running the plans file was intended to expedite the convergence towards a balanced state in travel behavior for scenarios that included incidents and IMT responses.
-3. To achieve equilibrium in travel behavior, we conducted an additional 100 iterations in the simulations that accounted for incidents and IMT responses, ensuring a more comprehensive stabilization across the majority of scenarios.
+1.  We processed both the network and plans files over the course of 350 simulated iterations with incidents or IMT included.
+2.  Using the output from this preliminary scenario, we established a 'hot start' for the subsequent scenarios incorporating incidents and IMT responses. At this stage, a significant portion of agents had already identified efficient travel routes to their destinations. This preliminary phase of running the plans file was intended to expedite the convergence towards a balanced state in travel behavior for scenarios that included incidents and IMT responses.
+3.  To achieve equilibrium in travel behavior, we conducted an additional 100 iterations in the simulations that accounted for incidents and IMT responses, ensuring a more comprehensive stabilization across the majority of scenarios.
 
 @fig-score_output illustrates a MATSim scoring output from a scenario that included incidents and IMT. This figure shows that there were significant adjustments to plans and corresponding scores during the initial 60 iterations, with the system's executed scores gradually stabilizing as the simulation neared its completion.
 
@@ -97,13 +97,13 @@ capacity_plot
 
 To run the MATSim model with the ImtModule extension, a number of input resources are necessary. For the model to function properly, the following are needed:
 
-  - A plans file detailing the agents to be modeled, as well as their activity.
-  - A network file with interconnected links, enabling travel for the agents specified in the plans file.
-  - A configuration file outlining the scoring metrics of the simulation and establishing parameters pertaining to agent and     IMT travel patterns.
-  - An IMT file outlining the IMT starting locations and hours of operation.
-  - An incidents file containing the necessary data to randomly effect NCE throughout the simulation.
-  
-The network and plans files used in this research were developed and calibrated by @lant2021 and @day2022 as part of their research projects studying accessibility and ride-hailing throughout the Wasatch Front. The configuration file used in the model was adapted from the @kaddoura2018 file, which was used for their MATSim incident analysis study. It was slightly modified to accommodate the IMT development, but the parameters they set were largely left unaltered. The IMT file was produced using data provided by UDOT and UHP, as  outline in [IMT Setup](#sec-MATSim_mod). The incident data was compiled by @hyer2023 in his research of IMT performance measures and is explained in [Incident Data and Sampling](#sec-inc_data). 
+-   A plans file detailing the agents to be modeled, as well as their activity.
+-   A network file with interconnected links, enabling travel for the agents specified in the plans file.
+-   A configuration file outlining the scoring metrics of the simulation and establishing parameters pertaining to agent and IMT travel patterns.
+-   An IMT file outlining the IMT starting locations and hours of operation.
+-   An incidents file containing the necessary data to randomly effect NCE throughout the simulation.
+
+The network and plans files used in this research were developed and calibrated by @lant2021 and @day2022 as part of their research projects studying accessibility and ride-hailing throughout the Wasatch Front. The configuration file used in the model was adapted from the @kaddoura2018 file, which was used for their MATSim incident analysis study. It was slightly modified to accommodate the IMT development, but the parameters they set were largely left unaltered. The IMT file was produced using data provided by UDOT and UHP, as outline in [IMT Setup](#sec-MATSim_mod). The incident data was compiled by @hyer2023 in his research of IMT performance measures and is explained in [Incident Data and Sampling](#sec-inc_data).
 
 ### IMT Setup {#sec-IMT_setup}
 
@@ -122,7 +122,6 @@ Our research primarily concentrates on evaluating the potential impacts of expan
 Analyzing data from 2018 and 2022, @hyer2023 successfully identified 411 unique incidents with varying degrees of severity, ranging from property damage to fatal incidents. We utilized this carefully curated dataset to selectively include specific incidents in the MATSim model. It is important to acknowledge that these 411 incidents only constitute a portion of all incidents reported by UHP during this time frame. A number of additional incidents were excluded from the analysis because they lacked essential information on duration, capacity reduction, or location, all of which are necessary for a comprehensive evaluation. Nevertheless, the integration of the 411 analyzed incidents with the additional incomplete records provides insights, aiding in quantifying the total number of incidents within a specific time period. These combined incident recorded informed the modeling of daily incident frequencies but were not used for incident sampling in the simulation
 
 To generate distinct values representing daily incident frequencies, we employed a randomized sampling technique. These values were collectively termed Current Incident Frequencies as they were derived from the original distribution of daily incidents. Furthermore, we formulated a second set of daily incident values, named Increased Incident Frequencies. These values were extracted from the upper portion of the 2022 incident data and were specifically designed to assess the resilience and efficacy of the IMT system under scenarios of markedly increased daily incidents. The visual depiction of the original distribution of daily incidents, alongside the distributions for both the Current and Increased Incident Frequencies, is illustrated in @fig-incident_sampling_plot.
-
 
 ```{r incident_sampling_plot}
 #| label: fig-incident_sampling_plot
@@ -158,8 +157,9 @@ incident_sampling_plot <- ggplot() +
                                         "Increased Frequency"))) +
   
   # Add labels for the x and y axes
-  labs(x = 'Number of Incidents in a Given Day', y = 'Frequency') +
-  
+  labs(x = 'Number of Incidents in a Given Day', y = 'Frequency',
+       caption = "Note: The increased frequency is drawn from the highest recorded values of the original incident distribution.") +
+
   # Use a minimal theme and set the base font family and size
   theme_minimal(base_family = "TeX Gyre Pagella", base_size = 11) +
   
@@ -170,7 +170,10 @@ incident_sampling_plot <- ggplot() +
         legend.margin = margin(-10, -10, -10, -10),
         legend.box.margin = margin(0, 0, 0, 0),
         legend.key.size = unit(0.8, "cm"),
-        text = element_text(size = 11)) +
+        text = element_text(size = 11),
+        plot.caption = element_text(hjust = 0.5, size = 8),
+        plot.caption.position = "plot",
+        plot.margin = margin(b = 20)) +
   
   # Define the order of the x-axis categories
   scale_x_discrete(limits = levels(as.factor(incident_sampling_data$Total_Count)))
@@ -179,13 +182,13 @@ incident_sampling_plot <- ggplot() +
 incident_sampling_plot
 ```
 
-In total, twenty values were selected, evenly split with ten allocated to the Current Incident Frequency category, and the remaining ten to the Increased Incident Frequency category. Each value was subsequently paired with a unique three-digit seed number, utilized internally within MATSim to ensure a randomized selection of incidents for each simulation scenario. Following this, we employed the MATSim  [Network Change Events](#sec-NCE) to integrate the incidents into the simulation.
+In total, twenty values were selected, evenly split with ten allocated to the Current Incident Frequency category, and the remaining ten to the Increased Incident Frequency category. Each value was subsequently paired with a unique three-digit seed number, utilized internally within MATSim to ensure a randomized selection of incidents for each simulation scenario. Following this, we employed the MATSim [Network Change Events](#sec-NCE) to integrate the incidents into the simulation.
 
 ### Scenarios {#sec-scenarios}
 
-In [Incident Data and Sampling](#sec-inc_data) and @fig-incident_sampling_plot, we observe the establishment and categorization of twenty distinct incident seeds into either Current or Increased Incident frequencies. Each seed gave rise to three separate simulation groups. The first group, No IMT, exclusively features simulations where incidents occur without any IMT intervention. The second group includes incidents and the deployment of 20 IMT, while the third group features incidents managed by 30 IMT. To facilitate efficient organization and comparative analysis, each scenario was assigned a unique identifier, such as "1-10-257." Within this coding system, the first digit specifies the simulation group (No IMT, 20 IMT, or 30 IMT), the second denotes the number of incidents included in the simulation, and the third digit corresponds to the seed value utilized for random incident selection.
+In [Incident Data and Sampling](#sec-inc_data) and @fig-incident_sampling_plot, we observe the establishment and categorization of twenty distinct incident seeds into either Current or Increased Incident frequencies. Each seed gave rise to three separate simulation groups. The first group, No IMT, exclusively features simulations where incidents occur without any IMT intervention. The second group includes incidents and the deployment of 20 IMT, while the third group features incidents managed by 30 IMT.
 
-In total, six scenario groups were established, as follows:
+In total, six scenario groups, each with 10 random incident sets, were established, as follows:
 
 -   No IMT, current incident frequency
 -   No IMT, increased incident frequency
@@ -194,10 +197,12 @@ In total, six scenario groups were established, as follows:
 -   30 IMT, current incident frequency
 -   30 IMT, increased incident frequency
 
-It is important to note, as described in [IMT Setup](#sec-IMT_setup), that not all IMT vehicles are operational simultaneously. Due to scheduling constraints, the actual number of IMT on the road at any given time is typically half of the total fleet size.
+It is important to note, as described in the [IMT setup](#sec-IMT_setup) section, that not all IMT vehicles are operational simultaneously. Due to scheduling constraints, the actual number of IMT on the road at any given time is typically half of the total fleet size.
 
-The study utilizes the MATSim model for conducting simulations across all three groups: No IMT, 20 IMT, and 30 IMT. Each simulation underwent an internal comparison, as well as comparison against a Baseline scenario devoid of incidents or IMT intervention. This comprehensive analysis affords a holistic approach in assessing IMT effects on traffic dynamics and their operational efficiency.
+Scenarios are compared according to their IMT group and against a baseline scenario that assumes no incidents or IMT intervention. The primary metrics for traffic impact analysis in this study is vehicle hours of delay (VHD) and RT. To calculate the average VHD per group, we sum the delays in each scenario and then divide by the number of scenarios in the group, which is ten, as shown in @eq-vhd_group:
 
-The primary metric for traffic impact analysis in this study is the total vehicle hours of delay (VHD), dissected through three investigative tiers: Network Links, Motorway Links, and Impacted Links. Network Links offer a macroscopic view of the network-wide delay, Motorway Links focused on major highways and freeways, and Impacted Links provide a microscopic view of the delays at incident sites and their immediate upstream links. This tiered approach ensures a thorough analysis, capturing the overarching impact on traffic flow while also honing in on critical areas affected by incidents. 
+$$
+\text{Average VHD per group} = \frac{\sum_{i=1}^{10} D_i}{10}
+$$ {#eq-vhd_group} where $D_i$ represents the VHD for the $i^{th}$ scenario. VHD in each group were analyzed at three levels: Network Links, Motorway Links, and Impacted Links. Network Links provide a macroscopic view of the network-wide delay. Motorway Links focus on major highways and freeways, offering insight into the performance of critical transportation arteries. Impacted Links give a microscopic view of the delays at the incident sites and their immediate upstream links. This tiered approach ensures a comprehensive analysis, capturing both the overarching impact on traffic flow and the specific effects in critical areas affected by incidents.
 
-In addition to VHD, the study investigates the performance and operational efficiency of IMT. Metrics such as the average travel times, travel distances, and incident response times of IMT are compared across the 20 IMT and 30 IMT groups. This, in turn, informs strategic decisions regarding resource allocation and deployment, ensuring that IMT vehicles are optimally utilized to mitigate traffic delays and enhance roadway safety.
+In addition to VHD, the study investigates the performance and operational efficiency of IMT. Metrics such as the average travel times, travel distances, and incident RT are compared across the 20 IMT and 30 IMT groups. This, in turn, informs strategic decisions regarding resource allocation and deployment, ensuring that IMT vehicles are optimally utilized to mitigate traffic delays and enhance roadway safety.
