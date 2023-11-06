@@ -39,8 +39,8 @@ book:
     - 04_results.qmd
     - 05_conclusion.qmd
     - references.qmd
-  # appendices: 
-    # - event_handlers.qmd
+  appendices: 
+    - event_handlers.qmd
     # I really don't know how beneficial adding the event_handler code to an appendicies would be.
   abstract: |
     The effectiveness of Incident Management Teams (IMT) in reducing the duration 
@@ -48,15 +48,15 @@ book:
     simulation models to illustrate the negative effects of these incidents on 
     vehicle delays and excess user costs (EUC) is also widely recognized. 
     However, there is a gap in research integrating large-scale simulation modeling 
-    with IMT performance analysis. This study uses the Multi-Agent Transport 
+    with IMT performance analysis. This study uses the Multi Agent Transport 
     Simulation (MATSim) framework to simulate the impact of incidents and 
-    evaluate the efficacy of IMT across the regional network of Utah's Wasatch 
+    evaluate the performance of IMT across the regional network of Utah's Wasatch 
     Front, analyzing their operation in various hypothetical situations.
     
     Our findings validate the role of IMT in decreasing delays and EUC. 
     The simulation also investigates the potential effects of increased incident 
-    frequency and IMT expansion, revealing that more incidents increase delays, 
-    whereas more IMT units can mitigate these effects and improve response times.
+    frequency and IMT expansion, revealing that more incidents increased delays, 
+    whereas additional IMT units can mitigate these effects and improve response times.
     
     The MATSim model we developed demonstrates the potential of dynamic large-scale 
     modeling to evaluate incident management strategies in ways that previous 

@@ -1,15 +1,42 @@
-# Event Handlers
-This is the event handler
-```java
-public class Bike {
-    Integer gears = 0;
-    String color = "red";
-    Double price = 500.0;
+# Network Change Events
 
-    Bike (Integer gears, String color, Double price) {
-        this.gears = gears;
-        this.color = color;
-        this.price = price;
-    }
-}
+This is the how incidents create NCE.
+
+```java
+	/**
+	 * Creates and adds incident network change event to the scenario's network.
+	 *
+	 * @param time       the time at which the change occurs
+	 * @param capacity   the reduced capacity value
+	 * @param linkId     the link to which the change applies
+	 */
+	private void createNetworkChangeEvent(double time, double capacity, Id<Link> linkId) {
+		NetworkChangeEvent event = new NetworkChangeEvent(time);
+		event.setFlowCapacityChange
+		(new ChangeValue(ChangeType.ABSOLUTE_IN_SI_UNITS, capacity));
+		event.addLink(scenario.getNetwork().getLinks().get(linkId));
+		NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), event);
+	}
+```
+
+This is the event handler that processes IMT arrivals and generates their corresponding NCE.
+
+```java
+	/**
+	 * Handles an ImtEvent by creating and adding a corresponding 
+	 * NetworkChangeEvent to the scenario's network.
+	 *
+	 * Only called if the event's arrival time is less than the incident end time.
+	 *
+	 * @param imtEvent the ImtEvent to be handled
+	 */
+	private void handleImtEvent(ImtEvent imtEvent) {
+			NetworkChangeEvent imtArrival = new NetworkChangeEvent(imtEvent.getArrivalTime());
+			double currentCapacity = imtEvent.getCurrentCapacity();
+			imtArrival.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue
+			(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, currentCapacity));
+			imtArrival.addLink(scenario.getNetwork().getLinks().get(imtEvent.getLinkId()));
+			NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), imtArrival);
+		}
+
 ```
