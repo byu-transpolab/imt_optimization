@@ -1,6 +1,6 @@
 # Literature Review {#sec-literature}
 
-Traffic incident management in general — and IMT in particular — are not strictly new innovations. The Federal Highway Administration (FHWA) publishes the *Traffic Incident Management Handbook* (FHWA, 2000), which defines traffic incident management as:  
+Traffic incident management in general—and IMT in particular — are not strictly new innovations. The Federal Highway Administration (FHWA) publishes the *Traffic Incident Management Handbook* (FHWA, 2000), which defines traffic incident management as:  
 *The systematic, planned, and coordinated use of human, institutional, mechanical, and technical resources to reduce the duration and impact of incidents and improve the safety of motorists, crash victims, and incident responders. (p. 1-1)*  
 The handbook details the process of how to implement a traffic incident management program as well as improve it. The manual covers various aspects of incident management, including the responsibilities of emergency medical teams, law enforcement, and other responding entities. For this research, we focus on the dedicated traffic incident management teams operated by departments of transportation or similar agencies and not on other types of first responders.
 
