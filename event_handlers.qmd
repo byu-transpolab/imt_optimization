@@ -1,124 +1,128 @@
+---
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
 # IMT Dispatch Algorithm
 
-Our MATSim model employs an algorithm to determine the most appropriate IMT to dispatch to an incident when it occurs. The algorithm is implemented in Java, and its objective is to find the closest available vehicles to the incident's location based on calculated travel time.
+Our MATSim model employs an algorithm to determine the most appropriate IMT to dispatch to an incident when it occurs.
+The algorithm is implemented in Java, and its objective is to find the closest available teams to the incident's location based on calculated travel time.
 
-Code Structure:
-The algorithm is encapsulated within a Java class named `ClosestIMTFinder`. This class is part of the IMT.optimizer package and utilizes a variety of imported resources to calculate travel times and determine the best IMT unit to respond to an incident.
+## Code Structure:
 
-Components of ClosestIMTFinder:
--   `Fleet`: Represents the collection of all available IMT vehicles.
--   `LeastCostPathCalculator`: A tool to calculate the shortest or fastest path from one location to another.
+The algorithm is encapsulated within a Java class named `ClosestImtFinder`.
+This class is part of the IMT.optimizer package and utilizes a variety of imported resources to calculate travel times and determine the best IMT to respond to an incident.
+
+## Components of ClosestImtFinder:
+
+-   `Fleet`: Represents the collection of all IMT units.
+-   `LeastCostPathCalculator`: A tool to calculate the fastest path from one location to another.
 -   `TravelTime`: An estimator that calculates the travel time for a given route.
 
+### Key Methods:
 
+-   `calculateArrivalTime` Method:
+    -   **Purpose**: Calculates the arrival time of an IMT vehicle to a given incident location.
+    -   **Parameters**:
+      -   `vehicle`: The IMT vehicle being evaluated.
+      -   `toLink`: The location of the incident.
+      -   `incidentStart`: The time at which the incident occurs.
+    -   **Process**:
+      -   It first checks if the vehicle's schedule has begun. If not, the vehicle is considered unavailable (returning infinity).
+      -   Then, it checks if the vehicle is currently busy with a task other than waiting. If it is, the vehicle is again marked as unavailable.
+      -   If the vehicle is available, it calculates the path and the arrival time from the vehicle's last known location to the incident's location.
+-   `getClosestVehicles` Method:
+    -   **Purpose**: Retrieves a list of the closest IMT vehicles based on the fastest arrival times to the incident.
 
-This is the Java code used for determining which IMT should be dispatched to an incident when that incident occurs.
+    -   **Parameters**:
+        - `toLink`: The location of the incident.
+        -   `respondingIMTs`: The number of closest IMT vehicles to find.
+        -   `incidentStart`: The time at which the request for IMT deployment is made.
 
-```java
+    -   **Process**: - Filters the fleet to include only those vehicles that are in service during the request time.
+
+        -   Sorts these vehicles by their calculated arrival time to the incident.
+        -   Limits the result to the specified number of responding IMTs.
+
+    -   **Output**: A list of the closest IMT units ready to be dispatched.
+-   Dispatch Mechanism: Once the getClosestVehicles method processes the fleet data, it returns a sorted list of vehicles based on their arrival times. The list is then used to dispatch the appropriate number of IMT units to the incident location as the incident unfolds. This ensures that the quickest possible response is made available, enhancing the efficiency and effectiveness of the incident management process.
+
+``` java
 package IMT.optimizer;
 
 import ...
 
-/* Finds the closest vehicles to a specific link for IMT response. */
+/* Handles the search for the closest IMT vehicles to an incident link. */
+public class ClosestImtFinder {
 
-public class ClosestIMTFinder {
+    private final Fleet fleet;
+    private final LeastCostPathCalculator router;
+    private final TravelTime travelTime;
 
-  	private final Fleet fleet;
-	  private final LeastCostPathCalculator router;
-	  private final TravelTime travelTime;
-
-	 /**
-	 * @param fleet           the fleet of vehicles to search from
-	 * @param router          the least cost path calculator
-	 * @param travelTime      the travel time estimator
-	 */
-
-    public ClosestIMTFinder(Fleet fleet, LeastCostPathCalculator router, 
+    public ClosestImtFinder(Fleet fleet, LeastCostPathCalculator router, 
                             TravelTime travelTime) {}
 
-
-   /**
-	 * @param vehicle         the vehicle is the IMT being analyzed
-	 * @param toLink          the toLink is the incident link
-	 * @param incidentStart   the incidentStart is when the incident starts
-	 */
-	 
-    private double calculateArrivalTime(DvrpVehicle vehicle, Link toLink, 
+/* Calculates the arrival time for an IMT vehicle at the incident start time. */
+    private double calculateArrivalTime(DvrpVehicle vehicle, 
+                                        Link toLink, 
                                         Double incidentStart) {
-                                        
-    // Check if the IMT's schedule (shift) has started
-    if (vehicle.getSchedule().getStatus() != Schedule.ScheduleStatus.STARTED) {
-      
-      // If it's schedule has not started return infinity (IMT not available)
-      	return Double.POSITIVE_INFINITY;
+        if (!isVehicleAvailable(vehicle, incidentStart)) {
+            return Double.POSITIVE_INFINITY;
+        }
+
+        // Determine the path and calculate arrival time
+        Link fromLink = Schedules.getLastLinkInSchedule(vehicle);
+        VrpPathWithTravelData pathToIncident = 
+        VrpPaths.calcAndCreatePath(fromLink, toLink, incidentStart, 
+                                   router, travelTime);
+        return pathToIncident.getArrivalTime();
     }
-    
-    // Check the IMT's current task status
-    Task currentTask = vehicle.getSchedule().getCurrentTask();
-    
-      // If the IMT is busy, (task ≠ WAIT) return infininty (IMT not available)
-      if (currentTask.getTaskType() != Optimizer.ImtTaskType.WAIT) {
-        	return Double.POSITIVE_INFINITY;
+
+/* Checks vehicle availability based on its schedule and current task. */
+    private boolean isVehicleAvailable(DvrpVehicle vehicle, 
+                                       Double incidentStart) {
+        Schedule schedule = vehicle.getSchedule();
+        Task currentTask = schedule.getCurrentTask();
+        return schedule.getStatus() == Schedule.ScheduleStatus.STARTED &&
+               currentTask.getTaskType() == Optimizer.ImtTaskType.WAIT;
     }
-    
-    
-    // Calculate IMT the arrival time of the IMT at the time of the incident
-    
-    Link fromLink = Schedules.getLastLinkInSchedule(vehicle);
-    VrpPathWithTravelData pathToIncident = 
-    VrpPaths.calcAndCreatePath(fromLink, toLink, incidentStart, 
-                               router, travelTime);
-                               
-    return pathToIncident.getArrivalTime();
+
+/* Retrieves a list of the closest IMTs based on arrival times. */
+    public List<DvrpVehicle> getClosestVehicles(Link toLink, 
+                                                int respondingIMTs, 
+                                                double incidentStart) {
+        return fleet.getVehicles().values().stream()
+                .filter(vehicle -> vehicle.getServiceBeginTime() <= incidentStart &&
+                                  vehicle.getServiceEndTime() >= incidentStart)
+                .sorted(Comparator.comparingDouble(vehicle -> 
+                calculateArrivalTime(vehicle, toLink, incidentStart)))
+                .limit(respondingIMTs)
+                .collect(Collectors.toList());
+    }
+}
+                                   
 ```
-
-The `calculateArrivalTime` method is applied to every IMT in the fleet. Their hypothetical arrival times are complied into a list and sorted to show the IMT with the fastest arrival for the simulated incident.
-
-```java
-/* Returns a list of the IMT with the fastest arrival times to the incident. */
-
-	/**
-	 * @param toLink           the toLink is the incident link
-	 * @param respondingIMTs   the number of the closest IMT to find
-	 * @param incidentStart    the time when the incident starts
-	 * @return a list of the closest IMT units
-	 */
-	public List<DvrpVehicle> getClosestVehicles(Link toLink, int respondingIMTs, 
-	                                            double requestTime) {
-
-		return fleet.getVehicles().values().stream()
-				.filter(vehicle -> vehicle.getServiceBeginTime() < requestTime)
-				.filter(vehicle -> vehicle.getServiceEndTime() > requestTime)
-				.sorted(Comparator.comparingDouble(vehicle -> 
-				    calculateArrivalTime(vehicle, toLink, incidentStart)))
-				.limit(respondingIMTs)
-				.collect(Collectors.toList());
-	}
-```
-
-The list that is returned for each incident is used to dispatch the appropriate IMT unit(s) for the incident as it occurs. 
-
 
 # IMT Network Change Events
 
 This is the event handler that processes IMT arrivals and generates their corresponding NCE.
 
-```java
-	/**
-	 * Handles an ImtEvent by creating and adding a corresponding 
-	 * NetworkChangeEvent to the scenario's network.
-	 *
-	 * Only called if the event's arrival time is less than the incident end time.
-	 *
-	 * @param imtEvent the ImtEvent to be handled
-	 */
-	private void handleImtEvent(ImtEvent imtEvent) {
-			NetworkChangeEvent imtArrival = new NetworkChangeEvent(imtEvent.getArrivalTime());
-			double currentCapacity = imtEvent.getCurrentCapacity();
-			imtArrival.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue
-			(NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, currentCapacity));
-			imtArrival.addLink(scenario.getNetwork().getLinks().get(imtEvent.getLinkId()));
-			NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), imtArrival);
-		}
-
+``` java
+    /**
+     * Handles an ImtEvent by creating and adding a corresponding 
+     * NetworkChangeEvent to the scenario's network.
+     *
+     * Only called if the event's arrival time is less than the incident end time.
+     *
+     * @param imtEvent the ImtEvent to be handled
+     */
+    private void handleImtEvent(ImtEvent imtEvent) {
+            NetworkChangeEvent imtArrival = new NetworkChangeEvent(imtEvent.getArrivalTime());
+            double currentCapacity = imtEvent.getCurrentCapacity();
+            imtArrival.setFlowCapacityChange(new NetworkChangeEvent.ChangeValue
+            (NetworkChangeEvent.ChangeType.ABSOLUTE_IN_SI_UNITS, currentCapacity));
+            imtArrival.addLink(scenario.getNetwork().getLinks().get(imtEvent.getLinkId()));
+            NetworkUtils.addNetworkChangeEvent(scenario.getNetwork(), imtArrival);
+        }
 ```

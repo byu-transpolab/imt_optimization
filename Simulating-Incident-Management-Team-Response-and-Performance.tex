@@ -341,7 +341,7 @@ The \protect\hyperlink{sec-methods}{methodology section} describes the
 simulation and scenario construction, while
 \protect\hyperlink{sec-results}{the results} present the findings of the
 analysis alongside a discussion of their implications. The paper's
-\protect\hyperlink{sec-conclusions}{conclusions} provides an outline of
+\protect\hyperlink{sec-conclusions}{conclusions} provide an outline of
 future research motivated by this study's limitations.
 
 \bookmarksetup{startatroot}
@@ -349,7 +349,7 @@ future research motivated by this study's limitations.
 \hypertarget{sec-literature}{%
 \chapter{Literature Review}\label{sec-literature}}
 
-Traffic incident management in general --- and IMT in particular --- are
+Traffic incident management in general---and IMT in particular --- are
 not strictly new innovations. The Federal Highway Administration (FHWA)
 publishes the \emph{Traffic Incident Management Handbook} (FHWA, 2000),
 which defines traffic incident management as:\\
@@ -667,11 +667,12 @@ incidents, and the scenarios for comparative analysis. In the
 \protect\hyperlink{sec-MATSim_mod}{model design} subsection we describe
 the structure of the model and the functions it uses to represent
 incidents and IMT response. In \protect\hyperlink{sec-model_imp}{model
-implementaiton} we outline the data structure of the model by describing
-the \protect\hyperlink{sec-IMT_setup}{setup of IMT} and explaining our
-\protect\hyperlink{sec-inc_data}{incident data and sampling} methods. We
-conclude by describing the \protect\hyperlink{sec-scenarios}{scenarios}
-we used for evaluating the impact of incidents and IMT.
+implementation} subsection we outline the data structure of the model by
+describing the \protect\hyperlink{sec-IMT_setup}{setup of IMT} and
+explaining our \protect\hyperlink{sec-inc_data}{incident data and
+sampling} methods. We conclude by describing the
+\protect\hyperlink{sec-scenarios}{scenarios} we used for evaluating the
+impact of incidents and IMT.
 
 \hypertarget{sec-MATSim_mod}{%
 \section{Model Design}\label{sec-MATSim_mod}}
@@ -697,7 +698,7 @@ that we used and adapted to construct a comprehensive and functional
 model. These tools include \protect\hyperlink{sec-MATSim_score}{scoring
 and replanning}, \protect\hyperlink{sec-NCE}{network change events}, and
 \protect\hyperlink{sec-imt_response}{IMT assignment}. Together, they
-contribute to the realism and precision of our traffic simulations,
+contribute to the authenticity and precision of our traffic simulations,
 particularly in the context of responding to roadway incidents, ensuring
 that our model provides accurate and reliable results.
 
@@ -726,8 +727,8 @@ and replanning parameters drew from the incident research conducted by
 Kaddoura \& Nagel (2018).
 
 As will be detailed in the \protect\hyperlink{sec-model_imp}{model
-implementaiton} section, the plans file used to generate simulations in
-MATSim was exceptionally large, encompassing travel data for over 2
+implementation} subsection, the plans file used to generate simulations
+in MATSim was exceptionally large, encompassing travel data for over 2
 million agents. Our objective, utilizing the complete plans file, was to
 guide the simulated agents toward an equilibrium in travel behavior. To
 achieve this, we employed the following methodology:
@@ -1142,7 +1143,7 @@ with the current frequency. Intriguingly, for both the 20 IMT and 30 IMT
 groups, an increase in incident frequency actually led to slight
 decreases in average VHD. The cause of this decrease is unclear, but
 potential explanations will be discussed in the
-\protect\hyperlink{sec-limitations}{limiations}.
+\protect\hyperlink{sec-limitations}{limitations}.
 
 Given that Table~\ref{tbl-network_delays_table} reveals average delay
 values aggregated across multiple scenarios within each group, a
@@ -1488,7 +1489,7 @@ IMT when dispatching both 20 and 30 units. Across all simulated
 scenarios, a fleet of 20 IMT produced an average RT of 15.0 minutes.
 Notably, the 15.0-minute average arrival time for the 20 IMT scenarios
 aligns closely with the actual median arrival times recorded in Hyer's
-2023 study of Utah's IMT performance (Hyer (2023)). Additionally,
+2023 study of Utah's IMT performance (Hyer, 2023). Additionally,
 increasing the IMT fleet to 30 units resulted in an average response
 time of 11.0 minutes, 4 minutes less than the 20 IMT arrival times.
 Table~\ref{tbl-truck_arrival_table} illustrates the average arrival
@@ -1566,7 +1567,7 @@ in highway operational systems. Our study focuses on the Utah Wasatch
 Front Region, employing simulation modeling to evaluate IMT
 effectiveness. Previous studies have established IMT's significance in
 mitigating traffic disruptions, such as incidents and vehicle breakdowns
-{[}Schultz, 2019; Skabardonis, 1998{]}. Furthermore, mesoscopic DTA
+(Schultz et al., 2019; Skabardonis, 1998). Furthermore, mesoscopic DTA
 modeling has proven beneficial for in-depth analyses of incident impacts
 and management strategies (Kaddoura \& Nagel, 2018; Li \& Ferguson,
 2020).
@@ -1865,29 +1866,182 @@ preplanning. \emph{Transportation Research Record}, \emph{1923}(1),
 \addcontentsline{toc}{part}{Appendices}
 \appendix
 
-\hypertarget{network-change-events}{%
-\chapter{Network Change Events}\label{network-change-events}}
+\hypertarget{imt-dispatch-algorithm}{%
+\chapter{IMT Dispatch Algorithm}\label{imt-dispatch-algorithm}}
 
-This is the how incidents create NCE.
+Our MATSim model employs an algorithm to determine the most appropriate
+IMT to dispatch to an incident when it occurs. The algorithm is
+implemented in Java, and its objective is to find the closest available
+teams to the incident's location based on calculated travel time.
+
+\hypertarget{code-structure}{%
+\section{Code Structure:}\label{code-structure}}
+
+The algorithm is encapsulated within a Java class named
+\texttt{ClosestImtFinder}. This class is part of the IMT.optimizer
+package and utilizes a variety of imported resources to calculate travel
+times and determine the best IMT to respond to an incident.
+
+\hypertarget{components-of-closestimtfinder}{%
+\section{Components of
+ClosestImtFinder:}\label{components-of-closestimtfinder}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Fleet}: Represents the collection of all IMT units.
+\item
+  \texttt{LeastCostPathCalculator}: A tool to calculate the fastest path
+  from one location to another.
+\item
+  \texttt{TravelTime}: An estimator that calculates the travel time for
+  a given route.
+\end{itemize}
+
+\hypertarget{key-methods}{%
+\subsection{Key Methods:}\label{key-methods}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{calculateArrivalTime} Method:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Purpose}: Calculates the arrival time of an IMT vehicle to a
+    given incident location.
+  \item
+    \textbf{Parameters}:
+  \item
+    \texttt{vehicle}: The IMT vehicle being evaluated.
+  \item
+    \texttt{toLink}: The location of the incident.
+  \item
+    \texttt{incidentStart}: The time at which the incident occurs.
+  \item
+    \textbf{Process}:
+  \item
+    It first checks if the vehicle's schedule has begun. If not, the
+    vehicle is considered unavailable (returning infinity).
+  \item
+    Then, it checks if the vehicle is currently busy with a task other
+    than waiting. If it is, the vehicle is again marked as unavailable.
+  \item
+    If the vehicle is available, it calculates the path and the arrival
+    time from the vehicle's last known location to the incident's
+    location.
+  \end{itemize}
+\item
+  \texttt{getClosestVehicles} Method:
+
+  \begin{itemize}
+  \item
+    \textbf{Purpose}: Retrieves a list of the closest IMT vehicles based
+    on the fastest arrival times to the incident.
+  \item
+    \textbf{Parameters}:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \texttt{toLink}: The location of the incident.
+    \item
+      \texttt{respondingIMTs}: The number of closest IMT vehicles to
+      find.
+    \item
+      \texttt{incidentStart}: The time at which the request for IMT
+      deployment is made.
+    \end{itemize}
+  \item
+    \textbf{Process}: - Filters the fleet to include only those vehicles
+    that are in service during the request time.
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Sorts these vehicles by their calculated arrival time to the
+      incident.
+    \item
+      Limits the result to the specified number of responding IMTs.
+    \end{itemize}
+  \item
+    \textbf{Output}: A list of the closest IMT units ready to be
+    dispatched.
+  \end{itemize}
+\item
+  Dispatch Mechanism: Once the getClosestVehicles method processes the
+  fleet data, it returns a sorted list of vehicles based on their
+  arrival times. The list is then used to dispatch the appropriate
+  number of IMT units to the incident location as the incident unfolds.
+  This ensures that the quickest possible response is made available,
+  enhancing the efficiency and effectiveness of the incident management
+  process.
+\end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-    \CommentTok{/**}
-     \CommentTok{*}\NormalTok{ Creates and adds incident network change event to the scenario}\CommentTok{\textquotesingle{}}\NormalTok{s network}\CommentTok{.}
-     \CommentTok{*}
-     \CommentTok{*} \CommentTok{@}\NormalTok{param time       the time at which the change occurs}
-     \CommentTok{*} \CommentTok{@}\NormalTok{param capacity   the reduced capacity value}
-     \CommentTok{*} \CommentTok{@}\NormalTok{param linkId     the link to which the change applies}
-     \CommentTok{*/}
-    \KeywordTok{private} \DataTypeTok{void} \FunctionTok{createNetworkChangeEvent}\OperatorTok{(}\DataTypeTok{double}\NormalTok{ time}\OperatorTok{,} \DataTypeTok{double}\NormalTok{ capacity}\OperatorTok{,}\NormalTok{ Id}\OperatorTok{\textless{}}\NormalTok{Link}\OperatorTok{\textgreater{}}\NormalTok{ linkId}\OperatorTok{)} \OperatorTok{\{}
-\NormalTok{        NetworkChangeEvent event }\OperatorTok{=} \KeywordTok{new} \FunctionTok{NetworkChangeEvent}\OperatorTok{(}\NormalTok{time}\OperatorTok{);}
-\NormalTok{        event}\OperatorTok{.}\FunctionTok{setFlowCapacityChange}
-        \OperatorTok{(}\KeywordTok{new} \FunctionTok{ChangeValue}\OperatorTok{(}\NormalTok{ChangeType}\OperatorTok{.}\FunctionTok{ABSOLUTE\_IN\_SI\_UNITS}\OperatorTok{,}\NormalTok{ capacity}\OperatorTok{));}
-\NormalTok{        event}\OperatorTok{.}\FunctionTok{addLink}\OperatorTok{(}\NormalTok{scenario}\OperatorTok{.}\FunctionTok{getNetwork}\OperatorTok{().}\FunctionTok{getLinks}\OperatorTok{().}\FunctionTok{get}\OperatorTok{(}\NormalTok{linkId}\OperatorTok{));}
-\NormalTok{        NetworkUtils}\OperatorTok{.}\FunctionTok{addNetworkChangeEvent}\OperatorTok{(}\NormalTok{scenario}\OperatorTok{.}\FunctionTok{getNetwork}\OperatorTok{(),}\NormalTok{ event}\OperatorTok{);}
+\KeywordTok{package}\ImportTok{ IMT}\OperatorTok{.}\ImportTok{optimizer}\OperatorTok{;}
+
+\KeywordTok{import} \OperatorTok{...}
+
+\CommentTok{/* Handles the search for the closest IMT vehicles to an incident link. */}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ ClosestImtFinder }\OperatorTok{\{}
+
+    \KeywordTok{private} \DataTypeTok{final}\NormalTok{ Fleet fleet}\OperatorTok{;}
+    \KeywordTok{private} \DataTypeTok{final}\NormalTok{ LeastCostPathCalculator router}\OperatorTok{;}
+    \KeywordTok{private} \DataTypeTok{final}\NormalTok{ TravelTime travelTime}\OperatorTok{;}
+
+    \KeywordTok{public} \FunctionTok{ClosestImtFinder}\OperatorTok{(}\NormalTok{Fleet fleet}\OperatorTok{,}\NormalTok{ LeastCostPathCalculator router}\OperatorTok{,} 
+\NormalTok{                            TravelTime travelTime}\OperatorTok{)} \OperatorTok{\{\}}
+
+\CommentTok{/* Calculates the arrival time for an IMT vehicle at the incident start time. */}
+    \KeywordTok{private} \DataTypeTok{double} \FunctionTok{calculateArrivalTime}\OperatorTok{(}\NormalTok{DvrpVehicle vehicle}\OperatorTok{,} 
+\NormalTok{                                        Link toLink}\OperatorTok{,} 
+                                        \BuiltInTok{Double}\NormalTok{ incidentStart}\OperatorTok{)} \OperatorTok{\{}
+        \ControlFlowTok{if} \OperatorTok{(!}\FunctionTok{isVehicleAvailable}\OperatorTok{(}\NormalTok{vehicle}\OperatorTok{,}\NormalTok{ incidentStart}\OperatorTok{))} \OperatorTok{\{}
+            \ControlFlowTok{return} \BuiltInTok{Double}\OperatorTok{.}\FunctionTok{POSITIVE\_INFINITY}\OperatorTok{;}
+        \OperatorTok{\}}
+
+        \CommentTok{// Determine the path and calculate arrival time}
+\NormalTok{        Link fromLink }\OperatorTok{=}\NormalTok{ Schedules}\OperatorTok{.}\FunctionTok{getLastLinkInSchedule}\OperatorTok{(}\NormalTok{vehicle}\OperatorTok{);}
+\NormalTok{        VrpPathWithTravelData pathToIncident }\OperatorTok{=} 
+\NormalTok{        VrpPaths}\OperatorTok{.}\FunctionTok{calcAndCreatePath}\OperatorTok{(}\NormalTok{fromLink}\OperatorTok{,}\NormalTok{ toLink}\OperatorTok{,}\NormalTok{ incidentStart}\OperatorTok{,} 
+\NormalTok{                                   router}\OperatorTok{,}\NormalTok{ travelTime}\OperatorTok{);}
+        \ControlFlowTok{return}\NormalTok{ pathToIncident}\OperatorTok{.}\FunctionTok{getArrivalTime}\OperatorTok{();}
     \OperatorTok{\}}
+
+\CommentTok{/* Checks vehicle availability based on its schedule and current task. */}
+    \KeywordTok{private} \DataTypeTok{boolean} \FunctionTok{isVehicleAvailable}\OperatorTok{(}\NormalTok{DvrpVehicle vehicle}\OperatorTok{,} 
+                                       \BuiltInTok{Double}\NormalTok{ incidentStart}\OperatorTok{)} \OperatorTok{\{}
+\NormalTok{        Schedule schedule }\OperatorTok{=}\NormalTok{ vehicle}\OperatorTok{.}\FunctionTok{getSchedule}\OperatorTok{();}
+\NormalTok{        Task currentTask }\OperatorTok{=}\NormalTok{ schedule}\OperatorTok{.}\FunctionTok{getCurrentTask}\OperatorTok{();}
+        \ControlFlowTok{return}\NormalTok{ schedule}\OperatorTok{.}\FunctionTok{getStatus}\OperatorTok{()} \OperatorTok{==}\NormalTok{ Schedule}\OperatorTok{.}\FunctionTok{ScheduleStatus}\OperatorTok{.}\FunctionTok{STARTED} \OperatorTok{\&\&}
+\NormalTok{               currentTask}\OperatorTok{.}\FunctionTok{getTaskType}\OperatorTok{()} \OperatorTok{==}\NormalTok{ Optimizer}\OperatorTok{.}\FunctionTok{ImtTaskType}\OperatorTok{.}\FunctionTok{WAIT}\OperatorTok{;}
+    \OperatorTok{\}}
+
+\CommentTok{/* Retrieves a list of the closest IMTs based on arrival times. */}
+    \KeywordTok{public} \BuiltInTok{List}\OperatorTok{\textless{}}\NormalTok{DvrpVehicle}\OperatorTok{\textgreater{}} \FunctionTok{getClosestVehicles}\OperatorTok{(}\NormalTok{Link toLink}\OperatorTok{,} 
+                                                \DataTypeTok{int}\NormalTok{ respondingIMTs}\OperatorTok{,} 
+                                                \DataTypeTok{double}\NormalTok{ incidentStart}\OperatorTok{)} \OperatorTok{\{}
+        \ControlFlowTok{return}\NormalTok{ fleet}\OperatorTok{.}\FunctionTok{getVehicles}\OperatorTok{().}\FunctionTok{values}\OperatorTok{().}\FunctionTok{stream}\OperatorTok{()}
+                \OperatorTok{.}\FunctionTok{filter}\OperatorTok{(}\NormalTok{vehicle }\OperatorTok{{-}\textgreater{}}\NormalTok{ vehicle}\OperatorTok{.}\FunctionTok{getServiceBeginTime}\OperatorTok{()} \OperatorTok{\textless{}=}\NormalTok{ incidentStart }\OperatorTok{\&\&}
+\NormalTok{                                  vehicle}\OperatorTok{.}\FunctionTok{getServiceEndTime}\OperatorTok{()} \OperatorTok{\textgreater{}=}\NormalTok{ incidentStart}\OperatorTok{)}
+                \OperatorTok{.}\FunctionTok{sorted}\OperatorTok{(}\BuiltInTok{Comparator}\OperatorTok{.}\FunctionTok{comparingDouble}\OperatorTok{(}\NormalTok{vehicle }\OperatorTok{{-}\textgreater{}} 
+                \FunctionTok{calculateArrivalTime}\OperatorTok{(}\NormalTok{vehicle}\OperatorTok{,}\NormalTok{ toLink}\OperatorTok{,}\NormalTok{ incidentStart}\OperatorTok{)))}
+                \OperatorTok{.}\FunctionTok{limit}\OperatorTok{(}\NormalTok{respondingIMTs}\OperatorTok{)}
+                \OperatorTok{.}\FunctionTok{collect}\OperatorTok{(}\NormalTok{Collectors}\OperatorTok{.}\FunctionTok{toList}\OperatorTok{());}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+                                   
 \end{Highlighting}
 \end{Shaded}
+
+The list that is returned for each incident is used to dispatch the
+appropriate IMT unit(s) for the incident as it occurs.
+
+\hypertarget{imt-network-change-events}{%
+\chapter{IMT Network Change Events}\label{imt-network-change-events}}
 
 This is the event handler that processes IMT arrivals and generates
 their corresponding NCE.
