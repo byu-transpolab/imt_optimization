@@ -118,11 +118,12 @@ acknowledgments: |
   for the stability and unwavering support they have so selflessly provided.
 
 format:
-  html:
+  wordcount-html:
     theme: cosmo
   byu-thesis-pdf:
     keep-tex: true
     highlight-style: arrow
+  
   # elsevier-pdf:
   #   include-in-header: 
   #     - packages.tex
