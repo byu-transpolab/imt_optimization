@@ -586,12 +586,12 @@ least one road segment for which the capacity or speed limit was reduced
 because of an incident. Their study concluded that networks in which
 transport users had high levels of knowledge about the incidents and
 resulting traffic congestion still experienced an increase in travel
-time caused by long and short-term incidents. Finally, Kaddoura and
-Nagel asserted that ``accounting for traffic incidents makes the model
-more realistic, allowing for an improved policy investigation''
-(Kaddoura \& Nagel, 2018, p. 885). The modeling performed by Kaddoura
-and Nagel is just one example of research on MATSim's capacity for
-incident-based simulations.
+time caused by long and short-term incidents. Finally, the authors
+asserted that ``accounting for traffic incidents makes the model more
+realistic, allowing for an improved policy investigation'' (Kaddoura \&
+Nagel, 2018, p. 885). The modeling performed by Kaddoura \& Nagel (2018)
+is just one example of research on MATSim's capacity for incident-based
+simulations.
 
 A MATSim incidents model developed by Li \& Ferguson (2020) included
 various rescheduling options, such as departure time, mode choice, and
@@ -830,11 +830,20 @@ restoration by each IMT unit is a reasonable estimate for our study,
 despite the lack of detailed research on the specific effects of IMT on
 roadway capacity restoration.
 
-Figure~\ref{fig-imt-capacity-restore} demonstrates the potential impact
-of an incident lacking IMT intervention, compared with scenarios that
-include the response of one or two IMT. This illustration highlights the
-critical role of IMT, showcasing their ability to mitigate incident
-impacts on network traffic flow.
+Figure~\ref{fig-imt-capacity-restore} illustrates the impact of traffic
+incidents on road capacity within the model, emphasizing the role of IMT
+in mitigating this impact. The figure presents a scenario where an
+incident causes a reduction in a road link's capacity to 20\% for a
+duration of 60 minutes. Without any IMT intervention, this diminished
+capacity level would persist for the entire incident. However, the
+scenario changes with IMT involvement. The arrival of the first IMT 15
+minutes after the incident boosts the link's capacity by 20\%, raising
+it to 40\%. If a second IMT team arrives 30 minutes after the incident
+begins, it provides an additional increase of 15\%, enhancing the link's
+operating capacity to 55\% for the duration of the incident. Full
+capacity is restored after the incident concludes. This visualization
+demonstrates the role of IMT in restoring capacity after incidents and
+maintaining more efficient traffic flow during such events.
 
 \begin{figure}
 
@@ -1612,7 +1621,7 @@ response times to incidents compared to a fleet of 20 IMT, with average
 response times decreasing from 15.0 minutes to 11.0 minutes. Notably,
 the 15.0-minute average arrival time for the 20 IMT scenarios aligns
 closely with the actual median arrival time recorded in Hyer's 2023
-study on Utah IMT performance (\textbf{hyer2023?}). Additionally,
+study on Utah IMT performance (Schultz et al., 2023). Additionally,
 increasing the IMT fleet to 30 resulted in a cumulative reduction of 28
 hours in travel time across 20 scenarios. This translates to an average
 decrease of 1.4 hours in IMT travel time per simulated day.

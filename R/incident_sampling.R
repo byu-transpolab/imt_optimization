@@ -40,7 +40,7 @@ make_incident_sampling_data <- function(all_incident_data) {
 create_imt_restore_data <- function() {
 
   imt_capacity_data <- data.frame(
-    time = c(0, 0, 120, 120, 35, 35, 120, 120, 75, 75, 120, 120),
+    time = c(0, 0, 60, 60, 15, 15, 60, 60, 30, 30, 60, 60),
     capacity = c(100, 20, 20, 100, 20, 40, 40, 100, 40, 55, 55, 100),
     group = factor(c("No IMT Response", "No IMT Response", "No IMT Response", "No IMT Response",
                      "First IMT Response", "First IMT Response", "First IMT Response", "First IMT Response",
