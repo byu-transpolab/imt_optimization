@@ -1,6 +1,6 @@
 # Conclusions {#sec-conclusions}
 
-This paper contributes to the existing body of knowledge on IMT effectiveness and traffic incident modeling. It highlights the importance of strategic IMT deployment and the necessity for ongoing evaluation and adaptation of these strategies to meet changing demands in highway operational systems. Our study focuses on the Utah Wasatch Front Region, employing simulation modeling to evaluate IMT effectiveness. Previous studies have established IMT's significance in mitigating traffic disruptions, such as incidents and vehicle breakdowns [@schultz2019; @skabardonis1998]. Furthermore, mesoscopic DTA modeling has proven beneficial for in-depth analyses of incident impacts and management strategies [@kaddoura2018; @li2020].
+This paper contributes to the existing body of knowledge on IMT effectiveness and traffic incident modeling. It highlights the importance of strategic IMT deployment and the necessity for ongoing evaluation and adaptation of these strategies to meet changing demands in highway operational systems. Our study focuses on the Utah Wasatch Front Region, employing simulation modeling to evaluate IMT effectiveness. Previous studies have established IMT's significance in mitigating traffic disruptions, such as incidents and vehicle breakdowns [@bennett2021; @skabardonis1998]. Furthermore, mesoscopic DTA modeling has proven beneficial for in-depth analyses of incident impacts and management strategies [@kaddoura2018; @li2020].
 
 However, there is a noticeable lack of large-scale simulation models applied to evaluating IMT performance. These models offer unique insights and enable scenario testing that may be challenging with traditional methods. To address this gap, we developed a specific simulation model for assessing IMT operations across Utah, seeking to improve our understanding and the effectiveness of these teams.
 
@@ -10,7 +10,7 @@ Additionally, in our simulation, a fleet of 30 IMT showed quicker response times
 
 ## Implications {#sec-implications}
 
-In their study on Utah's IMT performance, @schultz2019 found that a one-minute delay in IMT response time led to a 0.8-minute increase in RCT, an additional 34.6 minutes in total estimated travel time, and an increase of \$925 in EUC. Building on these findings, we estimate that reducing the IMT response time by an average of four minutes --- a potential outcome of adding 10 more IMT to the fleet --- could result in EUC savings of approximately \$3,700 per incident.
+In their study on Utah's IMT performance, @hadfield2021 found that a one-minute delay in IMT response time led to a 0.8-minute increase in RCT, an additional 34.6 minutes in total estimated travel time, and an increase of \$925 in EUC. Building on these findings, we estimate that reducing the IMT response time by an average of four minutes --- a potential outcome of adding 10 more IMT to the fleet --- could result in EUC savings of approximately \$3,700 per incident.
 
 As UDOT evaluates the effectiveness of their IMT program and contemplates potential expansion, this study's insights become a crucial asset for informed decision-making. Our [results](#sec-results) suggest that increasing the IMT fleet has the potential to decrease VHD and enhance the speed of incident response.
 
@@ -32,11 +32,18 @@ In the [scoring and replanning](#sec-MATSim_Score) section, we describe how agen
 
 As @dobler2012 highlight in their chapter of the MATSim manual, employing a within-day replanning tool is helpful within the MATSim framework, especially for handling unexpected situations. They note that while the iterative modeling approach of MATSim is adept at reaching user equilibrium under typical conditions, it tends to falter during sudden events. This can result in seemingly irrational behaviors, such as agents changing routes before an incident actually takes place.
 
-The scenario depicted in @fig-within_day serves as an illustrative example of the potential routing issues that can arise in MATSim when within-day replanning is not utilized. In this instance, an agent is navigating from a start point marked by the red dot to a destination marked by the green dot. At 14:02, a traffic incident disrupts the agent's original route. Nevertheless, due to the anticipatory nature of MATSim's iterative approach, the agent already reroutes at 14:00---two minutes before the incident occurs. This early route change showcases the challenges of solely relying on an iterative modeling strategy for responding to sudden events. It also emphasizes the benefit of incorporating a within-day replanning feature, which relies on a single iteration to provide more accurate and realistic navigational adjustments.
+The scenario depicted in Figure \ref{fig-within-day} serves as an illustrative example of the potential routing issues that can arise in MATSim when within-day replanning is not applied. In this instance, an agent is navigating from a start point marked by the red dot to a destination marked by the green dot. At 14:02, a traffic incident disrupts the agent's original route. Nevertheless, due to the anticipatory nature of MATSim's iterative approach, the agent already reroutes at 14:00---two minutes before the incident occurs. This early route change showcases the challenges of solely relying on an iterative modeling strategy for responding to sudden events. It also emphasizes the benefit of incorporating a within-day replanning feature, which relies on a single iteration to provide more accurate and realistic navigational adjustments.
 
-![Within-day replanning approach for a MATSim routing problem [@dobler2012].](figures/within_day.png){#fig-within_day}
+```{=latex}
+\begin{figure}
+\centering
+\includegraphics{figures/within_day.png}
+\caption[Within-day replanning approach for a MATSim routing problem.]{Within-day replanning approach for a MATSim routing problem (Dobler et al., 2012).}
+\label{fig-within-day}
+\end{figure}
+```
 
-Unfortunately, the problem showcased in @fig-within_day surfaced at times throughout our MATSim simulations. In certain scenarios, agents would have preemptively avoided specific road links anticipated to have incidents, rather than adhering to more realistic behavior patterns observed on real roads. Typically, drivers maintain their intended course until directly confronted with congestion or delays, at which point they may choose to reroute. This variance between the simulated and actual driver responses to unforeseen road incidents underscores a key area for enhancement in our simulation model, ensuring it more accurately reflects realistic driving behavior.
+Unfortunately, the problem showcased in Figure \ref{fig-within-day} surfaced at times throughout our MATSim simulations. In certain scenarios, agents would have preemptively avoided specific road links anticipated to have incidents, rather than adhering to more realistic behavior patterns observed on real roads. Typically, drivers maintain their intended course until directly confronted with congestion or delays, at which point they may choose to reroute. This variance between the simulated and actual driver responses to unforeseen road incidents underscores a key area for enhancement in our simulation model, ensuring it more accurately reflects realistic driving behavior.
 
 ## Next Steps {#sec-next_steps}
 
