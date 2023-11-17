@@ -96,7 +96,7 @@ make_all_links_plot <- function(delay_summary) {
     # Add a horizontal reference line for the baseline value
     geom_hline(aes(yintercept = baseline_value), linetype = "dashed", color = "black", linewidth = 1.2) +
     # Overlay points that show the mean of each group
-    stat_summary(fun = mean, geom = "point", shape = 23, size = 3, color = "black", position = position_dodge(width = 0.75)) +
+    stat_summary(fun = mean, geom = "point", shape = 23, size = 8, color = "black", position = position_dodge(width = 0.75)) +
     # Set colors for the fill of each violin plot
     scale_fill_manual(values = brewer.pal(n = 6, name = "Set2"), guide = "none") +
     

@@ -105,80 +105,109 @@ The network and plans files used in this research were developed and calibrated 
 
 ### IMT Setup {#sec-IMT_setup}
 
-UDOT currently operates a fleet of 20 IMT, distributed across three zones corresponding to Davis, Salt Lake, and Utah counties within the Wasatch Front. @fig-IMT-Map provides a visual representation of the county boundaries and the initial locations of both existing and newly proposed IMT vehicles used in the simulation.
+The data provided by UHP details the operations of IMT in the Wasatch Front for June 6th, 2023, representing their typical weekday activities. This schedule highlights the working hours and coverage of a fleet comprising 20 IMT units, spread across three zones: Davis, Salt Lake, and Utah counties. In this distribution, Salt Lake County is assigned 10 IMT units, while Davis and Utah counties receive 5 each. We will refer to this 20-unit configuration as the existing or current fleet in our simulations. To explore the impact of an expansion, we propose a scenario with an additional 10 IMT units, creating a 30-unit fleet termed the new or increased IMT fleet. These extra units are strategically placed within each county to ensure even coverage. @fig-IMT-Map visually represents the county boundaries and the initial positions of both the existing and proposed new IMT vehicles in our simulation.
 
 ![IMT starting locations example map.](figures/imt_gray_map.png){#fig-IMT-Map}
 
-In @fig-IMT-Map, circles indicate the locations of existing IMT vehicles, while stars denote the proposed additions. These initial positions are carefully selected to maintain a uniform distribution of IMT vehicles across each county. Typically, IMT vehicles do not cross county borders during operations since dispatch services are organized at the county level. However, our MATSim network does not enforce such restrictions, permitting vehicles to traverse county lines based on their proximity to incidents. The specific starting points are recorded in the IMT file as starting links, streamlining their integration into MATSim. IMT are also assigned operational hours, or shifts, which are then programmed into MATSim to represent the units' availability. In Utah, these shifts typically consist of a morning shift beginning at 6:00 AM and an evening shift ending at 10:30 PM. While @fig-IMT-Map showcases the IMT distribution during the evening shift, it is important to note that IMT distribution remains largely unaltered throughout the morning and afternoon shifts. The initial setup of IMT, although it does not replicate the real-world scenario of drivers beginning their shifts from home, provides a viable solution for our simulations. Considering the significant number of IMT operations along major highways such as I-15, I-80, and I-215, and the daily variations in real-world starting locations, this strategic placement along key routes is justified. In the 30 IMT scenario, all vehicles from the 20 IMT scenarios are retained and augmented with an additional 10 IMT, ensuring comprehensive coverage across all three counties.
+@fig-IMT-Map uses circles to mark the locations of existing IMT vehicles and stars for the proposed additions. We positioned these units strategically along major highways to achieve a balanced distribution of IMTs across each county. While this initial setup doesn't mirror the real-world scenario where drivers begin their shifts from home, it serves as a practical model for our simulations. The frequency of IMT operations on major highways like I-15, I-80, and I-215, along with the variable real-world starting points, justifies this strategic alignment along key routes. Typically, IMT vehicles do not cross county borders as dispatch services are organized by county. However, in our MATSim network, vehicles can cross into other counties depending on incident proximity. IMTs follow specific operational shifts, which we've programmed into MATSim to reflect their availability. In Utah, these often include a morning shift starting at 6:00 AM and an evening shift ending at 10:30 PM. @fig-IMT-Map also illustrates the IMT distribution during the evening shift, but it's important to note that this pattern is generally consistent during the morning shift as well.
 
-Our research primarily concentrates on evaluating the potential impacts of expanding the IMT fleet, rather than examining the effects of their starting positions. We hypothesize that increasing the number of IMT, assuming uniform distribution, will enhance their overall effectiveness.
+Our research primarily concentrates on evaluating the potential impacts of expanding the IMT fleet, rather than examining the effects of their starting positions. We hypothesize that increasing the number of IMTs, assuming uniform distribution, will enhance their overall effectiveness.
 
 ### Incident Data and Sampling {#sec-inc_data}
 
-@schultz2023 undertook concurrent IMT research and compiled a comprehensive dataset of incidents requiring IMT intervention, drawing on data from the UHP. He carefully ensured the completeness of each incident record in the dataset, capturing crucial details such as the incident start and end times, RCT, location, and extent of capacity reduction.
+In their concurrent IMT research, @schultz2023 developed a comprehensive dataset of incidents requiring management intervention, derived from data provided by UHP. Analyzing data from 2018 to 2022, they identified 1,604 incidents over 184 days that required the assistance of either IMT or UPH. This dataset is useful in understanding the frequency of daily incidents in the Wasatch Front that necessitate incident management intervention. @fig-incident-distribution-plot illustrates the number inicdnet in a given day on the x-axis and the number of days with that incident frequency on its y-axis.
 
-Analyzing data from 2018 and 2022, @schultz2023 successfully identified 411 unique incidents with varying degrees of severity, ranging from property damage to fatal incidents. We used this carefully curated dataset to selectively include specific incidents in the MATSim model. It is important to acknowledge that these 411 incidents only constitute a portion of all incidents reported by UHP during this time frame. A number of additional incidents were excluded from the analysis because they lacked essential information on duration, capacity reduction, or location, all of which are necessary for a comprehensive evaluation. Nevertheless, the integration of the 411 analyzed incidents with the additional incomplete records provides insights, aiding in quantifying the total number of incidents within a specific time period. These combined incident records informed the modeling of daily incident frequencies but were not used for incident sampling in the simulation
 
-To generate 10 distinct values representing daily incident frequencies, we employed a randomized sampling technique. These values were collectively termed Current Incident Frequencies as they were derived from the original distribution of daily incidents. Furthermore, we formulated a second set of 10 additional daily incident values, named Increased Incident Frequencies. These values were extracted from the upper portion of the 2022 incident data and were specifically designed to assess the resilience and efficacy of the IMT system under scenarios of markedly increased daily incidents. The visual depiction of the original distribution of daily incidents, alongside the distributions for both the Current and Increased Incident Frequencies, is illustrated in @fig-incident-sampling-plot.
+@fig-incident-sampling-plot demonstrates the "Original Distribution" of observed daily incident frequencies in a bar chart format. To simulate this distribution in our model, we used a randomized sampling method to generate 10 distinct daily incident frequencies based on the original data, labeled as the "Current Frequency" group. These frequencies are represented as bars layered on top of the Original Distribution in @fig-incident-sampling-plot. Additionally, to assess IMT performance in scenarios with increased incident numbers, we created a "Increased Frequency" group. This group includes the 10 highest daily incident frequencies from the original data and is similarly layered over the "Original Distribution" in the @fig-incident-sampling-plot bar chart.
 
-```{r incident_sampling_plot}
+```{r incident_sampling_plot, fig.width=33, fig.height=18.6}
 #| label: fig-incident-sampling-plot
 #| fig-cap: Sampling distributions for incident frequencies.
 # Load the incident sampling data
 tar_load(incident_sampling_data)
 
-# Define a new color palette
+# Update the category names
+incident_sampling_data$category <- gsub("Current Frequency", 
+                                        "Sample of Distribution", 
+                                        incident_sampling_data$category)
+incident_sampling_data$category <- gsub("Increased Frequency", 
+                                        "Max Values of Distribution", 
+                                        incident_sampling_data$category)
+
+# Order the factor levels for the 'category' column to control the legend order
+incident_sampling_data$category <- factor(incident_sampling_data$category, 
+                                          levels = c("Incident Distribution", 
+                                                     "Sample of Distribution", 
+                                                     "Max Values of Distribution"))
+
+# Define a new color palette with three colors
 color_palette <- brewer.pal(n = 3, name = "Set2")
 
 # Create the plot
 incident_sampling_plot <- ggplot() +
-  
-  # Add bars for the 'Original Distribution' category
-  geom_bar(data = subset(incident_sampling_data, category == "Original Distribution"), 
+  # Add bars for the 'Incident Distribution' category
+  geom_bar(data = subset(incident_sampling_data, category == "Incident Distribution"), 
            aes(x = as.factor(Total_Count), fill = category), 
            position = "dodge", stat = "count", width = 0.8) +
   
-  # Add bars for the 'Current Frequency' category
-  geom_bar(data = subset(incident_sampling_data, category == "Current Frequency"), 
+  # Overlay bars for the 'Sample of Incident Distribution' category
+  geom_bar(data = subset(incident_sampling_data, category == "Sample of Distribution"), 
            aes(x = as.factor(Total_Count), fill = category), 
-           position = "dodge", stat = "count", width = 0.8) +
+           stat = "count", width = 0.8, color = NA) + # Removed border for these bars
   
-  # Add bars for the 'Increased Frequency' category
-  geom_bar(data = subset(incident_sampling_data, category == "Increased Frequency"), 
+  # Add border color for the 'Max Values of Incident Distribution' category
+  geom_bar(data = subset(incident_sampling_data, category == "Max Values of Distribution"), 
            aes(x = as.factor(Total_Count), fill = category), 
-           position = "dodge", stat = "count", width = 0.8) +
+           position = "dodge", stat = "count", width = 0.8,
+           color = color_palette[3], linewidth = 8) +
   
-  # Set the colors for the fill based on the defined color palette
-  scale_fill_manual(values = setNames(color_palette, 
-                                      c("Original Distribution", 
-                                        "Current Frequency", 
-                                        "Increased Frequency"))) +
-  
-  # Add labels for the x and y axes
-  labs(x = 'Number of Incidents in a Given Day', y = 'Frequency',
-       caption = "Note: The increased frequency is drawn from the highest recorded values of the original incident distribution.") +
+    # Set the colors for the fill
+  scale_fill_manual(values = setNames(c(color_palette[1], color_palette[2], color_palette[1]), 
+                                      c("Incident Distribution", 
+                                        "Sample of Distribution", 
+                                        "Max Values of Distribution")),
+                              limits = c("Incident Distribution", 
+                                         "Sample of Distribution", 
+                                         "Max Values of Distribution")) +
 
-  # Use a minimal theme and set the base font family and size
-  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 11) +
-  
-  # Customize the appearance of the legend and text
+  # Add labels and theme
+  labs(x = 'Number of Incidents in a Given Day', y = 'Number of Days') +
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 40) +
   theme(legend.title = element_blank(),
         legend.position = c(0.95, 0.95),
         legend.justification = c("right", "top"),
         legend.margin = margin(-10, -10, -10, -10),
         legend.box.margin = margin(0, 0, 0, 0),
-        legend.key.size = unit(0.8, "cm"),
-        text = element_text(size = 11),
-        plot.caption = element_text(hjust = 0.5, size = 8),
-        plot.caption.position = "plot",
-        plot.margin = margin(b = 20)) +
-  
-  # Define the order of the x-axis categories
-  scale_x_discrete(limits = levels(as.factor(incident_sampling_data$Total_Count)))
+        legend.key.size = unit(3.5, "cm"),
+        legend.text = element_text(size = 46), # Increased legend text size
 
+        text = element_text(size = 11),
+        
+        axis.title = element_text(size = 65), # Increase the axis title font size
+        axis.text = element_text(size = 55), # Increase the axis text font size
+
+        plot.margin = margin(b = 20)) +
+
+  guides(fill = guide_legend(override.aes = list(colour = c(NA, NA, color_palette[3]), 
+                                                  linetype = c("blank", "blank", "solid"), 
+                                                  size = c(0.5, 0.5, 8))))
 # Print the plot
 incident_sampling_plot
 ```
+
+From their established dataset of 1604 incidents @schultz2023 filtered the data to ensure the completeness of each incident record in the dataset, ensuring that the incident was responded to by and IMT and contained complete information on incident duration, capacity reduction and location, all of which are necessary for a comprehensive evaluation. Filtering with those requirements they reduced the list to 411 unique incidents that received IMT assistance. 
+
+
+@schultz2023 undertook concurrent IMT research and compiled a comprehensive dataset of incidents requiring IMT intervention, drawing on data from the UHP. They carefully ensured the completeness of each incident record in the dataset, capturing crucial details such as the incident start and end times, RCT, location, and extent of capacity reduction.
+
+Analyzing data from 2018 and 2022, @schultz2023 successfully identified 1604 incidents over 184 days that required either IMT or UPH  assistance. The dataset they compiled provides insights into the frequency of daily incidents in the Wasatch Front that are responded to by incident management resources and is displayed in @fig-incident-sampling-plot with the label "Original Distribution". To represent that distribution of daily incidents in our model, we used a randomized sampling technique to generate 10 distinct values representing daily incident frequencies base on the "Original Distribution" of the number of incidents in a given day. Those 10 values will be refereed to as the "Current Incident Frequency" or "Current Frequency" group and overlay the Original Distribution values in @fig-incident-sampling-plot. Additionally, with the desire to see how IMT would preform with an elevated number of incidents we formed a second sampling group called the "Increased Incident Frequency" group, that was comprised of the 10 largest daily incident frequencies from the original incident distribution. 
+
+
+From the list of 1604 incident they identified 411 unique incidents that received IMT assistance and contained essential information on duration, capacity reduction and location, all of which are necessary for a comprehensive evaluation. We used this carefully curated dataset to selectively include specific incidents in the MATSim model. 
+
+From that list of incidents they identified 411 unique incidents with varying degrees of severity, ranging from property damage to fatal incidents. We used this carefully curated dataset to selectively include specific incidents in the MATSim model. It is important to acknowledge that these 411 incidents only constitute a portion of all incidents reported by UHP during this time frame. A number of additional incidents were excluded from the analysis because they lacked essential information on duration, capacity reduction, or location, all of which are necessary for a comprehensive evaluation. Nevertheless, the integration of the 411 analyzed incidents with the additional incomplete records provides insights, aiding in quantifying the total number of incidents within a specific time period. These combined incident records informed the modeling of daily incident frequencies but were not used for incident sampling in the simulation
+
+To generate 10 distinct values representing daily incident frequencies, we employed a randomized sampling technique. These values were collectively termed Current Incident Frequencies as they were derived from the original distribution of daily incidents. Furthermore, we formulated a second set of 10 additional daily incident values, named Increased Incident Frequencies. These values were extracted from the upper portion of the 2022 incident data and were specifically designed to assess the resilience and efficacy of the IMT system under scenarios of markedly increased daily incidents. The visual depiction of the original distribution of daily incidents, alongside the distributions for both the Current and Increased Incident Frequencies, is illustrated in @fig-incident-sampling-plot.
 
 In total, 20 values were selected, evenly split with 10 allocated to the Current Incident Frequency category, and the remaining 10 to the Increased Incident Frequency category. Each value was subsequently paired with a unique three-digit seed number, used internally within MATSim to ensure a randomized selection of incidents for each simulation scenario. Following this, we employed MATSim [Network Change Events](#sec-NCE) to integrate the incidents into the simulation.
 

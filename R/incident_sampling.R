@@ -16,7 +16,7 @@ make_incident_sampling_data <- function(all_incident_data) {
       group_by(Date, `Call Type`) %>%
       summarise(Count = n(), .groups = 'drop') %>%
       pivot_wider(names_from = `Call Type`, values_from = Count, values_fill = 0) %>%
-      mutate(Total_Count = rowSums(select(., -Date), na.rm = TRUE), category = "Original Distribution") %>%
+      mutate(Total_Count = rowSums(select(., -Date), na.rm = TRUE), category = "Incident Distribution") %>%
       select(Date, Total_Count, category)
     
     # Manually specify the incident counts and create dataframes

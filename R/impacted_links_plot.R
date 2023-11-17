@@ -15,6 +15,31 @@ make_impacted_links_plot <- function(delay_per_seed) {
       TRUE ~ as.character(Scenario)
     ))
   
+  delay_per_seed <- delay_per_seed %>%
+    mutate(Seed = case_when(
+      Seed == "723" ~ "1",
+      Seed == "518" ~ "2",
+      Seed == "847" ~ "3",
+      Seed == "907" ~ "4",
+      Seed == "790" ~ "5",
+      Seed == "418" ~ "6",
+      Seed == "340" ~ "7",
+      Seed == "886" ~ "8",
+      Seed == "398" ~ "9",
+      Seed == "141" ~ "10",
+      Seed == "637" ~ "11",
+      Seed == "499" ~ "12",
+      Seed == "167" ~ "13",
+      Seed == "472" ~ "14",
+      Seed == "951" ~ "15",
+      Seed == "584" ~ "16",
+      Seed == "915" ~ "17",
+      Seed == "227" ~ "18",
+      Seed == "879" ~ "19",
+      Seed == "946" ~ "20",
+      TRUE ~ as.character(Seed)
+    ))
+  
   # Convert Incidents and total_incident_delay to numeric
   delay_per_seed$Incidents <- as.numeric(as.character(delay_per_seed$Incidents))
   delay_per_seed$total_incident_delay <- as.numeric(as.character(delay_per_seed$total_incident_delay))
@@ -23,12 +48,17 @@ make_impacted_links_plot <- function(delay_per_seed) {
   delay_per_seed <- delay_per_seed %>%
     mutate(average_incident_delay = total_incident_delay / Incidents)
   
-  # Calculate the order of `Scenario ID` based on the highest delay in the data
-  scenario_order <- delay_per_seed %>%
-    group_by(`Scenario ID`, `Incidents`) %>%
+  # Create a unique label for each group
+  delay_per_seed <- delay_per_seed %>%
+    mutate(group_label = paste(Incidents, Seed, sep = "_"))
+  
+  # Filter for 'No IMT' scenario before calculating max_delay
+  group_order <- delay_per_seed %>%
+    filter(Scenario == "No IMT") %>%
+    group_by(Seed) %>%
     summarise(max_delay = max(total_incident_delay, na.rm = TRUE)) %>%
-    arrange(-max_delay) %>%  # Reverse the sorting order
-    pull(`Scenario ID`)
+    arrange(-max_delay) %>% 
+    pull(Seed)
   
   # Rename scenario to group
   delay_per_seed <- delay_per_seed %>%
@@ -37,19 +67,42 @@ make_impacted_links_plot <- function(delay_per_seed) {
       "Seed ID" = "Scenario ID"
     )
   
-  # Generate the scatter plot with the specified adjustments
-  impacted_links_plot <- ggplot(delay_per_seed, aes(y = factor(`Seed ID`, levels = scenario_order), 
-                                                    x = pmin(total_incident_delay, 400),  # Cap values at 400 for plotting
+  # Categorize scenarios based on the number of incidents
+  delay_per_seed <- delay_per_seed %>%
+    mutate(incident_category = ifelse(Incidents < 14, "Current Incident Frequency", "Increased Incident Frequency"))
+  
+  # Define custom color shades
+  my_colors <- c(
+    "Baseline" = "#B0E0E6",  # Powder blue (lightest)
+    "30 IMT" = "#1E90FF",    # Dodger blue (medium)
+    "20 IMT" = "#4169E1",    # Royal blue (distinct from No IMT)
+    "No IMT" = "#000080"     # Navy (darkest)
+  )
+  
+  # Adjust the factor levels for Group to control the plot order
+  # Note that 'Baseline' is the first level because we will arrange in descending order
+  delay_per_seed$Group <- factor(delay_per_seed$Group, levels = c("Baseline", "No IMT", "30 IMT", "20 IMT"))
+  
+  # Reorder the data frame based on the Group factor in descending order
+  delay_per_seed <- delay_per_seed %>%
+    arrange(desc(Group))
+  
+  # Create the plot
+  impacted_links_plot <- ggplot(delay_per_seed, aes(y = factor(Seed, levels = group_order),
+                                                    x = pmin(total_incident_delay, 200), 
                                                     color = Group)) +
-    geom_point(size = 2) +
-    labs(x = "Delay on Impacted Links [hours]",
-         y = "Seed ID") +
-    scale_color_brewer(palette = "Set2", 
-                       breaks = c("Baseline", "No IMT", "20 IMT", "30 IMT")) +  # Order of scenarios
-    scale_x_continuous(limits = c(NA, 400), 
-                       breaks = seq(0, 400, 100),
-                       labels = c(as.character(seq(0, 300, 100)), "400+")) +  # X-axis limits, increments, and labeling
-    theme_minimal()
+    geom_point(size = 14) + 
+    labs(x = "Delay on Incident Links [hours]",
+         y = "Scenario ID") +
+    # Use custom colors and set legend order
+    scale_color_manual(values = my_colors, 
+                       breaks = c("Baseline", "30 IMT", "20 IMT", "No IMT")) +        scale_x_continuous(limits = c(NA, 200),
+                       breaks = seq(0, 200, 50),
+                       labels = c(as.character(seq(0, 150, 50)), "200+")) +
+    facet_wrap(~ incident_category, ncol = 1, scales = "free_y") +  # Facet by incident category
+    theme_minimal() +
+    theme(panel.spacing = unit(2, "lines")) # Adjust the space between facets
+
   
   return(impacted_links_plot)
 }
