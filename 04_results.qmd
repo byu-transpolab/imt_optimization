@@ -61,7 +61,8 @@ all_links_plot +
   theme_minimal(base_family = "TeX Gyre Pagella", base_size = 40) +
   
    # Change the x-axis text angle and horizontal justification
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  theme(legend.position = "none")
 ```
 
 In @fig-network-violin-plot, each distribution plot represents the density distribution of delay values, with wider sections indicating areas where numerous simulations converged around specific delay values. Conversely, narrower sections suggest fewer simulations clustering around those particular delay values. A dashed horizontal line is superimposed to facilitate comparison of each group with the results from the Baseline scenario. Additionally, diamond markers within each plot denote the mean delay across all simulations in the respective scenario group.

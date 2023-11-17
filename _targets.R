@@ -66,7 +66,6 @@ list(
     format = "file"  
   ),
   
-  
   # source("R/incident_sampling.R")
   # Make incident sampling plot
   tar_target(
@@ -249,6 +248,11 @@ list(
   tar_target(
     name= VHD_conclusions_table,
     command = read_vhd_summary(vhd_summary_csv)
-  )
+  ),
   
+  tar_target(
+    name = score_output,
+    command = "data/scorestats.csv",
+    format = "file"
+  )
 )

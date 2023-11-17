@@ -47,6 +47,51 @@ As will be detailed in the [model implementation](#sec-model_imp) subsection, th
 
 @fig-score-output presents a MATSim scoring output from a scenario incorporating incidents and IMT responses. The figure indicates notable plan adjustments and corresponding score changes during the first 60 iterations. As the simulation progressed, the executed scores started to stabilize. To minimize the potential for significant variance, replanning was disabled after the 85th iteration. This approach ensures that the final iterations, which are critical for scenario analysis, reflect a steady state.
 
+```{r incident_capacity_restore, fig.width=24.57, fig.height=17.73}
+#| label: fig-imt-capacity-restore
+#| fig-cap: IMT capacity restoration upon arrival example.
+# Load the capacity data points
+tar_load(score_output)
+
+# Read the data from the CSV file
+score_data <- read_csv(score_output)
+
+# Transform the data into long format for ggplot2
+score_data_long <- score_data %>%
+  pivot_longer(cols = starts_with("avg."), 
+               names_to = "Metric", 
+               values_to = "Score") %>%
+   mutate(Metric = recode(Metric, 
+                         'avg. WORST' = 'avg. worst',
+                         'avg. BEST' = 'avg. best',
+                         'avg. AVG' = "avg. of plans' average",
+                         'avg. EXECUTED' = 'avg. executed score'))
+
+
+# Define the new color palette
+color_palette <- brewer.pal(n = 4, name = "Set2")
+
+# Create a line graph without points and with thicker lines
+score_plot <- ggplot(score_data_long, aes(x = ITERATION, y = Score, color = Metric, group = Metric)) +
+  geom_line(size = 2) +  # Increase the size for thicker lines
+  labs(title = "MATSim Scores",
+       x = "Iteration", 
+       y = "Score") +
+  scale_color_manual(values = color_palette) +
+  scale_y_continuous(limits = c(0, 65)) + # Extend the y-axis to start at 0
+
+  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 40) +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    plot.title = element_text(hjust = 0.5)  # Center the title
+  )
+
+score_plot
+```
+
+
+
 ![MATSim scoring statistics output example.](figures/scorestats.png){#fig-score-output}
 
 ### Network Change Events {#sec-NCE}
