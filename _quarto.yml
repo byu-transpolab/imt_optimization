@@ -123,6 +123,11 @@ format:
   byu-thesis-pdf:
     keep-tex: true
     highlight-style: arrow
+  docx:
+    reference-doc: custom-reference-doc.docx
+    number-sections: false
+    toc: true
+    toc-depth: 2
   
   # elsevier-pdf:
   #   include-in-header: 
