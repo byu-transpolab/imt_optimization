@@ -47,14 +47,15 @@ As will be detailed in the [model implementation](#sec-model_imp) subsection, th
 
 @fig-score-output presents a MATSim scoring output from a scenario incorporating incidents and IMT responses. The figure indicates notable plan adjustments and corresponding score changes during the first 60 iterations. As the simulation progressed, the executed scores started to stabilize. To minimize the potential for significant variance, replanning was disabled after the 85th iteration. This approach ensures that the final iterations, which are critical for scenario analysis, reflect a steady state.
 
-```{r incident_capacity_restore, fig.width=24.57, fig.height=17.73}
-#| label: fig-imt-capacity-restore
-#| fig-cap: IMT capacity restoration upon arrival example.
+```{r MATSim Scoring Statistics}
+#| label: fig-score-output
+#| fig-cap: MATSim scoring statistics output example.
+
 # Load the capacity data points
 tar_load(score_output)
 
 # Read the data from the CSV file
-score_data <- read_csv(score_output)
+score_data <- read_csv(score_output, show_col_types = FALSE)
 
 # Transform the data into long format for ggplot2
 score_data_long <- score_data %>%
@@ -73,26 +74,20 @@ color_palette <- brewer.pal(n = 4, name = "Set2")
 
 # Create a line graph without points and with thicker lines
 score_plot <- ggplot(score_data_long, aes(x = ITERATION, y = Score, color = Metric, group = Metric)) +
-  geom_line(size = 2) +  # Increase the size for thicker lines
-  labs(title = "MATSim Scores",
-       x = "Iteration", 
+  geom_line(size = 0.71) +  # Increase the size for thicker lines
+  labs(x = "Iteration", 
        y = "Score") +
   scale_color_manual(values = color_palette) +
   scale_y_continuous(limits = c(0, 65)) + # Extend the y-axis to start at 0
 
-  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 40) +
+  theme_minimal(base_family = "TeX Gyre Pagella") +
   theme(
     legend.position = "bottom",
     legend.title = element_blank(),
-    plot.title = element_text(hjust = 0.5)  # Center the title
   )
 
 score_plot
 ```
-
-
-
-![MATSim scoring statistics output example.](figures/scorestats.png){#fig-score-output}
 
 ### Network Change Events {#sec-NCE}
 
@@ -160,12 +155,12 @@ Our research primarily concentrates on evaluating the potential impacts of expan
 
 ### Incident Data and Sampling {#sec-inc_data}
 
-In their concurrent IMT research, @schultz2023 developed a comprehensive dataset of incidents requiring management intervention, derived from data provided by UHP. Analyzing data from 2018 to 2022, they identified 1,604 incidents over 184 days that required the assistance of either IMT or UPH. This dataset is useful in understanding the frequency of daily incidents in the Wasatch Front that necessitate incident management intervention. @fig-incident-distribution-plot illustrates the number inicdnet in a given day on the x-axis and the number of days with that incident frequency on its y-axis.
+In their concurrent IMT research, @schultz2023 developed a comprehensive dataset of incidents requiring management intervention, derived from data provided by UHP. Analyzing data from 2018 to 2022, they identified 1,604 incidents over 184 days that required the assistance of either IMT or UPH. This dataset is useful in understanding the frequency of daily incidents in the Wasatch Front that necessitate incident management intervention. @fig-incident-distribution-plot illustrates the number incidents in a given day on the x-axis and the number of days with that incident frequency on its y-axis.
 
 
 @fig-incident-sampling-plot demonstrates the "Original Distribution" of observed daily incident frequencies in a bar chart format. To simulate this distribution in our model, we used a randomized sampling method to generate 10 distinct daily incident frequencies based on the original data, labeled as the "Current Frequency" group. These frequencies are represented as bars layered on top of the Original Distribution in @fig-incident-sampling-plot. Additionally, to assess IMT performance in scenarios with increased incident numbers, we created a "Increased Frequency" group. This group includes the 10 highest daily incident frequencies from the original data and is similarly layered over the "Original Distribution" in the @fig-incident-sampling-plot bar chart.
 
-```{r incident_sampling_plot, fig.width=33, fig.height=18.6}
+```{r incident_sampling_plot}
 #| label: fig-incident-sampling-plot
 #| fig-cap: Sampling distributions for incident frequencies.
 # Load the incident sampling data
@@ -192,22 +187,24 @@ color_palette <- brewer.pal(n = 3, name = "Set2")
 incident_sampling_plot <- ggplot() +
   # Add bars for the 'Incident Distribution' category
   geom_bar(data = subset(incident_sampling_data, category == "Incident Distribution"), 
-           aes(x = as.factor(Total_Count), fill = category), 
-           position = "dodge", stat = "count", width = 0.8) +
+           aes(x = as.factor(Total_Count), fill = category),
+           position = "dodge", stat = "count", width = 0.8,
+           color = color_palette[1], linewidth = 1.2) +
   
   # Overlay bars for the 'Sample of Incident Distribution' category
   geom_bar(data = subset(incident_sampling_data, category == "Sample of Distribution"), 
-           aes(x = as.factor(Total_Count), fill = category), 
-           stat = "count", width = 0.8, color = NA) + # Removed border for these bars
+           aes(x = as.factor(Total_Count), fill = category),
+           position = "dodge", stat = "count", width = 0.8,
+           color = color_palette[2], linewidth = 1.2) +
   
   # Add border color for the 'Max Values of Incident Distribution' category
   geom_bar(data = subset(incident_sampling_data, category == "Max Values of Distribution"), 
            aes(x = as.factor(Total_Count), fill = category), 
            position = "dodge", stat = "count", width = 0.8,
-           color = color_palette[3], linewidth = 8) +
+           color = color_palette[3], linewidth = 1.2) +
   
     # Set the colors for the fill
-  scale_fill_manual(values = setNames(c(color_palette[1], color_palette[2], color_palette[1]), 
+  scale_fill_manual(values = setNames(c(color_palette[1], color_palette[1], color_palette[1]), 
                                       c("Incident Distribution", 
                                         "Sample of Distribution", 
                                         "Max Values of Distribution")),
@@ -217,25 +214,18 @@ incident_sampling_plot <- ggplot() +
 
   # Add labels and theme
   labs(x = 'Number of Incidents in a Given Day', y = 'Number of Days') +
-  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 40) +
+  theme_minimal(base_family = "TeX Gyre Pagella") +
   theme(legend.title = element_blank(),
         legend.position = c(0.95, 0.95),
         legend.justification = c("right", "top"),
         legend.margin = margin(-10, -10, -10, -10),
         legend.box.margin = margin(0, 0, 0, 0),
-        legend.key.size = unit(3.5, "cm"),
-        legend.text = element_text(size = 46), # Increased legend text size
-
-        text = element_text(size = 11),
-        
-        axis.title = element_text(size = 65), # Increase the axis title font size
-        axis.text = element_text(size = 55), # Increase the axis text font size
 
         plot.margin = margin(b = 20)) +
 
-  guides(fill = guide_legend(override.aes = list(colour = c(NA, NA, color_palette[3]), 
-                                                  linetype = c("blank", "blank", "solid"), 
-                                                  size = c(0.5, 0.5, 8))))
+  guides(fill = guide_legend(override.aes = list(colour = c(color_palette[1], color_palette[2], color_palette[3]), 
+                                                  linetype = c("solid", "solid", "solid"), 
+                                                  size = c(1.2, 1.2, 1.2))))
 # Print the plot
 incident_sampling_plot
 ```
@@ -271,7 +261,7 @@ In total, six scenario groups, each containing 10 random "days" with distinct in
 
 It is important to note, as described in the [IMT setup](#sec-IMT_setup) section, that not all IMT vehicles are operational simultaneously. Due to scheduling constraints, the actual number of IMT on the road at any given time is typically half of the total fleet size.
 
-Scenarios are evaluated by comparing each group with a baseline scenario that assumes no incidents or IMT interventions. In this study, the primary metrics for analyzing the traffic impact of incidents and IMT are the vehicle hours of delay (VHD) and RT. The MATSim outputs for each scenario include the average delay per link over 15-minute periods. Additionally, we compiled a file for each scenario documenting the traffic volumes for each link during these time intervals. Multiplying the traffic volumes by the average delays yields a detailed delay file, which represents the aggregate delay on each network link for the simulated "day". The formula for calculating the link-specific delay in a scenario is provided in @eq-vhd_group.
+Scenarios are evaluated by comparing each group with a baseline scenario that assumes no incidents or IMT interventions. In this study, the primary metrics for analyzing the traffic impact of incidents and IMT are the vehicle hours of delay (VHD) and RT. The MATSim outputs for each scenario include the average delay per link over 15-minute periods. Additionally, we compiled a file for each scenario documenting the traffic volumes for each link during these time intervals. Multiplying the traffic volumes by the average delays yields a detailed delay file, which represents the aggregate delay on each network link for the simulated "day." The formula for calculating the link-specific delay in a scenario is provided in @eq-vhd_group.
 
 $$
 \text{VHD per link} = {\sum_{i=1}^{n} a_i}*{v_i}

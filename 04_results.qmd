@@ -23,13 +23,15 @@ library(scales)
 
 This section details the outcomes of the Utah IMT Optimization project, employing the MATSim model to execute a series of simulations across a range of scenario groups. Specifically, the groups---No IMT, 20 IMT, and 30 IMT---were compared with a Baseline scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of IMT in alleviating traffic disruptions.
 
-The following sections analyze the results derived from the simulated scenarios. This analysis uses comparative metrics such as VHD, the consequences of traffic incidents, and the dynamics of the IMT responses in relation to the incidents they manage.
+The following sections analyze the results derived from the simulated scenarios. This analysis uses VHD as a comparative metric examining delay at the network, motorway, and incident links levels in sections  [4.1.1](#sec-VHD-Network), [4.1.2](#sec-VHD-Motorway), and [4.1.3](#sec-impacted). The results also compare IMT performance based on the teams average response times, total travel time, and total travel distance in [section 4.2](#sec-IMT-performance).   
+
+This analysis uses comparative metrics such as VHD, the consequences of traffic incidents, and the dynamics of the IMT responses in relation to the incidents they manage.
 
 ## Vehicle Hours of Delay
 
-The studies referenced in the [IMT optimization](#sec-lit_imt_opt) section of the [literature review](#sec-literature) demonstrate the efficacy of IMT in reducing RT and EUC on roadway segments affected by incidents. Similarly, the results from this transportation model highlight the impact of IMT at reducing delay, particularly when focusing on the segments of roadways where incidents occurred; see [impacted links](#sec-impacted). In contrast to the cited studies, our model also explored the broader implications of incidents and their corresponding IMT responses on the simulated network. In a majority of scenarios, these results also suggested a strong positive correlation between IMT and the reduction of RT and VHD, which are key determinants in the computation of EUC.
+The studies referenced in the [IMT optimization](#sec-lit_imt_opt) section of the [literature review](#sec-literature) demonstrate the efficacy of IMT in reducing RT and EUC on roadway segments affected by incidents. Similarly, the results from this transportation model highlight the impact of IMT at reducing delay, particularly when focusing on the segments of roadways where incidents occurred; see section [4.1.3](#sec-impacted). In contrast to the cited studies, our model also explored the broader implications of incidents and their corresponding IMT responses on the simulated network. In a majority of scenarios, these results also suggested a strong positive correlation between IMT and the reduction of RT and VHD, which are key determinants in the computation of EUC.
 
-### Network Hours of Delay
+### Network Hours of Delay {#sec-VHD-Network}
 
 In the comparison of network VHD across simulations, the scenarios were grouped by IMT response and incident frequency. Each group encompassed 10 simulated scenarios, which involved different selections of incidents, with the exception of the Baseline scenario, which stands alone. @tbl-network-delays-table presents the average VHD for each group, based on the delays recorded in the final iteration of each simulation. These average VHD values are subsequently compared against the Baseline scenario to calculate the percentage change in VHD.
 
@@ -52,13 +54,13 @@ While the relationship between the IMT group and VHD appeared straightforward, t
 
 Given that @tbl-network-delays-table reveals average delay values aggregated across multiple scenarios within each group, a graphical representation can enhance clarity regarding the inherent variance within these data clusters. @fig-network-violin-plot illustrates this data through distribution plots.
 
-```{r all_links_plot, fig.height=12.03, fig.width=19.5}
+```{r all_links_plot}
 #| label: fig-network-violin-plot
-#| fig-cap: Average network delay distribution.
+#| fig-cap: Average network VHD distribution.
 tar_load(all_links_plot)
 all_links_plot +
   # change the text style of the plot
-  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 40) +
+  theme_minimal(base_family = "TeX Gyre Pagella") +
   
    # Change the x-axis text angle and horizontal justification
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
@@ -71,7 +73,7 @@ Upon examining these plots, we can make several observations. In the No IMT grou
 
 While the preceding section discussed delays across the entire network, it is important to note that all simulated incidents were located on motorway links, predominantly along the major interstates of Utah's Wasatch Front. This encompasses key routes such as I-15, I-80, and I-215, as well as other significant freeways and highways. The subsequent section will provide a detailed analysis of the simulation outcomes specifically related to these motorway links.
 
-### Motorway Link Hours of Delay
+### Motorway Link Hours of Delay {#sec-VHD-Motorway}
 
 The network used in our model is derived from the Wasatch Front Regional Council travel demand model network. Within this network, the term 'motorway' denotes a specific type of link, also known as a freeway or expressway in different contexts. To ensure consistency throughout this document, we primarily refer to these road segments as 'motorway' or 'motorway links'. It is important to note, however, that in the simulation, incidents can occur on both interstates and major highways along the Wasatch Front.
 
@@ -95,14 +97,14 @@ A potential explanation for these unexpected VHD outcomes on motorway links coul
 
 For a better understanding of the variances within the scenario groups, @fig-motorway-violin-plot may provide additional insights. In @fig-motorway-violin-plot, we observe distinct patterns in the distribution of delays for different scenario groupings. Key observations include:
 
-```{r truck_data, fig.height=12.03, fig.width=19.5}
+```{r motorway_links_plot}
 #| label: fig-motorway-violin-plot
-#| fig-cap: Average motorway delay distribution.
+#| fig-cap: Average motorway VHD distribution.
 tar_load(motorway_links_plot)
 motorway_links_plot +
 
   # change the text style of the plot
-  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 40) +
+  theme_minimal(base_family = "TeX Gyre Pagella") +
 
  # Change the x-axis text angle and horizontal justification
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
@@ -160,7 +162,7 @@ It is important to acknowledge the inherent dynamic nature of the MATSim iterati
 
 Note that the x-axis has been limited to a maximum of 400+ VHD. This limit enhances the visibility of the majority of data points. Without this adjustment, the outlier point from the No IMT scenario with seed 141, which reported over 1,000 hours of delay, would have necessitated a much wider scale, potentially obscuring the trends and patterns in the rest of the data.
 
-## IMT Performance Analysis
+## IMT Performance Analysis {#sec-IMT-performance}
 
 Equally critical to understanding IMT performance is assessing the efficiency of each IMT in reaching their intended destinations. This results segment delves into IMT travel behavior, capturing metrics such as average travel times and distances, along with their average incident response times. The analysis encompasses both 20 IMT and 30 IMT scenarios.
 
