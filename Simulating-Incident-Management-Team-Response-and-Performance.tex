@@ -317,15 +317,13 @@ However, the current understanding primarily stems from ad-hoc models
 and independent initiatives, leaving a gap in regional-scale traffic
 delay modeling associated with incident management.
 
-A study conducted by Kaddoura \& Nagel (2018) highlights the potential
-of large-scale traffic models to assess the regional impact of
-incidents, demonstrating that such incidents can significantly increase
-congestion and average vehicle travel times within a simulated network.
-However, their model does not evaluate the impact of IMT strategies.
-This research aims to address this limitation by merging insights on IMT
-effectiveness with a large-scale regional traffic model. This approach
-is designed to highlight the impacts of traffic incidents and IMT
-interventions within a simulated network.
+A study by Kaddoura \& Nagel (2018) highlights the efficacy of
+large-scale traffic models in evaluating regional incident impacts,
+showing increases in congestion and travel times in a simulated network.
+However, it doesn't assess the effects of IMT strategies. Our research
+aims to fill this gap by integrating IMT data into a large-scale
+regional traffic model, focusing on the impacts of traffic incidents and
+IMT interventions within such a simulated network.
 
 In this research, we present a model of IMT responses to incidents on
 freeways in the Wasatch Front region of Utah. The model uses the Multi
@@ -627,23 +625,17 @@ project.
 \hypertarget{sec-lit_summary}{%
 \section{Summary}\label{sec-lit_summary}}
 
-This \protect\hyperlink{sec-literature}{literature review} provides an
-overview of the extensive research on the effectiveness of IMTs in
-reducing RCT and EUC during incident responses. It has also highlighted
-studies focused on optimizing the size and distribution of IMTs.
-However, these studies do not include the broader implications of
-incidents and IMT responses on large-scale networks and their agents. On
-the other hand, while DTA modeling studies have effectively explored the
-impact of incidents on network dynamics and driver behavior, they
-largely have not examined the influence of IMTs. This creates a research
-gap in understanding the effectiveness of IMTs and the impact of
-incidents on congested networks. Bridging this gap is crucial, as it
-enables researchers to better grasp how alterations in incident
-occurrence or IMT availability might influence overall traffic
-conditions. In our research, we aim to merge these two areas of study,
-attempting to model incident response within a simulation framework,
-thereby broadening the scope for evaluating IMT deployment strategies
-and their effectiveness.
+This \protect\hyperlink{sec-literature}{literature review} summarizes
+extensive research on IMTs role in reducing RCT and EUC during incidents
+and optimizing their size and distribution. However, it reveals a gap:
+these performance studies do not explore the broader impact of incidents
+and IMT responses on large-scale networks. Similarly, while DTA modeling
+studies assess incident impacts on network dynamics and driver behavior,
+they seldom consider IMT influence. This gap limits understanding of
+IMTs' effectiveness in congested networks. Our research aims to
+integrate these areas, modeling incident response within a simulation to
+evaluate IMT deployment strategies and effectiveness more
+comprehensively.
 
 \bookmarksetup{startatroot}
 
@@ -1645,33 +1637,26 @@ with the 30 IMT group becomes particularly evident in high-frequency
 incident situations, especially when comparing the arrival times of the
 2nd and 3rd IMT between the two scenario groups.
 
-In summary, the combined results from the VHD and IMT performance
-analysis demonstrate the efficiency of IMTs in mitigating delays,
-particularly on the road segments directly impacted by incidents and
-their immediate surroundings. Additionally, an increase in the size of
-the vehicle fleet is directly associated with reductions in both the
-average travel time per truck and the response times per incident,
-underscoring the benefits of a larger IMT fleet in emergency response
-situations.
-
 \hypertarget{results-summary}{%
 \section{Results Summary}\label{results-summary}}
 
-In our simulation, we assessed the impact of deploying 20 and 30 IMT
-fleets compared to scenarios without IMT support. Our findings indicate
-that IMTs effectively reduce VHD on roadways and decrease incident
-response times. However, a number of simulation results revealed some
-unexpected outcomes. These discrepancies will be further examined in the
-limitations section {[}\#sec-limitations{]} of our conclusions. A
-significant limitation of our MATSim model was the lack of a
-``within-day replanning'' feature, useful for accurately simulating
-real-world reactions to unforeseen events. This gap might explain some
-variances in our results. Thus, while our findings provide important
-insights, the model needs additional refinement and calibration before
-it can confidently guide policy or operational strategies. Nevertheless,
-with minor improvements to our modeling methodology, it shows promise as
-a valuable tool for future analysis of IMT performance and operations at
-UDOT.
+We evaluated the impact of deploying fleets of 20 and 30 IMTs using our
+MATSim model, enhanced with an IMT analysis extension, comparing these
+scenarios to ones without IMT support. Our findings suggest that IMTs
+are effective in reducing VHD on roadways and in decreasing incident
+response times. However, a number of simulation results yielded some
+unexpected outcomes. We will delve into these discrepancies in the
+\protect\hyperlink{sec-limitations}{limitations section} of our
+conclusions. A notable shortcoming of our MATSim model was its absence
+of a `within-day replanning' feature, which is useful for accurately
+simulating real-world responses to unforeseen events. This omission
+might account for some of the variances observed in our results.
+Therefore, while our findings offer valuable insights, the model
+requires further refinement and calibration before it can reliably
+inform policy or operational strategies. Nonetheless, with minor
+enhancements to our modeling approach, the MATSim model demonstrates
+potential as an effective tool for future analysis of IMT performance
+and operations at UDOT.
 
 \bookmarksetup{startatroot}
 
