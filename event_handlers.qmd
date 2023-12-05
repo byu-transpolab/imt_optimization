@@ -4,7 +4,7 @@ editor:
     wrap: sentence
 ---
 
-# IMT Dispatch Algorithm
+# IMT Dispatch Algorithm {#sec-imt_dispatch}
 
 Our MATSim model employs a Java-implemented algorithm within the `IMT.optimizer` package to determine the most appropriate IMT to dispatch to an incident when it occurs. Its primary objective is to identify the closest available teams to the incident's location based on the calculated travel time.
 
@@ -108,7 +108,7 @@ public class ClosestImtFinder {
 }
 ```
 
-# IMT Network Change Events
+# IMT Network Change Events {#sec-apend_nce}
 
 The `ImtEventHandler` class, which is a component of the `IMT.events.eventHandlers package`, has been specifically designed to process IMT events within a MATSim scenario. It monitors the `ImtEvent` types that occur when an IMT reaches an incident link. Subsequently, the data from those events is utilized to generate a change event, which serves to restore a part of the capacity of the affected incident link.
 

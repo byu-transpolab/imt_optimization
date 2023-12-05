@@ -41,7 +41,6 @@ book:
     - references.qmd
   appendices: 
     - event_handlers.qmd
-    # I really don't know how beneficial adding the event_handler code to an appendicies would be.
   abstract: |
     The effectiveness of Incident Management Teams (IMT) in reducing the duration 
     and impact of traffic incidents is well-documented. The capacity of large-scale 
