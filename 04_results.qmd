@@ -221,7 +221,7 @@ In the study conducted by @bennett2021, it is highlighted that in Utah, a one-mi
 
 ```{r truck_arrival_table, results='asis'}
 #| label: tbl-truck-arrival-table
-#| tbl-cap: Average Truck Arrival Times
+#| tbl-cap: Average IMT Arrival Times
 tar_load(truck_arrival_table)
 
 # Update Scenario values
