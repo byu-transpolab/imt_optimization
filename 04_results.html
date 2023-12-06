@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.3.433" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+<meta name="keywords" content="Incident Management Teams, Incident Simulation, Transportation Modeling" />
+
+<title>Simulating Incident Management Team Response and Performance – 4  Results</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn"
+      data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="/">
+      Simulating Incident Management Team Response and Performance
+      </a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/02_literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>2</span>  <span class='chapter-title'>Literature Review</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/03_methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>Methodology</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/04_results.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class='chapter-number'>4</span>  <span class='chapter-title'>Results</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/05_conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Conclusions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/event_handlers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>A</span>  <span class='chapter-title'>IMT Dispatch Algorithm</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-results" class="quarto-section-identifier"><span class="chapter-number">4</span>  <span class="chapter-title">Results</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#vehicle-hours-of-delay" id="toc-vehicle-hours-of-delay"><span class="header-section-number">4.1</span> Vehicle Hours of Delay</a>
+  <ul>
+  <li><a href="#sec-VHD-Network" id="toc-sec-VHD-Network"><span class="header-section-number">4.1.1</span> Network Hours of Delay</a></li>
+  <li><a href="#sec-VHD-Motorway" id="toc-sec-VHD-Motorway"><span class="header-section-number">4.1.2</span> Motorway Link Hours of Delay</a></li>
+  <li><a href="#sec-impacted" id="toc-sec-impacted"><span class="header-section-number">4.1.3</span> Impacted Links</a></li>
+  </ul></li>
+  <li><a href="#sec-IMT-performance" id="toc-sec-IMT-performance"><span class="header-section-number">4.2</span> IMT Performance Analysis</a></li>
+  </ul>
+</nav>
+<p>This section details the outcomes of the Utah IMT Optimization project, employing the MATSim model to execute a series of simulations across a range of scenario groups. Specifically, the groups—No IMT, 20 IMT, and 30 IMT—were compared with a Baseline scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of IMT in alleviating traffic disruptions.</p>
+<p>The following sections analyze the results derived from the simulated scenarios. This analysis uses VHD as a comparative metric examining delay at the network, motorway, and incident links levels in sections <a href="#sec-VHD-Network">4.1.1</a>, <a href="#sec-VHD-Motorway">4.1.2</a>, and <a href="#sec-impacted">4.1.3</a>. The results also compare IMT performance based on the teams average response times, total travel time, and total travel distance in <a href="#sec-IMT-performance">section 4.2</a>.</p>
+<p>This analysis uses comparative metrics such as VHD, the consequences of traffic incidents, and the dynamics of the IMT responses in relation to the incidents they manage.</p>
+<section id="vehicle-hours-of-delay" class="level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Vehicle Hours of Delay</h2>
+<p>The studies referenced in the <a href="#sec-lit_imt_opt">IMT optimization</a> section of the <a href="#sec-literature">literature review</a> demonstrate the efficacy of IMT in reducing RT and EUC on roadway segments affected by incidents. Similarly, the results from this transportation model highlight the impact of IMT at reducing delay, particularly when focusing on the segments of roadways where incidents occurred; see section <a href="#sec-impacted">4.1.3</a>. In contrast to the cited studies, our model also explored the broader implications of incidents and their corresponding IMT responses on the simulated network. In a majority of scenarios, these results also suggested a strong positive correlation between IMT and the reduction of RT and VHD, which are key determinants in the computation of EUC.</p>
+<section id="sec-VHD-Network" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1"><span class="header-section-number">4.1.1</span> Network Hours of Delay</h3>
+<p>In the comparison of network VHD across simulations, the scenarios were grouped by IMT response and incident frequency. Each group encompassed 10 simulated scenarios, which involved different selections of incidents, with the exception of the Baseline scenario, which stands alone. <a href="#tbl-network-delays-table">Table <span class="quarto-unresolved-ref">tbl-network-delays-table</span></a> presents the average VHD for each group, based on the delays recorded in the final iteration of each simulation. These average VHD values are subsequently compared against the Baseline scenario to calculate the percentage change in VHD.</p>
+<div class="cell" data-hash="04_results_cache/html/tbl-network-delays-table_942748e1aa8927565e2f11544ece0494">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(all_links_comparison_table)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>all_links_comparison_table <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;striped&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div id="tbl-network-delays-table">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<caption>Table 4.1: Average Delay on Network</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">Group</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">Incident Frequency</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Average VHD</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Change (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Baseline</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: right;">74568</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No IMTs</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">103159</td>
+<td style="text-align: right;">38.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">No IMTs</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">104178</td>
+<td style="text-align: right;">39.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 IMTs</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">96697</td>
+<td style="text-align: right;">29.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 IMTs</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">95678</td>
+<td style="text-align: right;">28.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30 IMTs</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">93769</td>
+<td style="text-align: right;">25.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">30 IMTs</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">93560</td>
+<td style="text-align: right;">25.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p>Upon comparing the results across different groups, it was observed that scenarios with 30 IMT experienced the lowest average VHD. They were closely followed by the 20 IMT group, and, as expected, the scenarios that involved incidents only registered the highest average VHD values. It is also noted that introducing incidents to the Baseline scenario resulted in an average VHD increase of 39%. However, this increase dropped to an average of 29% when 20 IMT were available, and further reduced to 25.6% with the availability of 30 IMT.</p>
+<p>Additional analysis of the data revealed that, compared to the No IMT group, the 20 IMT group decreased the average VHD by 7.2%, while the 30 IMT group reduced the average delay by 9.6%. Lastly, when the 30 IMT and 20 IMT groups were compared against each other, the former exhibited an average of 2.6% less VHD than the latter.</p>
+<p>While the relationship between the IMT group and VHD appeared straightforward, the correlation between Incident Frequency and VHD was not as clear-cut. In the No IMT group, scenarios with increased incident frequency showed only a one percent increase in VHD compared to those with the current frequency. Intriguingly, for both the 20 IMT and 30 IMT groups, an increase in incident frequency actually led to slight decreases in average VHD. The cause of this decrease is unclear, but potential explanations will be discussed in the <a href="#sec-limitations">limitations</a>.</p>
+<p>Given that <a href="#tbl-network-delays-table">Table <span class="quarto-unresolved-ref">tbl-network-delays-table</span></a> reveals average delay values aggregated across multiple scenarios within each group, a graphical representation can enhance clarity regarding the inherent variance within these data clusters. <a href="#fig-network-violin-plot">Figure <span class="quarto-unresolved-ref">fig-network-violin-plot</span></a> illustrates this data through distribution plots.</p>
+<div class="cell" data-hash="04_results_cache/html/fig-network-violin-plot_0c8c9b21aa1b17463fbabe65e0cc5ecf">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(all_links_plot)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>all_links_plot <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># change the text style of the plot</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">&quot;TeX Gyre Pagella&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Change the x-axis text angle and horizontal justification</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div id="fig-network-violin-plot" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="04_results_files/figure-html/fig-network-violin-plot-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figure 4.1: Average network VHD distribution.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In <a href="#fig-network-violin-plot">Figure <span class="quarto-unresolved-ref">fig-network-violin-plot</span></a>, each distribution plot represents the density distribution of delay values, with wider sections indicating areas where numerous simulations converged around specific delay values. Conversely, narrower sections suggest fewer simulations clustering around those particular delay values. A dashed horizontal line is superimposed to facilitate comparison of each group with the results from the Baseline scenario. Additionally, diamond markers within each plot denote the mean delay across all simulations in the respective scenario group.</p>
+<p>Upon examining these plots, we can make several observations. In the No IMT group, the delay distribution for current incident frequencies is broad, ranging from approximately 80,000 to 120,000 hours. However, with an increase in incidents, VHD is more narrowly concentrated just above 100,000 hours. The distributions for the 20 IMT and 30 IMT plots each show significant variance. Although the 30 IMT group tends to have lower VHD than the 20 IMT group, a clear correlation between increased incidents and network delay is not as evident as one might expect. However, for the 20 IMT group with increased incidents, the widest distribution segment is situated around 100,000 hours. In contrast, the 30 IMT group with increased incidents exhibits a broader distribution near 90,000 hours, potentially indicating improved performance when additional IMT are made available.</p>
+<p>While the preceding section discussed delays across the entire network, it is important to note that all simulated incidents were located on motorway links, predominantly along the major interstates of Utah’s Wasatch Front. This encompasses key routes such as I-15, I-80, and I-215, as well as other significant freeways and highways. The subsequent section will provide a detailed analysis of the simulation outcomes specifically related to these motorway links.</p>
+</section>
+<section id="sec-VHD-Motorway" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2"><span class="header-section-number">4.1.2</span> Motorway Link Hours of Delay</h3>
+<p>The network used in our model is derived from the Wasatch Front Regional Council travel demand model network. Within this network, the term ‘motorway’ denotes a specific type of link, also known as a freeway or expressway in different contexts. To ensure consistency throughout this document, we primarily refer to these road segments as ‘motorway’ or ‘motorway links’. It is important to note, however, that in the simulation, incidents can occur on both interstates and major highways along the Wasatch Front.</p>
+<p>To compare average simulation performances, <a href="#tbl-motorway-delays-table">Table <span class="quarto-unresolved-ref">tbl-motorway-delays-table</span></a> breaks down the average Motorway VHD for each group, categorized by IMT response and incident frequency. <a href="#tbl-motorway-delays-table">Table <span class="quarto-unresolved-ref">tbl-motorway-delays-table</span></a> reveals that, in comparison to the Baseline scenario, the average VHD on motorway links increased by approximately 7,000-9,000 hours, or 45.6-58.1%, when incidents were introduced. The 20 IMT group, on average, exhibited a 24.2% increase in VHD from the Baseline, whereas the 30 IMT group experienced an average VHD increase of 17%.</p>
+<div class="cell" data-hash="04_results_cache/html/tbl-motorway-delays-table_c7c84f4455c735c658bbf12b56dfe12d">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(motorway_summary_table)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>motorway_summary_table <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;striped&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<div id="tbl-motorway-delays-table">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<caption>Table 4.2: Average VHD of Motorway Links</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">Group</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">Incident Frequency</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Average VHD</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Change (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Baseline</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: right;">15335</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No IMT</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">24242</td>
+<td style="text-align: right;">58.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">No IMT</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">22321</td>
+<td style="text-align: right;">45.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20 IMT</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">18924</td>
+<td style="text-align: right;">23.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 IMT</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">19176</td>
+<td style="text-align: right;">25.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30 IMT</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">17569</td>
+<td style="text-align: right;">14.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">30 IMT</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">18327</td>
+<td style="text-align: right;">19.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p>At the motorway link level, the differences between the No IMT group and the IMT groups becomes more pronounced than they were for delays across the entire network. Specifically, the 20 IMT group demonstrated an average 18.2% decrease in VHD compared to the No IMT group, while the 30 IMT group showed an average 22.9% decrease in VHD.</p>
+<p>Interestingly, the difficulty in correlating VHD with incident frequency observed in <a href="#tbl-network-delays-table">Table <span class="quarto-unresolved-ref">tbl-network-delays-table</span></a> manifests differently in <a href="#tbl-motorway-delays-table">Table <span class="quarto-unresolved-ref">tbl-motorway-delays-table</span></a>. The latter indicates that, within the IMT groups, an increase in incident frequency corresponds with an increase in VHD. Specifically, the 20 IMT group experiences an average VHD increase of 1.3% when transitioning from current to increased incident frequencies, while the 30 IMT group sees a 4.3% uptick under the same conditions. In contrast, and quite unexpectedly, the No IMT group shows a 7.9% reduction in VHD when comparing scenarios of current and increased incident frequencies. This finding is particularly perplexing given that <a href="#tbl-network-delays-table">Table <span class="quarto-unresolved-ref">tbl-network-delays-table</span></a> suggests an overall increase in VHD across the entire network for the No IMT group when incident frequency increases.</p>
+<p>A potential explanation for these unexpected VHD outcomes on motorway links could be that, as part of their scoring and replanning process, some MATSim agents opted for travel on non-motorway links to reach their destinations. This would essentially redistribute the delay from motorway links to other parts of the network.</p>
+<p>For a better understanding of the variances within the scenario groups, <a href="#fig-motorway-violin-plot">Figure <span class="quarto-unresolved-ref">fig-motorway-violin-plot</span></a> may provide additional insights. In <a href="#fig-motorway-violin-plot">Figure <span class="quarto-unresolved-ref">fig-motorway-violin-plot</span></a>, we observe distinct patterns in the distribution of delays for different scenario groupings. Key observations include:</p>
+<div class="cell" data-hash="04_results_cache/html/fig-motorway-violin-plot_a8fc7670dc421131beaaf7f35f2a7e3c">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(motorway_links_plot)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>motorway_links_plot <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># change the text style of the plot</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">&quot;TeX Gyre Pagella&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a> <span class="co"># Change the x-axis text angle and horizontal justification</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div id="fig-motorway-violin-plot" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="04_results_files/figure-html/fig-motorway-violin-plot-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figure 4.2: Average motorway VHD distribution.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>A wide span across the plots for both groupings of No IMT, indicating a significant variance in delays across those simulations.</li>
+<li>A concentration of delays around the Baseline value of 15,000 VHD for both the 20 IMT and 30 IMT scenarios, as shown by the width of the plots at this point.</li>
+<li>A narrowing of the IMT group plots as they transition to higher delay values, suggesting fewer instances of extreme delays.</li>
+<li>The upper tails of the 20 IMT plots extend beyond those of the 30 IMT plots, suggesting that the 30 IMT fleet may be more effective at mitigating delays in outlier scenarios compared to the 20 IMT fleet.</li>
+</ul>
+</section>
+<section id="sec-impacted" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3"><span class="header-section-number">4.1.3</span> Impacted Links</h3>
+<p>The final section of our VHD analysis delves into the delays experienced on incident links and their immediate upstream counterparts. This level of analysis aligns with the methodologies employed in the studies by <span class="citation" data-cites="bennett2021">Bennett et al. (<a href="#ref-bennett2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="skabardonis1998">Skabardonis (<a href="#ref-skabardonis1998" role="doc-biblioref">1998</a>)</span>, as it focuses on the most direct repercussions of incidents and IMT. Unlike their focus on the impacts of IMT on RCT, our investigation centers on VHD as an indicator of EUC. As detailed in the <a href="#sec-imt_response">IMT assignment and response</a> section, the IMT in our simulation did not curtail the duration of incidents (RCT); instead, they enhanced roadway capacity. Nonetheless, given that EUC is intrinsically related to delay, this section offers an evaluation of IMT performance similar to the analyses conducted by <span class="citation" data-cites="bennett2021">Bennett et al. (<a href="#ref-bennett2021" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="skabardonis1998">Skabardonis (<a href="#ref-skabardonis1998" role="doc-biblioref">1998</a>)</span>.</p>
+<p>Impacted links examines VHD on incident links and their immediate upstream counterparts. Given the variation in link lengths across the motorway, in some cases, analyzing just two additional links may not fully capture the delays caused by a specific incident. Nevertheless, <a href="#tbl-impacted-links">Table <span class="quarto-unresolved-ref">tbl-impacted-links</span></a> provides insights into how delays on impacted links vary based on incidents and IMT deployment. For additional context about <a href="#tbl-impacted-links">Table <span class="quarto-unresolved-ref">tbl-impacted-links</span></a>: ‘Total VHD’ represents the delay on impacted links both during the incidents and for one hour after clearance, aiming to capture any residual delay shock waves that an incident might cause.</p>
+<div class="cell" data-hash="04_results_cache/html/tbl-impacted-links_4c54ea040237a73e3b328e4838692403">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(impacted_links_summary)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the note</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>note_a <span class="ot">&lt;-</span> <span class="st">&quot;Note: Current contains 90 incidents, Increased contains 193&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the table with the note below it</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>impacted_links_summary <span class="sc">%&gt;%</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;striped&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_footnote</span>(note_a)</span></code></pre></div>
+<div class="cell-output-display">
+<div id="tbl-impacted-links">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<caption>Table 4.3: Impacted Links Delay</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">Group</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">Incident Frequency</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Total VHD</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Avg. Delay Per Inc. [hrs.]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Baseline</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">326</td>
+<td style="text-align: right;">3.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No IMT</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">3808</td>
+<td style="text-align: right;">42.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 IMT</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">723</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30 IMT</td>
+<td style="text-align: left;">Current</td>
+<td style="text-align: right;">366</td>
+<td style="text-align: right;">4.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Baseline</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">540</td>
+<td style="text-align: right;">2.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No IMT</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">3154</td>
+<td style="text-align: right;">16.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">20 IMT</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">1645</td>
+<td style="text-align: right;">8.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30 IMT</td>
+<td style="text-align: left;">Increased</td>
+<td style="text-align: right;">1115</td>
+<td style="text-align: right;">5.8</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0; border: 0;"><sup>a</sup> Note: Current contains 90 incidents, Increased contains 193</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
+
+</table>
+</div>
+
+
+</div>
+</div>
+<p><a href="#tbl-impacted-links">Table <span class="quarto-unresolved-ref">tbl-impacted-links</span></a> presents a division of the Baseline scenario into two segments, for a more accurate comparison with the other three scenarios. Despite the absence of incidents in the Baseline scenario, its delay values are derived from the same links included in the other scenario calculations.</p>
+<p>The data in <a href="#tbl-impacted-links">Table <span class="quarto-unresolved-ref">tbl-impacted-links</span></a> indicate that the 30 IMT group delay patterns align most closely with the Baseline. They are followed by the 20 IMT group, and subsequently, the No IMT group. It is important to note that directly comparing the Total VHD of the Current and Increased incident groups may not be appropriate due to variations in sample sizes, as noted in <a href="#tbl-impacted-links">Table <span class="quarto-unresolved-ref">tbl-impacted-links</span></a>. A more apt comparison might be to evaluate the average delay experienced per incident. Using this parameter, we observe an increase in the average VHD for both the 20 and 30 IMT groups, correlating with an uptick in the number of incidents. However, the scenarios involving No IMT yield a different outcome: both Total VHD and the average delay per incident exhibit a decrease when the incident frequency increased. A more close examination of the data draws attention to a particular scenario, Seed 141, which contributed an exceptionally large delay to the incident links in the Current Incident category. This anomaly could potentially explain the seemingly unexpected findings observed in the No IMT, Current Incident frequency scenarios.</p>
+<p>For a more detailed analysis, the scatter plot in <a href="#fig-impacted-links-plot">Figure <span class="quarto-unresolved-ref">fig-impacted-links-plot</span></a> categorizes the data based on seed type. On the y-axis, the labels represent a combination of incident numbers and seed values, with the format “number_seed” (e.g., “12_141” denotes a scenario involving 12 incidents associated with seed value 141).</p>
+<div class="cell" data-hash="04_results_cache/html/fig-impacted-links-plot_b464a9bf5a5b14af817db14bf2a79e2a">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(impacted_links_plot)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>impacted_links_plot <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># change the text style of the plot</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">&quot;TeX Gyre Pagella&quot;</span>, <span class="at">base_size =</span> <span class="dv">65</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;top&quot;</span>),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title.align =</span> <span class="fl">0.5</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="dv">4</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>))</span></code></pre></div>
+<div class="cell-output-display">
+<div id="fig-impacted-links-plot" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="04_results_files/figure-html/fig-impacted-links-plot-1.png" class="img-fluid" width="3168" /></p>
+<figcaption>Figure 4.3: Delay on impacted links.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-impacted-links-plot">Figure <span class="quarto-unresolved-ref">fig-impacted-links-plot</span></a> offers a detailed view of the VHD on impacted links across the simulated scenarios. At a glance, the Baseline and 30 IMT scenarios, represented by blue and orange dots, seem to predominantly cluster to the left of the pink dots, which depict the No IMT scenarios. However, a more thorough analysis reveals that in specific instances, the 20 IMT, 30 IMT, or even both scenarios may underperform compared to the No IMT scenarios. This seemingly unexpected observation suggests that there may be additional factors, aside from link capacity, affecting the delay.</p>
+<p>It is important to acknowledge the inherent dynamic nature of the MATSim iterative process, where the ways in which agents re-plan their journeys can sometimes have as significant, or potentially even greater, impact on delays than changes in link capacity due to incidents or IMT. Importantly, in scenarios with the highest delays, the introduction of IMT seems to considerably reduce delay on the affected links.</p>
+<p>Note that the x-axis has been limited to a maximum of 400+ VHD. This limit enhances the visibility of the majority of data points. Without this adjustment, the outlier point from the No IMT scenario with seed 141, which reported over 1,000 hours of delay, would have necessitated a much wider scale, potentially obscuring the trends and patterns in the rest of the data.</p>
+</section>
+</section>
+<section id="sec-IMT-performance" class="level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> IMT Performance Analysis</h2>
+<p>Equally critical to understanding IMT performance is assessing the efficiency of each IMT in reaching their intended destinations. This results segment delves into IMT travel behavior, capturing metrics such as average travel times and distances, along with their average incident response times. The analysis encompasses both 20 IMT and 30 IMT scenarios.</p>
+<p>Travel times for IMT can be extracted from the event files, which are produced as a standard MATSim output. These files provide insights into the distance and time traveled by each IMT. Utilizing this IMT travel data, plots were generated to illustrate the average travel times and distances for each dispatched IMT within a given scenario. <a href="#fig-truck-time-plot">Figure <span class="quarto-unresolved-ref">fig-truck-time-plot</span></a> illustrates the average travel time for each dispatched IMT.</p>
+<div class="cell" data-hash="04_results_cache/html/fig-truck-time-plot_39a2b6cc60e2f97acc2b62cda87de2e9">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(truck_time_plot)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>truck_time_plot <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;20 IMT&quot;</span>, <span class="st">&quot;30 IMT&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>), <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">8</span>)) <span class="sc">+</span>  <span class="co"># Adjust range to make points smaller</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">1</span>, <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>), </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">title.position =</span> <span class="st">&quot;top&quot;</span>, <span class="at">title.hjust =</span> <span class="fl">0.5</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">direction =</span> <span class="st">&quot;horizontal&quot;</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">1</span>, <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>), </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">title.position =</span> <span class="st">&quot;top&quot;</span>, <span class="at">title.hjust =</span> <span class="fl">0.5</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">direction =</span> <span class="st">&quot;horizontal&quot;</span>),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">2</span>, <span class="at">title.position =</span> <span class="st">&quot;top&quot;</span>, </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                               <span class="at">title.hjust =</span> <span class="fl">0.5</span>, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">direction =</span> <span class="st">&quot;horizontal&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">&quot;TeX Gyre Pagella&quot;</span>, <span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="cell-output-display">
+<div id="fig-truck-time-plot" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="04_results_files/figure-html/fig-truck-time-plot-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figure 4.4: Average IMT travel time.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>To compute the average travel time per IMT we took the cumulative travel time for all dispatched IMT in every scenario and divided that by the number of teams deployed. Furthermore, an analysis of the IMT travel data reveals that scenarios with 30 IMT generally dispatched more units than scenarios with only 20 IMT. A nearly analogous methodology was employed to generate <a href="#fig-truck-distance-plot">Figure <span class="quarto-unresolved-ref">fig-truck-distance-plot</span></a>.</p>
+<p>Similar to the observed differences in IMT travel times across various scenarios, a distinct difference is apparent in the average distance traversed per dispatched IMT between the 20 IMT and 30 IMT scenarios. This pattern is illustrated in <a href="#fig-truck-distance-plot">Figure <span class="quarto-unresolved-ref">fig-truck-distance-plot</span></a>, clearly demonstrating a correlation between a higher quantity of IMT and a reduced average distance traveled per team.</p>
+<div class="cell" data-hash="04_results_cache/html/fig-truck-distance-plot_f79e37e9278fd08737216b2ffd17a5aa">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(truck_distance_plot)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>truck_distance_plot <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Set2&quot;</span>)[<span class="dv">3</span>], <span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Set2&quot;</span>)[<span class="dv">4</span>])) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Set2&quot;</span>)[<span class="dv">3</span>], <span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Set2&quot;</span>)[<span class="dv">4</span>]), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;20 IMT&quot;</span>, <span class="st">&quot;30 IMT&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>), <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">8</span>)) <span class="sc">+</span>  <span class="co"># Adjust range to make points smaller</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">1</span>, <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>), </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">title.position =</span> <span class="st">&quot;top&quot;</span>, <span class="at">title.hjust =</span> <span class="fl">0.5</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">direction =</span> <span class="st">&quot;horizontal&quot;</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">1</span>, <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">6</span>), </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">title.position =</span> <span class="st">&quot;top&quot;</span>, <span class="at">title.hjust =</span> <span class="fl">0.5</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">direction =</span> <span class="st">&quot;horizontal&quot;</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fu">guide_legend</span>(<span class="at">order =</span> <span class="dv">2</span>, <span class="at">title.position =</span> <span class="st">&quot;top&quot;</span>, </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                               <span class="at">title.hjust =</span> <span class="fl">0.5</span>, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">direction =</span> <span class="st">&quot;horizontal&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">&quot;TeX Gyre Pagella&quot;</span>, <span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="cell-output-display">
+<div id="fig-truck-distance-plot" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="04_results_files/figure-html/fig-truck-distance-plot-1.png" class="img-fluid" width="672" /></p>
+<figcaption>Figure 4.5: Average IMT travel distance.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Altering the starting locations of the IMT or having them operate in a roaming manner, as opposed to starting from a stationary location, can significantly influence the time and distance traveled, presenting both potential advantages and drawbacks<span class="citation" data-cites="lou2011">(<a href="#ref-lou2011" role="doc-biblioref">Lou et al., 2011</a>)</span>. Although various factors, including fleet size and vehicle starting locations, were highlighted by <span class="citation" data-cites="lou2011">Lou et al. (<a href="#ref-lou2011" role="doc-biblioref">2011</a>)</span> as impactful in influencing IMT response times, it is important to clarify that determining the optimal starting points for IMT was not the primary focus of UDOT in this research. This aspect, while not explored in the current study, presents a valuable opportunity for future research, opening up an intriguing avenue for investigations using the ImtModule MATSim extension associated with this report.</p>
+<p>In the study conducted by <span class="citation" data-cites="bennett2021">Bennett et al. (<a href="#ref-bennett2021" role="doc-biblioref">2021</a>)</span>, it is highlighted that in Utah, a one-minute increase in IMT response time results in an approximate 0.8-minute increase in RCT. This finding emphasizes the critical role of IMT response times in reducing RCT and subsequent delays. While not examining RCT, this study also investigated the RT of IMT when dispatching both 20 and 30 units. Across all simulated scenarios, a fleet of 20 IMT produced an average RT of 15.0 minutes. Notably, the 15.0-minute average arrival time for the 20 IMT scenarios aligns closely with the actual median arrival times recorded in Hyer’s 2023 study of Utah’s IMT performance <span class="citation" data-cites="schultz2023">(<a href="#ref-schultz2023" role="doc-biblioref">Schultz et al., 2023</a>)</span>. Additionally, increasing the IMT fleet to 30 units resulted in an average response time of 11.0 minutes, 4 minutes less than the 20 IMT arrival times. <a href="#tbl-truck-arrival-table">Table <span class="quarto-unresolved-ref">tbl-truck-arrival-table</span></a> illustrates the average arrival times of the 1st, 2nd, and 3rd IMT, as well as the average for all units’ arrival times.</p>
+<div class="cell" data-hash="04_results_cache/html/tbl-truck-arrival-table_7b5f56fa86cebf7b8264044052d32751">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(truck_arrival_table)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Update Scenario values</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>truck_arrival_table<span class="sc">$</span>Group <span class="ot">&lt;-</span> <span class="fu">recode</span>(truck_arrival_table<span class="sc">$</span>Group, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="st">&quot;20 IMT&quot;</span>, <span class="st">&quot;3&quot;</span> <span class="ot">=</span> <span class="st">&quot;30 IMT&quot;</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>truck_arrival_table <span class="sc">|&gt;</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;striped&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">3</span>, <span class="at">background =</span> <span class="st">&quot;gray65&quot;</span>) <span class="co"># Light gray background for the last row</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="tbl-truck-arrival-table">
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
+<caption>Table 4.4: Average Truck Arrival Times</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">Group</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">All IMT [mins]</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">1st [mins]</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">2nd [mins]</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">3rd [mins]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">20 IMT</td>
+<td style="text-align: left;">15.0</td>
+<td style="text-align: left;">11.1</td>
+<td style="text-align: left;">21.1</td>
+<td style="text-align: left;">28.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30 IMT</td>
+<td style="text-align: left;">11.0</td>
+<td style="text-align: left;">8.9</td>
+<td style="text-align: left;">13.2</td>
+<td style="text-align: left;">21.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; background-color: gray65 !important;">Number of Incidents</td>
+<td style="text-align: left; background-color: gray65 !important;">280</td>
+<td style="text-align: left; background-color: gray65 !important;">280</td>
+<td style="text-align: left; background-color: gray65 !important;">116</td>
+<td style="text-align: left; background-color: gray65 !important;">23</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p><a href="#tbl-truck-arrival-table">Table <span class="quarto-unresolved-ref">tbl-truck-arrival-table</span></a> provides insights into the IMT response patterns, capturing their arrival at 280 out of 283 incidents across both scenarios. Note, three unattended incidents fell outside of the IMT operational hours. Among the incidents that were managed, support from a second IMT was requested 116 times, from a third IMT 23 times, and a fourth IMT was called upon 3 times. However, due to the extremely small number of incidents requiring a fourth IMT, this category was deemed too limited for significant analysis and was subsequently excluded from <a href="#tbl-truck-arrival-table">Table <span class="quarto-unresolved-ref">tbl-truck-arrival-table</span></a>. When comparing arrival times, scenarios with 30 IMT consistently outperformed those with 20 IMT, demonstrating quicker response times across all incident categories. As noted earlier, the average RT with 30 IMT was 4 minutes shorter than with 20 IMT. <span class="citation" data-cites="hadfield2021">Hadfield et al. (<a href="#ref-hadfield2021" role="doc-biblioref">2021</a>)</span> estimated that a one-minute delay in RT added 34.6 minutes to the estimated travel time, and an increase of $925 in EUC. Based on these findings, reducing the RT of IMT by an average of 4 minutes could result in EUC savings of approximately $3,700 per incident.</p>
+<p>A closer analysis of the IMT travel data reveals significant insights into operational efficiency. The data indicate that the group with 30 IMT was markedly more efficient than the group with 20 IMT. Specifically, the 20 IMT group accumulated a total of 105 hours of travel time, while the 30 IMT group managed to reduce this to 77 hours—a significant decrease of 27% in total IMT travel time. Additionally, the data show that with 20 IMT, units were often dispatched to multiple incidents in quick succession, negatively impacting their arrival times. In contrast, the scenarios with 30 IMT, supported by a larger fleet, saw fewer instances of consecutive deployments, leading to more timely arrivals. This increased efficiency with the 30 IMT group becomes particularly evident in high-frequency incident situations, especially when comparing the arrival times of the 2nd and 3rd IMT between the two scenario groups.</p>
+<p>In summary, the combined results from the VHD and IMT performance analysis demonstrate the efficiency of IMT in mitigating delays, particularly on the road segments directly impacted by incidents and their immediate surroundings. Additionally, an increase in the size of the vehicle fleet is directly associated with reductions in both the average travel time per truck and the response times per incident, underscoring the benefits of a larger IMT fleet in emergency response situations.</p>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden" data-render-id="quarto-int-sidebar-title">Simulating Incident Management Team Response and Performance</span> <span class="hidden" data-render-id="quarto-int-navbar-title">Simulating Incident Management Team Response and Performance</span> <span class="hidden" data-render-id="quarto-int-next"><span class="chapter-number">5</span>  <span class="chapter-title">Conclusions</span></span> <span class="hidden" data-render-id="quarto-int-prev"><span class="chapter-number">3</span>  <span class="chapter-title">Methodology</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/index.html"><span class="chapter-number">1</span>  <span class="chapter-title">Introduction</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/02_literature.html"><span class="chapter-number">2</span>  <span class="chapter-title">Literature Review</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/03_methods.html"><span class="chapter-number">3</span>  <span class="chapter-title">Methodology</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/04_results.html"><span class="chapter-number">4</span>  <span class="chapter-title">Results</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/05_conclusion.html"><span class="chapter-number">5</span>  <span class="chapter-title">Conclusions</span></span> <span class="hidden" data-render-id="quarto-int-sidebar:/references.html">References</span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-1">Appendices</span> <span class="hidden" data-render-id="quarto-int-sidebar:/event_handlers.html"><span class="chapter-number">A</span>  <span class="chapter-title">IMT Dispatch Algorithm</span></span> <span class="hidden" data-render-id="quarto-breadcrumbs-949b144f6deb44ec3e6060c24c0962b5"><span class="chapter-number">4</span>  <span class="chapter-title">Results</span></span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden" data-render-id="quarto-metatitle">Simulating Incident Management Team Response and Performance - <span id="sec-results" class="quarto-section-identifier"><span class="chapter-number">4</span>  <span class="chapter-title">Results</span></span></span> <span class="hidden" data-render-id="quarto-twittercardtitle">Simulating Incident Management Team Response and Performance - <span id="sec-results" class="quarto-section-identifier"><span class="chapter-number">4</span>  <span class="chapter-title">Results</span></span></span> <span class="hidden" data-render-id="quarto-ogcardtitle">Simulating Incident Management Team Response and Performance - <span id="sec-results" class="quarto-section-identifier"><span class="chapter-number">4</span>  <span class="chapter-title">Results</span></span></span> <span class="hidden" data-render-id="quarto-metasitename">Simulating Incident Management Team Response and Performance</span> <span class="hidden" data-render-id="quarto-twittercarddesc"></span> <span class="hidden" data-render-id="quarto-ogcardddesc"></span></p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+<div id="ref-bennett2021" class="csl-entry" role="listitem">
+Bennett, L. S., Hadfield, M. G., Schultz, G. G., Saito, M., &amp; Eggett, D. L. (2021). Performance measures evaluation of UDOT’s traffic incident management program. <em>Proceedings of the International Conference on Transportation &amp; Development 2021: Transportation Operations, Technologies, and Safety</em>, 25–36.
+</div>
+<div id="ref-hadfield2021" class="csl-entry" role="listitem">
+Hadfield, M. G., Bennett, L. S., Schultz, G. G., Saito, M., &amp; Eggett, D. L. (2021). User cost analysis of UDOT’s traffic incident management program. <em>Proceedings of the International Conference on Transportation &amp; Development 2021: Transportation Planning and Development</em>, 71–82.
+</div>
+<div id="ref-lou2011" class="csl-entry" role="listitem">
+Lou, Y., Yin, Y., &amp; Lawphongpanich, S. (2011). Freeway service patrol deployment planning for incident management and congestion mitigation. <em>Transportation Research Part C: Emerging Technologies</em>, <em>19</em>(2), 283–295. <a href="https://doi.org/10.1016/j.trc.2010.05.014">https://doi.org/10.1016/j.trc.2010.05.014</a>
+</div>
+<div id="ref-schultz2023" class="csl-entry" role="listitem">
+Schultz, G. G., Hyer, J., Holdsworth, W. H., Eggett, D. L., &amp; Macfarlane, G. S. (2023). <em>Analysis of benefits of UDOT’s expanded incident management team program</em> (UT-23.05). Utah Department of Transportation Research &amp; Innovation Division.
+</div>
+<div id="ref-skabardonis1998" class="csl-entry" role="listitem">
+Skabardonis, A. (1998). <em>Evaluation of the freeway service patrol (FSP) in los angeles</em> (PATH Research Report UCB-ITS-PRR-98-31). University of California, Berkeley, California PATH Program, Institute of Transportation Studies. <a href="https://escholarship.org/uc/item/3920p806">https://escholarship.org/uc/item/3920p806</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a  href="/03_methods.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>Methodology</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a  href="/05_conclusion.html" class="pagination-link">
+        <span class="nav-page-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Conclusions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+</body>
+
+</html>

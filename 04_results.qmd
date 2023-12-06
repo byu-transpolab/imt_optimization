@@ -21,7 +21,7 @@ library(extrafont)
 library(scales)
 ```
 
-This section details the outcomes of the Utah IMT Optimization project, employing the MATSim model to execute a series of simulations across a range of scenario groups. Specifically, the groups---No IMT, 20 IMT, and 30 IMT---were compared with a Baseline scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of IMT in alleviating traffic disruptions.
+This section details the outcomes of the Utah IMT Optimization project, employing the MATSim model to execute a series of simulations across a range of scenario groups. Specifically, the groups---No IMTs, 20 IMTs, and 30 IMTs---were compared with a Baseline scenario, facilitating an evaluation of the repercussions of traffic incidents and the effectiveness of IMTs in alleviating traffic disruptions.
 
 The following sections analyze the results derived from the simulated scenarios. This analysis uses VHD as a comparative metric examining delay at the network, motorway, and incident links levels in sections  [4.1.1](#sec-VHD-Network), [4.1.2](#sec-VHD-Motorway), and [4.1.3](#sec-impacted). The results also compare IMT performance based on the teams average response times, total travel time, and total travel distance in [section 4.2](#sec-IMT-performance).   
 
@@ -29,15 +29,15 @@ This analysis uses comparative metrics such as VHD, the consequences of traffic 
 
 ## Vehicle Hours of Delay
 
-The studies referenced in the [IMT optimization](#sec-lit_imt_opt) section of the [literature review](#sec-literature) demonstrate the efficacy of IMT in reducing RT and EUC on roadway segments affected by incidents. Similarly, the results from this transportation model highlight the impact of IMT at reducing delay, particularly when focusing on the segments of roadways where incidents occurred; see section [4.1.3](#sec-impacted). In contrast to the cited studies, our model also explored the broader implications of incidents and their corresponding IMT responses on the simulated network. In a majority of scenarios, these results also suggested a strong positive correlation between IMT and the reduction of RT and VHD, which are key determinants in the computation of EUC.
+The studies referenced in the [IMT optimization](#sec-lit_imt_opt) section of the [literature review](#sec-literature) demonstrate the efficacy of IMTs in reducing RT and EUC on roadway segments affected by incidents. Similarly, the results from this transportation model highlight the impact of IMTs at reducing delay, particularly when focusing on the segments of roadways where incidents occurred; see section [4.1.3](#sec-impacted). In contrast to the cited studies, our model also explored the broader implications of incidents and their corresponding IMT responses on the simulated network. In a majority of scenarios, these results also suggested a strong positive correlation between IMTs and the reduction of RT and VHD, which are key determinants in the computation of EUC.
 
 ### Network Hours of Delay {#sec-VHD-Network}
 
-In the comparison of network VHD across simulations, the scenarios were grouped by IMT response and incident frequency. Each group encompassed 10 simulated scenarios, which involved different selections of incidents, with the exception of the Baseline scenario, which stands alone. @tbl-network-delays-table presents the average VHD for each group, based on the delays recorded in the final iteration of each simulation. These average VHD values are subsequently compared against the Baseline scenario to calculate the percentage change in VHD.
+In the comparison of network VHD across simulations, the scenarios were grouped by IMT response and incident frequency. Each group encompassed 10 simulated scenarios, which each involved different selections and number of incidents, with the exception of the Baseline scenario, which stands alone. @tbl-network-delays-table presents the average VHD for each group, based on the delays recorded in the final iteration of each simulation. These average VHD values are subsequently compared against the Baseline scenario to calculate the percentage change in VHD.
 
 ```{r delay_comparison}
 #| label: tbl-network-delays-table
-#| tbl-cap: Average Delay on Network
+#| tbl-cap: Average VHD on Network
 tar_load(all_links_comparison_table)
 all_links_comparison_table |> 
   kbl(booktabs = TRUE) |> 
@@ -46,11 +46,11 @@ all_links_comparison_table |>
 
 ```
 
-Upon comparing the results across different groups, it was observed that scenarios with 30 IMT experienced the lowest average VHD. They were closely followed by the 20 IMT group, and, as expected, the scenarios that involved incidents only registered the highest average VHD values. It is also noted that introducing incidents to the Baseline scenario resulted in an average VHD increase of 39%. However, this increase dropped to an average of 29% when 20 IMT were available, and further reduced to 25.6% with the availability of 30 IMT.
+Upon comparing the results across different groups, it was observed that scenarios with 30 IMTs experienced the lowest average VHD. They were closely followed by the 20 IMT group, and, as expected, the scenarios that involved incidents only registered the highest average VHD values. It is also noted that introducing incidents to the Baseline scenario resulted in an average VHD increase of 39.0%. However, this increase dropped to an average of 29.0% when 20 IMTs were available, and further reduced to 25.6% with the availability of 30 IMTs.
 
-Additional analysis of the data revealed that, compared to the No IMT group, the 20 IMT group decreased the average VHD by 7.2%, while the 30 IMT group reduced the average delay by 9.6%. Lastly, when the 30 IMT and 20 IMT groups were compared against each other, the former exhibited an average of 2.6% less VHD than the latter.
+Additional analysis of the data revealed that, compared to the No IMTs group, the 20 IMTs group decreased the average VHD by 7.2%, while the 30 IMTs group reduced the average delay by 9.6%. Lastly, when the 30 IMT and 20 IMT groups were compared against each other, the former exhibited an average of 2.6% less VHD than the latter.
 
-While the relationship between the IMT group and VHD appeared straightforward, the correlation between Incident Frequency and VHD was not as clear-cut. In the No IMT group, scenarios with increased incident frequency showed only a one percent increase in VHD compared to those with the current frequency. Intriguingly, for both the 20 IMT and 30 IMT groups, an increase in incident frequency actually led to slight decreases in average VHD. The cause of this decrease is unclear, but potential explanations will be discussed in the [limitations](#sec-limitations).
+While the relationship between the IMT group and VHD appeared straightforward, the correlation between Incident Frequency and VHD was not as clear-cut. In the No IMTs group, scenarios with increased incident frequency showed only a 1.0% increase in VHD compared to those with the current frequency. Intriguingly, for both the 20 IMT and 30 IMT groups, an increase in incident frequency actually led to slight decreases in average VHD. The cause of this decrease is unclear, but potential explanations will be discussed in the [limitations](#sec-limitations) section.
 
 Given that @tbl-network-delays-table reveals average delay values aggregated across multiple scenarios within each group, a graphical representation can enhance clarity regarding the inherent variance within these data clusters. @fig-network-violin-plot illustrates this data through distribution plots.
 
@@ -69,15 +69,15 @@ all_links_plot +
 
 In @fig-network-violin-plot, each distribution plot represents the density distribution of delay values, with wider sections indicating areas where numerous simulations converged around specific delay values. Conversely, narrower sections suggest fewer simulations clustering around those particular delay values. A dashed horizontal line is superimposed to facilitate comparison of each group with the results from the Baseline scenario. Additionally, diamond markers within each plot denote the mean delay across all simulations in the respective scenario group.
 
-Upon examining these plots, we can make several observations. In the No IMT group, the delay distribution for current incident frequencies is broad, ranging from approximately 80,000 to 120,000 hours. However, with an increase in incidents, VHD is more narrowly concentrated just above 100,000 hours. The distributions for the 20 IMT and 30 IMT plots each show significant variance. Although the 30 IMT group tends to have lower VHD than the 20 IMT group, a clear correlation between increased incidents and network delay is not as evident as one might expect. However, for the 20 IMT group with increased incidents, the widest distribution segment is situated around 100,000 hours. In contrast, the 30 IMT group with increased incidents exhibits a broader distribution near 90,000 hours, potentially indicating improved performance when additional IMT are made available.
+Upon examining these plots, we can make several observations. In the No IMT group, the delay distribution for current incident frequencies is broad, ranging from approximately 80,000 to 120,000 hours. However, with an increase in incidents, VHD is more narrowly concentrated just above 100,000 hours. The distributions for the 20 IMT and 30 IMT plots each show significant variance. Although the 30 IMT group tends to have lower VHD than the 20 IMT group, a clear correlation between increased incidents and network delay is not as evident as one might expect. However, for the 20 IMT group with increased incidents, the widest distribution segment is situated around 100,000 hours. In contrast, the 30 IMT group with increased incidents exhibits a broader distribution near 90,000 hours, potentially indicating improved performance when additional IMTs are made available.
 
 While the preceding section discussed delays across the entire network, it is important to note that all simulated incidents were located on motorway links, predominantly along the major interstates of Utah's Wasatch Front. This encompasses key routes such as I-15, I-80, and I-215, as well as other significant freeways and highways. The subsequent section will provide a detailed analysis of the simulation outcomes specifically related to these motorway links.
 
 ### Motorway Link Hours of Delay {#sec-VHD-Motorway}
 
-The network used in our model is derived from the Wasatch Front Regional Council travel demand model network. Within this network, the term 'motorway' denotes a specific type of link, also known as a freeway or expressway in different contexts. To ensure consistency throughout this document, we primarily refer to these road segments as 'motorway' or 'motorway links'. It is important to note, however, that in the simulation, incidents can occur on both interstates and major highways along the Wasatch Front.
+The network used in our model is derived from the Wasatch Front Regional Council travel demand model network. Within this network, the term 'motorway' denotes a specific type of link, also known as a freeway or expressway in different contexts. To ensure consistency throughout this document, we primarily refer to these road segments as 'motorway' or 'motorway links.' It is important to note, however, that in the simulation, incidents can occur on both interstates and major highways along the Wasatch Front.
 
-To compare average simulation performances, @tbl-motorway-delays-table breaks down the average Motorway VHD for each group, categorized by IMT response and incident frequency. @tbl-motorway-delays-table reveals that, in comparison to the Baseline scenario, the average VHD on motorway links increased by approximately 7,000-9,000 hours, or 45.6-58.1%, when incidents were introduced. The 20 IMT group, on average, exhibited a 24.2% increase in VHD from the Baseline, whereas the 30 IMT group experienced an average VHD increase of 17%.
+To compare average simulation performances, @tbl-motorway-delays-table breaks down the average motorway VHD for each group, categorized by IMT response and incident frequency. @tbl-motorway-delays-table reveals that, in comparison to the Baseline scenario, the average VHD on motorway links increased by approximately 7,000-9,000 hours, or 45.6-58.1%, when incidents were introduced. The 20 IMT group, on average, exhibited a 24.2% increase in VHD from the Baseline, whereas the 30 IMT group experienced an average VHD increase of 17.0%.
 
 
 ```{r motorway_comparison}
@@ -117,7 +117,7 @@ motorway_links_plot +
 
 ### Impacted Links {#sec-impacted}
 
-The final section of our VHD analysis delves into the delays experienced on incident links and their immediate upstream counterparts. This level of analysis aligns with the methodologies employed in the studies by @bennett2021 and @skabardonis1998, as it focuses on the most direct repercussions of incidents and IMT. Unlike their focus on the impacts of IMT on RCT, our investigation centers on VHD as an indicator of EUC. As detailed in the [IMT assignment and response](#sec-imt_response) section, the IMT in our simulation did not curtail the duration of incidents (RCT); instead, they enhanced roadway capacity. Nonetheless, given that EUC is intrinsically related to delay, this section offers an evaluation of IMT performance similar to the analyses conducted by @bennett2021 and @skabardonis1998.
+The final section of our VHD analysis delves into the delays experienced on incident links and their immediate upstream counterparts. This level of analysis aligns with the methodologies employed in the studies by @bennett2021 and @skabardonis1998, as it focuses on the most direct repercussions of incidents and IMTs. Unlike their focus on the impacts of IMTs on RCT, our investigation centers on VHD as an indicator of EUC. As detailed in the [IMT assignment and response](#sec-imt_response) section, the IMTs in our simulation did not curtail the duration of incidents (RCT); instead, they enhanced roadway capacity. Nonetheless, given that EUC is intrinsically related to delay, this section offers an evaluation of IMT performance similar to the analyses conducted by @bennett2021 and @skabardonis1998.
 
 Impacted links examines VHD on incident links and their immediate upstream counterparts. Given the variation in link lengths across the motorway, in some cases, analyzing just two additional links may not fully capture the delays caused by a specific incident. Nevertheless, @tbl-impacted-links provides insights into how delays on impacted links vary based on incidents and IMT deployment. For additional context about @tbl-impacted-links: 'Total VHD' represents the delay on impacted links both during the incidents and for one hour after clearance, aiming to capture any residual delay shock waves that an incident might cause.
 
@@ -138,27 +138,25 @@ impacted_links_summary %>%
 
 @tbl-impacted-links presents a division of the Baseline scenario into two segments, for a more accurate comparison with the other three scenarios. Despite the absence of incidents in the Baseline scenario, its delay values are derived from the same links included in the other scenario calculations.
 
-The data in @tbl-impacted-links indicate that the 30 IMT group delay patterns align most closely with the Baseline. They are followed by the 20 IMT group, and subsequently, the No IMT group. It is important to note that directly comparing the Total VHD of the Current and Increased incident groups may not be appropriate due to variations in sample sizes, as noted in @tbl-impacted-links. A more apt comparison might be to evaluate the average delay experienced per incident. Using this parameter, we observe an increase in the average VHD for both the 20 and 30 IMT groups, correlating with an uptick in the number of incidents. However, the scenarios involving No IMT yield a different outcome: both Total VHD and the average delay per incident exhibit a decrease when the incident frequency increased. A more close examination of the data draws attention to a particular scenario, Seed 141, which contributed an exceptionally large delay to the incident links in the Current Incident category. This anomaly could potentially explain the seemingly unexpected findings observed in the No IMT, Current Incident frequency scenarios.
+The data in @tbl-impacted-links indicate that the 30 IMT group delay patterns align most closely with the Baseline. They are followed by the 20 IMT group, and subsequently, the No IMT group. It is important to note that directly comparing the Total VHD of the Current and Increased incident groups may not be appropriate due to variations in sample sizes, as noted in @tbl-impacted-links. A more apt comparison might be to evaluate the average delay experienced per incident. Using this parameter, we observe an increase in the average VHD for both the 20 and 30 IMT groups, correlating with an uptick in the number of incidents. However, the scenarios involving No IMTs yield a different outcome: both Total VHD and the average delay per incident exhibit a decrease when the incident frequency increased. A more close examination of the data draws attention to a particular scenario, Seed 141, which contributed an exceptionally large delay to the incident links in the Current Incident category. This anomaly could potentially explain the seemingly unexpected findings observed in the No IMTs, Current Incident frequency scenarios.
 
 For a more detailed analysis, the scatter plot in @fig-impacted-links-plot categorizes the data based on seed type. On the y-axis, the labels represent a combination of incident numbers and seed values, with the format "number_seed" (e.g., "12_141" denotes a scenario involving 12 incidents associated with seed value 141).
 
-```{r impacted_links_plot, fig.width= 33, fig.height= 18}
+```{r impacted_links_plot}
 #| label: fig-impacted-links-plot
 #| fig-cap: Delay on impacted links. 
 tar_load(impacted_links_plot)
 impacted_links_plot +
   # change the text style of the plot
-  theme_minimal(base_family = "TeX Gyre Pagella", base_size = 65) +
+  theme_minimal(base_family = "TeX Gyre Pagella") +
   theme(legend.justification = c("right", "top"),
-        legend.title.align = 0.5,
-        legend.key.size = unit(4, "lines"),
-        legend.spacing.y = unit(1, "lines"))
+        legend.title.align = 0.5)
 
 ```
 
 @fig-impacted-links-plot offers a detailed view of the VHD on impacted links across the simulated scenarios. At a glance, the Baseline and 30 IMT scenarios, represented by blue and orange dots, seem to predominantly cluster to the left of the pink dots, which depict the No IMT scenarios. However, a more thorough analysis reveals that in specific instances, the 20 IMT, 30 IMT, or even both scenarios may underperform compared to the No IMT scenarios. This seemingly unexpected observation suggests that there may be additional factors, aside from link capacity, affecting the delay.
 
-It is important to acknowledge the inherent dynamic nature of the MATSim iterative process, where the ways in which agents re-plan their journeys can sometimes have as significant, or potentially even greater, impact on delays than changes in link capacity due to incidents or IMT. Importantly, in scenarios with the highest delays, the introduction of IMT seems to considerably reduce delay on the affected links.
+It is important to acknowledge the inherent dynamic nature of the MATSim iterative process, where the ways in which agents re-plan their journeys can sometimes have as significant, or potentially even greater, impact on delays than changes in link capacity due to incidents or IMTs. Importantly, in scenarios with the highest delays, the introduction of IMTs seems to considerably reduce delay on the affected links.
 
 Note that the x-axis has been limited to a maximum of 400+ VHD. This limit enhances the visibility of the majority of data points. Without this adjustment, the outlier point from the No IMT scenario with seed 141, which reported over 1,000 hours of delay, would have necessitated a much wider scale, potentially obscuring the trends and patterns in the rest of the data.
 
@@ -166,15 +164,15 @@ Note that the x-axis has been limited to a maximum of 400+ VHD. This limit enhan
 
 Equally critical to understanding IMT performance is assessing the efficiency of each IMT in reaching their intended destinations. This results segment delves into IMT travel behavior, capturing metrics such as average travel times and distances, along with their average incident response times. The analysis encompasses both 20 IMT and 30 IMT scenarios.
 
-Travel times for IMT can be extracted from the event files, which are produced as a standard MATSim output. These files provide insights into the distance and time traveled by each IMT. Utilizing this IMT travel data, plots were generated to illustrate the average travel times and distances for each dispatched IMT within a given scenario. @fig-truck-time-plot illustrates the average travel time for each dispatched IMT.
+Travel times for IMTs can be extracted from the event files, which are produced as a standard MATSim output. These files provide insights into the distance and time traveled by each IMT. Utilizing this IMT travel data, plots were generated to illustrate the average travel times and distances for each dispatched IMT within a given scenario. @fig-truck-time-plot illustrates the average travel time for each dispatched IMT.
 
 ```{r truck_time_plot}
 #| label: fig-truck-time-plot
-#| fig-cap: Average IMT travel time.
+#| fig-cap: Average daily IMT travel time per dispatched team.
 tar_load(truck_time_plot)
 truck_time_plot +
     scale_fill_brewer(palette = "Set2") +
-    scale_color_brewer(palette = "Set2", labels = c("20 IMT", "30 IMT")) +
+    scale_color_brewer(palette = "Set2", labels = c("20 IMTs", "30 IMTs")) +
     scale_size_continuous(breaks = c(5, 10, 15, 20), range = c(2, 8)) +  # Adjust range to make points smaller
     guides(fill = guide_legend(order = 1, override.aes = list(size = 6), 
                                title.position = "top", title.hjust = 0.5, ncol = 2, direction = "horizontal"),
@@ -191,13 +189,13 @@ truck_time_plot +
 
 ```
 
-To compute the average travel time per IMT we took the cumulative travel time for all dispatched IMT in every scenario and divided that by the number of teams deployed. Furthermore, an analysis of the IMT travel data reveals that scenarios with 30 IMT generally dispatched more units than scenarios with only 20 IMT. A nearly analogous methodology was employed to generate @fig-truck-distance-plot.
+To compute the average travel time per IMT we took the cumulative travel time for all dispatched IMTs in every scenario and divided that by the number of teams deployed. Furthermore, an analysis of the IMT travel data reveals that scenarios with 30 IMT generally dispatched more units than scenarios with only 20 IMT. A nearly analogous methodology was employed to generate @fig-truck-distance-plot.
 
-Similar to the observed differences in IMT travel times across various scenarios, a distinct difference is apparent in the average distance traversed per dispatched IMT between the 20 IMT and 30 IMT scenarios. This pattern is illustrated in @fig-truck-distance-plot, clearly demonstrating a correlation between a higher quantity of IMT and a reduced average distance traveled per team.
+Similar to the observed differences in IMT travel times across various scenarios, a distinct difference is apparent in the average distance traversed per dispatched IMT between the 20 IMT and 30 IMT scenarios. This pattern is illustrated in @fig-truck-distance-plot, clearly demonstrating a correlation between a higher quantity of IMTs and a reduced average distance traveled per team.
 
 ```{r truck_time_plot}
 #| label: fig-truck-distance-plot
-#| fig-cap: Average IMT travel distance.
+#| fig-cap: Average daily IMT travel distance per dispatched team.
 tar_load(truck_distance_plot)
 truck_distance_plot +
     scale_fill_manual(values = c(brewer.pal(8, "Set2")[3], brewer.pal(8, "Set2")[4])) +
@@ -217,9 +215,9 @@ truck_distance_plot +
     )
 ```
 
-Altering the starting locations of the IMT or having them operate in a roaming manner, as opposed to starting from a stationary location, can significantly influence the time and distance traveled, presenting both potential advantages and drawbacks[@lou2011]. Although various factors, including fleet size and vehicle starting locations, were highlighted by @lou2011 as impactful in influencing IMT response times, it is important to clarify that determining the optimal starting points for IMT was not the primary focus of UDOT in this research. This aspect, while not explored in the current study, presents a valuable opportunity for future research, opening up an intriguing avenue for investigations using the ImtModule MATSim extension associated with this report.
+Altering the starting locations of the IMTs or having them operate in a roaming manner, as opposed to starting from a stationary location, can significantly influence the time and distance traveled, presenting both potential advantages and drawbacks [@lou2011]. Although various factors, including fleet size and vehicle starting locations, were highlighted by @lou2011 as impactful in influencing IMT response times, it is important to clarify that determining the optimal starting points for IMTs was not the primary focus of UDOT in this research. This aspect, while not explored in the current study, presents a valuable opportunity for future research, opening up an intriguing avenue for investigations using the ImtModule MATSim extension associated with this report.
 
-In the study conducted by @bennett2021, it is highlighted that in Utah, a one-minute increase in IMT response time results in an approximate 0.8-minute increase in RCT. This finding emphasizes the critical role of IMT response times in reducing RCT and subsequent delays. While not examining RCT, this study also investigated the RT of IMT when dispatching both 20 and 30 units. Across all simulated scenarios, a fleet of 20 IMT produced an average RT of 15.0 minutes. Notably, the 15.0-minute average arrival time for the 20 IMT scenarios aligns closely with the actual median arrival times recorded in Hyer's 2023 study of Utah's IMT performance [@schultz2023]. Additionally, increasing the IMT fleet to 30 units resulted in an average response time of 11.0 minutes, 4 minutes less than the 20 IMT arrival times. @tbl-truck-arrival-table illustrates the average arrival times of the 1st, 2nd, and 3rd IMT, as well as the average for all units' arrival times.
+In the study conducted by @bennett2021, it is highlighted that in Utah, a one-minute increase in IMT response time results in an approximate 0.8-minute increase in RCT. This finding emphasizes the critical role of IMTs response times in reducing RCT and subsequent delays. While not examining RCT, this study also investigated the RT of IMT when dispatching both 20 and 30 units. As indicated in @tbl-truck-arrival-table, across all simulated scenarios, a fleet of 20 IMTs produced an average incident RT of 15.0 minutes. Notably, the 15.0-minute average arrival time for the 20 IMT scenarios aligns closely with the actual median arrival times recorded in Hyer's 2023 study of Utah's IMT performance [@schultz2023]. Additionally, increasing the IMT fleet to 30 units resulted in an average response time of 11.0 minutes, 4 minutes less than the 20 IMT group arrival times. @tbl-truck-arrival-table illustrates the average arrival times of the 1st, 2nd, and 3rd IMT, as well as the average for all units' arrival times.
 
 ```{r truck_arrival_table, results='asis'}
 #| label: tbl-truck-arrival-table
@@ -227,7 +225,7 @@ In the study conducted by @bennett2021, it is highlighted that in Utah, a one-mi
 tar_load(truck_arrival_table)
 
 # Update Scenario values
-truck_arrival_table$Group <- recode(truck_arrival_table$Group, "2" = "20 IMT", "3" = "30 IMT")
+truck_arrival_table$Group <- recode(truck_arrival_table$Group, "2" = "20 IMTs", "3" = "30 IMTs")
 
 truck_arrival_table |> 
   kbl(booktabs = TRUE) %>%
@@ -237,8 +235,10 @@ truck_arrival_table |>
 
 
 ```
-@tbl-truck-arrival-table provides insights into the IMT response patterns, capturing their arrival at 280 out of 283 incidents across both scenarios. Note, three unattended incidents fell outside of the IMT operational hours. Among the incidents that were managed, support from a second IMT was requested 116 times, from a third IMT 23 times, and a fourth IMT was called upon 3 times. However, due to the extremely small number of incidents requiring a fourth IMT, this category was deemed too limited for significant analysis and was subsequently excluded from @tbl-truck-arrival-table. When comparing arrival times, scenarios with 30 IMT consistently outperformed those with 20 IMT, demonstrating quicker response times across all incident categories. As noted earlier, the average RT with 30 IMT was 4 minutes shorter than with 20 IMT. @hadfield2021 estimated that a one-minute delay in RT added 34.6 minutes to the estimated travel time, and an increase of \$925 in EUC. Based on these findings, reducing the RT of IMT by an average of 4 minutes could result in EUC savings of approximately $3,700 per incident. 
+@tbl-truck-arrival-table provides insights into the IMT response patterns, capturing their arrival at 280 out of 283 incidents across both scenarios. Note, three unattended incidents fell outside of the IMT operational hours. Among the incidents that were managed, support from a second IMT was requested 116 times, from a third IMT 23 times, and a fourth IMT was called upon 3 times. However, due to the extremely small number of incidents requiring a fourth IMT, this category was deemed too limited for significant analysis and was subsequently excluded from @tbl-truck-arrival-table. When comparing arrival times, scenarios with 30 IMTs consistently outperformed those with 20 IMTs, demonstrating quicker response times across all incident categories. As noted earlier, the average RT with 30 IMTs was 4 minutes shorter than with 20 IMTs. @hadfield2021 estimated that a one-minute delay in RT added 34.6 minutes to the estimated travel time, and an increase of \$925 in EUC. Based on these findings, reducing the RT of IMTs by an average of 4 minutes could result in EUC savings of approximately $3,700 per incident. 
 
-A closer analysis of the IMT travel data reveals significant insights into operational efficiency. The data indicate that the group with 30 IMT was markedly more efficient than the group with 20 IMT. Specifically, the 20 IMT group accumulated a total of 105 hours of travel time, while the 30 IMT group managed to reduce this to 77 hours—a significant decrease of 27% in total IMT travel time. Additionally, the data show that with 20 IMT, units were often dispatched to multiple incidents in quick succession, negatively impacting their arrival times. In contrast, the scenarios with 30 IMT, supported by a larger fleet, saw fewer instances of consecutive deployments, leading to more timely arrivals. This increased efficiency with the 30 IMT group becomes particularly evident in high-frequency incident situations, especially when comparing the arrival times of the 2nd and 3rd IMT between the two scenario groups.
+A closer analysis of the IMT travel data reveals significant insights into operational efficiency. The data indicate that the group with 30 IMTs was markedly more efficient than the group with 20 IMTs. Specifically, the 20 IMT group accumulated a total of 105 hours of travel time, while the 30 IMT group managed to reduce this to 77 hours—a significant decrease of 27% in total IMT travel time. Additionally, the data show that with 20 IMTs, units were often dispatched to multiple incidents in quick succession, negatively impacting their arrival times. In contrast, the scenarios with 30 IMTs, supported by a larger fleet, saw fewer instances of consecutive deployments, leading to more timely arrivals. This increased efficiency with the 30 IMT group becomes particularly evident in high-frequency incident situations, especially when comparing the arrival times of the 2nd and 3rd IMT between the two scenario groups.
 
-In summary, the combined results from the VHD and IMT performance analysis demonstrate the efficiency of IMT in mitigating delays, particularly on the road segments directly impacted by incidents and their immediate surroundings. Additionally, an increase in the size of the vehicle fleet is directly associated with reductions in both the average travel time per truck and the response times per incident, underscoring the benefits of a larger IMT fleet in emergency response situations.
+## Results Summary
+
+We evaluated the impact of deploying fleets of 20 and 30 IMTs using our MATSim model, enhanced with an IMT analysis extension, comparing these scenarios to ones without IMT support. Our findings suggest that IMTs are effective in reducing VHD on roadways and in decreasing incident response times. However, a number of simulation results yielded some unexpected outcomes. We will delve into these discrepancies in the [limitations section](#sec-limitations) of our conclusions. A notable shortcoming of our MATSim model was its absence of a 'within-day replanning' feature, which is useful for accurately simulating real-world responses to unforeseen events. This omission might account for some of the variances observed in our results. Therefore, while our findings offer valuable insights, the model requires further refinement and calibration before it can reliably inform policy or operational strategies. Nonetheless, with minor enhancements to our modeling approach, the MATSim model demonstrates potential as an effective tool for future analysis of IMT performance and operations at UDOT.

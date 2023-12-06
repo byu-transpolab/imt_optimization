@@ -40,9 +40,9 @@ summarize_impacted_link_data <- function(impacted_links){
   # Mutate the scenario first
   impacted_links <- impacted_links %>%
     mutate(Scenario = case_when(
-      Scenario == "Incidents" ~ "No IMT",
-      Scenario == "Current" ~ "20 IMT",
-      Scenario == "Increased" ~ "30 IMT",
+      Scenario == "Incidents" ~ "No IMTs",
+      Scenario == "Current" ~ "20 IMTs",
+      Scenario == "Increased" ~ "30 IMTs",
       TRUE ~ as.character(Scenario)
     ))
   
@@ -91,14 +91,14 @@ write_impacted_link_summary_table <- function(impacted_links_combine) {
       "Group" = "Scenario",
       "Incident Frequency" = "incident_frequency",
       "Total VHD" = "total_delay",
-      "Avg. Delay Per Inc. [hrs.]" = "Average Delay Per Incident [hours]"
+      "Avg. Delay Per Incident [hrs.]" = "Average Delay Per Incident [hours]"
     ) %>%
     arrange(
       factor(`Incident Frequency`, levels = c("Current", "Increased")),
-      factor(Group, levels = c("Baseline", "No IMT", "20 IMT", "30 IMT"))
+      factor(Group, levels = c("Baseline", "No IMTs", "20 IMTs", "30 IMTs"))
     ) %>%
     mutate(`Total VHD` = round(`Total VHD`))  %>%
-    mutate(`Avg. Delay Per Inc. [hrs.]` = round(`Avg. Delay Per Inc. [hrs.]`, 1))
+    mutate(`Avg. Delay Per Incident [hrs.]` = round(`Avg. Delay Per Incident [hrs.]`, 1))
   
   
   return(impacted_links_summary)

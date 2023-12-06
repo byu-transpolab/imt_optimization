@@ -21,8 +21,8 @@ write_truck_time_data <- function(truck_csv) {
   
   truck_time <- truck_time %>%
     mutate(Scenario = case_when(
-      Scenario == "Current" ~ "20 IMT",
-      Scenario == "Increased" ~ "30 IMT",
+      Scenario == "Current" ~ "20 IMTs",
+      Scenario == "Increased" ~ "30 IMTs",
       TRUE ~ as.character(Scenario)
     ))
   
@@ -68,8 +68,8 @@ write_truck_distance_data <- function(truck_csv) {
   
   truck_distance <- truck_distance %>%
     mutate(Scenario = case_when(
-      Scenario == "Current" ~ "20 IMT",
-      Scenario == "Increased" ~ "30 IMT",
+      Scenario == "Current" ~ "20 IMTs",
+      Scenario == "Increased" ~ "30 IMTs",
       TRUE ~ as.character(Scenario)
     ))
   

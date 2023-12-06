@@ -8,9 +8,9 @@ write_delay_summary_table <- function(delay_table){
   # Mutate the scenario first
   delay_per_seed <- delay_per_seed %>%
     mutate(scenario = case_when(
-      scenario == "Incidents" ~ "No IMT",
-      scenario == "Current" ~ "20 IMT",
-      scenario == "Increased" ~ "30 IMT",
+      scenario == "Incidents" ~ "No IMTs",
+      scenario == "Current" ~ "20 IMTs",
+      scenario == "Increased" ~ "30 IMTs",
       TRUE ~ as.character(scenario)
     ))
   
@@ -66,7 +66,7 @@ write_all_links_comparison_table <- function(delay_summary){
   # Reorder the rows based on custom ordering of Scenario and Incident Frequency
   all_links_comparison_table <- all_links_comparison_table %>%
     arrange(
-      factor(Group, levels = c("Baseline", "No IMT","20 IMT", "30 IMT"))
+      factor(Group, levels = c("Baseline", "No IMTs","20 IMTs", "30 IMTs"))
     )
   
   return (all_links_comparison_table)
@@ -80,9 +80,9 @@ make_all_links_plot <- function(delay_summary) {
   plot_data <- delay_summary %>%
     filter(scenario != "Baseline") %>%
     mutate(group = interaction(scenario, incident_frequency, sep = " "),
-           group = factor(group, levels = c("No IMT Current", "No IMT Increased",
-                                            "20 IMT Current", "20 IMT Increased", 
-                                            "30 IMT Current", "30 IMT Increased")))
+           group = factor(group, levels = c("No IMTs Current", "No IMTs Increased",
+                                            "20 IMTs Current", "20 IMTs Increased", 
+                                            "30 IMTs Current", "30 IMTs Increased")))
   
   # Compute the mean of the 'total_delay' for the 'Baseline' scenario
   baseline_value <- delay_summary %>%
@@ -106,11 +106,11 @@ make_all_links_plot <- function(delay_summary) {
         breaks <- pretty(b)
         breaks[which.min(abs(breaks - baseline_value))] <- baseline_value
         breaks
-    }, 
-    labels = function(b) {
-      ifelse(b == baseline_value, "Baseline", format(round(b), big.mark = "", scientific = FALSE))
-    }
-  ) +
+      }, 
+      labels = function(b) {
+        ifelse(b == baseline_value, "Baseline", format(round(b), big.mark = "", scientific = FALSE))
+      }
+    ) +
     
     # Set the axis titles
     labs(x = "Group", y = "Delay [hours]") +
@@ -119,7 +119,7 @@ make_all_links_plot <- function(delay_summary) {
       axis.title = element_text(face = "bold"),
       axis.text.x = element_text(angle = 45, hjust = 1),
     )
-      
+  
   # Since we are no longer faceting, remove the facet_wrap line
   return(all_links_plot)
 }
